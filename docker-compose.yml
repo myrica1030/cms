@@ -1,0 +1,75 @@
+version: '3.5'
+
+services:
+  postgres:
+    container_name: mutoe-cms-postgres
+    image: postgres:16
+    networks:
+      - mutoe-cms
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: ${TYPEORM_USERNAME:-postgres}
+      POSTGRES_PASSWORD: ${TYPEORM_PASSWORD:-postgres}
+      PGDATA: /data/postgres
+      POSTGRES_DB: ${TYPEORM_DATABASE:-cms_api}
+    ports:
+      - '${TYPEORM_PORT:-5432}:5432'
+
+  nest:
+    container_name: mutoe-cms-api
+    image: mutoe/cms-api:latest
+    build:
+      context: cms-api
+    env_file:
+      - .env
+    networks:
+      - mutoe-cms
+    environment:
+      SWAGGER_ENABLE: 'true'
+      TYPEORM_HOST: postgres
+    ports:
+      - '${API_PORT:-8080}:8080'
+    depends_on:
+      - postgres
+
+  admin:
+    container_name: mutoe-cms-admin
+    image: mutoe/cms-admin:latest
+    build:
+      context: cms-admin
+      target: build
+    volumes:
+      - type: volume
+        source: admin-html
+        target: /usr/src/app/build
+        volume:
+          nocopy: true
+    env_file:
+      - .env
+      - cms-admin/.env
+    networks:
+      - mutoe-cms
+
+  nginx:
+    container_name: mutoe-cms-nginx
+    image: nginx:1.19.4-alpine
+    env_file:
+      - .env
+    ports:
+      - "${APP_PORT:-80}:80"
+    # FIXME: volume html file from cms-admin
+    volumes:
+      - type: volume
+        source: admin-html
+        target: /usr/share/nginx/html
+    depends_on:
+      - admin
+
+networks:
+  mutoe-cms:
+    name: mutoe-cms
+    driver: bridge
+
+volumes:
+  admin-html:

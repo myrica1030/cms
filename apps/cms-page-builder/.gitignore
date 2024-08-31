@@ -1,0 +1,15 @@
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+*.iml
+.idea
+*error.log
+.DS_Store
+coverage
+cypress/videos
+cypress/screenshots

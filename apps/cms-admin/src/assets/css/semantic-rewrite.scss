@@ -1,0 +1,57 @@
+@import './variables';
+
+.ui.form {
+  .field {
+    position: relative;
+    margin-bottom: 1.4em;
+
+    .ui.pointing.label {
+      position: absolute;
+      top: calc(100% - 4px);
+      left: 0;
+      z-index: 20;
+      margin-left: 0;
+    }
+  }
+}
+
+.ui.segment.bottom.attached {
+  h2:first-child {
+    margin: 24px 0;
+  }
+}
+
+.ui.placeholder.placeholderLine {
+  width: 100%;
+  max-width: 100%;
+
+  .line {
+    height: 12px;
+    margin-bottom: 48px;
+  }
+}
+
+.ui.table {
+  td {
+    max-width: 20em;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+}
+
+.ui.dropdown {
+  .menu {
+    .item {
+      display: flex;
+      flex-direction: row-reverse;
+
+      .text {
+        flex: 1 0 auto;
+      }
+
+      .description {
+        @include ellipsis;
+      }
+    }
+  }
+}

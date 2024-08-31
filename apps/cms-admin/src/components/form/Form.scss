@@ -1,0 +1,37 @@
+@import 'src/assets/css/variables';
+
+.ui.rich-editor {
+  .quill {
+    border-radius: $borderRadius;
+
+    .ql-toolbar {
+      border-top-left-radius: $borderRadius;
+      border-top-right-radius: $borderRadius;
+      border: 1px solid $borderColor;
+    }
+
+    .ql-container {
+      border-bottom-left-radius: $borderRadius;
+      border-bottom-right-radius: $borderRadius;
+      border: 1px solid $borderColor;
+      border-top: none;
+    }
+
+    &.focus {
+      .ql-toolbar,
+      .ql-container {
+        border-top-color: $focusBorder;
+        border-left-color: $focusBorder;
+        border-right-color: $focusBorder;
+      }
+      .ql-container {
+        border-bottom-color: $focusBorder;
+      }
+    }
+  }
+
+  .ql-editor {
+    min-height: 12em;
+    padding: $inputPadding;
+  }
+}
