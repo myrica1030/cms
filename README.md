@@ -1,37 +1,16 @@
-# Mutoe CMS
+# CMS
 
-[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/mutoe-cms/cms-api/ci.yml?label=CMS%20API&style=flat-square)](https://github.com/mutoe-cms/cms-api/actions)
-[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/mutoe-cms/cms-admin/ci.yml?label=CMS%20ADMIN&style=flat-square)](https://github.com/mutoe-cms/cms-admin/actions)
-[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/mutoe-cms/cms-page-builder/ci.yml?label=CMS%20PAGE%20BUILDER&style=flat-square)](https://github.com/mutoe-cms/cms-page-builder/actions)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/myrica1030/cms/test-api.yml?label=CMS%20API&style=flat-square)](https://github.com/myrica1030/cms/actions/workflows/test-api.yml)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/myrica1030/cms/test-admin.yml?label=CMS%20ADMIN&style=flat-square)](https://github.com/myrica1030/cms/actions/workflows/test-admin.yml)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/myrica1030/cms/test-page-builder.yml?label=CMS%20PAGE%20BUILDER&style=flat-square)](https://github.com/myrica1030/cms/actions/workflows/test-page-builder.yml)
 
 # Requirements
 
-- Nodejs 14 or higher
-
-# Bootstrap
-
-```shell
-git clone https://github.com/mutoe-cms/mutoe-cms.git
-cd mutoe-cms
-cp .env.example .env
-docker-compose pull
-docker-compose up --no-build
-```
+- Node.js 20 or higher
 
 # Development
 
-This action need you have full access for this project.
-
 Recommended IDE is JetBrains IDEA or WebStorm
-
-```shell
-git clone https://github.com/mutoe-cms/mutoe-cms.git
-cd mutoe-cms
-git submodule init
-git submodule update --recursive --remote
-bash start.sh
-docker-compose up
-```
 
 ## Publish version (in every project)
 
