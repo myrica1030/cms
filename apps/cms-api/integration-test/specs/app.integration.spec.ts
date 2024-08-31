@@ -4,7 +4,7 @@ import { Test } from '@nestjs/testing'
 import request from 'supertest'
 import { AppController } from 'src/app/app.controller'
 
-describe('App Module Integration', () => {
+describe('app module', () => {
   let app: INestApplication
 
   beforeAll(async () => {

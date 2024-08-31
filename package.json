@@ -9,14 +9,17 @@
   "scripts": {
     "prepare": "simple-git-hooks",
     "type-check": "pnpm -r type-check",
-    "test": "pnpm -r test"
+    "test": "vitest run"
   },
   "devDependencies": {
     "@mutoe/eslint-config": "2.27.3-2",
+    "@vitest/coverage-v8": "^2.0.5",
+    "@vitest/ui": "^2.0.5",
     "eslint": "^8.38.0",
     "lint-staged": "^13.2.1",
     "simple-git-hooks": "^2.11.1",
-    "typescript": "~5.5.4"
+    "typescript": "~5.5.4",
+    "vitest": "^2.0.5"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged",

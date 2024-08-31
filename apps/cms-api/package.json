@@ -12,7 +12,7 @@
     "type-check": "tsc",
     "lint": "eslint '{src,migration,seed,test}/**/*.ts'",
     "test": "pnpm test:unit && pnpm test:integration",
-    "test:integration": "vitest --config ./test/vitest.config.ts run",
+    "test:integration": "vitest --config integration-test/vitest.config.ts run",
     "test:unit": "vitest run",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },
@@ -49,11 +49,9 @@
     "@types/passport-local": "^1.0.35",
     "@types/supertest": "^6.0.2",
     "@types/validator": "^13.7.14",
-    "@vitest/coverage-v8": "^2.0.5",
     "cross-env": "^7.0.3",
     "sqlite3": "^5.1.6",
     "supertest": "^7.0.0",
-    "unplugin-swc": "^1.5.1",
-    "vitest": "^2.0.5"
+    "unplugin-swc": "^1.5.1"
   }
 }

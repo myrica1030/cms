@@ -2,9 +2,9 @@ import StorageUtil from './storage.util'
 
 describe('# Storage Util', () => {
   beforeAll(() => {
-    vi.spyOn(Storage.prototype, 'setItem')
-    vi.spyOn(Storage.prototype, 'getItem')
-    vi.spyOn(Storage.prototype, 'removeItem')
+    vi.spyOn(localStorage, 'setItem')
+    vi.spyOn(localStorage, 'getItem')
+    vi.spyOn(localStorage, 'removeItem')
   })
 
   it('should using localStorage to store data default', () => {
@@ -15,6 +15,9 @@ describe('# Storage Util', () => {
   })
 
   it('should using sessionStorage when passed in sessionStorage', () => {
+    vi.spyOn(sessionStorage, 'setItem')
+    vi.spyOn(sessionStorage, 'getItem')
+    vi.spyOn(sessionStorage, 'removeItem')
     const fooStorage = new StorageUtil('storage_foo', 'sessionStorage')
     fooStorage.get()
 

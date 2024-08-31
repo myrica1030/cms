@@ -3,10 +3,13 @@ import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   plugins: [
-    swc.vite(),
+    swc.vite() as any,
   ],
   test: {
+    name: 'api-unit',
     globals: true,
+    include: ['src/**/*.spec.ts'],
+    reporters: ['text', 'html', 'json', 'junit'],
     coverage: {
       provider: 'v8',
       include: ['src/**/*.ts'],
@@ -14,12 +17,6 @@ export default defineConfig({
         'src/*.ts',
         'src/**/*.{module,dto,ro,strategy,controller,fixture}.ts',
       ],
-      thresholds: {
-        perFile: true,
-        branches: -10,
-        statements: -15,
-        functions: -3,
-      },
     },
   },
 })

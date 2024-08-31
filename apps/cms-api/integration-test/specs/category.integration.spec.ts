@@ -2,6 +2,8 @@ import type { INestApplication } from '@nestjs/common'
 import type { TestingModule } from '@nestjs/testing'
 import { Test } from '@nestjs/testing'
 import { TypeOrmModule } from '@nestjs/typeorm'
+import { testTypeormOptions } from 'integration-test/test-data-source'
+import { getToken } from 'integration-test/test-utils'
 import { pick } from 'lodash'
 import request from 'supertest'
 import { AppController } from 'src/app/app.controller'
@@ -10,10 +12,8 @@ import { categoryFixture } from 'src/category/category.fixture'
 import { CategoryModule } from 'src/category/category.module'
 import type { CreateCategoryDto } from 'src/category/dto/createCategory.dto'
 import { validationPipe } from 'src/pipes'
-import { testTypeormOptions } from 'test/test-data-source'
-import { getToken } from 'test/test-utils'
 
-describe('Category Module Integration', () => {
+describe('category module', () => {
   let app: INestApplication
   let token: string
 

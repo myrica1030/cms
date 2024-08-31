@@ -2,6 +2,8 @@ import type { INestApplication } from '@nestjs/common'
 import type { TestingModule } from '@nestjs/testing'
 import { Test } from '@nestjs/testing'
 import { TypeOrmModule } from '@nestjs/typeorm'
+import { testTypeormOptions } from 'integration-test/test-data-source'
+import { getToken, mockDate } from 'integration-test/test-utils'
 import request from 'supertest'
 import { AppController } from 'src/app/app.controller'
 import type { ArticleEntity } from 'src/article/article.entity'
@@ -11,10 +13,8 @@ import { AuthModule } from 'src/auth/auth.module'
 import { validationPipe } from 'src/pipes'
 import { TagModule } from 'src/tag/tag.module'
 import { UserModule } from 'src/user/user.module'
-import { testTypeormOptions } from 'test/test-data-source'
-import { getToken, mockDate } from 'test/test-utils'
 
-describe('Article Module Integration', () => {
+describe('article module', () => {
   let app: INestApplication
   let token: string
 

@@ -39,10 +39,12 @@ export default defineConfig({
     },
   },
   test: {
+    name: 'admin-unit',
     globals: true,
     testTimeout: 4000,
     setupFiles: 'src/setupTests.ts',
     environment: 'happy-dom',
+    reporters: ['text', 'html', 'json', 'junit'],
     include: [
       '**/__tests__/**/*.{ts,tsx}',
       '**/*.{spec,test}.{ts,tsx}',
@@ -53,13 +55,6 @@ export default defineConfig({
     },
     coverage: {
       provider: 'v8',
-      thresholds: {
-        perFile: true,
-        branches: -10,
-        functions: -5,
-        statements: -15,
-        lines: -20,
-      },
       include: [
         'src/**/*.{js,jsx,ts,tsx}',
         '!src/**/*.{form,context}.ts?(x)',

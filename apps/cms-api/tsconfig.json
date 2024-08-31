@@ -27,6 +27,6 @@
     "src",
     "migration",
     "seed",
-    "test"
+    "integration-test"
   ]
 }

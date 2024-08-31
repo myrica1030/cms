@@ -28,13 +28,14 @@ export default defineConfig({
     }),
   ],
   test: {
+    name: 'page-builder-unit',
     globals: true,
+    environment: 'node',
     include: [
       'src/**/*.(spec|test).ts',
     ],
     coverage: {
       provider: 'v8',
-      reporter: ['text', 'html', 'json'],
       exclude: [
         'node_modules/',
         'src/setupTests.ts',

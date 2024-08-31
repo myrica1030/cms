@@ -2,6 +2,7 @@ import type { INestApplication } from '@nestjs/common'
 import type { TestingModule } from '@nestjs/testing'
 import { Test } from '@nestjs/testing'
 import { TypeOrmModule } from '@nestjs/typeorm'
+import { testTypeormOptions } from 'integration-test/test-data-source'
 import request from 'supertest'
 import { AppController } from 'src/app/app.controller'
 import { ArticleModule } from 'src/article/article.module'
@@ -9,9 +10,8 @@ import { AuthModule } from 'src/auth/auth.module'
 import type { LoginDto } from 'src/auth/dto/login.dto'
 import type { RegisterDto } from 'src/auth/dto/register.dto'
 import { UserModule } from 'src/user/user.module'
-import { testTypeormOptions } from 'test/test-data-source'
 
-describe('Auth Module Integration', () => {
+describe('auth module', () => {
   let app: INestApplication
 
   beforeAll(async () => {

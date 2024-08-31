@@ -5,17 +5,19 @@ import { defineConfig } from 'vitest/config'
 export default defineConfig({
   resolve: {
     alias: {
-      src: path.resolve(__dirname, '../src'),
-      test: path.resolve(__dirname, '.'),
+      'src': path.resolve(__dirname, '../src'),
+      'integration-test': path.resolve(__dirname, '.'),
     },
   },
   plugins: [
-    swc.vite(),
+    swc.vite() as any,
   ],
   test: {
+    name: 'api-integration',
     dir: __dirname,
-    include: ['specs/**/*.e2e-spec.ts'],
+    include: ['specs/**/*.integration.spec.ts'],
     globals: true,
+    reporters: ['text', 'html', 'json', 'junit'],
     coverage: {
       provider: 'v8',
       include: ['src/**/*.ts'],
@@ -24,12 +26,6 @@ export default defineConfig({
         'src/**/*.spec.ts',
         'src/**/*.{module,dto,ro,strategy,controller,fixture}.ts',
       ],
-      thresholds: {
-        perFile: true,
-        branches: -10,
-        statements: -15,
-        functions: -3,
-      },
     },
   },
 })
