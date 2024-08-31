@@ -1,9 +1,8 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { omit } from 'lodash'
-import type { Repository } from 'typeorm'
-import type { UserSafeEntity } from './user.entity'
-import { UserEntity } from './user.entity'
+import { Repository } from 'typeorm'
+import { UserEntity, UserSafeEntity } from './user.entity'
 
 interface FindUserQuery {
   id?: number

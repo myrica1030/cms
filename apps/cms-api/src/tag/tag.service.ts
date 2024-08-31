@@ -1,13 +1,11 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { xor } from 'lodash'
-import type { Repository } from 'typeorm'
-import { In } from 'typeorm'
+import { In, Repository } from 'typeorm'
 import { FormException } from 'src/exception'
-import type { CreateTagDto } from 'src/tag/dto/createTag.dto'
+import { CreateTagDto } from 'src/tag/dto/createTag.dto'
 import { TagEntity } from 'src/tag/tag.entity'
-import type { PaginationOptions, PaginationRo } from 'src/utils/paginate'
-import { paginate } from 'src/utils/paginate'
+import { PaginationOptions, PaginationRo, paginate } from 'src/utils/paginate'
 
 @Injectable()
 export class TagService {

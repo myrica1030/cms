@@ -1,13 +1,13 @@
 import { Body, Controller, Get, NotFoundException, Param, Post, Put, Query, Request } from '@nestjs/common'
 import { ApiCreatedResponse, ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger'
 import { ArticleEntity } from 'src/article/article.entity'
-import type { ArticleService } from 'src/article/article.service'
+import { ArticleService } from 'src/article/article.service'
 import { ArticlesRo } from 'src/article/dto/articles.ro'
-import type { CreateArticleDto } from 'src/article/dto/createArticle.dto'
-import type { AuthRequest } from 'src/auth/jwt.strategy'
+import { CreateArticleDto } from 'src/article/dto/createArticle.dto'
+import { AuthRequest } from 'src/auth/jwt.strategy'
 import { ApiInvalidFormResponse, ApiListResponse } from 'src/decorators'
 import { UseJwtGuards } from 'src/guards'
-import type { PaginationRo } from 'src/utils/paginate'
+import { PaginationRo } from 'src/utils/paginate'
 
 @Controller('article')
 @ApiTags('Article')

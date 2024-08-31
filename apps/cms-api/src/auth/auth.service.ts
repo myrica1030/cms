@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common'
-import type { JwtService } from '@nestjs/jwt'
+import { JwtService } from '@nestjs/jwt'
 import { omit } from 'lodash'
-import type { AuthRo } from 'src/auth/dto/auth.ro'
-import type { LoginDto } from 'src/auth/dto/login.dto'
-import type { RegisterDto } from 'src/auth/dto/register.dto'
+import { AuthRo } from 'src/auth/dto/auth.ro'
+import { LoginDto } from 'src/auth/dto/login.dto'
+import { RegisterDto } from 'src/auth/dto/register.dto'
 import { FormException } from 'src/exception'
-import type { UserSafeEntity } from 'src/user/user.entity'
-import type { UserService } from 'src/user/user.service'
+import { UserSafeEntity } from 'src/user/user.entity'
+import { UserService } from 'src/user/user.service'
 import { cryptoPassword } from 'src/utils/cryptoPassword'
 
 @Injectable()

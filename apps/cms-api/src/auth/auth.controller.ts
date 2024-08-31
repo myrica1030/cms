@@ -1,10 +1,10 @@
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common'
 import { ApiCreatedResponse, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger'
 import { AuthRo } from 'src/auth/dto/auth.ro'
-import type { LoginDto } from 'src/auth/dto/login.dto'
-import type { RegisterDto } from 'src/auth/dto/register.dto'
+import { LoginDto } from 'src/auth/dto/login.dto'
+import { RegisterDto } from 'src/auth/dto/register.dto'
 import { ApiInvalidFormResponse } from 'src/decorators'
-import type { AuthService } from './auth.service'
+import { AuthService } from './auth.service'
 
 @Controller('auth')
 @ApiTags('Auth')

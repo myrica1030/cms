@@ -2,11 +2,11 @@ import { Body, Controller, Get, Post, Query } from '@nestjs/common'
 import { ApiCreatedResponse, ApiOperation, ApiTags } from '@nestjs/swagger'
 import { ApiInvalidFormResponse, ApiListResponse } from 'src/decorators'
 import { UseJwtGuards } from 'src/guards'
-import type { CreateTagDto } from 'src/tag/dto/createTag.dto'
+import { CreateTagDto } from 'src/tag/dto/createTag.dto'
 import { TagsRo } from 'src/tag/dto/tags.ro'
 import { TagEntity } from 'src/tag/tag.entity'
-import type { TagService } from 'src/tag/tag.service'
-import type { PaginationRo } from 'src/utils/paginate'
+import { TagService } from 'src/tag/tag.service'
+import { PaginationRo } from 'src/utils/paginate'
 
 @Controller('tag')
 @ApiTags('Tag')

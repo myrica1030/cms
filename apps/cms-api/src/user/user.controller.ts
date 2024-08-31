@@ -1,10 +1,10 @@
 import assert from 'node:assert'
 import { Controller, Get, Request } from '@nestjs/common'
 import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger'
-import type { AuthRequest } from 'src/auth/jwt.strategy'
+import { AuthRequest } from 'src/auth/jwt.strategy'
 import { UseJwtGuards } from 'src/guards'
 import { ProfileRo } from 'src/user/ro/profile.ro'
-import type { UserService } from 'src/user/user.service'
+import { UserService } from 'src/user/user.service'
 
 @Controller('user')
 @ApiTags('User')

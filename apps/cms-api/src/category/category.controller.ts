@@ -1,8 +1,8 @@
 import { Body, Controller, Get, NotFoundException, Param, Post } from '@nestjs/common'
 import { ApiCreatedResponse, ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger'
 import { CategoryEntity } from 'src/category/category.entity'
-import type { CategoryService } from 'src/category/category.service'
-import type { CreateCategoryDto } from 'src/category/dto/createCategory.dto'
+import { CategoryService } from 'src/category/category.service'
+import { CreateCategoryDto } from 'src/category/dto/createCategory.dto'
 import { ApiInvalidFormResponse } from 'src/decorators'
 import { UseJwtGuards } from 'src/guards'
 
