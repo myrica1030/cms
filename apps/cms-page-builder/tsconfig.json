@@ -16,7 +16,7 @@
     ],
     "skipLibCheck": true,
     "noEmit": true,
-    "types": ["vite/client",  "vue/macros-global", "vitest", "vitest/globals"]
+    "types": ["vite/client", "vitest", "vitest/globals"]
   },
   "include": [
     "src/**/*.ts",
