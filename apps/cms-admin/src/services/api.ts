@@ -1,7 +1,5 @@
 /* eslint-disable */
 /* tslint:disable */
-// noinspection PointlessBooleanExpressionJS,JSValidateJSDoc,JSUnusedGlobalSymbols,TypeScriptFieldCanBeMadeReadonly
-
 /*
  * ---------------------------------------------------------------
  * ## THIS FILE WAS GENERATED VIA SWAGGER-TYPESCRIPT-API        ##
@@ -201,7 +199,7 @@ export interface TagsRo {
   meta: PaginationMeta;
 }
 
-import axios, {AxiosInstance, AxiosRequestConfig, AxiosResponse, HeadersDefaults, ResponseType} from "axios";
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, HeadersDefaults, ResponseType } from "axios";
 
 export type QueryParamsType = Record<string | number, any>;
 

@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="swagger:admin" type="js.build_tools.npm">
-    <package-json value="$PROJECT_DIR$/cms-admin/package.json" />
+  <configuration default="false" name="build:openapi" type="js.build_tools.npm">
+    <package-json value="$PROJECT_DIR$/apps/cms-admin/package.json" />
     <command value="run" />
     <scripts>
       <script value="swagger" />

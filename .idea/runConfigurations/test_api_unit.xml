@@ -1,0 +1,11 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="test:api:unit" type="JavaScriptTestRunnerJest">
+    <config-file value="$PROJECT_DIR$/apps/cms-api/package.json" />
+    <node-interpreter value="project" />
+    <jest-package value="$PROJECT_DIR$/apps/cms-api/node_modules/jest" />
+    <working-dir value="$PROJECT_DIR$/apps/cms-api" />
+    <envs />
+    <scope-kind value="ALL" />
+    <method v="2" />
+  </configuration>
+</component>
