@@ -38,7 +38,7 @@ jobs:
       - run: pnpm lint
         working-directory: apps/cms-api
 
-      - run: pnpm test:unit
+      - run: pnpm test:unit --coverage
         working-directory: apps/cms-api
 
       - name: Upload coverage to Codecov
@@ -62,7 +62,7 @@ jobs:
 
       - run: pnpm install
 
-      - run: pnpm test:integration
+      - run: pnpm test:integration --coverage
         working-directory: apps/cms-api
 
       - name: Upload coverage to Codecov

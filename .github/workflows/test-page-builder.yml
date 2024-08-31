@@ -38,7 +38,7 @@ jobs:
       - run: pnpm lint
         working-directory: apps/cms-page-builder
 
-      - run: pnpm test:unit
+      - run: pnpm test:unit --coverage
         working-directory: apps/cms-page-builder
 
       - name: Upload coverage to Codecov
