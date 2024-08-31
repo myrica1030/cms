@@ -16,8 +16,8 @@ describe('user service', () => {
         {
           provide: getRepositoryToken(UserEntity),
           useValue: {
-            save: jest.fn(),
-            findOne: jest.fn(),
+            save: vi.fn(),
+            findOne: vi.fn(),
             metadata: {
               propertiesMap: {},
             },
@@ -47,7 +47,7 @@ describe('user service', () => {
   describe('find user', () => {
     it('should find user correctly', async () => {
       const user = { email: 'mutoe@foxmail.com', username: 'mutoe' }
-      jest.spyOn(repository, 'findOne').mockResolvedValue(user as UserEntity)
+      vi.spyOn(repository, 'findOne').mockResolvedValue(user as UserEntity)
       const userResult = await service.findUser({ username: user.username })
 
       expect(userResult).toBe(user)
@@ -57,7 +57,7 @@ describe('user service', () => {
 
     it('should find user without password when pass withoutPassword true', async () => {
       const user = { email: 'mutoe@foxmail.com', username: 'mutoe', password: '12345678' }
-      jest.spyOn(repository, 'findOne').mockResolvedValue(user as UserEntity)
+      vi.spyOn(repository, 'findOne').mockResolvedValue(user as UserEntity)
       repository.metadata.propertiesMap = { username: 'username', password: 'password' }
       const userResult = await service.findUser({ username: user.username }, true)
 

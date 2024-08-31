@@ -19,9 +19,9 @@ describe('tag service', () => {
         {
           provide: getRepositoryToken(TagEntity),
           useValue: {
-            save: jest.fn(),
-            find: jest.fn(),
-            findAndCount: jest.fn(),
+            save: vi.fn(),
+            find: vi.fn(),
+            findAndCount: vi.fn(),
           },
         },
       ],
@@ -46,7 +46,7 @@ describe('tag service', () => {
 
   describe('find all tags', () => {
     it('should find tags correctly', async () => {
-      jest.spyOn(repository, 'findAndCount').mockResolvedValue([[], 0])
+      vi.spyOn(repository, 'findAndCount').mockResolvedValue([[], 0])
       const articlesRo = await service.retrieveTags({ page: 1, limit: 10 })
 
       expect(articlesRo).toEqual({
@@ -64,7 +64,7 @@ describe('tag service', () => {
 
   describe('getTags', () => {
     it('should return tag entities given existing tag keys', async () => {
-      jest.spyOn(repository, 'find').mockResolvedValue([tagFixture.entity])
+      vi.spyOn(repository, 'find').mockResolvedValue([tagFixture.entity])
 
       const result = await service.getTags(['semantic-ui'])
 
@@ -72,7 +72,7 @@ describe('tag service', () => {
     })
 
     it('should throw exception given not existed tag key', async () => {
-      jest.spyOn(repository, 'find').mockResolvedValue([tagFixture.entity])
+      vi.spyOn(repository, 'find').mockResolvedValue([tagFixture.entity])
 
       await expect(service.getTags(['semantic-ui', 'not-exist']))
         .rejects.toThrow(FormException)

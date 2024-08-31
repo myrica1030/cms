@@ -8,14 +8,20 @@
     "baseUrl": "./",
     "module": "commonjs",
     "resolveJsonModule": true,
+    "types": ["vitest/globals"],
     "strict": true,
     "strictPropertyInitialization": false,
     "declaration": false,
+    "noEmit": true,
     "outDir": "./dist",
     "removeComments": true,
     "sourceMap": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "skipLibCheck": true
   },
+  "files": [
+    "vitest.config.ts"
+  ],
   "include": [
     "types",
     "src",

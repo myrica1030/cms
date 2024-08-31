@@ -9,7 +9,7 @@ describe('# Paginate', () => {
   const cats = Array.from({ length: 11 }).fill({}) as CategoryEntity[]
 
   it('should return correct value given offset with 0', async () => {
-    jest.spyOn(cat, 'findAndCount').mockResolvedValue([cats, 11])
+    vi.spyOn(cat, 'findAndCount').mockResolvedValue([cats, 11])
     const pagination = await paginate(cat)
 
     expect(pagination).toEqual({
@@ -24,7 +24,7 @@ describe('# Paginate', () => {
   })
 
   it('should return correct value given offset with 10', async () => {
-    jest.spyOn(cat, 'findAndCount').mockResolvedValue([cats, 11])
+    vi.spyOn(cat, 'findAndCount').mockResolvedValue([cats, 11])
     const pagination = await paginate(cat, { limit: 10, order: { id: 'DESC' } })
 
     expect(pagination).toEqual({
@@ -39,7 +39,7 @@ describe('# Paginate', () => {
   })
 
   it('should return correct value given total with 10', async () => {
-    jest.spyOn(cat, 'findAndCount').mockResolvedValue([cats, 10])
+    vi.spyOn(cat, 'findAndCount').mockResolvedValue([cats, 10])
     const pagination = await paginate(cat, { page: 2 })
 
     expect(pagination).toEqual({
