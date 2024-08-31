@@ -16,7 +16,7 @@ describe('# useRetrieveDetail', () => {
     const { result } = renderHook(() => useRetrieveDetail(service.article.retrieveArticle, 1))
     expect(result.current.loading).toEqual(true)
 
-    await act(noop)
+    await act(async () => noop())
     expect(mockRetrieveArticle).toHaveBeenCalledWith(1)
     expect(result.current.detail).toEqual({ id: 1 })
     expect(result.current.loading).toEqual(false)

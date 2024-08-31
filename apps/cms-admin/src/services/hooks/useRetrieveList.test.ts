@@ -32,7 +32,7 @@ describe('# useRetrieveList', () => {
     })
 
     const { result } = renderHook(() => useRetrieveList(request))
-    await act(noop)
+    await act(async () => noop())
 
     expect(result.current.error).toBe(true)
   })

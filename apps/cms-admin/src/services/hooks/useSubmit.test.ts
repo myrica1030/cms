@@ -5,6 +5,7 @@ import { isFormError, useSubmit } from './useSubmit'
 describe('# isFormError', () => {
   it('should return true when error has data message and status code is 422', () => {
     const error = {
+      isAxiosError: true,
       response: {
         status: 422,
         data: {
@@ -48,6 +49,7 @@ describe('# useSubmit', () => {
 
   it('should set form error when API throw 422 error', async () => {
     const request = vi.fn().mockRejectedValue({
+      isAxiosError: true,
       response: {
         status: 422,
         data: {
@@ -59,6 +61,7 @@ describe('# useSubmit', () => {
 
     await act(async () => {
       await expect(result.current.submitRequest({})).rejects.toEqual({
+        isAxiosError: true,
         response: {
           status: 422,
           data: { username: ['isNotExist'] },

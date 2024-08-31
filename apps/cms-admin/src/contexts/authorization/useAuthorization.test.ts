@@ -63,7 +63,7 @@ describe('# Authorization Context', () => {
     mockRetrieveProfile.mockResolvedValue({ username: 'foo' } as any)
     const { result } = renderHook(() => useAuthorization(), { wrapper: MemoryRouter, initialProps: {} })
 
-    act(() => {
+    await act(async () => {
       result.current.mountAuthorization({ id: 1, token: 'token' } as AuthRo)
     })
 
@@ -75,7 +75,7 @@ describe('# Authorization Context', () => {
     mockRetrieveProfile.mockResolvedValue({ username: 'foo' } as any)
     const { result } = renderHook(() => useAuthorization(), { wrapper: MemoryRouter, initialProps: {} })
 
-    await act(() => {
+    await act(async () => {
       result.current.unmountAuthorization()
     })
 

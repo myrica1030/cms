@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import type { AxiosResponse } from 'axios'
 import type { Mock } from 'vitest'
 import { tagFixture } from 'src/fixtures'
@@ -32,7 +32,9 @@ describe('# ArticleEditPage', () => {
     mockRetrieveTags.mockResolvedValue({ status: 200, data: { items: [], meta: {} } } as AxiosResponse)
     mockRetrieveCategories.mockResolvedValue({ status: 200, data: [] } as AxiosResponse)
 
-    render(<ArticleEditPage />)
+    await act(async () => {
+      render(<ArticleEditPage />)
+    })
 
     await waitFor(() => expect(mockRetrieveArticle).toHaveBeenCalled())
   })

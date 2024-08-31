@@ -33,6 +33,9 @@ document.createRange = (): Range => ({
   },
 }) as unknown as Range
 
+// @ts-expect-error https://stackoverflow.com/a/48324794/7736393
+window.__REACT_DEVTOOLS_GLOBAL_HOOK__ = { isDisabled: true }
+
 afterEach(() => {
   vi.clearAllMocks()
 })

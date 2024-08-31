@@ -138,6 +138,7 @@ function FormRenderer<K extends string, F extends FormData<K>>(props: FormRender
         return (
           <FormInputField
             {...fieldProps}
+            key={fieldProps.key}
             type={field.type}
             value={form[field.name] as string ?? ''}
             onChange={value => onChange(field, value)}
@@ -149,6 +150,7 @@ function FormRenderer<K extends string, F extends FormData<K>>(props: FormRender
         return (
           <FormRichField
             {...fieldProps}
+            key={fieldProps.key}
             value={form[field.name] as string ?? ''}
             onChange={value => onChange(field, value)}
             onBlur={() => validateField(field)}
@@ -170,7 +172,12 @@ function FormRenderer<K extends string, F extends FormData<K>>(props: FormRender
                 onChange: (value: string) => onChange(field, value),
               },
         }
-        return <FormSelectField {...selectProps} />
+        return (
+          <FormSelectField
+            {...selectProps}
+            key={fieldProps.key}
+          />
+        )
       }
     }
     return null
