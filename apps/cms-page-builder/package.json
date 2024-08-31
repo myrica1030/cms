@@ -10,7 +10,6 @@
     "url": "git+https://github.com/mutoe/cms-page-builder.git"
   },
   "scripts": {
-    "prepare": "husky install",
     "preversion": "pnpm lint && pnpm type-check && pnpm test",
     "version": "pnpm run changelog && git add CHANGELOG.md",
     "start": "vite",
@@ -37,16 +36,11 @@
     "cypress": "^12.9.0",
     "eslint": "^8.38.0",
     "eslint-plugin-cypress": "^2.13.2",
-    "husky": "^8.0.3",
-    "lint-staged": "^13.2.1",
     "sass": "^1.61.0",
     "typescript": "^5.0.4",
     "vite": "^4.2.1",
     "vitest": "^0.29.8",
     "vue-tsc": "^1.2.0"
-  },
-  "lint-staged": {
-    "**/*.{js,ts,json,vue,yml,yaml}": "eslint --fix"
   },
   "eslintIgnore": [
     "public/ionicons",

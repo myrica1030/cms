@@ -5,9 +5,21 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "prepare": "simple-git-hooks",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "myrica1030",
-  "license": "UNLICENSED"
+  "license": "UNLICENSED",
+  "dependencies": {
+    "lint-staged": "^13.2.1",
+    "simple-git-hooks": "^2.11.1"
+  },
+  "lint-staged": {
+    "*": "eslint --fix"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint-staged",
+    "pre-push": "pnpm type-check && pnpm test"
+  }
 }
