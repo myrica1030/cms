@@ -1,9 +1,9 @@
-import {useEffect, useState} from 'react'
-import {useLocation, useNavigate} from 'react-router-dom'
-import {AppKey} from 'src/appMenu'
-import {routeMap} from 'src/route'
+import { useEffect, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
+import type { AppKey } from 'src/appMenu'
+import { routeMap } from 'src/route'
 
-const useModuleName = () => {
+function useModuleName() {
   const navigate = useNavigate()
   const { pathname } = useLocation()
   const [appKey, setAppKey] = useState<AppKey>()

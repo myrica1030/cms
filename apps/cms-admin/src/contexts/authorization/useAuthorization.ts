@@ -1,8 +1,8 @@
-import {useCallback, useEffect, useState} from 'react'
-import {useNavigate} from 'react-router-dom'
-import {routeMap} from 'src/route'
-import {service} from 'src/services'
-import {AuthRo, ProfileRo} from 'src/services/api'
+import { useCallback, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { routeMap } from 'src/route'
+import { service } from 'src/services'
+import type { AuthRo, ProfileRo } from 'src/services/api'
 import StorageUtil from 'src/utils/storage.util'
 
 export interface AuthorizationState {
@@ -14,7 +14,7 @@ export interface AuthorizationState {
 
 const authorizationTokenStorage = new StorageUtil<string>('auth_token')
 
-export default function useAuthorization (): AuthorizationState {
+export default function useAuthorization(): AuthorizationState {
   const [loading, setLoading] = useState(true)
   const [profile, setProfile] = useState<ProfileRo | null>(null)
   const navigate = useNavigate()
@@ -45,10 +45,12 @@ export default function useAuthorization (): AuthorizationState {
       setLoading(true)
       const { data: profile } = await service.user.profile()
       setProfile(profile)
-    } catch {
+    }
+    catch {
       unmountAuthorization()
       navigate(routeMap.login, { replace: true })
-    } finally {
+    }
+    finally {
       setLoading(false)
     }
   }, [navigate])

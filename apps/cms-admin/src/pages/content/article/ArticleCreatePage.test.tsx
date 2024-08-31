@@ -1,9 +1,9 @@
 import React from 'react'
-import {useParams} from 'react-router-dom'
-import {fireEvent, render, screen, waitFor} from '@testing-library/react'
-import {AxiosResponse} from 'axios'
-import {Mock} from 'vitest'
-import {service} from 'src/services'
+import { useParams } from 'react-router-dom'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+import type { AxiosResponse } from 'axios'
+import type { Mock } from 'vitest'
+import { service } from 'src/services'
 import ArticleCreatePage from './ArticleCreatePage'
 
 const mockToast = vi.fn()

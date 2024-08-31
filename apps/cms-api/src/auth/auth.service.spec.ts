@@ -1,14 +1,16 @@
-import {JwtService} from '@nestjs/jwt'
-import {Test, TestingModule} from '@nestjs/testing'
-import {getRepositoryToken} from '@nestjs/typeorm'
-import {LoginDto} from 'src/auth/dto/login.dto'
-import {FormException} from 'src/exception'
-import {UserEntity, UserSafeEntity} from 'src/user/user.entity'
-import {UserService} from 'src/user/user.service'
-import {cryptoPassword} from 'src/utils/cryptoPassword'
-import {AuthService} from './auth.service'
+import { JwtService } from '@nestjs/jwt'
+import type { TestingModule } from '@nestjs/testing'
+import { Test } from '@nestjs/testing'
+import { getRepositoryToken } from '@nestjs/typeorm'
+import type { LoginDto } from 'src/auth/dto/login.dto'
+import { FormException } from 'src/exception'
+import type { UserSafeEntity } from 'src/user/user.entity'
+import { UserEntity } from 'src/user/user.entity'
+import { UserService } from 'src/user/user.service'
+import { cryptoPassword } from 'src/utils/cryptoPassword'
+import { AuthService } from './auth.service'
 
-describe('AuthService', () => {
+describe('auth service', () => {
   let authService: AuthService
   let userService: UserService
 

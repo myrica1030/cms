@@ -10,14 +10,19 @@
     <span :contenteditable="contenteditable">{{ text }}</span>
     <ion-icon name="chevron-forward-outline" />
   </a>
-  <button v-else class="button" :style="style" :tabindex="contenteditable ? -1 : 0">
+  <button
+    v-else
+    class="button"
+    :style="style"
+    :tabindex="contenteditable ? -1 : 0"
+  >
     <span :contenteditable="contenteditable">{{ text }}</span>
     <ion-icon name="chevron-forward-outline" />
   </button>
 </template>
 
 <script setup lang="ts">
-import type {StyleValue} from 'vue'
+import type { StyleValue } from 'vue'
 
 defineProps<{
   text: string

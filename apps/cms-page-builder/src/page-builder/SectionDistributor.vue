@@ -11,10 +11,10 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import FullWidthCarouselModule from '../modules/FullWidthCarouselModule.vue'
-import FullWidthImageModule from '../modules/FullWidthImageModule.vue'
 import FullWidthHeaderModule from '../modules/FullWidthHeaderModule.vue'
-import {computed} from "vue";
+import FullWidthImageModule from '../modules/FullWidthImageModule.vue'
 
 const props = defineProps<{
   section: UI.Section
@@ -31,7 +31,7 @@ const fullWidthModuleMap: Record<UI.FullWidthModule['type'], unknown> = {
   'full-width-carousel': FullWidthCarouselModule,
 }
 
-function onUpdate (module: UI.Module) {
+function onUpdate(module: UI.Module) {
   if (!('module' in props.section)) return
   emit('update', { ...props.section, module })
 }

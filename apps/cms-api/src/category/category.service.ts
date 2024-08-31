@@ -1,18 +1,19 @@
-import {Injectable} from '@nestjs/common'
-import {InjectRepository} from '@nestjs/typeorm'
-import {IsNull, Repository} from 'typeorm'
-import {CategoryEntity} from 'src/category/category.entity'
-import {CreateCategoryDto} from 'src/category/dto/createCategory.dto'
-import {FormException} from 'src/exception'
+import { Injectable } from '@nestjs/common'
+import { InjectRepository } from '@nestjs/typeorm'
+import type { Repository } from 'typeorm'
+import { IsNull } from 'typeorm'
+import { CategoryEntity } from 'src/category/category.entity'
+import type { CreateCategoryDto } from 'src/category/dto/createCategory.dto'
+import { FormException } from 'src/exception'
 
 @Injectable()
 export class CategoryService {
-  constructor (
+  constructor(
     @InjectRepository(CategoryEntity)
     private readonly repository: Repository<CategoryEntity>,
   ) {}
 
-  async createCategory (dto: CreateCategoryDto): Promise<CategoryEntity> {
+  async createCategory(dto: CreateCategoryDto): Promise<CategoryEntity> {
     let categoryEntity = await this.repository.findOneBy({ key: dto.key })
     if (categoryEntity) {
       throw new FormException({ key: ['isExist'] })
@@ -31,11 +32,11 @@ export class CategoryService {
     return await this.repository.save(categoryEntity)
   }
 
-  async retrieveRootCategories (): Promise<CategoryEntity[]> {
+  async retrieveRootCategories(): Promise<CategoryEntity[]> {
     return await this.repository.findBy({ parent: IsNull() })
   }
 
-  async findCategory (categoryId: number): Promise<CategoryEntity | null> {
+  async findCategory(categoryId: number): Promise<CategoryEntity | null> {
     return await this.repository.findOneBy({ id: categoryId })
   }
 }

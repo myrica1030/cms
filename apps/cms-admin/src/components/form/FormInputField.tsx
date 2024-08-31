@@ -1,6 +1,6 @@
 import React from 'react'
-import {Form} from 'semantic-ui-react'
-import {BasicFieldProps, InputFieldConfig} from 'src/components/form/FormRenderer'
+import { Form } from 'semantic-ui-react'
+import type { BasicFieldProps, InputFieldConfig } from 'src/components/form/FormRenderer'
 
 export interface FormInputFieldProps extends InputFieldConfig, BasicFieldProps<string> {
   value: string
@@ -8,11 +8,13 @@ export interface FormInputFieldProps extends InputFieldConfig, BasicFieldProps<s
   onBlur?: () => void
 }
 
-const FormInputField: React.FC<FormInputFieldProps> = (props) => {
-  return <Form.Input
-    {...props}
-    onChange={(_, { value }) => props.onChange(value)}
-  />
+const FormInputField: React.FC<FormInputFieldProps> = props => {
+  return (
+    <Form.Input
+      {...props}
+      onChange={(_, { value }) => props.onChange(value)}
+    />
+  )
 }
 
 export default React.memo(FormInputField, (prevProps, nextProps) => {

@@ -2,10 +2,6 @@
   "name": "cms-admin",
   "private": true,
   "version": "0.4.0",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/mutoe-cms/cms-admin"
-  },
   "type": "module",
   "scripts": {
     "preversion": "pnpm type-check && pnpm lint && pnpm test",
@@ -32,7 +28,6 @@
     "semantic-ui-react": "^3.0.0-beta.0"
   },
   "devDependencies": {
-    "@mutoe/eslint-config-preset-react": "~3.0.0",
     "@testing-library/react": "^14.0.0",
     "@types/lodash": "^4.14.192",
     "@types/node": "^18.15.11",
@@ -41,7 +36,6 @@
     "@vitejs/plugin-react-swc": "^3.2.0",
     "@vitest/coverage-c8": "^0.29.8",
     "classnames": "^2.3.2",
-    "eslint": "^8.38.0",
     "happy-dom": "^9.1.9",
     "sass": "^1.61.0",
     "swagger-typescript-api": "^12.0.4",
@@ -59,54 +53,6 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
-    ]
-  },
-  "eslintIgnore": [
-    "dist",
-    "coverage"
-  ],
-  "eslintConfig": {
-    "extends": [
-      "@mutoe/eslint-config-preset-react"
-    ],
-    "rules": {
-      "@typescript-eslint/explicit-module-boundary-types": [
-        "error",
-        {
-          "allowTypedFunctionExpressions": true
-        }
-      ],
-      "unicorn/no-array-callback-reference": "off"
-    },
-    "overrides": [
-      {
-        "files": [
-          "src/services/**"
-        ],
-        "rules": {
-          "@typescript-eslint/no-unused-vars": "off",
-          "@typescript-eslint/promise-function-async": "off",
-          "@typescript-eslint/no-use-before-define": "off",
-          "no-use-before-define": "off"
-        }
-      },
-      {
-        "files": [
-          "src/**/use*.ts?(x)",
-          "src/**/*.context.ts?(x)"
-        ],
-        "rules": {
-          "@typescript-eslint/explicit-module-boundary-types": "off"
-        }
-      },
-      {
-        "files": [
-          "**/*.{test,spec}.ts?(x)"
-        ],
-        "rules": {
-          "unicorn/consistent-destructuring": "off"
-        }
-      }
     ]
   }
 }

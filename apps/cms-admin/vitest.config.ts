@@ -1,6 +1,6 @@
 import path from 'node:path'
 import url from 'node:url'
-import {defineConfig} from 'vitest/config'
+import { defineConfig } from 'vitest/config'
 import viteConfig from './vite.config'
 
 const resolve = (subPath: string) => path.resolve(path.dirname(url.fileURLToPath(import.meta.url)), subPath)

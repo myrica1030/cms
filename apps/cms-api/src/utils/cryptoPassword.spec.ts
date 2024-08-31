@@ -1,6 +1,6 @@
-import {cryptoPassword} from './cryptoPassword'
+import { cryptoPassword } from './cryptoPassword'
 
-describe('Utilities', () => {
+describe('utilities', () => {
   it('cryptoPassword', () => {
     const hashedPassword = cryptoPassword('foobar')
 

@@ -57,7 +57,7 @@ services:
     env_file:
       - .env
     ports:
-      - "${APP_PORT:-80}:80"
+      - '${APP_PORT:-80}:80'
     # FIXME: volume html file from cms-admin
     volumes:
       - type: volume

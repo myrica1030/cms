@@ -19,7 +19,7 @@
         v-if="module.body"
         class="body"
         :contenteditable="contenteditable"
-        @blur="e => updateContent('body', e.target?.innerHTML?? '')"
+        @blur="e => updateContent('body', e.target?.innerHTML ?? '')"
         v-html="module.body"
       />
 
@@ -30,8 +30,8 @@
 </template>
 
 <script setup lang="ts">
-import {currentSection} from 'src/stores/pageBuilder'
-import {computed} from 'vue'
+import { computed } from 'vue'
+import { currentSection } from 'src/stores/pageBuilder'
 import Button from '../components/Button.vue'
 
 const props = defineProps<{
@@ -39,13 +39,13 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-  (e:'update', module: UI.FullWidthHeaderModule): void
+  (e: 'update', module: UI.FullWidthHeaderModule): void
 }>()
 
 const contenteditable = computed(() => (currentSection.value && 'module' in currentSection.value && currentSection.value.module.id === props.module.id) ?? undefined)
 
-const updateContent = (prop: keyof Pick<UI.FullWidthHeaderModule, 'title' | 'subTitle' | 'body'>, html: string) => {
-  const newModule: UI.FullWidthHeaderModule = { ...props.module, [prop]: html.replace(/^(\s|<br>)+|(\s|<br>)+$/g, '') }
+function updateContent(prop: keyof Pick<UI.FullWidthHeaderModule, 'title' | 'subTitle' | 'body'>, html: string) {
+  const newModule: UI.FullWidthHeaderModule = { ...props.module, [prop]: html.replaceAll(/^(\s|<br>)+|(\s|<br>)+$/g, '') }
   emit('update', newModule)
 }
 </script>

@@ -1,5 +1,6 @@
-import React, {createContext, useContext} from 'react'
-import useAuthorization, {AuthorizationState} from './useAuthorization'
+import React, { createContext, useContext } from 'react'
+import type { AuthorizationState } from './useAuthorization'
+import useAuthorization from './useAuthorization'
 
 const AuthorizationContext = createContext<AuthorizationState>({} as AuthorizationState)
 

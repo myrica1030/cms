@@ -1,6 +1,7 @@
-import {TypeOrmModuleOptions} from '@nestjs/typeorm'
-import {DataSource, DataSourceOptions} from 'typeorm'
-import {allEntities} from 'src/data-source'
+import type { TypeOrmModuleOptions } from '@nestjs/typeorm'
+import type { DataSourceOptions } from 'typeorm'
+import { DataSource } from 'typeorm'
+import { allEntities } from 'src/data-source'
 
 export const testDataSourceOptions: DataSourceOptions = {
   type: 'sqlite',

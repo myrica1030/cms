@@ -1,4 +1,4 @@
-import {pick} from '../pick'
+import { pick } from '../pick'
 
 describe('# pick', () => {
   it('should pickup the special properties', () => {

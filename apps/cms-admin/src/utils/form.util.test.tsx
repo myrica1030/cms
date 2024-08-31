@@ -1,11 +1,13 @@
 import React from 'react'
-import {render, waitFor} from '@testing-library/react'
-import {fieldErrorDecorator, focusErrorField, sentence} from 'src/utils/form.util'
+import { render, waitFor } from '@testing-library/react'
+import { fieldErrorDecorator, focusErrorField, sentence } from 'src/utils/form.util'
 
 describe('# focus error field util', () => {
-  const Wrapper: React.FC = () => (<div className='error field'>
-    <input type='text' data-testid='input' />
-  </div>)
+  const Wrapper: React.FC = () => (
+    <div className="error field">
+      <input type="text" data-testid="input" />
+    </div>
+  )
 
   it('should focus on first error field input', async () => {
     const { getByTestId } = render(<Wrapper />)

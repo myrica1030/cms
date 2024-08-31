@@ -1,7 +1,9 @@
 import React from 'react'
-import {RenderResult, act, fireEvent, render, screen, waitFor} from '@testing-library/react'
-import FormRenderer, {FieldConfig} from 'src/components/form/FormRenderer'
-import {ERROR_MESSAGE} from 'src/constants/message'
+import type { RenderResult } from '@testing-library/react'
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
+import type { FieldConfig } from 'src/components/form/FormRenderer'
+import FormRenderer from 'src/components/form/FormRenderer'
+import { ERROR_MESSAGE } from 'src/constants/message'
 
 describe('# Form Renderer Component', () => {
   let fields: FieldConfig<string>[]
@@ -23,17 +25,20 @@ describe('# Form Renderer Component', () => {
         label: 'Username',
         placeholder: 'Username',
         required: true,
-      }, {
+      },
+      {
         type: 'password',
         name: 'password',
         label: 'Username',
         placeholder: 'Password',
-      }, {
+      },
+      {
         type: 'select',
         name: 'select',
         label: 'Select',
         options: [{ text: 'Foo', value: 'foo' }],
-      }, {
+      },
+      {
         type: 'rich',
         name: 'rich',
         label: 'Rich text editor',

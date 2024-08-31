@@ -6,7 +6,7 @@ import dataSource from 'src/data-source'
 import { validationPipe } from 'src/pipes'
 import { createSwagger } from 'src/setup'
 
-async function bootstrap () {
+async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     cors: !PROD,
   })

@@ -1,5 +1,5 @@
-import {CategoryEntity} from 'src/category/category.entity'
-import {CreateCategoryDto} from 'src/category/dto/createCategory.dto'
+import type { CategoryEntity } from 'src/category/category.entity'
+import type { CreateCategoryDto } from 'src/category/dto/createCategory.dto'
 
 const dto: CreateCategoryDto = {
   key: 'study-notes',

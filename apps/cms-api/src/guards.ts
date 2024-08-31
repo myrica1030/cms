@@ -2,7 +2,7 @@ import { UseGuards } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 import { ApiBearerAuth, ApiUnauthorizedResponse } from '@nestjs/swagger'
 
-export const UseJwtGuards = (): MethodDecorator => {
+export function UseJwtGuards(): MethodDecorator {
   const jwtGuards = UseGuards(AuthGuard('jwt'))
   const apiBearerAuth = ApiBearerAuth()
   const apiUnauthorizedResponse = ApiUnauthorizedResponse({

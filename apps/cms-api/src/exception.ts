@@ -12,7 +12,7 @@ export class FormExceptionBody implements Record<string, FormExceptionKey[]> {
 }
 
 export class FormException extends UnprocessableEntityException {
-  constructor (body: FormExceptionBody) {
+  constructor(body: FormExceptionBody) {
     super(body)
   }
 }

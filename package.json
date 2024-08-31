@@ -2,26 +2,27 @@
   "name": "cms",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "license": "UNLICENSED",
+  "author": "myrica1030",
   "type": "module",
+  "main": "index.js",
   "scripts": {
     "prepare": "simple-git-hooks",
-    "test": "pnpm -r test",
-    "type-check": "pnpm -r type-check"
+    "type-check": "pnpm -r type-check",
+    "test": "pnpm -r test"
   },
-  "keywords": [],
-  "author": "myrica1030",
-  "license": "UNLICENSED",
-  "dependencies": {
+  "devDependencies": {
+    "@mutoe/eslint-config": "2.27.3-2",
+    "eslint": "^8.38.0",
     "lint-staged": "^13.2.1",
     "simple-git-hooks": "^2.11.1",
     "typescript": "~5.5.4"
   },
-  "lint-staged": {
-    "*": "eslint --fix"
-  },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged",
     "pre-push": "pnpm type-check && pnpm test"
+  },
+  "lint-staged": {
+    "*": "eslint --fix"
   }
 }

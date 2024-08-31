@@ -1,11 +1,11 @@
 import React from 'react'
-import {useRoutes} from 'react-router-dom'
+import { useRoutes } from 'react-router-dom'
 import NotFound from 'src/components/NotFound'
 import LoginPage from 'src/pages/auth/LoginPage/LoginPage'
 import ContentPage from 'src/pages/content/ContentPage'
 import DashboardPage from 'src/pages/dashboard/DashboardPage'
 import PortalPage from 'src/pages/PortalPage'
-import {routeMap} from 'src/route'
+import { routeMap } from 'src/route'
 
 const ArticleListPage = React.lazy(async () => await import('src/pages/content/article/ArticleListPage'))
 const ArticleCreatePage = React.lazy(async () => await import('src/pages/content/article/ArticleCreatePage'))

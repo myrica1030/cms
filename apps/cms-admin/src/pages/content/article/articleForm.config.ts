@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import {FieldConfig, SelectOption} from 'src/components/form/FormRenderer'
-import {service} from 'src/services'
-import {CreateArticleDto} from 'src/services/api'
+import type { FieldConfig, SelectOption } from 'src/components/form/FormRenderer'
+import { service } from 'src/services'
+import type { CreateArticleDto } from 'src/services/api'
 
 export const articleForm: Required<CreateArticleDto> = {
   title: '',

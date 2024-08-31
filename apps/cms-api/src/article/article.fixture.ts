@@ -1,8 +1,8 @@
-import {ArticleEntity} from 'src/article/article.entity'
-import {CreateArticleDto} from 'src/article/dto/createArticle.dto'
-import {categoryFixture} from 'src/category/category.fixture'
-import {tagFixture} from 'src/tag/tag.fixture'
-import {userFixture} from 'src/user/user.fixture'
+import type { ArticleEntity } from 'src/article/article.entity'
+import type { CreateArticleDto } from 'src/article/dto/createArticle.dto'
+import { categoryFixture } from 'src/category/category.fixture'
+import { tagFixture } from 'src/tag/tag.fixture'
+import { userFixture } from 'src/user/user.fixture'
 
 const dto: CreateArticleDto = {
   title: 'Article title',

@@ -16,7 +16,7 @@ defineProps<{
  * https://stackoverflow.com/a/55137929/7736393
  */
 const animations = {
-  beforeEnter (element: HTMLElement) {
+  beforeEnter(element: HTMLElement) {
     requestAnimationFrame(() => {
       if (!element.style.height) {
         element.style.height = '0px'
@@ -24,31 +24,31 @@ const animations = {
       element.style.removeProperty('display')
     })
   },
-  enter (element: HTMLElement) {
+  enter(element: HTMLElement) {
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
         element.style.height = `${element.scrollHeight}px`
       })
     })
   },
-  afterEnter (element:HTMLElement) {
+  afterEnter(element: HTMLElement) {
     element.style.removeProperty('height')
   },
-  beforeLeave (element:HTMLElement) {
+  beforeLeave(element: HTMLElement) {
     requestAnimationFrame(() => {
       if (!element.style.height) {
         element.style.height = `${element.offsetHeight}px`
       }
     })
   },
-  leave (element:HTMLElement) {
+  leave(element: HTMLElement) {
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
         element.style.height = '0px'
       })
     })
   },
-  afterLeave (element:HTMLElement) {
+  afterLeave(element: HTMLElement) {
     element.style.removeProperty('height')
   },
 }

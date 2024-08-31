@@ -1,12 +1,12 @@
-import React, {useMemo} from 'react'
-import {useNavigate, useParams} from 'react-router-dom'
-import {Header, Icon, Menu, Segment} from 'semantic-ui-react'
+import React, { useMemo } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
+import { Header, Icon, Menu, Segment } from 'semantic-ui-react'
 import FormRenderer from 'src/components/form/FormRenderer'
 import useToast from 'src/contexts/toast/toast.context'
-import {articleFormConfig} from 'src/pages/content/article/articleForm.config'
-import {service, useSubmit} from 'src/services'
-import {CreateArticleDto} from 'src/services/api'
-import {useRetrieveDetail} from 'src/services/hooks/useRetrieveDetail'
+import { articleFormConfig } from 'src/pages/content/article/articleForm.config'
+import { service, useSubmit } from 'src/services'
+import type { CreateArticleDto } from 'src/services/api'
+import { useRetrieveDetail } from 'src/services/hooks/useRetrieveDetail'
 
 const ArticleEditPage: React.FC = () => {
   const { id = '0' } = useParams()
@@ -27,33 +27,35 @@ const ArticleEditPage: React.FC = () => {
       await submitRequest(+id, form)
       toast.success('Success')
       navigate('..')
-    } catch (error) {
-      // eslint-disable-next-line no-console
+    }
+    catch (error) {
       console.error(error)
       toast.error('Error')
     }
   }
 
-  return <>
-    <Menu attached='top'>
-      <Menu.Item role='link' icon='angle left' content='Back' onClick={() => navigate(-1)} />
-    </Menu>
+  return (
+    <>
+      <Menu attached="top">
+        <Menu.Item role="link" icon="angle left" content="Back" onClick={() => navigate(-1)} />
+      </Menu>
 
-    <Segment attached='bottom' loading={loading}>
-      <Header as='h2' >
-        <Icon name='edit' />
-        <Header.Content>Edit Article</Header.Content>
-      </Header>
+      <Segment attached="bottom" loading={loading}>
+        <Header as="h2">
+          <Icon name="edit" />
+          <Header.Content>Edit Article</Header.Content>
+        </Header>
 
-      <FormRenderer
-        ref={formRef}
-        initForm={form}
-        fields={articleFormConfig}
-        submitting={submitting}
-        onSubmit={onSubmit}
-      />
-    </Segment>
-  </>
+        <FormRenderer
+          ref={formRef}
+          initForm={form}
+          fields={articleFormConfig}
+          submitting={submitting}
+          onSubmit={onSubmit}
+        />
+      </Segment>
+    </>
+  )
 }
 
 export default ArticleEditPage

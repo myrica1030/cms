@@ -1,4 +1,4 @@
-export const generateId = (): string => {
+export function generateId(): string {
   const timestamp = Date.now()
   const random = Math.trunc(Math.random() * 10_000)
 

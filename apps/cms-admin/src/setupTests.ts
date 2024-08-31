@@ -1,6 +1,6 @@
 import React from 'react'
-import {Axios, AxiosRequestConfig} from 'axios'
-import {afterEach, expect, vi} from 'vitest'
+import type { Axios, AxiosRequestConfig } from 'axios'
+import { afterEach, expect, vi } from 'vitest'
 import * as matchers from 'vitest-dom/matchers'
 
 import 'vitest-dom/extend-expect'

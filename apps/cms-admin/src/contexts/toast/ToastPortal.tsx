@@ -1,5 +1,6 @@
-import React, {useEffect, useState} from 'react'
-import {Message, Portal, Transition, TransitionGroupProps} from 'semantic-ui-react'
+import React, { useEffect, useState } from 'react'
+import type { TransitionGroupProps } from 'semantic-ui-react'
+import { Message, Portal, Transition } from 'semantic-ui-react'
 import CONFIG from 'src/config'
 
 import './ToastPortal.scss'
@@ -27,7 +28,9 @@ const ToastPortal: React.FC<ToastPortalProps> = ({ toasts }) => {
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
-    if (toasts.length > 0) setOpen(true)
+    if (toasts.length > 0) {
+      setOpen(true)
+    }
     else {
       setTimeout(() => {
         if (toasts.length === 0) setOpen(false)
@@ -35,16 +38,19 @@ const ToastPortal: React.FC<ToastPortalProps> = ({ toasts }) => {
     }
   }, [toasts.length])
 
-  return <Portal open={open}>
-    <div className='ToastPortal'>
-      <Transition.Group {...transition}>
-        {toasts.map((toast, index) =>
-          <Message key={index} color={toast.type}>
-            {toast.title}
-          </Message>)}
-      </Transition.Group>
-    </div>
-  </Portal>
+  return (
+    <Portal open={open}>
+      <div className="ToastPortal">
+        <Transition.Group {...transition}>
+          {toasts.map((toast, index) => (
+            <Message key={index} color={toast.type}>
+              {toast.title}
+            </Message>
+          ))}
+        </Transition.Group>
+      </div>
+    </Portal>
+  )
 }
 
 export default ToastPortal

@@ -1,4 +1,4 @@
-import {TagEntity} from 'src/services/api'
+import type { TagEntity } from 'src/services/api'
 
 export const tagFixture = {
   entity: {

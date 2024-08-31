@@ -25,7 +25,7 @@ interface Config {
   onUpdate?: (registration: ServiceWorkerRegistration) => void
 }
 
-export function register (config?: Config): void {
+export function register(config?: Config): void {
   if (import.meta.env.PROD && 'serviceWorker' in navigator) {
     // The URL constructor is available in all browsers that support SW.
     const publicUrl = new URL(
@@ -54,7 +54,8 @@ export function register (config?: Config): void {
             + 'worker. To learn more, visit https://bit.ly/CRA-PWA',
           )
         })
-      } else {
+      }
+      else {
         // Is not localhost. Just register service worker
         registerValidSW(swUrl, config)
       }
@@ -62,7 +63,7 @@ export function register (config?: Config): void {
   }
 }
 
-function registerValidSW (swUrl: string, config?: Config) {
+function registerValidSW(swUrl: string, config?: Config) {
   navigator.serviceWorker
     .register(swUrl)
     .then(registration => {
@@ -83,7 +84,8 @@ function registerValidSW (swUrl: string, config?: Config) {
               if (config?.onUpdate) {
                 config.onUpdate(registration)
               }
-            } else {
+            }
+            else {
               // At this point, everything has been precached.
               // It's the perfect time to display a
               // "Content is cached for offline use." message.
@@ -103,7 +105,7 @@ function registerValidSW (swUrl: string, config?: Config) {
     })
 }
 
-function checkValidServiceWorker (swUrl: string, config?: Config) {
+function checkValidServiceWorker(swUrl: string, config?: Config) {
   // Check if the service worker can be found. If it can't reload the page.
   fetch(swUrl, {
     headers: { 'Service-Worker': 'script' },
@@ -121,7 +123,8 @@ function checkValidServiceWorker (swUrl: string, config?: Config) {
             window.location.reload()
           })
         })
-      } else {
+      }
+      else {
         // Service worker found. Proceed as normal.
         registerValidSW(swUrl, config)
       }
@@ -133,7 +136,7 @@ function checkValidServiceWorker (swUrl: string, config?: Config) {
     })
 }
 
-export function unregister (): void {
+export function unregister(): void {
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.ready
       .then(registration => {

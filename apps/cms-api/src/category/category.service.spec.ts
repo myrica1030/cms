@@ -1,12 +1,13 @@
-import {Test, TestingModule} from '@nestjs/testing'
-import {getRepositoryToken} from '@nestjs/typeorm'
-import {Repository} from 'typeorm'
-import {CategoryEntity} from 'src/category/category.entity'
-import {categoryFixture} from 'src/category/category.fixture'
-import {FormException} from 'src/exception'
-import {CategoryService} from './category.service'
+import type { TestingModule } from '@nestjs/testing'
+import { Test } from '@nestjs/testing'
+import { getRepositoryToken } from '@nestjs/typeorm'
+import type { Repository } from 'typeorm'
+import { CategoryEntity } from 'src/category/category.entity'
+import { categoryFixture } from 'src/category/category.fixture'
+import { FormException } from 'src/exception'
+import { CategoryService } from './category.service'
 
-describe('CategoryService', () => {
+describe('category service', () => {
   let service: CategoryService
   let repository: Repository<CategoryEntity>
 

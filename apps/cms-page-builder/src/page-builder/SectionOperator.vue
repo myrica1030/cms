@@ -3,7 +3,13 @@
     <div class="border" />
 
     <div class="section-menu">
-      <button aria-label="Move" class="move" draggable="true" @dragend="onDragEnd" @dragstart="onDratStart">
+      <button
+        aria-label="Move"
+        class="move"
+        draggable="true"
+        @dragend="onDragEnd"
+        @dragstart="onDratStart"
+      >
         <ion-icon name="move-sharp" />
       </button>
       <button aria-label="Settings" class="settings" @click="onModalOpen">
@@ -31,30 +37,35 @@
 </template>
 
 <script setup lang="ts">
+import { ref, toRaw, watch } from 'vue'
 import Modal from 'src/components/Modal.vue'
-import {currentDragOverSection, currentDragSection, currentSection, sectionModal} from 'src/stores/pageBuilder'
-import {pageConfig} from 'src/stores/pageConfig'
-import {cloneDeep, generateId, toStyle} from 'src/utils'
-import {ref, watch} from 'vue'
+import { currentDragOverSection, currentDragSection, currentSection, sectionModal } from 'src/stores/pageBuilder'
+import { pageConfig } from 'src/stores/pageConfig'
+import { generateId, toStyle } from 'src/utils'
+
+const emit = defineEmits<{
+  (e: 'dragstart', currentSection: UI.Section): void
+  (e: 'dragend'): void
+}>()
 
 const dragOverPlaceholderHeight = 48
 
 const currentModalSection = ref<UI.Section | null>(pageConfig.value.sections[0])
 
-function onModalOpen () {
+function onModalOpen() {
   sectionModal.value = true
 }
 
-function onModalClose () {
+function onModalClose() {
   sectionModal.value = false
   currentModalSection.value = null
 }
 
 type SectionRect = Partial<Record<'top' | 'height' | 'opacity', number>>
-let borderRect = ref<SectionRect>({ top: 0, height: 0, opacity: 0 })
-let dragOverRect = ref<SectionRect>({ top: 0, height: 0, opacity: 0 })
+const borderRect = ref<SectionRect>({ top: 0, height: 0, opacity: 0 })
+const dragOverRect = ref<SectionRect>({ top: 0, height: 0, opacity: 0 })
 
-watch(currentSection, (section) => {
+watch(currentSection, section => {
   if (sectionModal.value) return
   if (!section || currentDragSection.value) return (borderRect.value = {})
 
@@ -81,7 +92,7 @@ watch(currentDragOverSection, ({ section, isTop }) => {
   }
 })
 
-function onDuplicate () {
+function onDuplicate() {
   const targetIndex = pageConfig.value.sections.findIndex(it => it.id === currentSection.value?.id)
   if (targetIndex === -1) return
   const regularSection = cloneDeep(pageConfig.value.sections[targetIndex])
@@ -89,19 +100,14 @@ function onDuplicate () {
   pageConfig.value.sections.splice(targetIndex, 0, regularSection)
 }
 
-function onDelete () {
+function onDelete() {
   const targetIndex = pageConfig.value.sections.findIndex(it => it.id === currentSection.value?.id)
   if (targetIndex === -1) return pageConfig
   pageConfig.value.sections.splice(targetIndex, 1)
   borderRect.value = {}
 }
 
-const emit = defineEmits<{
-  (e: 'dragstart', currentSection: UI.Section): void
-  (e: 'dragend'):void
-}>()
-
-async function onDratStart (event: DragEvent) {
+async function onDratStart(event: DragEvent) {
   if (!currentSection.value) return
   const sectionElement = document.querySelector(`#section-${currentSection.value.id}`)
   if (!sectionElement) return
@@ -113,7 +119,7 @@ async function onDratStart (event: DragEvent) {
   emit('dragstart', currentSection.value)
 }
 
-function onDragEnd () {
+function onDragEnd() {
   emit('dragend')
 }
 </script>

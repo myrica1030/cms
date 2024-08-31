@@ -4,7 +4,7 @@
       v-for="(item, i) in list"
       :key="item.summary"
       class="details"
-      :class="{open: i === currentExpand}"
+      :class="{ open: i === currentExpand }"
     >
       <h3 class="summary" @click="onToggle(i)" @keypress="onToggle(i)">
         {{ item.summary }}
@@ -21,16 +21,16 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
 import Collapse from 'src/components/Collapse.vue'
-import {ref} from "vue";
 
 defineProps<{
   list: UI.Expansion[]
 }>()
 
-let currentExpand = ref(-1)
+const currentExpand = ref(-1)
 
-const onToggle = (index: number) => {
+function onToggle(index: number) {
   if (currentExpand.value === index) currentExpand.value = -1
   else currentExpand.value = index
 }

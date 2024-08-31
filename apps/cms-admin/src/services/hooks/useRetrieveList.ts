@@ -1,6 +1,6 @@
-import {useCallback, useEffect, useState} from 'react'
-import {AxiosResponse} from 'axios'
-import {PaginationMeta, RequestParams} from 'src/services/api'
+import { useCallback, useEffect, useState } from 'react'
+import type { AxiosResponse } from 'axios'
+import type { PaginationMeta, RequestParams } from 'src/services/api'
 
 export interface PaginationRo<T> {
   items: T[]
@@ -15,7 +15,7 @@ export interface PaginationDto {
 type RetrieveListRequest<Query extends PaginationDto = PaginationDto, Entity = unknown> = (query?: Query, params?: RequestParams) => Promise<AxiosResponse<PaginationRo<Entity>>>
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export function useRetrieveList<Query extends PaginationDto = PaginationDto, Entity = unknown> (request: RetrieveListRequest<Query, Entity>) {
+export function useRetrieveList<Query extends PaginationDto = PaginationDto, Entity = unknown>(request: RetrieveListRequest<Query, Entity>) {
   const [items, setItems] = useState<Entity[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
@@ -33,9 +33,11 @@ export function useRetrieveList<Query extends PaginationDto = PaginationDto, Ent
       const { meta, items } = response.data
       setItems(items)
       setPageMeta(meta)
-    } catch {
+    }
+    catch {
       setError(true)
-    } finally {
+    }
+    finally {
       setLoading(false)
     }
   }, [request])

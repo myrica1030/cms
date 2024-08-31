@@ -1,9 +1,9 @@
 import React from 'react'
-import {BrowserRouter} from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 import * as ReactDOM from 'react-dom/client'
 import App from 'src/App'
-import {AuthorizationProvider} from 'src/contexts/authorization/authorization.context'
-import {ToastProvider} from 'src/contexts/toast/toast.context'
+import { AuthorizationProvider } from 'src/contexts/authorization/authorization.context'
+import { ToastProvider } from 'src/contexts/toast/toast.context'
 import * as serviceWorker from 'src/serviceWorker'
 
 import 'semantic-ui-css/semantic.min.css'

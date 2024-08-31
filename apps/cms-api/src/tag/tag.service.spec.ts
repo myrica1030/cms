@@ -1,13 +1,14 @@
-import {Test, TestingModule} from '@nestjs/testing'
-import {getRepositoryToken} from '@nestjs/typeorm'
-import {Repository} from 'typeorm'
-import {FormException} from 'src/exception'
-import {TagsRo} from 'src/tag/dto/tags.ro'
-import {tagFixture} from 'src/tag/tag.fixture'
-import {TagEntity} from './tag.entity'
-import {TagService} from './tag.service'
+import type { TestingModule } from '@nestjs/testing'
+import { Test } from '@nestjs/testing'
+import { getRepositoryToken } from '@nestjs/typeorm'
+import type { Repository } from 'typeorm'
+import { FormException } from 'src/exception'
+import type { TagsRo } from 'src/tag/dto/tags.ro'
+import { tagFixture } from 'src/tag/tag.fixture'
+import { TagEntity } from './tag.entity'
+import { TagService } from './tag.service'
 
-describe('TagService', () => {
+describe('tag service', () => {
   let service: TagService
   let repository: Repository<TagEntity>
 

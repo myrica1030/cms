@@ -1,22 +1,22 @@
-import {Injectable} from '@nestjs/common'
-import {JwtService} from '@nestjs/jwt'
-import {omit} from 'lodash'
-import {AuthRo} from 'src/auth/dto/auth.ro'
-import {LoginDto} from 'src/auth/dto/login.dto'
-import {RegisterDto} from 'src/auth/dto/register.dto'
-import {FormException} from 'src/exception'
-import {UserSafeEntity} from 'src/user/user.entity'
-import {UserService} from 'src/user/user.service'
-import {cryptoPassword} from 'src/utils/cryptoPassword'
+import { Injectable } from '@nestjs/common'
+import type { JwtService } from '@nestjs/jwt'
+import { omit } from 'lodash'
+import type { AuthRo } from 'src/auth/dto/auth.ro'
+import type { LoginDto } from 'src/auth/dto/login.dto'
+import type { RegisterDto } from 'src/auth/dto/register.dto'
+import { FormException } from 'src/exception'
+import type { UserSafeEntity } from 'src/user/user.entity'
+import type { UserService } from 'src/user/user.service'
+import { cryptoPassword } from 'src/utils/cryptoPassword'
 
 @Injectable()
 export class AuthService {
-  constructor (
+  constructor(
     private readonly userService: UserService,
     private readonly jwtService: JwtService,
   ) {}
 
-  async register (registerDto: RegisterDto): Promise<AuthRo> {
+  async register(registerDto: RegisterDto): Promise<AuthRo> {
     let user: UserSafeEntity | null
     user = await this.userService.findUser({ username: registerDto.username })
     if (user?.id) {
@@ -31,13 +31,13 @@ export class AuthService {
     return { ...profile, token }
   }
 
-  async login (loginDto: LoginDto): Promise<AuthRo> {
+  async login(loginDto: LoginDto): Promise<AuthRo> {
     const profile = await this.validateUser(loginDto.username, loginDto.password)
     const token = this.generateToken(profile.id, profile.email)
     return { ...profile, token }
   }
 
-  async validateUser (username: string, password: string): Promise<UserSafeEntity> {
+  async validateUser(username: string, password: string): Promise<UserSafeEntity> {
     const user = await this.userService.findUser({ username }, true)
     if (!user) {
       throw new FormException({ username: ['isNotExist'] })
@@ -48,7 +48,7 @@ export class AuthService {
     return omit(user, 'password')
   }
 
-  generateToken (userId: number, email: string): string {
+  generateToken(userId: number, email: string): string {
     return this.jwtService.sign({ userId, email })
   }
 }

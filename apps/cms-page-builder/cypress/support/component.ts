@@ -17,7 +17,7 @@ import '@testing-library/cypress/add-commands'
 
 import './commands'
 
-import {mount} from 'cypress/vue'
+import { mount } from 'cypress/vue'
 
 // Augment the Cypress namespace to include type definitions for
 // your custom command.

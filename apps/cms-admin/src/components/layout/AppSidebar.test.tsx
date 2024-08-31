@@ -1,6 +1,6 @@
 import React from 'react'
-import {fireEvent, render} from '@testing-library/react'
-import {appMenus} from 'src/appMenu'
+import { fireEvent, render } from '@testing-library/react'
+import { appMenus } from 'src/appMenu'
 import AppSidebar from 'src/components/layout/AppSidebar'
 
 const mockNavigate = vi.fn()

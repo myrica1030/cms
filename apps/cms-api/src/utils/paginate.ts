@@ -1,18 +1,18 @@
-import {ApiResponseProperty} from '@nestjs/swagger'
-import {FindManyOptions, FindOneOptions, ObjectLiteral, Repository} from 'typeorm'
+import { ApiResponseProperty } from '@nestjs/swagger'
+import type { FindManyOptions, FindOneOptions, ObjectLiteral, Repository } from 'typeorm'
 
 export class PaginationMeta {
   @ApiResponseProperty({ example: 15 })
-    total: number
+  total: number
 
   @ApiResponseProperty({ example: 10 })
-    limit: number
+  limit: number
 
   @ApiResponseProperty({ example: 2 })
-    totalPages: number
+  totalPages: number
 
   @ApiResponseProperty({ example: 1 })
-    currentPage: number
+  currentPage: number
 }
 
 export interface PaginationRo<T = unknown> {
@@ -23,13 +23,13 @@ export interface PaginationRo<T = unknown> {
 type ClassType<T = any> = new (...args: any[]) => T
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types,@typescript-eslint/no-redeclare
-export function PaginationRo<T extends ClassType> (ResourceClass: T) {
+export function PaginationRo<T extends ClassType>(ResourceClass: T) {
   class Pagination implements PaginationRo<T> {
     @ApiResponseProperty({ type: [ResourceClass] })
-      items: T[]
+    items: T[]
 
     @ApiResponseProperty({ type: PaginationMeta })
-      meta: PaginationMeta
+    meta: PaginationMeta
   }
 
   return Pagination
@@ -41,7 +41,7 @@ export interface PaginationOptions {
   order?: FindOneOptions['order']
 }
 
-export async function paginate<T extends ObjectLiteral> (
+export async function paginate<T extends ObjectLiteral>(
   repository: Repository<T>,
   options: PaginationOptions = {},
   searchOptions: FindManyOptions<T> = {},

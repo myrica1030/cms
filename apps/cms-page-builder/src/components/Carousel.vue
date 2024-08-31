@@ -6,12 +6,12 @@
     @focusin="pause = true"
     @focusout="pause = false"
   >
-    <div class="slides" :style="{transform: `translateX(-${currentSlide*100}%)`}">
+    <div class="slides" :style="{ transform: `translateX(-${currentSlide * 100}%)` }">
       <div
         v-for="(slide, i) in slides"
         :key="i"
         class="slide"
-        :style="{backgroundImage: `url(${slide.background})`}"
+        :style="{ backgroundImage: `url(${slide.background})` }"
         @focusin="currentSlide = i"
       >
         <slot :index="i" :slide="slide" />
@@ -22,7 +22,7 @@
       <span
         v-for="(_, i) in slides"
         :key="i"
-        :class="{active: currentSlide === i}"
+        :class="{ active: currentSlide === i }"
         @click="currentSlide = i"
         @keypress="currentSlide = i"
       />
@@ -40,7 +40,7 @@
 </template>
 
 <script setup lang="ts">
-import {onBeforeUnmount, onMounted, ref} from 'vue'
+import { onBeforeUnmount, onMounted, ref } from 'vue'
 
 const props = withDefaults(defineProps<{
   slides: UI.Slide[]
@@ -49,31 +49,31 @@ const props = withDefaults(defineProps<{
   duration?: number
 }>(), {
   arrow: true,
-  indicator : true,
-  duration : 5000,
+  indicator: true,
+  duration: 5000,
 })
 
-let currentSlide = ref(0)
-let pause = ref(false)
+const currentSlide = ref(0)
+const pause = ref(false)
 
-const nextSlide = () => {
+function nextSlide() {
   currentSlide.value += 1
   if (currentSlide.value >= props.slides.length) currentSlide.value = 0
 }
 
-const prevSlide = () => {
+function prevSlide() {
   currentSlide.value -= 1
   if (currentSlide.value < 0) currentSlide.value = props.slides.length - 1
 }
 
-const autoplay = () => {
+function autoplay() {
   setInterval(() => {
     if (pause.value) return
     nextSlide()
   }, props.duration)
 }
 
-const onVisibilityChange = () => {
+function onVisibilityChange() {
   pause.value = document.visibilityState === 'hidden'
 }
 

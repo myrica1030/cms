@@ -1,4 +1,4 @@
-import {formatDateTime} from 'src/utils/format.util'
+import { formatDateTime } from 'src/utils/format.util'
 
 describe('# format date time', () => {
   it('should format to YYYY-MM-DD HH:mm format', () => {

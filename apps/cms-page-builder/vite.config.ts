@@ -2,7 +2,7 @@
 import path from 'node:path'
 import url from 'node:url'
 import vue from '@vitejs/plugin-vue'
-import {defineConfig} from 'vite'
+import { defineConfig } from 'vite'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -22,7 +22,7 @@ export default defineConfig({
     vue({
       template: {
         compilerOptions: {
-          isCustomElement: (tag) => ['ion-icon'].includes(tag),
+          isCustomElement: tag => ['ion-icon'].includes(tag),
         },
       },
     }),

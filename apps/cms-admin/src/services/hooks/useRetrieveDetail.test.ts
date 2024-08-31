@@ -1,9 +1,9 @@
-import {act, renderHook} from '@testing-library/react'
-import {AxiosResponse} from 'axios'
-import {noop} from 'lodash'
-import {service} from 'src/services'
-import {ArticleEntity} from 'src/services/api'
-import {useRetrieveDetail} from 'src/services/hooks/useRetrieveDetail'
+import { act, renderHook } from '@testing-library/react'
+import type { AxiosResponse } from 'axios'
+import { noop } from 'lodash'
+import { service } from 'src/services'
+import type { ArticleEntity } from 'src/services/api'
+import { useRetrieveDetail } from 'src/services/hooks/useRetrieveDetail'
 
 describe('# useRetrieveDetail', () => {
   const mockRetrieveArticle = vi.spyOn(service.article, 'retrieveArticle')

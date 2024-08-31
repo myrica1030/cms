@@ -1,19 +1,19 @@
-import {ApiProperty, ApiPropertyOptional} from '@nestjs/swagger'
-import {IsNotEmpty} from 'class-validator'
-import {ApiPropertyRichText} from 'src/decorators'
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
+import { IsNotEmpty } from 'class-validator'
+import { ApiPropertyRichText } from 'src/decorators'
 
 export class CreateCategoryDto {
   @IsNotEmpty()
   @ApiProperty({ example: 'study-notes' })
-    key: string = ''
+  key: string = ''
 
   @IsNotEmpty()
   @ApiProperty({ example: 'Study notes' })
-    label: string = ''
+  label: string = ''
 
   @ApiPropertyRichText()
-    description?: string = ''
+  description?: string = ''
 
   @ApiPropertyOptional({ example: 1 })
-    parentId?: number = Number.NaN
+  parentId?: number = Number.NaN
 }

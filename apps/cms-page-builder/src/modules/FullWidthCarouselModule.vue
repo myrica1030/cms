@@ -1,11 +1,11 @@
 <template>
-  <Carousel v-slot="{slide, index}" :slides="module.slides">
+  <Carousel v-slot="{ slide, index }" :slides="module.slides">
     <div class="mask" />
     <div class="content">
       <h2 :contenteditable="contenteditable" @blur="e => updateContent(index, 'title', e.target?.innerHTML ?? '')">
         {{ slide.title }}
       </h2>
-      <p :contenteditable="contenteditable" @blur="e => updateContent(index,'body', e.target?.innerHTML ?? '')">
+      <p :contenteditable="contenteditable" @blur="e => updateContent(index, 'body', e.target?.innerHTML ?? '')">
         {{ slide.body }}
       </p>
       <Button v-if="slide.button" :contenteditable="contenteditable" v-bind="slide.button" />
@@ -14,8 +14,8 @@
 </template>
 
 <script setup lang="ts">
-import {currentSection} from 'src/stores/pageBuilder'
-import {computed} from 'vue'
+import { computed } from 'vue'
+import { currentSection } from 'src/stores/pageBuilder'
 import Button from '../components/Button.vue'
 import Carousel from '../components/Carousel.vue'
 
@@ -29,8 +29,8 @@ const emit = defineEmits<{
 
 const contenteditable = computed(() => (currentSection.value && 'module' in currentSection.value && currentSection.value.module.id === props.module.id) ?? undefined)
 
-const updateContent = (index: number, prop: keyof UI.Slide, html: string) => {
-  const newSlide: UI.Slide = { ...props.module.slides[index], [prop]: html.replace(/^(\s|<br>)+|(\s|<br>)+$/g, '') }
+function updateContent(index: number, prop: keyof UI.Slide, html: string) {
+  const newSlide: UI.Slide = { ...props.module.slides[index], [prop]: html.replaceAll(/^(\s|<br>)+|(\s|<br>)+$/g, '') }
   const newSlides: UI.Slide[] = props.module.slides.map((slide, i) => i === index ? newSlide : slide)
   emit('update', { ...props.module, slides: newSlides })
 }

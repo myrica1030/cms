@@ -1,17 +1,18 @@
-import {Injectable, NotFoundException} from '@nestjs/common'
-import {InjectRepository} from '@nestjs/typeorm'
-import {Repository} from 'typeorm'
-import {ArticleEntity} from 'src/article/article.entity'
-import {CreateArticleDto} from 'src/article/dto/createArticle.dto'
-import {CategoryService} from 'src/category/category.service'
-import {FormException} from 'src/exception'
-import {TagService} from 'src/tag/tag.service'
-import {UserService} from 'src/user/user.service'
-import {PaginationOptions, PaginationRo, paginate} from 'src/utils/paginate'
+import { Injectable, NotFoundException } from '@nestjs/common'
+import { InjectRepository } from '@nestjs/typeorm'
+import type { Repository } from 'typeorm'
+import { ArticleEntity } from 'src/article/article.entity'
+import type { CreateArticleDto } from 'src/article/dto/createArticle.dto'
+import type { CategoryService } from 'src/category/category.service'
+import { FormException } from 'src/exception'
+import type { TagService } from 'src/tag/tag.service'
+import type { UserService } from 'src/user/user.service'
+import type { PaginationOptions, PaginationRo } from 'src/utils/paginate'
+import { paginate } from 'src/utils/paginate'
 
 @Injectable()
 export class ArticleService {
-  constructor (
+  constructor(
     @InjectRepository(ArticleEntity)
     private readonly repository: Repository<ArticleEntity>,
     private readonly tagService: TagService,
@@ -19,7 +20,7 @@ export class ArticleService {
     private readonly categoryService: CategoryService,
   ) {}
 
-  async createArticle (userId: number, createArticleDto: CreateArticleDto): Promise<ArticleEntity> {
+  async createArticle(userId: number, createArticleDto: CreateArticleDto): Promise<ArticleEntity> {
     const { categoryId, tags, ...dto } = createArticleDto
 
     const articleEntity = this.repository.create(dto)
@@ -45,15 +46,15 @@ export class ArticleService {
     return await this.repository.save(articleEntity)
   }
 
-  async retrieveArticles (options: PaginationOptions): Promise<PaginationRo<ArticleEntity>> {
+  async retrieveArticles(options: PaginationOptions): Promise<PaginationRo<ArticleEntity>> {
     return await paginate(this.repository, options)
   }
 
-  async findArticle (id: number): Promise<ArticleEntity | null> {
+  async findArticle(id: number): Promise<ArticleEntity | null> {
     return await this.repository.findOneBy({ id })
   }
 
-  async updateArticle (id: number, createArticleDto: CreateArticleDto, userId: number): Promise<ArticleEntity> {
+  async updateArticle(id: number, createArticleDto: CreateArticleDto, userId: number): Promise<ArticleEntity> {
     const { tags, categoryId, ...dto } = createArticleDto
     const [
       articleEntity,

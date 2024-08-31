@@ -1,6 +1,6 @@
-import {ApiProperty} from '@nestjs/swagger'
-import {Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn} from 'typeorm'
-import {ApiPropertyDatetime, ApiPropertyRichText} from 'src/decorators'
+import { ApiProperty } from '@nestjs/swagger'
+import { Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from 'typeorm'
+import { ApiPropertyDatetime, ApiPropertyRichText } from 'src/decorators'
 
 const nullable = true
 
@@ -9,21 +9,21 @@ export class TagEntity {
   @Column({ type: 'text' })
   @PrimaryColumn()
   @ApiProperty({ example: 'semantic-ui' })
-    key: string
+  key: string
 
   @Column({ type: 'text' })
   @ApiProperty({ example: 'Semantic UI' })
-    name: string
+  name: string
 
   @Column({ type: 'text', nullable })
   @ApiPropertyRichText()
-    description?: string
+  description?: string
 
   @CreateDateColumn()
   @ApiPropertyDatetime()
-    createdAt: string
+  createdAt: string
 
   @UpdateDateColumn()
   @ApiPropertyDatetime()
-    updatedAt: string
+  updatedAt: string
 }

@@ -1,5 +1,5 @@
-import {vitest} from 'vitest'
-import {debounce} from '../debounce'
+import { vitest } from 'vitest'
+import { debounce } from '../debounce'
 
 describe('# debounce', () => {
   afterEach(() => {
@@ -51,7 +51,7 @@ describe('# debounce', () => {
   it('should bind this correctly', () => {
     const obj = {
       target: 'foo',
-      fn () { callback(this.target) },
+      fn() { callback(this.target) },
       debounced: () => {},
     }
 

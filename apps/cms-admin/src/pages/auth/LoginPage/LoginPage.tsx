@@ -1,11 +1,11 @@
-import React, {useCallback, useEffect} from 'react'
-import {useNavigate} from 'react-router-dom'
-import {Loader} from 'semantic-ui-react'
+import React, { useCallback, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { Loader } from 'semantic-ui-react'
 import FormRenderer from 'src/components/form/FormRenderer'
 import useAuthorizationContext from 'src/contexts/authorization/authorization.context'
-import {loginForm, loginFormFields} from 'src/pages/auth/LoginPage/LoginPage.form'
-import {routeMap} from 'src/route'
-import {service, useSubmit} from 'src/services'
+import { loginForm, loginFormFields } from 'src/pages/auth/LoginPage/LoginPage.form'
+import { routeMap } from 'src/route'
+import { service, useSubmit } from 'src/services'
 
 import './LoginPage.scss'
 
@@ -32,23 +32,26 @@ const LoginPage: React.FC = () => {
       const authRo = await onLogin(form)
       mountAuthorization(authRo)
       redirectToFrom()
-    } catch (error) {
+    }
+    catch (error) {
       // TODO: error handling
-      // eslint-disable-next-line no-console
+
       console.error(error)
     }
   }
 
-  return <div className='LoginPage'>
-    <FormRenderer
-      ref={formRef}
-      className='form'
-      submitting={submitting}
-      fields={loginFormFields}
-      initForm={loginForm}
-      onSubmit={onSubmit}
-    />
-  </div>
+  return (
+    <div className="LoginPage">
+      <FormRenderer
+        ref={formRef}
+        className="form"
+        submitting={submitting}
+        fields={loginFormFields}
+        initForm={loginForm}
+        onSubmit={onSubmit}
+      />
+    </div>
+  )
 }
 
 export default LoginPage

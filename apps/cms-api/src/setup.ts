@@ -1,9 +1,10 @@
-import { INestApplication, Logger } from '@nestjs/common'
+import type { INestApplication } from '@nestjs/common'
+import { Logger } from '@nestjs/common'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import { version } from 'package.json'
 import { NEST_PORT } from 'src/config'
 
-export function createSwagger (app: INestApplication): void {
+export function createSwagger(app: INestApplication): void {
   const logger = new Logger('Swagger')
 
   const options = new DocumentBuilder()

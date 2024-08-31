@@ -28,13 +28,13 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted } from 'vue'
 import examplePageConfig from 'src/examplePageConfig'
 import SectionDistributor from 'src/page-builder/SectionDistributor.vue'
 import SectionOperator from 'src/page-builder/SectionOperator.vue'
-import {currentDragOverSection, currentDragSection, currentSection, sectionModal} from 'src/stores/pageBuilder'
-import {pageConfig} from 'src/stores/pageConfig'
-import {onMounted} from 'vue'
-import {throttle} from 'src/utils'
+import { currentDragOverSection, currentDragSection, currentSection, sectionModal } from 'src/stores/pageBuilder'
+import { pageConfig } from 'src/stores/pageConfig'
+import { throttle } from 'src/utils'
 
 pageConfig.value = examplePageConfig
 
@@ -42,30 +42,30 @@ onMounted(() => {
   document.addEventListener('dragover', e => e.preventDefault())
 })
 
-function onSelectSection (section: UI.Section) {
+function onSelectSection(section: UI.Section) {
   if (sectionModal.value) return
   currentSection.value = section
 }
 
-function onSectionUpdate (index: number, section: UI.Section) {
+function onSectionUpdate(index: number, section: UI.Section) {
   pageConfig.value.sections[index] = section
 }
 
-function onDragStart (section: UI.Section) {
-  const index = pageConfig.value.sections.findIndex(it => it === section)
+function onDragStart(section: UI.Section) {
+  const index = pageConfig.value.sections.indexOf(section)
   currentDragSection.value = pageConfig.value.sections[index]
   currentSection.value = null
   pageConfig.value.sections.splice(index, 1)
 }
 
-function onDragEnd () {
+function onDragEnd() {
   let insertIndex = pageConfig.value.sections.findIndex(it => it.id === currentDragOverSection.value.section?.id)
   if (!currentDragOverSection.value.isTop) insertIndex += 1
   pageConfig.value.sections.splice(insertIndex, 0, currentDragSection.value!)
   currentDragSection.value = null
 }
 
-const onDragOver = throttle(function (event: DragEvent) {
+const onDragOver = throttle((event: DragEvent) => {
   const sectionElement = (event.target as HTMLElement)?.closest('section')
   if (!sectionElement) return
   event.stopPropagation()
@@ -73,7 +73,7 @@ const onDragOver = throttle(function (event: DragEvent) {
   const isTop = event.clientY < topThreshold
   const sectionId = sectionElement?.id.replace(/^section-/, '')
   const section = pageConfig.value.sections.find(it => it.id === sectionId) ?? null
-  currentDragOverSection.value = ({ section, isTop })
+  currentDragOverSection.value = { section, isTop }
 }, 100)
 </script>
 

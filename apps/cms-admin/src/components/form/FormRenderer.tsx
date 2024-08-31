@@ -1,11 +1,13 @@
-import React, {useEffect, useImperativeHandle, useState} from 'react'
-import {pick} from 'lodash'
-import {Form, Message, StrictDropdownItemProps} from 'semantic-ui-react'
+import React, { useEffect, useImperativeHandle, useState } from 'react'
+import { pick } from 'lodash'
+import type { StrictDropdownItemProps } from 'semantic-ui-react'
+import { Form, Message } from 'semantic-ui-react'
 import FormInputField from 'src/components/form/FormInputField'
 import FormRichField from 'src/components/form/FormRichField'
-import FormSelectField, {FormSelectFieldProps} from 'src/components/form/FormSelectField'
-import {ERROR_MESSAGE} from 'src/constants/message'
-import {fieldErrorSeparator, focusErrorField, sentence} from 'src/utils/form.util'
+import type { FormSelectFieldProps } from 'src/components/form/FormSelectField'
+import FormSelectField from 'src/components/form/FormSelectField'
+import { ERROR_MESSAGE } from 'src/constants/message'
+import { fieldErrorSeparator, focusErrorField, sentence } from 'src/utils/form.util'
 
 export interface FieldBasicConfig<T = string> {
   name: T
@@ -59,12 +61,12 @@ interface FormRendererProps<K extends string, F extends FormData<K>> {
 }
 
 export interface BasicFieldProps<T> extends FieldBasicConfig<T> {
-  key?: string
+  'key'?: string
   'aria-label'?: string
-  error?: string
+  'error'?: string
 }
 
-const FormRenderer = <K extends string, F extends FormData<K>>(props: FormRendererProps<K, F>, forwardedRef: React.Ref<FormRendererHandle>): React.ReactElement => {
+function FormRenderer<K extends string, F extends FormData<K>>(props: FormRendererProps<K, F>, forwardedRef: React.Ref<FormRendererHandle>): React.ReactElement {
   const [form, setForm] = useState<F>(props.initForm ?? {} as F)
   useEffect(() => {
     setForm(props.initForm ?? {} as F)
@@ -133,21 +135,25 @@ const FormRenderer = <K extends string, F extends FormData<K>>(props: FormRender
     switch (field.type) {
       case 'text':
       case 'password': {
-        return <FormInputField
-          {...fieldProps}
-          type={field.type}
-          value={form[field.name] as string ?? ''}
-          onChange={value => onChange(field, value)}
-          onBlur={() => validateField(field)}
-        />
+        return (
+          <FormInputField
+            {...fieldProps}
+            type={field.type}
+            value={form[field.name] as string ?? ''}
+            onChange={value => onChange(field, value)}
+            onBlur={() => validateField(field)}
+          />
+        )
       }
       case 'rich': {
-        return <FormRichField
-          {...fieldProps}
-          value={form[field.name] as string ?? ''}
-          onChange={value => onChange(field, value)}
-          onBlur={() => validateField(field)}
-        />
+        return (
+          <FormRichField
+            {...fieldProps}
+            value={form[field.name] as string ?? ''}
+            onChange={value => onChange(field, value)}
+            onBlur={() => validateField(field)}
+          />
+        )
       }
       case 'select': {
         const selectProps: FormSelectFieldProps<K> = {
@@ -155,14 +161,14 @@ const FormRenderer = <K extends string, F extends FormData<K>>(props: FormRender
           ...pick(field, ['creatable', 'onAddItem', 'options']),
           ...field.multiple
             ? {
-              multiple: true,
-              value: form[field.name] as string[] ?? [],
-              onChange: (value: string[]) => onChange(field, value),
-            }
+                multiple: true,
+                value: form[field.name] as string[] ?? [],
+                onChange: (value: string[]) => onChange(field, value),
+              }
             : {
-              value: form[field.name] as string ?? '',
-              onChange: (value: string) => onChange(field, value),
-            },
+                value: form[field.name] as string ?? '',
+                onChange: (value: string) => onChange(field, value),
+              },
         }
         return <FormSelectField {...selectProps} />
       }
@@ -170,23 +176,25 @@ const FormRenderer = <K extends string, F extends FormData<K>>(props: FormRender
     return null
   })
 
-  return <Form noValidate data-testid='form' className={props.className} error={!!errors.form} onSubmit={onSubmit}>
+  return (
+    <Form noValidate data-testid="form" className={props.className} error={!!errors.form} onSubmit={onSubmit}>
 
-    {renderFields}
+      {renderFields}
 
-    <Form.Button
-      primary
-      aria-label='Submit'
-      type='submit'
-      content={props.submitText ?? 'Submit'}
-      loading={props.submitting}
-    />
-    <Message
-      error
-      header='Server error'
-      content='Please check your internet or contact admin.'
-    />
-  </Form>
+      <Form.Button
+        primary
+        aria-label="Submit"
+        type="submit"
+        content={props.submitText ?? 'Submit'}
+        loading={props.submitting}
+      />
+      <Message
+        error
+        header="Server error"
+        content="Please check your internet or contact admin."
+      />
+    </Form>
+  )
 }
 
 export type FormRef = React.RefObject<FormRendererHandle> | null

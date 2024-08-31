@@ -43,7 +43,12 @@
     </div>
 
     <div class="button-group">
-      <button aria-label="Close modal" class="close" title="Close" @click="emit('close')">
+      <button
+        aria-label="Close modal"
+        class="close"
+        title="Close"
+        @click="emit('close')"
+      >
         <ion-icon name="close-outline" />
       </button>
       <button aria-label="Undo" class="undo" title="Undo">
@@ -64,21 +69,20 @@
 </template>
 
 <script setup lang="ts">
+import { nextTick, onBeforeUnmount, onMounted, reactive, ref } from 'vue'
 import storage from 'src/storage'
-import {getScrollbarWidth, toStyle} from 'src/utils'
-import {nextTick, onBeforeUnmount, onMounted, reactive, ref} from 'vue'
+import { getScrollbarWidth, toStyle } from 'src/utils'
 import Expansions from './Expansions.vue'
 
+const emit = defineEmits<{
+  (e: 'close'): void
+}>()
 const currentTab = ref(0)
 const tabs: { title: string, expansions: UI.Expansion[] }[] = [
   { title: 'Content', expansions: [{ summary: 'Text' }, { summary: 'Images' }, { summary: 'Link' }] },
   { title: 'Design', expansions: [{ summary: 'Text' }, { summary: 'Images' }, { summary: 'Link' }] },
   { title: 'Advanced', expansions: [{ summary: 'Text' }, { summary: 'Images' }, { summary: 'Link' }] },
 ]
-
-const emit = defineEmits<{
-  (e:'close'): void
-}>()
 
 onMounted(() => {
   window.addEventListener('keydown', onKeyDown)
@@ -98,30 +102,31 @@ onMounted(() => {
   if (!modal.value) return
   const styleInStore = storage.modalPosition
   const style = styleInStore || window.getComputedStyle(modal.value)
-  modalStyle.left = parseInt(String(style.left))
-  modalStyle.top = parseInt(String(style.top))
-  modalStyle.width = parseInt(String(style.width))
-  modalStyle.height = parseInt(String(style.height))
+  modalStyle.left = Number.parseInt(String(style.left))
+  modalStyle.top = Number.parseInt(String(style.top))
+  modalStyle.width = Number.parseInt(String(style.width))
+  modalStyle.height = Number.parseInt(String(style.height))
   onMouseUp()
 })
 
-let draggingModal = ref(false)
+const draggingModal = ref(false)
 const onDraggingStart = () => (draggingModal.value = true)
 
-let resizingModal = ref(false)
+const resizingModal = ref(false)
 const onResizingStart = () => (resizingModal.value = true)
 
-const onKeyDown = (event: KeyboardEvent) => {
+function onKeyDown(event: KeyboardEvent) {
   if (event.key === 'Escape') return emit('close')
 }
 
-const onMouseMove = (event: MouseEvent) => {
+function onMouseMove(event: MouseEvent) {
   if (draggingModal.value) {
     modalStyle.left ??= 0
     modalStyle.left += event.movementX
     modalStyle.top ??= 0
     modalStyle.top += event.movementY
-  } else if (resizingModal.value) {
+  }
+  else if (resizingModal.value) {
     modalStyle.width ??= 0
     modalStyle.width += event.movementX
     modalStyle.height ??= 0
@@ -129,12 +134,12 @@ const onMouseMove = (event: MouseEvent) => {
   }
 }
 
-const onMouseUp = async (event: MouseEvent | { movementX: number, movementY: number, target: any } = {} as any) => {
+async function onMouseUp(event: MouseEvent | { movementX: number, movementY: number, target: any } = {} as any) {
   const scrollbarWidth = getScrollbarWidth()
   if (!modal.value) return
   const computedStyle = getComputedStyle(modal.value)
-  const width = parseInt(computedStyle.width)
-  const height = parseInt(computedStyle.height)
+  const width = Number.parseInt(computedStyle.width)
+  const height = Number.parseInt(computedStyle.height)
 
   draggingModal.value = false
   resizingModal.value = false
@@ -151,7 +156,7 @@ const onMouseUp = async (event: MouseEvent | { movementX: number, movementY: num
 
   modalStyle.width ??= 0
   modalStyle.height ??= 0
-  if ((modalStyle.width) < 400) modalStyle.width = 400
+  if (modalStyle.width < 400) modalStyle.width = 400
   else if (modalStyle.width > window.innerWidth - scrollbarWidth) modalStyle.width = window.innerWidth - scrollbarWidth
   if (modalStyle.height < 300) modalStyle.height = 300
   else if (modalStyle.height > window.innerHeight) modalStyle.height = window.innerHeight

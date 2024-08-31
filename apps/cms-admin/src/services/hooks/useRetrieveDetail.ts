@@ -1,11 +1,11 @@
-import {useCallback, useEffect, useState} from 'react'
-import {AxiosResponse} from 'axios'
-import {RequestParams} from 'src/services/api'
+import { useCallback, useEffect, useState } from 'react'
+import type { AxiosResponse } from 'axios'
+import type { RequestParams } from 'src/services/api'
 
 type RetrieveDetailRequest<Entity = unknown> = (id: number, params?: RequestParams) => Promise<AxiosResponse<Entity>>
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export function useRetrieveDetail <Entity = unknown> (request: RetrieveDetailRequest<Entity>, id: number) {
+export function useRetrieveDetail<Entity = unknown>(request: RetrieveDetailRequest<Entity>, id: number) {
   const [loading, setLoading] = useState(false)
   const [detail, setDetail] = useState<Entity>()
 
@@ -14,9 +14,11 @@ export function useRetrieveDetail <Entity = unknown> (request: RetrieveDetailReq
       setLoading(true)
       const { data } = await request(id, ...retrieveArgs)
       setDetail(data)
-    } catch {
+    }
+    catch {
       // TODO: error handling
-    } finally {
+    }
+    finally {
       setLoading(false)
     }
   }, [id, request])

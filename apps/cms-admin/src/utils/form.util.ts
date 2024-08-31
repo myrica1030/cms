@@ -1,7 +1,7 @@
-import {lowerCase, upperFirst} from 'lodash'
-import {ERROR_MESSAGE, PUNCTUATION} from 'src/constants/message'
+import { lowerCase, upperFirst } from 'lodash'
+import { ERROR_MESSAGE, PUNCTUATION } from 'src/constants/message'
 
-export function focusErrorField (): void {
+export function focusErrorField(): void {
   setTimeout(() => {
     const firstErrorField = document.querySelector('.error.field')
 
@@ -17,7 +17,7 @@ export type FormExceptionKey =
 
 export const fieldErrorSeparator = `${PUNCTUATION.SEMICOLON}\n`
 
-export function fieldErrorDecorator (field: string, errors: FormExceptionKey[]): string {
+export function fieldErrorDecorator(field: string, errors: FormExceptionKey[]): string {
   const errorMap: Record<FormExceptionKey, (field: string, ...args: unknown[]) => string> = {
     isNotEmpty: ERROR_MESSAGE.REQUIRED,
     isExist: ERROR_MESSAGE.EXIST,
@@ -34,6 +34,6 @@ export function fieldErrorDecorator (field: string, errors: FormExceptionKey[]):
   return messages.join(fieldErrorSeparator)
 }
 
-export function sentence (text: string): string {
-  return upperFirst(text.replace(/\b(\w+)\b/g, lowerCase))
+export function sentence(text: string): string {
+  return upperFirst(text.replaceAll(/\b(\w+)\b/g, lowerCase))
 }

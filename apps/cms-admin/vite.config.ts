@@ -2,7 +2,7 @@ import path from 'node:path'
 import url from 'node:url'
 import reactPlugin from '@vitejs/plugin-react-swc'
 import dayjs from 'dayjs'
-import {defineConfig} from 'vite'
+import { defineConfig } from 'vite'
 
 const resolve = (subPath: string) => path.resolve(path.dirname(url.fileURLToPath(import.meta.url)), subPath)
 
@@ -25,7 +25,7 @@ export default defineConfig({
         target: 'http://localhost:8080',
         changeOrigin: true,
         configure: proxy => {
-          proxy.on('proxyReq', (req) => {
+          proxy.on('proxyReq', req => {
             console.log(dayjs().format('HH:mm:ss.SSS'), `Request '${req.method} ${req.path}' sent`)
           })
           proxy.on('proxyRes', (res, req) => {

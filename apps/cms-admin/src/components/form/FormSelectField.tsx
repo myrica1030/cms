@@ -1,7 +1,8 @@
-import React, {useEffect, useState} from 'react'
-import {kebabCase, pick, xor} from 'lodash'
-import {Form, FormDropdownProps, Icon, StrictDropdownProps} from 'semantic-ui-react'
-import {SelectFieldConfig, SelectOption} from 'src/components/form/FormRenderer'
+import React, { useEffect, useState } from 'react'
+import { kebabCase, pick, xor } from 'lodash'
+import type { FormDropdownProps, StrictDropdownProps } from 'semantic-ui-react'
+import { Form, Icon } from 'semantic-ui-react'
+import type { SelectFieldConfig, SelectOption } from 'src/components/form/FormRenderer'
 
 interface SelectFieldConfigProps<T> extends Partial<Omit<SelectFieldConfig<T>, 'type'>> {
   error?: string
@@ -19,7 +20,7 @@ interface MultipleSelect<T, V extends SelectOption['value'] = string> extends Se
 export type FormSelectFieldProps<T> = SingleSelect<T> | MultipleSelect<T>
 
 // eslint-disable-next-line react/function-component-definition
-function FormSelectField <T> (props: FormSelectFieldProps<T>) {
+function FormSelectField<T>(props: FormSelectFieldProps<T>) {
   const [options, setOptions] = useState<SelectOption[]>(Array.isArray(props.options) ? props.options : [])
 
   useEffect(() => {
@@ -37,7 +38,8 @@ function FormSelectField <T> (props: FormSelectFieldProps<T>) {
         setOptions(options => options.filter(o => !o.image || !deleted.includes(o.value)))
       }
       props.onChange(value.map(v => typeof v === 'string' ? kebabCase(v) : v) as any)
-    } else {
+    }
+    else {
       props.onChange(typeof value === 'string' ? kebabCase(value) as any : value)
     }
   }
@@ -48,7 +50,7 @@ function FormSelectField <T> (props: FormSelectFieldProps<T>) {
       text,
       value: kebabCase(text),
       disabled: true,
-      image: <Icon loading name='spinner' />,
+      image: <Icon loading name="spinner" />,
     }
     setOptions(options => [...options, newOption])
     try {
@@ -61,11 +63,12 @@ function FormSelectField <T> (props: FormSelectFieldProps<T>) {
         options[index].text = returnValue.text
         return [...options]
       })
-    } catch {
+    }
+    catch {
       setOptions(options => {
         const index = options.findIndex(o => o.text === text)
         options[index].disabled = true
-        options[index].image = <Icon name='times' color='red' />
+        options[index].image = <Icon name="times" color="red" />
         return [...options]
       })
     }

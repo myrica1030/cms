@@ -1,4 +1,4 @@
-import {UserSafeEntity} from 'src/user/user.entity'
+import type { UserSafeEntity } from 'src/user/user.entity'
 
 const adminEntity: UserSafeEntity = {
   id: 1,

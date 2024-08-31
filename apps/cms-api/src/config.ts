@@ -1,6 +1,6 @@
 import * as process from 'node:process'
-import {config} from 'dotenv-flow'
-import {LoggerOptions} from 'typeorm/logger/LoggerOptions'
+import { config } from 'dotenv-flow'
+import type { LoggerOptions } from 'typeorm/logger/LoggerOptions'
 
 config()
 

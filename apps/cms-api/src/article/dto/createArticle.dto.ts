@@ -1,6 +1,6 @@
-import {ApiProperty, ApiPropertyOptional} from '@nestjs/swagger'
-import {IsNotEmpty} from 'class-validator'
-import {ApiPropertyRichText} from 'src/decorators'
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
+import { IsNotEmpty } from 'class-validator'
+import { ApiPropertyRichText } from 'src/decorators'
 
 export class CreateArticleDto {
   @IsNotEmpty()

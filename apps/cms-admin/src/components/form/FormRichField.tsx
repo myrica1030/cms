@@ -1,7 +1,7 @@
-import React, {useEffect, useRef, useState} from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import ReactQuill from 'react-quill'
 import classNames from 'classnames'
-import {BasicFieldProps} from 'src/components/form/FormRenderer'
+import type { BasicFieldProps } from 'src/components/form/FormRenderer'
 
 import 'react-quill/dist/quill.snow.css'
 import './Form.scss'
@@ -32,21 +32,23 @@ const FormRichField: React.FC<FormRichFieldProps> = props => {
   // TODO: support required prop
   // TODO: support error prop
 
-  return <div className='field'>
-    <label>{props.label}</label>
+  return (
+    <div className="field">
+      <label>{props.label}</label>
 
-    <div ref={ref} className='ui rich-editor' data-testid='editor-wrapper'>
-      <ReactQuill
-        className={classNames({ focus })}
-        theme='snow'
-        placeholder={props.placeholder}
-        readOnly={props.disabled}
-        value={props.value}
-        onBlur={props.onBlur}
-        onChange={props.onChange}
-      />
+      <div ref={ref} className="ui rich-editor" data-testid="editor-wrapper">
+        <ReactQuill
+          className={classNames({ focus })}
+          theme="snow"
+          placeholder={props.placeholder}
+          readOnly={props.disabled}
+          value={props.value}
+          onBlur={props.onBlur}
+          onChange={props.onChange}
+        />
+      </div>
     </div>
-  </div>
+  )
 }
 
 export default React.memo(FormRichField, (prevProps, nextProps) => {

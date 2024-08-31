@@ -1,6 +1,6 @@
 import React from 'react'
-import {act, renderHook} from '@testing-library/react'
-import {isFormError, useSubmit} from './useSubmit'
+import { act, renderHook } from '@testing-library/react'
+import { isFormError, useSubmit } from './useSubmit'
 
 describe('# isFormError', () => {
   it('should return true when error has data message and status code is 422', () => {

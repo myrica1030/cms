@@ -1,18 +1,18 @@
-import {ApiProperty, ApiPropertyOptional} from '@nestjs/swagger'
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
 import {
-    Column,
-    CreateDateColumn,
-    Entity,
-    JoinTable,
-    ManyToMany,
-    ManyToOne,
-    PrimaryGeneratedColumn,
-    UpdateDateColumn,
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm'
-import {CategoryEntity} from 'src/category/category.entity'
-import {ApiPropertyDatetime, ApiPropertyRichText} from 'src/decorators'
-import {TagEntity} from 'src/tag/tag.entity'
-import {UserEntity, UserSafeEntity} from 'src/user/user.entity'
+import { CategoryEntity } from 'src/category/category.entity'
+import { ApiPropertyDatetime, ApiPropertyRichText } from 'src/decorators'
+import { TagEntity } from 'src/tag/tag.entity'
+import { UserEntity, UserSafeEntity } from 'src/user/user.entity'
 
 const nullable = true
 
@@ -20,34 +20,34 @@ const nullable = true
 export class ArticleEntity {
   @PrimaryGeneratedColumn()
   @ApiProperty({ example: 1 })
-    id: number
+  id: number
 
   @ManyToOne(() => UserEntity, { eager: true, cascade: ['update'] })
   @ApiProperty({ type: UserSafeEntity, description: 'Article author' })
-    author: UserSafeEntity
+  author: UserSafeEntity
 
   @Column({ type: 'text' })
   @ApiProperty({ example: 'Lorem ipsum' })
-    title: string
+  title: string
 
   @ManyToOne(() => CategoryEntity, { eager: true, cascade: ['update'] })
   @ApiPropertyOptional({ type: CategoryEntity, description: 'Article category' })
-    category?: CategoryEntity
+  category?: CategoryEntity
 
   @ManyToMany(() => TagEntity, { eager: true })
   @JoinTable()
   @ApiProperty({ type: TagEntity, isArray: true, description: 'Article tags' })
-    tags: TagEntity[]
+  tags: TagEntity[]
 
   @Column({ type: 'text', nullable })
   @ApiPropertyRichText()
-    content?: string
+  content?: string
 
   @CreateDateColumn()
   @ApiPropertyDatetime()
-    createdAt: string
+  createdAt: string
 
   @UpdateDateColumn()
   @ApiPropertyDatetime()
-    updatedAt: string
+  updatedAt: string
 }

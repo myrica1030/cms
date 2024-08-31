@@ -1,8 +1,9 @@
-import {DataSource, DataSourceOptions} from 'typeorm'
-import {ArticleEntity} from 'src/article/article.entity'
-import {CategoryEntity} from 'src/category/category.entity'
-import {TagEntity} from 'src/tag/tag.entity'
-import {UserEntity} from 'src/user/user.entity'
+import type { DataSourceOptions } from 'typeorm'
+import { DataSource } from 'typeorm'
+import { ArticleEntity } from 'src/article/article.entity'
+import { CategoryEntity } from 'src/category/category.entity'
+import { TagEntity } from 'src/tag/tag.entity'
+import { UserEntity } from 'src/user/user.entity'
 import * as config from './config'
 
 export const allEntities = [

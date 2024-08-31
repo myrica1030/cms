@@ -1,5 +1,5 @@
-import {CreateTagDto} from 'src/tag/dto/createTag.dto'
-import {TagEntity} from 'src/tag/tag.entity'
+import type { CreateTagDto } from 'src/tag/dto/createTag.dto'
+import type { TagEntity } from 'src/tag/tag.entity'
 
 const dto: CreateTagDto = {
   key: 'semantic-ui',

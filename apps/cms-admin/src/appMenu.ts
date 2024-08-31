@@ -1,4 +1,4 @@
-import {SemanticICONS} from 'semantic-ui-react'
+import type { SemanticICONS } from 'semantic-ui-react'
 
 export type AppKey = 'dashboard' | 'content'
 
