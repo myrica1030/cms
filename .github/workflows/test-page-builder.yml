@@ -53,27 +53,37 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
 
-# TODO: migrate to playwright
-#  page-builder-component-test:
-#    name: 'Component test: cms-page-builder'
-#    runs-on: ubuntu-latest
-#
-#    steps:
-#      - uses: actions/checkout@v4
-#      - uses: pnpm/action-setup@v4
-#        with:
-#          version: 9
-#      - uses: actions/setup-node@v4
-#        with:
-#          node-version: 22
-#          cache: pnpm
-#
-#      - run: pnpm install
-#
-#      - run: pnpm test:component
-#        working-directory: apps/cms-page-builder
-#
-#      - name: Upload coverage to Codecov
-#        uses: codecov/codecov-action@v4
-#        with:
-#          token: ${{ secrets.CODECOV_TOKEN }}
+  # TODO: migrate to playwright
+  page-builder-component-test:
+    name: 'Component test: cms-page-builder'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install
+
+      - name: run cypress component test
+        uses: cypress-io/github-action@v6
+        with:
+          component: true
+          working-directory: apps/cms-page-builder
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: component-test,page-builder
+
+      - name: Upload test results to Codecov
+        if: ${{ !cancelled() }}
+        uses: codecov/test-results-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}

@@ -13,3 +13,4 @@ dist-ssr
 coverage
 cypress/videos
 cypress/screenshots
+cypress/reports
