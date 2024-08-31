@@ -17,7 +17,7 @@ export default defineConfig({
     dir: __dirname,
     include: ['specs/**/*.integration.spec.ts'],
     globals: true,
-    reporters: ['text', 'html', 'json', 'junit'],
+    reporters: ['basic', 'html', 'json', 'junit'],
     coverage: {
       provider: 'v8',
       include: ['src/**/*.ts'],

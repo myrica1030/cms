@@ -9,7 +9,7 @@ export default defineConfig({
     name: 'api-unit',
     globals: true,
     include: ['src/**/*.spec.ts'],
-    reporters: ['text', 'html', 'json', 'junit'],
+    reporters: ['basic', 'html', 'json', 'junit'],
     coverage: {
       provider: 'v8',
       include: ['src/**/*.ts'],

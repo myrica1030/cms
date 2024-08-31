@@ -29,6 +29,7 @@ export default defineConfig({
   ],
   test: {
     name: 'page-builder-unit',
+    reporters: ['basic', 'html', 'json', 'junit'],
     globals: true,
     environment: 'node',
     include: [

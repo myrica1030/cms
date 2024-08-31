@@ -44,7 +44,7 @@ export default defineConfig({
     testTimeout: 4000,
     setupFiles: 'src/setupTests.ts',
     environment: 'happy-dom',
-    reporters: ['text', 'html', 'json', 'junit'],
+    reporters: ['basic', 'html', 'json', 'junit'],
     include: [
       '**/__tests__/**/*.{ts,tsx}',
       '**/*.{spec,test}.{ts,tsx}',
