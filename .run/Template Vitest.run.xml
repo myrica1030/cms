@@ -1,7 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="true" type="JavaScriptTestRunnerVitest">
     <node-interpreter value="project" />
-    <vitest-options value="--threads false" />
     <envs />
     <scope-kind value="ALL" />
     <method v="2" />

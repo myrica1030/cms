@@ -1,3 +1,4 @@
+/// <reference types="vitest" />
 import path from 'node:path'
 import url from 'node:url'
 import vue from '@vitejs/plugin-vue'
@@ -26,4 +27,19 @@ export default defineConfig({
       },
     }),
   ],
+  test: {
+    globals: true,
+    include: [
+      'src/**/*.(spec|test).ts',
+    ],
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'html', 'json'],
+      exclude: [
+        'node_modules/',
+        'src/setupTests.ts',
+        '**/__test__/',
+      ],
+    },
+  },
 })
