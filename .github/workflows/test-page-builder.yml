@@ -1,0 +1,72 @@
+name: test-page-builder
+
+on:
+  push:
+    paths-ignore:
+      - apps/cms-admin
+      - apps/cms-api
+      - '**.md'
+  pull_request:
+    paths-ignore:
+      - apps/cms-admin
+      - apps/cms-api
+      - '**.md'
+
+env:
+  CI: true
+
+jobs:
+  page-builder-unit-test:
+    name: 'Unit test: cms-page-builder'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install
+
+      - run: pnpm type-check
+        working-directory: apps/cms-page-builder
+
+      - run: pnpm lint
+        working-directory: apps/cms-page-builder
+
+      - run: pnpm test:unit
+        working-directory: apps/cms-page-builder
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+# TODO: migrate to playwright
+#  page-builder-component-test:
+#    name: 'Component test: cms-page-builder'
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      - uses: actions/checkout@v4
+#      - uses: pnpm/action-setup@v4
+#        with:
+#          version: 9
+#      - uses: actions/setup-node@v4
+#        with:
+#          node-version: 22
+#          cache: pnpm
+#
+#      - run: pnpm install
+#
+#      - run: pnpm test:component
+#        working-directory: apps/cms-page-builder
+#
+#      - name: Upload coverage to Codecov
+#        uses: codecov/codecov-action@v4
+#        with:
+#          token: ${{ secrets.CODECOV_TOKEN }}

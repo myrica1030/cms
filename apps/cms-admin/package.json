@@ -11,7 +11,8 @@
     "serve": "vite preview",
     "type-check": "tsc",
     "lint": "eslint .",
-    "test": "vitest run --coverage",
+    "test": "pnpm test:unit",
+    "test:unit": "vitest run --coverage",
     "swagger": "bash scripts/sync-swagger-api.sh",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },

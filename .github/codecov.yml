@@ -1,0 +1,14 @@
+component_management:
+  individual_components:
+    - component_id: cms-api
+      name: cms-api
+      paths:
+        - apps/cms-api
+    - component_id: cms-admin
+      name: cms-admin
+      paths:
+        - apps/cms-admin
+    - component_id: cms-page-builder
+      name: cms-page-builder
+      paths:
+        - apps/cms-page-builder
