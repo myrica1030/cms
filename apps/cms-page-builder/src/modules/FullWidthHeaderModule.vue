@@ -34,7 +34,7 @@ import {currentSection} from 'src/stores/pageBuilder'
 import {computed} from 'vue'
 import Button from '../components/Button.vue'
 
-const { module } = defineProps<{
+const props = defineProps<{
   module: UI.FullWidthHeaderModule
 }>()
 
@@ -42,10 +42,10 @@ const emit = defineEmits<{
   (e:'update', module: UI.FullWidthHeaderModule): void
 }>()
 
-const contenteditable = computed(() => (currentSection.value && 'module' in currentSection.value && currentSection.value.module.id === module.id) ?? undefined)
+const contenteditable = computed(() => (currentSection.value && 'module' in currentSection.value && currentSection.value.module.id === props.module.id) ?? undefined)
 
 const updateContent = (prop: keyof Pick<UI.FullWidthHeaderModule, 'title' | 'subTitle' | 'body'>, html: string) => {
-  const newModule: UI.FullWidthHeaderModule = { ...module, [prop]: html.replace(/^(\s|<br>)+|(\s|<br>)+$/g, '') }
+  const newModule: UI.FullWidthHeaderModule = { ...props.module, [prop]: html.replace(/^(\s|<br>)+|(\s|<br>)+$/g, '') }
   emit('update', newModule)
 }
 </script>

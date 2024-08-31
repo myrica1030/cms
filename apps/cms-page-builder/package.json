@@ -24,12 +24,12 @@
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },
   "dependencies": {
-    "vue": "^3.2.47"
+    "vue": "^3.4.38"
   },
   "devDependencies": {
     "@mutoe/eslint-config-preset-vue": "~3.0.0",
     "@testing-library/cypress": "^9.0.0",
-    "@types/node": "^18.15.11",
+    "@types/node": "^22.5.1",
     "@vitejs/plugin-vue": "^4.1.0",
     "@vitest/coverage-c8": "^0.29.8",
     "concurrently": "^8.0.1",
@@ -37,10 +37,10 @@
     "eslint": "^8.38.0",
     "eslint-plugin-cypress": "^2.13.2",
     "sass": "^1.61.0",
-    "typescript": "^5.0.4",
-    "vite": "^4.2.1",
+    "typescript": "~5.5.4",
+    "vite": "^4.5.3",
     "vitest": "^0.29.8",
-    "vue-tsc": "^1.2.0"
+    "vue-tsc": "^2.1.2"
   },
   "eslintIgnore": [
     "public/ionicons",

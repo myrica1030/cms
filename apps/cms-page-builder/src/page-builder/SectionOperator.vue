@@ -51,17 +51,17 @@ function onModalClose () {
 }
 
 type SectionRect = Partial<Record<'top' | 'height' | 'opacity', number>>
-let borderRect = $ref<SectionRect>({ top: 0, height: 0, opacity: 0 })
-let dragOverRect = $ref<SectionRect>({ top: 0, height: 0, opacity: 0 })
+let borderRect = ref<SectionRect>({ top: 0, height: 0, opacity: 0 })
+let dragOverRect = ref<SectionRect>({ top: 0, height: 0, opacity: 0 })
 
 watch(currentSection, (section) => {
   if (sectionModal.value) return
-  if (!section || currentDragSection.value) return (borderRect = {})
+  if (!section || currentDragSection.value) return (borderRect.value = {})
 
   currentModalSection.value = section
-  dragOverRect = {}
+  dragOverRect.value = {}
   const element = document.querySelector(`#section-${section.id}`) as HTMLElement
-  borderRect = {
+  borderRect.value = {
     top: element.offsetTop,
     height: element.offsetHeight,
     opacity: element ? 1 : 0,
@@ -69,12 +69,12 @@ watch(currentSection, (section) => {
 })
 
 watch(currentDragOverSection, ({ section, isTop }) => {
-  if (!section || !currentDragSection.value) return (dragOverRect = {})
+  if (!section || !currentDragSection.value) return (dragOverRect.value = {})
 
   const element = document.querySelector(`#section-${section.id}`) as HTMLElement
   let offsetTop = element.offsetTop
   if (!isTop) offsetTop += element.offsetHeight - dragOverPlaceholderHeight
-  dragOverRect = {
+  dragOverRect.value = {
     top: offsetTop,
     height: dragOverPlaceholderHeight,
     opacity: 1,
@@ -93,7 +93,7 @@ function onDelete () {
   const targetIndex = pageConfig.value.sections.findIndex(it => it.id === currentSection.value?.id)
   if (targetIndex === -1) return pageConfig
   pageConfig.value.sections.splice(targetIndex, 1)
-  borderRect = {}
+  borderRect.value = {}
 }
 
 const emit = defineEmits<{

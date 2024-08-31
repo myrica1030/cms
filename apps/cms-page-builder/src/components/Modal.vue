@@ -66,10 +66,10 @@
 <script setup lang="ts">
 import storage from 'src/storage'
 import {getScrollbarWidth, toStyle} from 'src/utils'
-import {nextTick, onBeforeUnmount, onMounted, reactive} from 'vue'
+import {nextTick, onBeforeUnmount, onMounted, reactive, ref} from 'vue'
 import Expansions from './Expansions.vue'
 
-const currentTab = $ref(0)
+const currentTab = ref(0)
 const tabs: { title: string, expansions: UI.Expansion[] }[] = [
   { title: 'Content', expansions: [{ summary: 'Text' }, { summary: 'Images' }, { summary: 'Link' }] },
   { title: 'Design', expansions: [{ summary: 'Text' }, { summary: 'Images' }, { summary: 'Link' }] },
@@ -91,13 +91,13 @@ onBeforeUnmount(() => {
   window.removeEventListener('mouseup', onMouseUp)
 })
 
-const modal = $ref<HTMLDivElement | null>(null)
+const modal = ref<HTMLDivElement | null>(null)
 const modalStyle: UI.ModalStyle = reactive({})
 
 onMounted(() => {
-  if (!modal) return
+  if (!modal.value) return
   const styleInStore = storage.modalPosition
-  const style = styleInStore || getComputedStyle(modal)
+  const style = styleInStore || window.getComputedStyle(modal.value)
   modalStyle.left = parseInt(String(style.left))
   modalStyle.top = parseInt(String(style.top))
   modalStyle.width = parseInt(String(style.width))
@@ -105,23 +105,23 @@ onMounted(() => {
   onMouseUp()
 })
 
-let draggingModal = $ref(false)
-const onDraggingStart = () => (draggingModal = true)
+let draggingModal = ref(false)
+const onDraggingStart = () => (draggingModal.value = true)
 
-let resizingModal = $ref(false)
-const onResizingStart = () => (resizingModal = true)
+let resizingModal = ref(false)
+const onResizingStart = () => (resizingModal.value = true)
 
 const onKeyDown = (event: KeyboardEvent) => {
   if (event.key === 'Escape') return emit('close')
 }
 
 const onMouseMove = (event: MouseEvent) => {
-  if (draggingModal) {
+  if (draggingModal.value) {
     modalStyle.left ??= 0
     modalStyle.left += event.movementX
     modalStyle.top ??= 0
     modalStyle.top += event.movementY
-  } else if (resizingModal) {
+  } else if (resizingModal.value) {
     modalStyle.width ??= 0
     modalStyle.width += event.movementX
     modalStyle.height ??= 0
@@ -131,16 +131,16 @@ const onMouseMove = (event: MouseEvent) => {
 
 const onMouseUp = async (event: MouseEvent | { movementX: number, movementY: number, target: any } = {} as any) => {
   const scrollbarWidth = getScrollbarWidth()
-  if (!modal) return
-  const computedStyle = getComputedStyle(modal)
+  if (!modal.value) return
+  const computedStyle = getComputedStyle(modal.value)
   const width = parseInt(computedStyle.width)
   const height = parseInt(computedStyle.height)
 
-  draggingModal = false
-  resizingModal = false
+  draggingModal.value = false
+  resizingModal.value = false
 
   // When dragged out of the window, target is document
-  if (event.target === document || event.target?.closest?.('.modal') === modal) {
+  if (event.target === document || event.target?.closest?.('.modal') === modal.value) {
     modalStyle.transition = 'all .1s ease-out'
     setTimeout(() => {
       modalStyle.transition = undefined

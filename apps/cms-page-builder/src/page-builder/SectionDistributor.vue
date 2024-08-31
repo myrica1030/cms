@@ -14,15 +14,16 @@
 import FullWidthCarouselModule from '../modules/FullWidthCarouselModule.vue'
 import FullWidthImageModule from '../modules/FullWidthImageModule.vue'
 import FullWidthHeaderModule from '../modules/FullWidthHeaderModule.vue'
+import {computed} from "vue";
 
-const { section } = defineProps<{
+const props = defineProps<{
   section: UI.Section
 }>()
 const emit = defineEmits<{
   (e: 'update', section: UI.Section): void
 }>()
 
-const module = $computed<UI.FullWidthModule | null>(() => 'module' in section ? section.module : null)
+const module = computed<UI.FullWidthModule | null>(() => 'module' in props.section ? props.section.module : null)
 
 const fullWidthModuleMap: Record<UI.FullWidthModule['type'], unknown> = {
   'full-width-header': FullWidthHeaderModule,
@@ -31,7 +32,7 @@ const fullWidthModuleMap: Record<UI.FullWidthModule['type'], unknown> = {
 }
 
 function onUpdate (module: UI.Module) {
-  if (!('module' in section)) return
-  emit('update', { ...section, module })
+  if (!('module' in props.section)) return
+  emit('update', { ...props.section, module })
 }
 </script>

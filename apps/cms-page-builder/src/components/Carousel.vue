@@ -40,46 +40,45 @@
 </template>
 
 <script setup lang="ts">
-import {onBeforeUnmount, onMounted} from 'vue'
+import {onBeforeUnmount, onMounted, ref} from 'vue'
 
-const {
-  slides,
-  arrow = true,
-  indicator = true,
-  duration = 5000,
-} = defineProps<{
+const props = withDefaults(defineProps<{
   slides: UI.Slide[]
   arrow?: boolean
   indicator?: boolean
   duration?: number
-}>()
+}>(), {
+  arrow: true,
+  indicator : true,
+  duration : 5000,
+})
 
-let currentSlide = $ref(0)
-let pause = $ref(false)
+let currentSlide = ref(0)
+let pause = ref(false)
 
 const nextSlide = () => {
-  currentSlide += 1
-  if (currentSlide >= slides.length) currentSlide = 0
+  currentSlide.value += 1
+  if (currentSlide.value >= props.slides.length) currentSlide.value = 0
 }
 
 const prevSlide = () => {
-  currentSlide -= 1
-  if (currentSlide < 0) currentSlide = slides.length - 1
+  currentSlide.value -= 1
+  if (currentSlide.value < 0) currentSlide.value = props.slides.length - 1
 }
 
 const autoplay = () => {
   setInterval(() => {
-    if (pause) return
+    if (pause.value) return
     nextSlide()
-  }, duration)
+  }, props.duration)
 }
 
 const onVisibilityChange = () => {
-  pause = document.visibilityState === 'hidden'
+  pause.value = document.visibilityState === 'hidden'
 }
 
 onMounted(() => {
-  duration > 0 && autoplay()
+  props.duration > 0 && autoplay()
   document.addEventListener('visibilitychange', onVisibilityChange)
 })
 onBeforeUnmount(() => {

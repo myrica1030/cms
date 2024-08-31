@@ -19,7 +19,7 @@ import {computed} from 'vue'
 import Button from '../components/Button.vue'
 import Carousel from '../components/Carousel.vue'
 
-const { module } = defineProps<{
+const props = defineProps<{
   module: UI.FullWidthCarouselModule
 }>()
 
@@ -27,12 +27,12 @@ const emit = defineEmits<{
   (e: 'update', module: UI.FullWidthCarouselModule): void
 }>()
 
-const contenteditable = computed(() => (currentSection.value && 'module' in currentSection.value && currentSection.value.module.id === module.id) ?? undefined)
+const contenteditable = computed(() => (currentSection.value && 'module' in currentSection.value && currentSection.value.module.id === props.module.id) ?? undefined)
 
 const updateContent = (index: number, prop: keyof UI.Slide, html: string) => {
-  const newSlide: UI.Slide = { ...module.slides[index], [prop]: html.replace(/^(\s|<br>)+|(\s|<br>)+$/g, '') }
-  const newSlides: UI.Slide[] = module.slides.map((slide, i) => i === index ? newSlide : slide)
-  emit('update', { ...module, slides: newSlides })
+  const newSlide: UI.Slide = { ...props.module.slides[index], [prop]: html.replace(/^(\s|<br>)+|(\s|<br>)+$/g, '') }
+  const newSlides: UI.Slide[] = props.module.slides.map((slide, i) => i === index ? newSlide : slide)
+  emit('update', { ...props.module, slides: newSlides })
 }
 </script>
 

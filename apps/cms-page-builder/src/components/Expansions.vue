@@ -22,16 +22,17 @@
 
 <script setup lang="ts">
 import Collapse from 'src/components/Collapse.vue'
+import {ref} from "vue";
 
 defineProps<{
   list: UI.Expansion[]
 }>()
 
-let currentExpand = $ref(-1)
+let currentExpand = ref(-1)
 
 const onToggle = (index: number) => {
-  if (currentExpand === index) currentExpand = -1
-  else currentExpand = index
+  if (currentExpand.value === index) currentExpand.value = -1
+  else currentExpand.value = index
 }
 </script>
 
