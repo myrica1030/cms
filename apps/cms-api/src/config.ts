@@ -4,8 +4,7 @@ import type { LoggerOptions } from 'typeorm/logger/LoggerOptions'
 
 config()
 
-// eslint-disable-next-line no-eval
-const parseBool = (value: string | undefined): boolean | undefined => ['true', 'false'].includes(value as string) ? eval(value as string) : undefined
+const parseBool = (value: string | undefined): boolean | undefined => ['true', 'false'].includes(value as string) ? value === 'true' : undefined
 const parseInt = (value: string | undefined): number | undefined => value ? Number.parseInt(value ?? '') : undefined
 
 export const DEV = process.env.NODE_ENV === 'development'

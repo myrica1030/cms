@@ -14,7 +14,7 @@ export const allEntities = [
 ]
 
 export const dataSourceOptions: DataSourceOptions = {
-  type: config.TYPEORM_DRIVER as any,
+  type: config.TYPEORM_DRIVER as 'postgres',
   host: config.TYPEORM_HOST,
   schema: config.TYPEORM_SCHEMA,
   username: config.TYPEORM_USERNAME,

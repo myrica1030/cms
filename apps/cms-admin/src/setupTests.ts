@@ -31,7 +31,7 @@ document.createRange = (): Range => ({
     nodeName: 'BODY',
     ownerDocument: document,
   },
-}) as any
+}) as unknown as Range
 
 afterEach(() => {
   vi.clearAllMocks()

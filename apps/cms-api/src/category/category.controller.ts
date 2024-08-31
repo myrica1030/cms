@@ -19,7 +19,7 @@ export class CategoryController {
   @ApiCreatedResponse({ type: CategoryEntity })
   @ApiInvalidFormResponse()
   async createCategory(@Body() createCategoryDto: CreateCategoryDto): Promise<CategoryEntity> {
-    return await this.service.createCategory(createCategoryDto)
+    return this.service.createCategory(createCategoryDto)
   }
 
   @Get()
@@ -27,7 +27,7 @@ export class CategoryController {
   @ApiOkResponse({ type: CategoryEntity, isArray: true })
   @ApiNotFoundResponse()
   async retrieveRootCategories(): Promise<CategoryEntity[]> {
-    return await this.service.retrieveRootCategories()
+    return this.service.retrieveRootCategories()
   }
 
   @Get(':categoryId')

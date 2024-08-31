@@ -17,11 +17,11 @@ export class TagService {
   ) {}
 
   async createTag(createTagDto: CreateTagDto): Promise<TagEntity> {
-    return await this.repository.save(createTagDto)
+    return this.repository.save(createTagDto)
   }
 
   async retrieveTags(options: PaginationOptions): Promise<PaginationRo<TagEntity>> {
-    return await paginate(this.repository, options)
+    return paginate(this.repository, options)
   }
 
   async getTags(tags: string[]): Promise<TagEntity[]> {

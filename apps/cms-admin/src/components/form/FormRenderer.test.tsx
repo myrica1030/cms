@@ -47,10 +47,10 @@ describe('# Form Renderer Component', () => {
     ]
 
     container = render(<FormRenderer fields={fields} submitText={submitText} onSubmit={onSubmit} />).container
-    username = screen.getByRole('textbox', { name: 'Username' }) as HTMLInputElement
-    password = screen.getByPlaceholderText('Password') as HTMLInputElement
-    select = screen.getByRole('combobox', { name: 'Select' }) as HTMLDivElement
-    form = screen.getByTestId('form') as HTMLFormElement
+    username = screen.getByRole('textbox', { name: 'Username' })
+    password = screen.getByPlaceholderText('Password')
+    select = screen.getByRole('combobox', { name: 'Select' })
+    form = screen.getByTestId('form')
   })
 
   describe('common feature', () => {

@@ -43,15 +43,15 @@ export class ArticleService {
       category: categoryEntity ?? undefined,
       author: userSafeEntity ?? undefined,
     })
-    return await this.repository.save(articleEntity)
+    return this.repository.save(articleEntity)
   }
 
   async retrieveArticles(options: PaginationOptions): Promise<PaginationRo<ArticleEntity>> {
-    return await paginate(this.repository, options)
+    return paginate(this.repository, options)
   }
 
   async findArticle(id: number): Promise<ArticleEntity | null> {
-    return await this.repository.findOneBy({ id })
+    return this.repository.findOneBy({ id })
   }
 
   async updateArticle(id: number, createArticleDto: CreateArticleDto, userId: number): Promise<ArticleEntity> {
@@ -77,6 +77,6 @@ export class ArticleService {
       category: categoryEntity ?? undefined,
       author: userSafeEntity ?? undefined,
     })
-    return await this.repository.save(articleEntity)
+    return this.repository.save(articleEntity)
   }
 }

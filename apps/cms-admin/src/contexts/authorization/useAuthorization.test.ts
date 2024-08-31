@@ -4,6 +4,7 @@ import type { Mock } from 'vitest'
 import useAuthorization from 'src/contexts/authorization/useAuthorization'
 import { service } from 'src/services'
 import StorageUtil from 'src/utils/storage.util'
+import type { AuthRo } from '../../services/api'
 
 vi.mock('src/services')
 
@@ -62,8 +63,8 @@ describe('# Authorization Context', () => {
     mockRetrieveProfile.mockResolvedValue({ username: 'foo' } as any)
     const { result } = renderHook(() => useAuthorization(), { wrapper: MemoryRouter, initialProps: {} })
 
-    await act(() => {
-      result.current.mountAuthorization({ id: 1, token: 'token' } as any)
+    act(() => {
+      result.current.mountAuthorization({ id: 1, token: 'token' } as AuthRo)
     })
 
     expect(mockSetSecurityData).toHaveBeenCalledWith('token')

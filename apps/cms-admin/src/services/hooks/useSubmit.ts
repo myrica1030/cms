@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import type { AxiosError, AxiosResponse } from 'axios'
+import { isAxiosError } from 'axios'
 import type { FormRef } from 'src/components/form/FormRenderer'
 import type { RequestParams } from 'src/services/api'
 import type { FormExceptionKey } from 'src/utils/form.util'
@@ -7,9 +8,9 @@ import { fieldErrorDecorator, focusErrorField } from 'src/utils/form.util'
 
 export type FormErrorResponse = Record<string, FormExceptionKey[]>
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export function isFormError(error: any): error is AxiosError<FormErrorResponse> {
-  return error.response?.status === 422 && error.response.data
+export function isFormError(error: unknown): error is AxiosError<FormErrorResponse> {
+  if (!isAxiosError(error)) return false
+  return error.response?.status === 422 && !!error.response.data
 }
 
 type SubmitRequest<Req = unknown, Res = unknown> = (body: Req, params?: RequestParams) => Promise<AxiosResponse<Res>>
@@ -30,8 +31,9 @@ export function useSubmit<Req = unknown, Res = unknown>(request: SubmitRequest<R
   const submitRequest = async (...args: unknown[]): Promise<Res> => {
     try {
       setSubmitting(true)
-      const response = await (request as any)(...args)
-      return response.data
+      // eslint-disable-next-line ts/no-unsafe-function-type
+      const response = await (request as Function)(...args) as AxiosResponse
+      return response.data as Res
     }
     catch (error) {
       if (formRef.current && isFormError(error)) {

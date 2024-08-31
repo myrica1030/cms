@@ -4,5 +4,5 @@ export function pick<T extends Record<K, any>, K extends string>(object: T, path
   for (const key of paths) {
     result[key] = object[key]
   }
-  return result as any
+  return result as Pick<T, K>
 }

@@ -29,14 +29,14 @@ export class CategoryService {
       categoryEntity.parent = { id: dto.parentId } as CategoryEntity
     }
 
-    return await this.repository.save(categoryEntity)
+    return this.repository.save(categoryEntity)
   }
 
   async retrieveRootCategories(): Promise<CategoryEntity[]> {
-    return await this.repository.findBy({ parent: IsNull() })
+    return this.repository.findBy({ parent: IsNull() })
   }
 
   async findCategory(categoryId: number): Promise<CategoryEntity | null> {
-    return await this.repository.findOneBy({ id: categoryId })
+    return this.repository.findOneBy({ id: categoryId })
   }
 }

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 // This optional code is used to register a service worker.
 // register() is not called by default.
 
@@ -143,7 +144,12 @@ export function unregister(): void {
         void registration.unregister()
       })
       .catch(error => {
-        console.error(error.message)
+        if (error instanceof Error) {
+          console.error(error.message)
+        }
+        else {
+          console.error(error)
+        }
       })
   }
 }

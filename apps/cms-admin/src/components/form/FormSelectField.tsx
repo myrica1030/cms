@@ -19,7 +19,6 @@ interface MultipleSelect<T, V extends SelectOption['value'] = string> extends Se
 }
 export type FormSelectFieldProps<T> = SingleSelect<T> | MultipleSelect<T>
 
-// eslint-disable-next-line react/function-component-definition
 function FormSelectField<T>(props: FormSelectFieldProps<T>) {
   const [options, setOptions] = useState<SelectOption[]>(Array.isArray(props.options) ? props.options : [])
 
@@ -28,7 +27,6 @@ function FormSelectField<T>(props: FormSelectFieldProps<T>) {
       if (typeof props.options !== 'function') return
       setOptions(await props.options())
     })()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.options])
 
   const onChange = (value: StrictDropdownProps['value']) => {
@@ -37,9 +35,11 @@ function FormSelectField<T>(props: FormSelectFieldProps<T>) {
         const deleted = xor(value, options.map(o => o.value))
         setOptions(options => options.filter(o => !o.image || !deleted.includes(o.value)))
       }
+      // eslint-disable-next-line ts/no-unsafe-argument
       props.onChange(value.map(v => typeof v === 'string' ? kebabCase(v) : v) as any)
     }
     else {
+      // eslint-disable-next-line ts/no-unsafe-argument
       props.onChange(typeof value === 'string' ? kebabCase(value) as any : value)
     }
   }
@@ -83,7 +83,7 @@ function FormSelectField<T>(props: FormSelectFieldProps<T>) {
     'clearable': !props.required,
     'aria-label': props.label,
     'onChange': (_, { value }) => onChange(value),
-    'onAddItem': async (_, { value }) => await onAddItem(value as string),
+    'onAddItem': async (_, { value }) => onAddItem(value as string),
   }
 
   return <Form.Dropdown {...dropdownProps} />

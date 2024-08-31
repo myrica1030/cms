@@ -4,7 +4,6 @@ import type { RequestParams } from 'src/services/api'
 
 type RetrieveDetailRequest<Entity = unknown> = (id: number, params?: RequestParams) => Promise<AxiosResponse<Entity>>
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function useRetrieveDetail<Entity = unknown>(request: RetrieveDetailRequest<Entity>, id: number) {
   const [loading, setLoading] = useState(false)
   const [detail, setDetail] = useState<Entity>()

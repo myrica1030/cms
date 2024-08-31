@@ -1,8 +1,9 @@
+/* eslint-disable ts/no-unsafe-argument,ts/no-unsafe-member-access */
 import type { INestApplication } from '@nestjs/common'
 import request from 'supertest'
 
 export async function getToken(app: INestApplication): Promise<string> {
-  return await new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     request(app.getHttpServer()).post('/auth/register')
       .send({
         username: 'admin',
@@ -16,7 +17,7 @@ export async function getToken(app: INestApplication): Promise<string> {
 }
 
 export function mockDate(date: Date | string | number): () => void {
-  const { Date } = global
+  const { Date } = globalThis
 
   class MockDate extends Date {
     constructor() {
@@ -24,9 +25,9 @@ export function mockDate(date: Date | string | number): () => void {
     }
   }
 
-  global.Date = MockDate as DateConstructor
+  globalThis.Date = MockDate as DateConstructor
 
   return () => {
-    global.Date = Date
+    globalThis.Date = Date
   }
 }

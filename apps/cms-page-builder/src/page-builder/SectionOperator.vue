@@ -95,7 +95,7 @@ watch(currentDragOverSection, ({ section, isTop }) => {
 function onDuplicate() {
   const targetIndex = pageConfig.value.sections.findIndex(it => it.id === currentSection.value?.id)
   if (targetIndex === -1) return
-  const regularSection = cloneDeep(pageConfig.value.sections[targetIndex])
+  const regularSection = structuredClone(toRaw(pageConfig.value.sections[targetIndex]))
   regularSection.id = generateId()
   pageConfig.value.sections.splice(targetIndex, 0, regularSection)
 }

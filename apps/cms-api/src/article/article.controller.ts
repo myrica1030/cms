@@ -25,7 +25,7 @@ export class ArticleController {
     @Request() { user }: AuthRequest,
       @Body() createArticleDto: CreateArticleDto,
   ): Promise<ArticleEntity> {
-    return await this.service.createArticle(+user.userId, createArticleDto)
+    return this.service.createArticle(+user.userId, createArticleDto)
   }
 
   @Get('/')
@@ -35,7 +35,7 @@ export class ArticleController {
     @Query('page') page: number,
       @Query('limit') limit: number,
   ): Promise<PaginationRo<ArticleEntity>> {
-    return await this.service.retrieveArticles({ page, limit })
+    return this.service.retrieveArticles({ page, limit })
   }
 
   @Get('/:articleId')
@@ -61,6 +61,6 @@ export class ArticleController {
       @Request() { user }: AuthRequest,
       @Body() createArticleDto: CreateArticleDto,
   ): Promise<ArticleEntity> {
-    return await this.service.updateArticle(+articleId, createArticleDto, user.userId)
+    return this.service.updateArticle(+articleId, createArticleDto, user.userId)
   }
 }

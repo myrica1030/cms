@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import type { FieldConfig, SelectOption } from 'src/components/form/FormRenderer'
 import { service } from 'src/services'
 import type { CreateArticleDto } from 'src/services/api'

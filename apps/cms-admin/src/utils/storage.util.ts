@@ -14,7 +14,7 @@ export default class StorageUtil<T> {
     if (!value) return null
 
     try {
-      return JSON.parse(value)
+      return JSON.parse(value) as T
     }
     catch {
       return null

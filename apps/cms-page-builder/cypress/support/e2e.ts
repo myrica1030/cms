@@ -19,9 +19,9 @@ import '@testing-library/cypress/add-commands'
 
 import './commands'
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// eslint-disable-next-line unused-imports/no-unused-vars
 declare namespace Cypress {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // eslint-disable-next-line unused-imports/no-unused-vars
   interface Chainable<Subject> {
     openModal: (nth?: number) => void
   }

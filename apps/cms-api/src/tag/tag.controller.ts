@@ -21,7 +21,7 @@ export class TagController {
   @ApiCreatedResponse({ type: TagEntity })
   @ApiInvalidFormResponse()
   async createTag(@Body() createTagDto: CreateTagDto): Promise<TagEntity> {
-    return await this.service.createTag(createTagDto)
+    return this.service.createTag(createTagDto)
   }
 
   @Get('/')
@@ -31,6 +31,6 @@ export class TagController {
     @Query('page') page: number,
       @Query('limit') limit: number,
   ): Promise<PaginationRo<TagEntity>> {
-    return await this.service.retrieveTags({ page, limit })
+    return this.service.retrieveTags({ page, limit })
   }
 }

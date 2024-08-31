@@ -1,14 +1,23 @@
-import defineConfig, { GLOB_TESTS } from '@mutoe/eslint-config'
+import defineConfig, { GLOB_SRC_EXT, GLOB_TESTS, GLOB_TSX } from '@mutoe/eslint-config'
 
 export default defineConfig({
+  typescript: {
+    tsconfigPath: 'tsconfig.json',
+  },
   ignores: [
     'apps/cms-page-builder/public/ionicons',
     'apps/cms-api/migration/**',
+    'apps/cms-admin/src/services/api.ts',
   ],
   overrides: {
     yaml: {
       'yaml/flow-sequence-bracket-spacing': ['error', 'always'],
     },
+  },
+}, {
+  files: [GLOB_TSX],
+  rules: {
+    'ts/no-misused-promises': 'off',
   },
 }, {
   files: [
@@ -29,8 +38,21 @@ export default defineConfig({
     'ts/explicit-module-boundary-types': 'off',
   },
 }, {
-  files: GLOB_TESTS,
+  files: [...GLOB_TESTS, `**/*.e2e-spec.${GLOB_SRC_EXT}`],
+  languageOptions: {
+    globals: {
+      Cypress: true,
+      cy: true,
+      it: true,
+      beforeEach: true,
+      describe: true,
+      expect: true,
+    },
+  },
   rules: {
     'ts/no-empty-function': 'off',
+    'ts/no-unsafe-member-access': 'off',
+    'ts/no-unsafe-assignment': 'off',
+    'ts/no-unsafe-argument': 'off',
   },
 })

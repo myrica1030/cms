@@ -26,9 +26,11 @@ export default defineConfig({
         changeOrigin: true,
         configure: proxy => {
           proxy.on('proxyReq', req => {
+            // eslint-disable-next-line no-console
             console.log(dayjs().format('HH:mm:ss.SSS'), `Request '${req.method} ${req.path}' sent`)
           })
           proxy.on('proxyRes', (res, req) => {
+            // eslint-disable-next-line no-console
             console.log(dayjs().format('HH:mm:ss.SSS'), `Request '${req.method} ${req.url}' was proxy with response ${res.statusCode}`)
           })
         },
