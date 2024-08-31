@@ -1,6 +1,8 @@
 /// <reference types="vitest" />
 import path from 'node:path'
+import process from 'node:process'
 import url from 'node:url'
+import { codecovVitePlugin } from '@codecov/vite-plugin'
 import reactPlugin from '@vitejs/plugin-react-swc'
 import dayjs from 'dayjs'
 import { defineConfig } from 'vite'
@@ -16,6 +18,11 @@ export default defineConfig({
   },
   plugins: [
     reactPlugin(),
+    codecovVitePlugin({
+      enableBundleAnalysis: process.env.CODECOV_TOKEN !== undefined,
+      bundleName: 'cms-admin',
+      uploadToken: process.env.CODECOV_TOKEN,
+    }),
   ],
   build: {
     chunkSizeWarningLimit: 768,

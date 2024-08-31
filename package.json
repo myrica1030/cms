@@ -8,10 +8,12 @@
   "main": "index.js",
   "scripts": {
     "prepare": "simple-git-hooks",
+    "build": "pnpm -r build",
     "type-check": "pnpm -r type-check",
     "test": "vitest run"
   },
   "devDependencies": {
+    "@codecov/vite-plugin": "0.0.1-beta.10",
     "@mutoe/eslint-config": "2.27.3-2",
     "@vitest/coverage-v8": "^2.0.5",
     "@vitest/ui": "^2.0.5",

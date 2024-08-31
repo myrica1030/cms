@@ -1,6 +1,8 @@
 /// <reference types="vitest" />
 import path from 'node:path'
+import process from 'node:process'
 import url from 'node:url'
+import { codecovVitePlugin } from '@codecov/vite-plugin'
 import vue from '@vitejs/plugin-vue'
 import { defineConfig } from 'vite'
 
@@ -25,6 +27,11 @@ export default defineConfig({
           isCustomElement: tag => ['ion-icon'].includes(tag),
         },
       },
+    }),
+    codecovVitePlugin({
+      enableBundleAnalysis: process.env.CODECOV_TOKEN !== undefined,
+      bundleName: 'cms-page-builder',
+      uploadToken: process.env.CODECOV_TOKEN,
     }),
   ],
   test: {
