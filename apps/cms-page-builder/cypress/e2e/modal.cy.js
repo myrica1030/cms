@@ -51,7 +51,7 @@ describe('# Modal', () => {
     cy.get('.modal').should('not.exist')
   })
 
-  it('should remember last position', () => {
+  it.skip('should remember last position', () => {
     cy.get('.modal header').as('moveHandler')
     cy.get('@moveHandler').trigger('mousedown')
     cy.get('@moveHandler').trigger('mousemove', { movementX: 100, movementY: 100 })

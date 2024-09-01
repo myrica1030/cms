@@ -70,20 +70,28 @@ jobs:
 
       - run: pnpm install
 
+      - run: pnpm cypress install
+        working-directory: apps/cms-page-builder
+
       - name: run cypress component test
         uses: cypress-io/github-action@v6
         with:
+          install: false
           component: true
           working-directory: apps/cms-page-builder
 
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v4
+      - name: run cypress e2e test
+        uses: cypress-io/github-action@v6
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          flags: component-test,page-builder
+          install: false
+          working-directory: apps/cms-page-builder
+          build: pnpm build
+          start: pnpm serve --port 5173
+          wait-on: http://localhost:5173
 
       - name: Upload test results to Codecov
         if: ${{ !cancelled() }}
         uses: codecov/test-results-action@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
+          file: 'apps/cms-page-builder/cypress/reports/junit-*.xml'
