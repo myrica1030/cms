@@ -1,5 +1,8 @@
+import process from 'node:process'
 import swc from 'unplugin-swc'
 import { defineConfig } from 'vitest/config'
+
+const isCI = !!process.env.CI
 
 export default defineConfig({
   plugins: [
@@ -9,7 +12,7 @@ export default defineConfig({
     name: 'api-unit',
     globals: true,
     include: ['src/**/*.spec.ts'],
-    reporters: ['basic', 'html', 'json', 'junit'],
+    reporters: isCI ? ['basic', 'json', 'junit'] : 'default',
     coverage: {
       provider: 'v8',
       include: ['src/**/*.ts'],

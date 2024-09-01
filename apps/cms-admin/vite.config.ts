@@ -8,6 +8,7 @@ import dayjs from 'dayjs'
 import { defineConfig } from 'vite'
 
 const resolve = (subPath: string) => path.resolve(path.dirname(url.fileURLToPath(import.meta.url)), subPath)
+const isCI = !!process.env.CI
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -51,7 +52,7 @@ export default defineConfig({
     testTimeout: 4000,
     setupFiles: 'src/setupTests.ts',
     environment: 'happy-dom',
-    reporters: ['basic', 'html', 'json', 'junit'],
+    reporters: isCI ? ['basic', 'json', 'junit'] : 'default',
     include: [
       '**/__tests__/**/*.{ts,tsx}',
       '**/*.{spec,test}.{ts,tsx}',

@@ -6,6 +6,8 @@ import { codecovVitePlugin } from '@codecov/vite-plugin'
 import vue from '@vitejs/plugin-vue'
 import { defineConfig } from 'vite'
 
+const isCI = !!process.env.CI
+
 // https://vitejs.dev/config/
 export default defineConfig({
   resolve: {
@@ -36,7 +38,7 @@ export default defineConfig({
   ],
   test: {
     name: 'page-builder-unit',
-    reporters: ['basic', 'html', 'json', 'junit'],
+    reporters: isCI ? ['basic', 'json', 'junit'] : 'default',
     globals: true,
     environment: 'node',
     include: [

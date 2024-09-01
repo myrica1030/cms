@@ -1,6 +1,9 @@
 import path from 'node:path'
+import process from 'node:process'
 import swc from 'unplugin-swc'
 import { defineConfig } from 'vitest/config'
+
+const isCI = !!process.env.CI
 
 export default defineConfig({
   resolve: {
@@ -17,7 +20,7 @@ export default defineConfig({
     dir: __dirname,
     include: ['specs/**/*.integration.spec.ts'],
     globals: true,
-    reporters: ['basic', 'html', 'json', 'junit'],
+    reporters: isCI ? ['basic', 'json', 'junit'] : 'default',
     coverage: {
       provider: 'v8',
       include: ['src/**/*.ts'],
