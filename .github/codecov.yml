@@ -12,3 +12,6 @@ component_management:
       name: cms-page-builder
       paths:
         - apps/cms-page-builder
+
+ignore:
+  - 'apps/*/*.config.(js|ts)'
