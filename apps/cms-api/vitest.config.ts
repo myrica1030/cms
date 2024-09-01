@@ -6,7 +6,9 @@ const isCI = !!process.env.CI
 
 export default defineConfig({
   plugins: [
-    swc.vite() as any,
+    swc.vite({
+      module: { type: 'es6' },
+    }) as any,
   ],
   test: {
     name: 'api-unit',
