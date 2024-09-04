@@ -23,7 +23,6 @@
     "@vitest/ui": "^2.0.5",
     "eslint": "^9.9.1",
     "lint-staged": "^15.2.9",
-    "prisma": "^5.19.1",
     "simple-git-hooks": "^2.11.1",
     "tsx": "^4.19.0",
     "type-fest": "^4.26.0",
