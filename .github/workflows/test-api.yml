@@ -34,6 +34,9 @@ jobs:
 
       - run: pnpm install
 
+      - run: pnpm prisma generate
+        working-directory: apps/cms-api
+
       - run: pnpm type-check
         working-directory: apps/cms-api
 
@@ -70,6 +73,9 @@ jobs:
           cache: pnpm
 
       - run: pnpm install
+
+      - run: pnpm prisma generate
+        working-directory: apps/cms-api
 
       - run: pnpm test:integration --coverage
         working-directory: apps/cms-api
