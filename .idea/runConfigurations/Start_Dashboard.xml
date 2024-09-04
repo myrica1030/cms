@@ -1,7 +1,7 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Start Dashboard" type="CompoundRunConfigurationType">
-    <toRun name="start:admin" type="js.build_tools.npm" />
-    <toRun name="start:api:watch" type="js.build_tools.npm" />
+    <toRun name="dev:admin" type="js.build_tools.npm" />
+    <toRun name="dev:api" type="js.build_tools.npm" />
     <method v="2" />
   </configuration>
 </component>

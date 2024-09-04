@@ -9,7 +9,7 @@ import {
 } from '@nestjs/swagger'
 import type { SchemaObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface'
 import type { ClassConstructor } from 'class-transformer'
-import type { FormExceptionBody } from 'common/exception/form-exception.exception'
+import type { FormError } from 'common/exception/form-exception.exception'
 import { PaginatedEntity } from '../entity/paginated.entity'
 
 export function ApiPaginatedOkResponse(itemType: ClassConstructor<unknown>, options: ApiResponseOptions = {}): MethodDecorator {
@@ -51,7 +51,7 @@ export function ApiInvalidFormResponse(): MethodDecorator & ClassDecorator {
     example: {
       username: ['isInvalid', 'isExist'],
       password: ['isNotEmpty'],
-    } as FormExceptionBody,
+    } as FormError,
   }
 
   return ApiUnprocessableEntityResponse({ schema })

@@ -1,17 +1,7 @@
 import React, { useState } from 'react'
 import type { DropdownItemProps } from 'semantic-ui-react'
-import {
-  Button,
-  Dropdown,
-  Header,
-  Icon,
-  Menu,
-  Pagination,
-  Placeholder,
-  Segment,
-} from 'semantic-ui-react'
-import type { PaginationDto } from 'src/services'
-import type { PaginationMeta } from 'src/services/api'
+import { Button, Dropdown, Header, Icon, Menu, Pagination, Placeholder, Segment } from 'semantic-ui-react'
+import type { PaginatedMetadata, PaginationQuery } from 'src/client/cms/cms-api'
 
 const paginationLimitOptions: DropdownItemProps[] = [
   { value: 10, text: 10 },
@@ -22,8 +12,8 @@ const paginationLimitOptions: DropdownItemProps[] = [
 interface ListWrapperProps {
   loading?: boolean
   error?: boolean
-  pageMeta?: PaginationMeta
-  onRetrieve?: (paginationDto: PaginationDto) => void
+  pageMeta?: PaginatedMetadata
+  onRetrieve?: (paginationQuery: PaginationQuery) => void
   children?: React.ReactNode
 }
 

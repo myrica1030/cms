@@ -1,14 +1,14 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { api } from 'src/client'
+import type { AuthEntity, UserEntity } from 'src/client/cms/cms-api'
 import { routeMap } from 'src/route'
-import { service } from 'src/services'
-import type { AuthRo, ProfileRo } from 'src/services/api'
 import StorageUtil from 'src/utils/storage.util'
 
 export interface AuthorizationState {
-  profile: ProfileRo | null
+  profile: UserEntity | null
   loading: boolean
-  mountAuthorization: (authRo: AuthRo) => void
+  mountAuthorization: (authEntity: AuthEntity) => void
   unmountAuthorization: () => void
 }
 
@@ -16,19 +16,19 @@ const authorizationTokenStorage = new StorageUtil<string>('auth_token')
 
 export default function useAuthorization(): AuthorizationState {
   const [loading, setLoading] = useState(true)
-  const [profile, setProfile] = useState<ProfileRo | null>(null)
+  const [user, setUser] = useState<UserEntity | null>(null)
   const navigate = useNavigate()
 
-  const mountAuthorization = (authRo: AuthRo) => {
-    setProfile(authRo)
-    authorizationTokenStorage.set(authRo.token)
-    service.setSecurityData(authRo.token)
+  const mountAuthorization: AuthorizationState['mountAuthorization'] = (authEntity: AuthEntity) => {
+    setUser(authEntity)
+    authorizationTokenStorage.set(authEntity.token)
+    api.setSecurityData(authEntity.token)
   }
 
   const unmountAuthorization = () => {
-    setProfile(null)
+    setUser(null)
     authorizationTokenStorage.remove()
-    service.setSecurityData(null)
+    api.setSecurityData(null)
   }
 
   const retrieveUserProfile = useCallback(async () => {
@@ -39,12 +39,12 @@ export default function useAuthorization(): AuthorizationState {
       setLoading(false)
       return
     }
-    service.setSecurityData(localToken)
+    api.setSecurityData(localToken)
 
     try {
       setLoading(true)
-      const { data: profile } = await service.user.profile()
-      setProfile(profile)
+      const { data: user } = await api.user.profile()
+      setUser(user)
     }
     catch {
       unmountAuthorization()
@@ -60,7 +60,7 @@ export default function useAuthorization(): AuthorizationState {
   }, [retrieveUserProfile])
 
   return {
-    profile,
+    profile: user,
     loading,
     mountAuthorization,
     unmountAuthorization,

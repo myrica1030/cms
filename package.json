@@ -15,6 +15,9 @@
     "type-check": "pnpm -r type-check",
     "test": "vitest run"
   },
+  "dependencies": {
+    "dotenv": "^16.4.5"
+  },
   "devDependencies": {
     "@codecov/vite-plugin": "0.0.1-beta.10",
     "@mutoe/eslint-config": "3.1.0-1",

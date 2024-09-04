@@ -1,8 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Button, Input, Menu, Table } from 'semantic-ui-react'
+import { api, useRetrieveList } from 'src/client'
 import ListWrapper from 'src/components/ListWrapper'
-import { service, useRetrieveList } from 'src/services'
 import { formatDateTime } from 'src/utils/format.util'
 
 const ArticleListPage: React.FC = () => {
@@ -12,7 +12,7 @@ const ArticleListPage: React.FC = () => {
     pageMeta,
     items: articles,
     retrieveList,
-  } = useRetrieveList(service.article.retrieveArticles)
+  } = useRetrieveList(api.article.retrieveArticles)
 
   return (
     <div>

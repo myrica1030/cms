@@ -1,6 +1,9 @@
 import type { INestApplication } from '@nestjs/common'
 import { Logger } from '@nestjs/common'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
+import { PaginationQuery } from 'common/dto/pagination.query'
+import { PaginatedEntity } from 'common/entity/paginated.entity'
+import { FormError } from 'common/exception/form-exception.exception'
 import { version } from 'package.json'
 import { NEST_PORT } from 'src/config'
 
@@ -19,7 +22,13 @@ export function createSwagger(app: INestApplication): void {
     .addTag('Category', 'Category')
     .build()
 
-  const document = SwaggerModule.createDocument(app, options)
+  const document = SwaggerModule.createDocument(app, options, {
+    extraModels: [
+      PaginationQuery,
+      PaginatedEntity,
+      FormError,
+    ],
+  })
   SwaggerModule.setup('/docs', app, document)
 
   setTimeout(() => {

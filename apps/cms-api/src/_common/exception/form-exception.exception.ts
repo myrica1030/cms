@@ -1,18 +1,22 @@
 import { UnprocessableEntityException } from '@nestjs/common'
+import { ApiEnumProperty } from 'src/_common/decorator/api-property.decorator'
 
-type FormExceptionKey =
-  | 'isNotEmpty'
-  | 'isExist'
-  | 'isNotExist'
-  | 'isInvalid'
-  | string
+export enum FormErrorCause {
+  IsNotEmpty = 'isNotEmpty',
+  IsExist = 'isExist',
+  IsNotExist = 'isNotExist',
+  IsInvalid = 'isInvalid',
+}
 
-export class FormExceptionBody implements Record<string, FormExceptionKey[]> {
-  [x: string]: FormExceptionKey[]
+export class FormError implements Record<string, (string | FormErrorCause)[]> {
+  @ApiEnumProperty({ FormErrorCause })
+  _?: any
+
+  [field: string]: (string | FormErrorCause)[]
 }
 
 export class FormException extends UnprocessableEntityException {
-  constructor(body: FormExceptionBody) {
+  constructor(body: FormError) {
     super(body)
   }
 }

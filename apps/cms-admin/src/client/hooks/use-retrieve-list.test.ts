@@ -1,6 +1,6 @@
 import { act, renderHook } from '@testing-library/react'
 import { noop } from 'lodash'
-import type { PaginationRo } from './use-retrieve-list'
+import type { PaginatedEntity } from 'src/client/type'
 import { useRetrieveList } from './use-retrieve-list'
 
 describe('# useRetrieveList', () => {
@@ -10,8 +10,8 @@ describe('# useRetrieveList', () => {
       status: 200,
       data: {
         items,
-        meta: { currentPage: 1, limit: 15, total: 10, totalPages: 1 },
-      } as PaginationRo<number>,
+        metadata: { currentPage: 1, limit: 15, total: 10, totalPages: 1 },
+      } as PaginatedEntity<number>,
     })
     const { result } = renderHook(() => useRetrieveList(request))
 
@@ -27,8 +27,9 @@ describe('# useRetrieveList', () => {
   })
 
   it('should display error when request failed', async () => {
+    vi.spyOn(console, 'error').mockImplementation(noop)
     const request = vi.fn().mockRejectedValue({
-      response: { status: 500 },
+      status: 500,
     })
 
     const { result } = renderHook(() => useRetrieveList(request))

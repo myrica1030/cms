@@ -1,9 +1,11 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
-import type { AxiosResponse } from 'axios'
-import type { Mock } from 'vitest'
-import { service } from 'src/services'
+import type { MockedFunction } from 'vitest'
+import { api } from 'src/client'
+import type { ArticleEntity, HttpResponse } from 'src/client/cms/cms-api'
+import type { PaginatedEntity } from 'src/client/type'
+import { articleFixture, paginatedMetadataFixture } from 'src/fixtures'
 import ArticleCreatePage from './ArticleCreatePage'
 
 const mockToast = vi.fn()
@@ -18,19 +20,19 @@ vi.mock('react-router-dom', () => ({
 }))
 
 describe('# ArticleCreatePage', () => {
-  const mockUseParams = useParams as Mock
-  const mockCreateRequest = vi.spyOn(service.article, 'createArticle')
-  const mockRetrieveTags = vi.spyOn(service.tag, 'retrieveTags')
-  const mockRetrieveCategories = vi.spyOn(service.category, 'retrieveRootCategories')
+  const mockedUseParams = useParams as MockedFunction<typeof useParams>
+  const mockedCreateRequest = vi.spyOn(api.article, 'createArticle')
+  const mockedRetrieveTags = vi.spyOn(api.tag, 'retrieveTags')
+  const mockedRetrieveCategories = vi.spyOn(api.category, 'retrieveRootCategories')
 
   beforeEach(async () => {
-    mockUseParams.mockReturnValue({ id: '1' })
-    mockCreateRequest.mockResolvedValue({ status: 201, data: { id: 1 } } as any)
-    mockRetrieveTags.mockResolvedValue({ status: 200, data: { items: [], meta: {} } } as AxiosResponse)
-    mockRetrieveCategories.mockResolvedValue({ status: 200, data: [] } as AxiosResponse)
+    mockedUseParams.mockReturnValue({ id: '1' })
+    mockedCreateRequest.mockResolvedValue({ status: 200, data: articleFixture.entity } as HttpResponse<ArticleEntity>)
+    mockedRetrieveTags.mockResolvedValue({ status: 200, data: { items: [], metadata: paginatedMetadataFixture } } as HttpResponse<PaginatedEntity>)
+    mockedRetrieveCategories.mockResolvedValue({ status: 200, data: [] } as HttpResponse)
 
     render(<ArticleCreatePage />)
-    await waitFor(() => expect(mockRetrieveTags).toHaveBeenCalled())
+    await waitFor(() => expect(mockedRetrieveTags).toHaveBeenCalled())
   })
 
   it('should render correctly', async () => {
@@ -54,6 +56,11 @@ describe('# ArticleCreatePage', () => {
 
     fireEvent.click(screen.getByRole('button', { name: 'Submit' }))
 
-    await waitFor(() => expect(mockCreateRequest).toHaveBeenCalledWith({ title: 'article title', tags: [], content: '', categoryId: 1 }))
+    await waitFor(() => expect(mockedCreateRequest).toHaveBeenCalledWith({
+      title: 'article title',
+      tags: [],
+      content: '',
+      categoryId: 1,
+    }))
   })
 })

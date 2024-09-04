@@ -1,16 +1,15 @@
 import { MemoryRouter } from 'react-router-dom'
 import { act, renderHook, waitFor } from '@testing-library/react'
-import type { Mock } from 'vitest'
+import { api } from 'src/client'
+import type { AuthEntity, HttpResponse, UserEntity } from 'src/client/cms/cms-api'
 import useAuthorization from 'src/contexts/authorization/use-authorization'
-import { service } from 'src/services'
 import StorageUtil from 'src/utils/storage.util'
-import type { AuthRo } from '../../services/api'
 
-vi.mock('src/services')
+vi.mock('src/client')
 
 describe('# Authorization Context', () => {
-  const mockSetSecurityData = service.setSecurityData as Mock
-  const mockRetrieveProfile = service.user.profile as Mock
+  const mockSetSecurityData = vi.spyOn(api, 'setSecurityData')
+  const mockRetrieveProfile = vi.spyOn(api.user, 'profile')
 
   it('should got auth with null when init state', async () => {
     const { result } = renderHook(() => useAuthorization(), {
@@ -31,7 +30,7 @@ describe('# Authorization Context', () => {
 
   it('should retrieve userProfile API when load context', async () => {
     vi.spyOn(StorageUtil.prototype, 'get').mockReturnValue('token')
-    mockRetrieveProfile.mockResolvedValue({ status: 200, data: { username: 'foo' } })
+    mockRetrieveProfile.mockResolvedValue({ status: 200, data: { username: 'foo' } } as HttpResponse<UserEntity>)
 
     const { result } = renderHook(() => useAuthorization(), { wrapper: MemoryRouter, initialProps: {} })
     await waitFor(() => expect(result.current.profile).toEqual({ username: 'foo' }))
@@ -64,7 +63,7 @@ describe('# Authorization Context', () => {
     const { result } = renderHook(() => useAuthorization(), { wrapper: MemoryRouter, initialProps: {} })
 
     await act(async () => {
-      result.current.mountAuthorization({ id: 1, token: 'token' } as AuthRo)
+      result.current.mountAuthorization({ id: 1, token: 'token' } as AuthEntity)
     })
 
     expect(mockSetSecurityData).toHaveBeenCalledWith('token')

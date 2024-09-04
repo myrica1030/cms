@@ -11,6 +11,6 @@ export class RegisterDto {
   readonly username: string
 
   @IsNotEmpty()
-  @ApiProperty({ example: '123456' })
+  @ApiProperty({ example: '123456', format: 'password' })
   readonly password: string
 }
