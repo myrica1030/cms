@@ -1,8 +1,8 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Menu } from 'semantic-ui-react'
-import type { ModuleMenu } from 'src/appMenu'
-import useModuleName from 'src/hooks/useModuleName'
+import type { ModuleMenu } from 'src/app-menu'
+import useModuleName from 'src/hooks/use-module-name'
 
 import './AppSidebar.scss'
 

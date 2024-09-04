@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import type { AppKey } from 'src/appMenu'
+import type { AppKey } from 'src/app-menu'
 import { routeMap } from 'src/route'
 
 function useModuleName() {

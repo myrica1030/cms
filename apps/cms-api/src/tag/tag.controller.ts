@@ -4,7 +4,7 @@ import { ApiInvalidFormResponse, ApiListResponse } from 'common/decorator/api-re
 import { UseJwtGuards } from 'common/decorator/auth-guard.decorator'
 import { PaginationQuery } from 'common/dto/pagination.query'
 import { PaginatedEntity } from 'common/entity/paginated.entity'
-import { CreateTagDto } from 'src/tag/dto/createTag.dto'
+import { CreateTagDto } from 'src/tag/dto/create-tag.dto'
 import { TagEntity } from 'src/tag/entity/tag.entity'
 import { TagService } from 'src/tag/tag.service'
 

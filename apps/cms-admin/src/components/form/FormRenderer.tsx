@@ -78,7 +78,7 @@ function FormRenderer<K extends string, F extends FormData<K>>(props: FormRender
     if (errorMessage) {
       errorMessage = errorMessage
         .split(fieldErrorSeparator)
-        .map(sentence)
+        .map(message => sentence(message))
         .join(fieldErrorSeparator)
     }
     setErrors(prev => ({ ...prev, [fieldName]: errorMessage }))

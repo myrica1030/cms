@@ -3,7 +3,7 @@ import type { AxiosResponse } from 'axios'
 import { noop } from 'lodash'
 import { service } from 'src/services'
 import type { ArticleEntity } from 'src/services/api'
-import { useRetrieveDetail } from 'src/services/hooks/useRetrieveDetail'
+import { useRetrieveDetail } from 'src/services/hooks/use-retrieve-detail'
 
 describe('# useRetrieveDetail', () => {
   const mockRetrieveArticle = vi.spyOn(service.article, 'retrieveArticle')

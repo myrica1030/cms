@@ -1,4 +1,4 @@
-import { generateId } from '../generateId'
+import { generateId } from '../generate-id'
 
 describe('# generateId', () => {
   it('should generate a random string', () => {

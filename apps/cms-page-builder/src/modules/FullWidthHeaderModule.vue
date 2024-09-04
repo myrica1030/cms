@@ -31,7 +31,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { currentSection } from 'src/stores/pageBuilder'
+import { currentSection } from 'src/stores/page-builder'
 import Button from '../components/Button.vue'
 
 const props = defineProps<{

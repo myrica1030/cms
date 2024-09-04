@@ -22,7 +22,7 @@ process.env.DATABASE_URL = databaseUrl.toString()
 process.env.APP_SECRET = 'secret'
 
 async function execute(cmd: string, stdout: boolean = false) {
-  return new Promise((resolve, reject) => {
+  return await new Promise((resolve, reject) => {
     const stream = spawn(cmd, {
       shell: true,
       cwd: path.resolve(__dirname, '..'),

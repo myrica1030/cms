@@ -3,10 +3,10 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { Header, Icon, Menu, Segment } from 'semantic-ui-react'
 import FormRenderer from 'src/components/form/FormRenderer'
 import useToast from 'src/contexts/toast/toast.context'
-import { articleFormConfig } from 'src/pages/content/article/articleForm.config'
+import { articleFormConfig } from 'src/pages/content/article/article-form.config'
 import { service, useSubmit } from 'src/services'
 import type { CreateArticleDto } from 'src/services/api'
-import { useRetrieveDetail } from 'src/services/hooks/useRetrieveDetail'
+import { useRetrieveDetail } from 'src/services/hooks/use-retrieve-detail'
 
 const ArticleEditPage: React.FC = () => {
   const { id = '0' } = useParams()

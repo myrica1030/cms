@@ -39,8 +39,8 @@
 <script setup lang="ts">
 import { ref, toRaw, watch } from 'vue'
 import Modal from 'src/components/Modal.vue'
-import { currentDragOverSection, currentDragSection, currentSection, sectionModal } from 'src/stores/pageBuilder'
-import { pageConfig } from 'src/stores/pageConfig'
+import { currentDragOverSection, currentDragSection, currentSection, sectionModal } from 'src/stores/page-builder'
+import { pageConfig } from 'src/stores/page-config'
 import { generateId, toStyle } from 'src/utils'
 
 const emit = defineEmits<{
