@@ -3,17 +3,19 @@
   "private": true,
   "version": "0.3.2",
   "scripts": {
+    "prepare": "prisma generate",
     "version": "pnpm changelog && git add CHANGELOG.md",
     "start": "nest start",
     "start:debug": "nest start --debug --watch",
     "start:dev": "nest start --watch",
     "start:prod": "cross-env NODE_ENV=production node dist/main",
     "build": "nest build",
-    "type-check": "tsc",
+    "type-check": "prisma generate && tsc",
     "lint": "eslint '{src,migration,seed,test}/**/*.ts'",
     "test": "pnpm test:unit && pnpm test:integration",
     "test:integration": "vitest --config integration-test/vitest.config.ts run",
     "test:unit": "vitest run",
+    "db:seed-example": "tsx prisma/example-data.ts",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },
   "dependencies": {
@@ -23,7 +25,7 @@
     "@nestjs/passport": "^10.0.3",
     "@nestjs/platform-express": "^10.4.1",
     "@nestjs/swagger": "^7.4.0",
-    "@nestjs/typeorm": "^10.0.2",
+    "@prisma/client": "^5.19.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
     "dayjs": "^1.11.7",
@@ -32,10 +34,8 @@
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",
-    "pg": "^8.12.0",
     "reflect-metadata": "^0.2.2",
-    "rxjs": "^7.8.1",
-    "typeorm": "^0.3.13"
+    "rxjs": "^7.8.1"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.4.5",
@@ -52,6 +52,10 @@
     "cross-env": "^7.0.3",
     "sqlite3": "^5.1.7",
     "supertest": "^7.0.0",
-    "unplugin-swc": "^1.5.1"
+    "unplugin-swc": "^1.5.1",
+    "vitest-mock-extended": "^2.0.2"
+  },
+  "prisma": {
+    "seed": "tsx prisma/preset-data.ts"
   }
 }

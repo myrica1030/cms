@@ -1,21 +1,23 @@
-import type { UserSafeEntity } from 'src/user/user.entity'
+import type { User } from '@prisma/client'
 
-const adminEntity: UserSafeEntity = {
+const adminEntity: Omit<User, 'password'> = {
   id: 1,
   username: 'admin',
   email: 'admin@cms.mutoe.com',
   bio: '',
-  createdAt: '2020-01-01T00:00:00Z',
-  updatedAt: '2020-01-01T00:00:00Z',
+  image: null,
+  createdAt: new Date('2020-01-01T00:00:00Z'),
+  updatedAt: new Date('2020-01-01T00:00:00Z'),
 }
 
-const entity: UserSafeEntity = {
+const entity: Omit<User, 'password'> = {
   id: 2,
   username: 'mutoe',
   email: 'imutoe@gmail.com',
   bio: 'This guy is lazy and has left nothing.',
-  createdAt: '2020-01-01T00:00:00Z',
-  updatedAt: '2020-01-01T00:00:00Z',
+  image: null,
+  createdAt: new Date('2020-01-01T00:00:00Z'),
+  updatedAt: new Date('2020-01-01T00:00:00Z'),
 }
 
 export const userFixture = {

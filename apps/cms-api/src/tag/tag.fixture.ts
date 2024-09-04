@@ -1,5 +1,5 @@
+import type { Tag } from '@prisma/client'
 import type { CreateTagDto } from 'src/tag/dto/createTag.dto'
-import type { TagEntity } from 'src/tag/tag.entity'
 
 const dto: CreateTagDto = {
   key: 'semantic-ui',
@@ -7,29 +7,29 @@ const dto: CreateTagDto = {
   description: 'Semantic UI is a smoothly UI library',
 }
 
-const entity: TagEntity = {
+const entity: Tag = {
   key: 'semantic-ui',
   name: 'Semantic UI',
   description: 'Semantic UI is a smoothly UI library',
-  createdAt: '2021-04-18T07:51:33.299Z',
-  updatedAt: '2021-04-18T07:51:33.299Z',
+  createdAt: new Date('2021-04-18T07:51:33.299Z'),
+  updatedAt: new Date('2021-04-18T07:51:33.299Z'),
 }
 
-const entities: TagEntity[] = [
+const entities: Tag[] = [
   entity,
   {
     key: 'database',
     name: 'Database',
     description: '',
-    createdAt: '2021-04-18T07:51:33.299Z',
-    updatedAt: '2021-04-18T07:51:33.299Z',
+    createdAt: new Date('2021-04-18T07:51:33.299Z'),
+    updatedAt: new Date('2021-04-18T07:51:33.299Z'),
   },
   {
     key: 'linux',
     name: 'Linux',
     description: '',
-    createdAt: '2021-04-18T07:51:33.299Z',
-    updatedAt: '2021-04-18T07:51:33.299Z',
+    createdAt: new Date('2021-04-18T07:51:33.299Z'),
+    updatedAt: new Date('2021-04-18T07:51:33.299Z'),
   },
 ]
 

@@ -1,33 +1,29 @@
 import { Injectable } from '@nestjs/common'
-import { InjectRepository } from '@nestjs/typeorm'
-import { omit } from 'lodash'
-import { Repository } from 'typeorm'
-import { UserEntity, UserSafeEntity } from './user.entity'
-
-interface FindUserQuery {
-  id?: number
-  username?: string
-  email?: string
-}
+import { Prisma, User } from '@prisma/client'
+import { PrismaService } from 'infra/prisma.service'
+import { cryptoPassword } from 'src/utils/cryptoPassword'
 
 @Injectable()
 export class UserService {
   constructor(
-    @InjectRepository(UserEntity)
-    private readonly repository: Repository<UserEntity>,
+    private readonly prisma: PrismaService,
   ) {}
 
-  async createUser(userInfo: { email: string, username: string, password: string }): Promise<UserSafeEntity> {
-    const userEntity = await this.repository.save(Object.assign(new UserEntity(), userInfo))
-    return omit(userEntity, ['password'])
+  async createUser(userInfo: { email: string, username: string, password: string }): Promise<User> {
+    const user = await this.prisma.user.create({
+      data: {
+        email: userInfo.email,
+        username: userInfo.username,
+        password: cryptoPassword(userInfo.password),
+      },
+    })
+    return user
   }
 
-  async findUser(where: FindUserQuery, withPassword: true): Promise<UserEntity | null>
-  async findUser(where: FindUserQuery, withPassword?: false): Promise<UserSafeEntity | null>
-  async findUser(where: FindUserQuery, withPassword: boolean = false): Promise<UserEntity | UserSafeEntity | null> {
-    if (!withPassword) return this.repository.findOne({ where })
-
-    const select = Object.keys(this.repository.metadata.propertiesMap) as (keyof UserEntity)[]
-    return this.repository.findOne({ where, select })
+  async findUser(where: Prisma.UserWhereInput, withPassword: boolean = false): Promise<User | null> {
+    return await this.prisma.user.findFirst({
+      where,
+      omit: { password: !withPassword },
+    })
   }
 }

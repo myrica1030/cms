@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
+import { User } from '@prisma/client'
 import { omit } from 'lodash'
-import { AuthRo } from 'src/auth/dto/auth.ro'
 import { LoginDto } from 'src/auth/dto/login.dto'
 import { RegisterDto } from 'src/auth/dto/register.dto'
+import { AuthEntity } from 'src/auth/entity/auth.entity'
 import { FormException } from 'src/exception'
-import { UserSafeEntity } from 'src/user/user.entity'
 import { UserService } from 'src/user/user.service'
 import { cryptoPassword } from 'src/utils/cryptoPassword'
 
@@ -16,36 +16,32 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async register(registerDto: RegisterDto): Promise<AuthRo> {
-    let user: UserSafeEntity | null
+  async register(registerDto: RegisterDto): Promise<AuthEntity> {
+    let user: User | null
     user = await this.userService.findUser({ username: registerDto.username })
-    if (user?.id) {
-      throw new FormException({ username: ['isExist'] })
-    }
+    if (user) throw new FormException({ username: ['isExist'] })
+
     user = await this.userService.findUser({ email: registerDto.email })
-    if (user?.id) {
-      throw new FormException({ email: ['isExist'] })
-    }
-    const profile = await this.userService.createUser(registerDto)
-    const token = this.generateToken(profile.id, profile.email)
-    return { ...profile, token }
+    if (user) throw new FormException({ email: ['isExist'] })
+
+    user = await this.userService.createUser(registerDto)
+    const token = this.generateToken(user.id, user.email)
+    return new AuthEntity(user, token)
   }
 
-  async login(loginDto: LoginDto): Promise<AuthRo> {
-    const profile = await this.validateUser(loginDto.username, loginDto.password)
-    const token = this.generateToken(profile.id, profile.email)
-    return { ...profile, token }
+  async login(loginDto: LoginDto): Promise<AuthEntity> {
+    const user = await this.validateUser(loginDto.username, loginDto.password)
+    const token = this.generateToken(user.id, user.email)
+    return new AuthEntity(user, token)
   }
 
-  async validateUser(username: string, password: string): Promise<UserSafeEntity> {
+  async validateUser(username: string, password: string): Promise<User> {
     const user = await this.userService.findUser({ username }, true)
-    if (!user) {
-      throw new FormException({ username: ['isNotExist'] })
-    }
-    if (user.password !== cryptoPassword(password)) {
-      throw new FormException({ password: ['isInvalid'] })
-    }
-    return omit(user, 'password')
+    if (!user) throw new FormException({ username: ['isNotExist'] })
+
+    if (user.password !== cryptoPassword(password)) throw new FormException({ password: ['isInvalid'] })
+
+    return omit(user, 'password') as User
   }
 
   generateToken(userId: number, email: string): string {

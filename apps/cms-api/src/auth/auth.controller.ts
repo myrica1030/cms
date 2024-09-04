@@ -1,8 +1,8 @@
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common'
 import { ApiCreatedResponse, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger'
-import { AuthRo } from 'src/auth/dto/auth.ro'
 import { LoginDto } from 'src/auth/dto/login.dto'
 import { RegisterDto } from 'src/auth/dto/register.dto'
+import { AuthEntity } from 'src/auth/entity/auth.entity'
 import { ApiInvalidFormResponse } from 'src/decorators'
 import { AuthService } from './auth.service'
 
@@ -16,20 +16,18 @@ export class AuthController {
   @Post('/register')
   @HttpCode(HttpStatus.CREATED)
   @ApiOperation({ summary: 'register', operationId: 'register' })
-  @ApiCreatedResponse({ type: AuthRo })
+  @ApiCreatedResponse({ type: AuthEntity })
   @ApiInvalidFormResponse()
-  async register(@Body() registerDto: RegisterDto): Promise<AuthRo> {
-    const userProfile = await this.service.register(registerDto)
-    return userProfile
+  async register(@Body() registerDto: RegisterDto): Promise<AuthEntity> {
+    return await this.service.register(registerDto)
   }
 
   @Post('/login')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'login', operationId: 'login' })
-  @ApiOkResponse({ type: AuthRo })
+  @ApiOkResponse({ type: AuthEntity })
   @ApiInvalidFormResponse()
-  async login(@Body() loginDto: LoginDto): Promise<AuthRo> {
-    const userProfile = await this.service.login(loginDto)
-    return userProfile
+  async login(@Body() loginDto: LoginDto): Promise<AuthEntity> {
+    return await this.service.login(loginDto)
   }
 }

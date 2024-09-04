@@ -1,38 +1,33 @@
 import type { TestingModule } from '@nestjs/testing'
 import { Test } from '@nestjs/testing'
-import { getRepositoryToken } from '@nestjs/typeorm'
-import type { Repository } from 'typeorm'
-import { UserEntity } from './user.entity'
+import type { PrismaClient, User } from '@prisma/client'
+import { PrismaService } from 'infra/prisma.service'
+import type { DeepMockProxy } from 'vitest-mock-extended'
+import { mockDeep } from 'vitest-mock-extended'
 import { UserService } from './user.service'
 
 describe('user service', () => {
   let service: UserService
-  let repository: Repository<UserEntity>
+  let mockedPrisma: DeepMockProxy<PrismaClient>
 
   beforeEach(async () => {
+    mockedPrisma = mockDeep<PrismaClient>()
+
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         UserService,
         {
-          provide: getRepositoryToken(UserEntity),
-          useValue: {
-            save: vi.fn(),
-            findOne: vi.fn(),
-            metadata: {
-              propertiesMap: {},
-            },
-          },
+          provide: PrismaService,
+          useValue: mockedPrisma,
         },
       ],
     }).compile()
 
     service = module.get(UserService)
-    repository = module.get(getRepositoryToken(UserEntity))
   })
 
   it('should be defined', () => {
     expect(service).toBeDefined()
-    expect(repository).toBeDefined()
   })
 
   describe('create user', () => {
@@ -40,28 +35,36 @@ describe('user service', () => {
       const user = { email: 'mutoe@foxmail.com', username: 'mutoe', password: '12345678' }
       await service.createUser(user)
 
-      expect(repository.save).toHaveBeenCalledWith(Object.assign(new UserEntity(), user))
+      expect(mockedPrisma.user.create).toHaveBeenCalledWith({ data: { ...user, password: expect.any(String) } })
     })
   })
 
   describe('find user', () => {
     it('should find user correctly', async () => {
       const user = { email: 'mutoe@foxmail.com', username: 'mutoe' }
-      vi.spyOn(repository, 'findOne').mockResolvedValue(user as UserEntity)
+      mockedPrisma.user.findFirst.mockResolvedValue(user as User)
+
       const userResult = await service.findUser({ username: user.username })
 
       expect(userResult).toBe(user)
       expect(userResult).not.toHaveProperty('password')
-      expect(repository.findOne).toHaveBeenCalledWith({ where: { username: user.username } })
+      expect(mockedPrisma.user.findFirst).toBeCalledWith({
+        where: { username: user.username },
+        omit: { password: true },
+      })
     })
 
     it('should find user without password when pass withoutPassword true', async () => {
       const user = { email: 'mutoe@foxmail.com', username: 'mutoe', password: '12345678' }
-      vi.spyOn(repository, 'findOne').mockResolvedValue(user as UserEntity)
-      repository.metadata.propertiesMap = { username: 'username', password: 'password' }
+      mockedPrisma.user.findFirst.mockResolvedValue(user as User)
+
       const userResult = await service.findUser({ username: user.username }, true)
 
       expect(userResult).toHaveProperty('password', '12345678')
+      expect(mockedPrisma.user.findFirst).toBeCalledWith({
+        where: { username: user.username },
+        omit: { password: false },
+      })
     })
   })
 })

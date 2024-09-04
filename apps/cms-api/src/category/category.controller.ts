@@ -1,8 +1,8 @@
 import { Body, Controller, Get, NotFoundException, Param, Post } from '@nestjs/common'
 import { ApiCreatedResponse, ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger'
-import { CategoryEntity } from 'src/category/category.entity'
 import { CategoryService } from 'src/category/category.service'
-import { CreateCategoryDto } from 'src/category/dto/createCategory.dto'
+import { CreateCategoryDto } from 'src/category/dto/create-category.dto'
+import { CategoryEntity } from 'src/category/entity/category.entity'
 import { ApiInvalidFormResponse } from 'src/decorators'
 import { UseJwtGuards } from 'src/guards'
 
@@ -13,31 +13,33 @@ export class CategoryController {
     private readonly service: CategoryService,
   ) {}
 
-  @Post()
   @UseJwtGuards()
-  @ApiOperation({ operationId: 'createCategory', summary: 'Create a category' })
+  @ApiOperation({ summary: 'Create a category' })
   @ApiCreatedResponse({ type: CategoryEntity })
   @ApiInvalidFormResponse()
+  @Post()
   async createCategory(@Body() createCategoryDto: CreateCategoryDto): Promise<CategoryEntity> {
-    return this.service.createCategory(createCategoryDto)
+    const category = await this.service.createCategory(createCategoryDto)
+    return new CategoryEntity(category)
   }
 
-  @Get()
-  @ApiOperation({ operationId: 'retrieveRootCategories', summary: 'Retrieve some categories that not have parent category' })
+  @ApiOperation({ summary: 'Retrieve some categories that not have parent category' })
   @ApiOkResponse({ type: CategoryEntity, isArray: true })
   @ApiNotFoundResponse()
+  @Get()
   async retrieveRootCategories(): Promise<CategoryEntity[]> {
-    return this.service.retrieveRootCategories()
+    const categories = await this.service.retrieveRootCategories()
+    return categories.map(category => new CategoryEntity(category))
   }
 
-  @Get(':categoryId')
+  @ApiOperation({ summary: 'Retrieve a category' })
   @ApiParam({ name: 'categoryId', example: 1, type: 'number' })
-  @ApiOperation({ operationId: 'retrieveCategory', summary: 'Retrieve a category' })
   @ApiOkResponse({ type: CategoryEntity })
-  @ApiNotFoundResponse()
+  @ApiNotFoundResponse({ description: 'Category not found' })
+  @Get(':categoryId')
   async retrieveCategory(@Param('categoryId') categoryId: number): Promise<CategoryEntity> {
-    const categoryEntity = await this.service.findCategory(categoryId)
-    if (!categoryEntity) throw new NotFoundException()
-    return categoryEntity
+    const category = await this.service.findCategory(categoryId)
+    if (!category) throw new NotFoundException()
+    return new CategoryEntity(category)
   }
 }

@@ -7,6 +7,12 @@
     "experimentalDecorators": true,
     "baseUrl": "./",
     "module": "commonjs",
+    "paths": {
+      "infra/*": ["src/_infra/*"],
+      "common/*": ["src/_common/*"],
+      "src/*": ["src/*"],
+      "types/*": ["types/*"]
+    },
     "resolveJsonModule": true,
     "types": ["vitest/globals"],
     "strict": true,
@@ -25,8 +31,7 @@
   "include": [
     "types",
     "src",
-    "migration",
-    "seed",
+    "prisma",
     "integration-test"
   ]
 }

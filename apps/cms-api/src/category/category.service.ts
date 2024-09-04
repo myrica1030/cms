@@ -1,41 +1,52 @@
 import { Injectable } from '@nestjs/common'
-import { InjectRepository } from '@nestjs/typeorm'
-import { IsNull, Repository } from 'typeorm'
-import { CategoryEntity } from 'src/category/category.entity'
-import { CreateCategoryDto } from 'src/category/dto/createCategory.dto'
+import { Category } from '@prisma/client'
+import { PrismaService } from 'infra/prisma.service'
+import { CreateCategoryDto } from 'src/category/dto/create-category.dto'
 import { FormException } from 'src/exception'
 
 @Injectable()
 export class CategoryService {
   constructor(
-    @InjectRepository(CategoryEntity)
-    private readonly repository: Repository<CategoryEntity>,
+    private readonly prisma: PrismaService,
   ) {}
 
-  async createCategory(dto: CreateCategoryDto): Promise<CategoryEntity> {
-    let categoryEntity = await this.repository.findOneBy({ key: dto.key })
-    if (categoryEntity) {
+  async createCategory(dto: CreateCategoryDto): Promise<Category> {
+    let category = await this.prisma.category.findFirst({
+      where: { key: dto.key },
+    })
+    if (category) {
       throw new FormException({ key: ['isExist'] })
     }
 
-    categoryEntity = this.repository.create({ ...dto })
-
     if (dto.parentId) {
-      const parentCategory = await this.repository.findOneBy({ id: dto.parentId })
+      const parentCategory = await this.prisma.category.findFirst({
+        where: { id: dto.parentId },
+      })
       if (!parentCategory) {
         throw new FormException({ parentId: ['isNotExist'] })
       }
-      categoryEntity.parent = { id: dto.parentId } as CategoryEntity
     }
 
-    return this.repository.save(categoryEntity)
+    category = await this.prisma.category.create({
+      data: {
+        key: dto.key,
+        label: dto.label,
+        description: dto.description,
+        parentId: dto.parentId,
+      },
+    })
+
+    return category
   }
 
-  async retrieveRootCategories(): Promise<CategoryEntity[]> {
-    return this.repository.findBy({ parent: IsNull() })
+  // FIXME
+  async retrieveRootCategories(): Promise<Category[]> {
+    return await this.prisma.category.findMany()
   }
 
-  async findCategory(categoryId: number): Promise<CategoryEntity | null> {
-    return this.repository.findOneBy({ id: categoryId })
+  async findCategory(categoryId: number): Promise<Category | null> {
+    return await this.prisma.category.findUnique({
+      where: { id: categoryId },
+    })
   }
 }

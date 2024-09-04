@@ -55,4 +55,13 @@ export default defineConfig({
     'ts/no-unsafe-assignment': 'off',
     'ts/no-unsafe-argument': 'off',
   },
+}, {
+  name: 'cms/ignore-prisma-connect-camelcase',
+  files: ['apps/cms-api/src/**/*.ts'],
+  rules: {
+    'ts/return-await': ['error', 'always'],
+    'camelcase': ['error', {
+      allow: [String.raw`^\S+(Id|Key)_\S+(Id|Key)$`],
+    }],
+  },
 })
