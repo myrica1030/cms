@@ -1,24 +1,14 @@
 import { useCallback, useEffect, useState } from 'react'
-import type { AxiosResponse } from 'axios'
-import type { PaginationMeta, RequestParams } from 'src/services/api'
+import type { HttpResponse, PaginatedMetadata, PaginationQuery, RequestParams } from 'src/client/cms/cms-api'
+import type { PaginatedEntity } from 'src/client/type'
 
-export interface PaginationRo<T> {
-  items: T[]
-  meta: PaginationMeta
-}
+type RetrieveListRequest<Query extends PaginationQuery = PaginationQuery, Entity = unknown> = (query?: Query, params?: RequestParams) => Promise<HttpResponse<PaginatedEntity<Entity>>>
 
-export interface PaginationDto {
-  page: number
-  limit: number
-}
-
-type RetrieveListRequest<Query extends PaginationDto = PaginationDto, Entity = unknown> = (query?: Query, params?: RequestParams) => Promise<AxiosResponse<PaginationRo<Entity>>>
-
-export function useRetrieveList<Query extends PaginationDto = PaginationDto, Entity = unknown>(request: RetrieveListRequest<Query, Entity>) {
+export function useRetrieveList<Query extends PaginationQuery = PaginationQuery, Entity = unknown>(request: RetrieveListRequest<Query, Entity>) {
   const [items, setItems] = useState<Entity[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
-  const [pageMeta, setPageMeta] = useState<PaginationMeta>({
+  const [pageMeta, setPageMeta] = useState<PaginatedMetadata>({
     total: 0,
     limit: 10,
     totalPages: 0,
@@ -29,11 +19,12 @@ export function useRetrieveList<Query extends PaginationDto = PaginationDto, Ent
     try {
       setLoading(true)
       const response = await request(query, params)
-      const { meta, items } = response.data
+      const { metadata, items } = response.data
       setItems(items)
-      setPageMeta(meta)
+      setPageMeta(metadata)
     }
-    catch {
+    catch (error) {
+      console.error(error)
       setError(true)
     }
     finally {

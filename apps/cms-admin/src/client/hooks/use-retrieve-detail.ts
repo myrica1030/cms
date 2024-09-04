@@ -1,8 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
-import type { AxiosResponse } from 'axios'
-import type { RequestParams } from 'src/services/api'
+import type { HttpResponse, RequestParams } from 'src/client/cms/cms-api'
 
-type RetrieveDetailRequest<Entity = unknown> = (id: number, params?: RequestParams) => Promise<AxiosResponse<Entity>>
+type RetrieveDetailRequest<Entity = unknown> = (id: number, params?: RequestParams) => Promise<HttpResponse<Entity>>
 
 export function useRetrieveDetail<Entity = unknown>(request: RetrieveDetailRequest<Entity>, id: number) {
   const [loading, setLoading] = useState(false)
@@ -14,7 +13,8 @@ export function useRetrieveDetail<Entity = unknown>(request: RetrieveDetailReque
       const { data } = await request(id, ...retrieveArgs)
       setDetail(data)
     }
-    catch {
+    catch (error) {
+      console.error(error)
       // TODO: error handling
     }
     finally {

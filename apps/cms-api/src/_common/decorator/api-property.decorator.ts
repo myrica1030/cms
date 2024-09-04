@@ -39,7 +39,7 @@ export function ApiEnumProperty(enumType: Record<string, Record<string, unknown>
   return ApiProperty(apiPropertyOptions)
 }
 
-export function ApiEnumPropertyOptional(enumType: Record<string, Record<string, unknown>>, options: ApiPropertyOptions = {}): PropertyDecorator {
+export function ApiEnumPropertyOptional(enumType: Record<string, Record<string, unknown>>, options: ApiEnumPropertyOptions = {}): PropertyDecorator {
   return function (target: NonNullable<unknown>, key: string | symbol) {
     ApiEnumProperty(enumType, {
       required: false,

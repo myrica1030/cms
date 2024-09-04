@@ -32,7 +32,8 @@
     }
   ],
   "include": [
-    "src"
+    "src",
+    "scripts"
   ],
   "exclude": [
     "src/setup-tests.ts"

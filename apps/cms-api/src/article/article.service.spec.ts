@@ -2,6 +2,7 @@ import { NotFoundException } from '@nestjs/common'
 import type { TestingModule } from '@nestjs/testing'
 import { Test } from '@nestjs/testing'
 import type { PrismaClient, User } from '@prisma/client'
+import { SortOrder } from 'common/dto/pagination.query'
 import { PaginatedEntity } from 'common/entity/paginated.entity'
 import { FormException } from 'common/exception/form-exception.exception'
 import { PrismaService } from 'infra/prisma.service'
@@ -95,7 +96,7 @@ describe('article service', () => {
       mockedPrisma.article.findMany.mockResolvedValue([])
       mockedPrisma.article.count.mockResolvedValue(0)
 
-      const articlesPaginatedEntity = await service.retrievePaginatedArticles({ page: 1, limit: 10, order: 'desc' })
+      const articlesPaginatedEntity = await service.retrievePaginatedArticles({ page: 1, limit: 10, order: SortOrder.Desc })
 
       expect(articlesPaginatedEntity).toEqual(new PaginatedEntity(1, 10, 0, []))
       expect(mockedPrisma.article.findMany).toHaveBeenCalledWith({

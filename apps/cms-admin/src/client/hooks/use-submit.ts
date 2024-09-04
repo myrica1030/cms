@@ -1,20 +1,21 @@
 import React, { useState } from 'react'
-import type { AxiosError, AxiosResponse } from 'axios'
+import type { AxiosError } from 'axios'
 import { isAxiosError } from 'axios'
+import type { HttpResponse, RequestParams } from 'src/client/cms/cms-api'
 import type { FormRef } from 'src/components/form/FormRenderer'
-import type { RequestParams } from 'src/services/api'
 import type { FormExceptionKey } from 'src/utils/form.util'
 import { fieldErrorDecorator, focusErrorField } from 'src/utils/form.util'
 
 export type FormErrorResponse = Record<string, FormExceptionKey[]>
 
 export function isFormError(error: unknown): error is AxiosError<FormErrorResponse> {
+  // FIXME
   if (!isAxiosError(error)) return false
   return error.response?.status === 422 && !!error.response.data
 }
 
-type SubmitRequest<Req = unknown, Res = unknown> = (body: Req, params?: RequestParams) => Promise<AxiosResponse<Res>>
-type SubmitRequestWithId<Req = unknown, Res = unknown> = (id: number, body: Req, params?: RequestParams) => Promise<AxiosResponse<Res>>
+type SubmitRequest<Req = unknown, Res = unknown> = (body: Req, params?: RequestParams) => Promise<HttpResponse<Res>>
+type SubmitRequestWithId<Req = unknown, Res = unknown> = (id: number, body: Req, params?: RequestParams) => Promise<HttpResponse<Res>>
 
 interface UseSubmitReturnType<ReqArgs extends unknown[], Res> {
   formRef: FormRef
@@ -32,8 +33,8 @@ export function useSubmit<Req = unknown, Res = unknown>(request: SubmitRequest<R
     try {
       setSubmitting(true)
       // eslint-disable-next-line ts/no-unsafe-function-type
-      const response = await (request as Function)(...args) as AxiosResponse
-      return response.data as Res
+      const response = await (request as Function)(...args) as HttpResponse<Res>
+      return response.data
     }
     catch (error) {
       if (formRef.current && isFormError(error)) {

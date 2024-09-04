@@ -9,9 +9,11 @@ import { defineConfig } from 'vite'
 
 const resolve = (subPath: string) => path.resolve(path.dirname(url.fileURLToPath(import.meta.url)), subPath)
 const isCI = !!process.env.CI
+const API_URL = String(process.env.CMS_API_URL ?? `http://localhost:${process.env.CMS_API_PORT}`)
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  envPrefix: 'CMS_',
   resolve: {
     alias: {
       src: resolve('src'),
@@ -31,7 +33,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost:8080',
+        target: API_URL,
         changeOrigin: true,
         configure: proxy => {
           proxy.on('proxyReq', request => {

@@ -1,18 +1,18 @@
 import React, { useCallback, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Loader } from 'semantic-ui-react'
+import { api, useSubmit } from 'src/client'
 import FormRenderer from 'src/components/form/FormRenderer'
 import useAuthorizationContext from 'src/contexts/authorization/authorization.context'
 import { loginForm, loginFormFields } from 'src/pages/auth/LoginPage/LoginPage.form'
 import { routeMap } from 'src/route'
-import { service, useSubmit } from 'src/services'
 
 import './LoginPage.scss'
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate()
   const { loading, profile, mountAuthorization } = useAuthorizationContext()
-  const { formRef, submitting, submitRequest: onLogin } = useSubmit(service.auth.login)
+  const { formRef, submitting, submitRequest: onLogin } = useSubmit(api.auth.login)
 
   const redirectToFrom = useCallback(() => {
     // TODO: redirect to from URI

@@ -1,25 +1,25 @@
 import React, { useMemo } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Header, Icon, Menu, Segment } from 'semantic-ui-react'
+import { api, useSubmit } from 'src/client'
+import type { CreateArticleDto } from 'src/client/cms/cms-api'
+import { useRetrieveDetail } from 'src/client/hooks/use-retrieve-detail'
 import FormRenderer from 'src/components/form/FormRenderer'
 import useToast from 'src/contexts/toast/toast.context'
 import { articleFormConfig } from 'src/pages/content/article/article-form.config'
-import { service, useSubmit } from 'src/services'
-import type { CreateArticleDto } from 'src/services/api'
-import { useRetrieveDetail } from 'src/services/hooks/use-retrieve-detail'
 
 const ArticleEditPage: React.FC = () => {
   const { id = '0' } = useParams()
   const navigate = useNavigate()
   const toast = useToast()
 
-  const { formRef, submitting, submitRequest } = useSubmit(service.article.updateArticle)
-  const { loading, detail } = useRetrieveDetail(service.article.retrieveArticle, +id)
+  const { formRef, submitting, submitRequest } = useSubmit(api.article.updateArticle)
+  const { loading, detail } = useRetrieveDetail(api.article.retrieveArticle, +id)
   const form: Required<CreateArticleDto> = useMemo(() => ({
     title: detail?.title ?? '',
     content: detail?.content ?? '',
-    tags: detail?.tags.map(t => t.key) ?? [],
-    categoryId: detail?.category?.id ?? Number.NaN,
+    tags: detail?.tags ?? [],
+    categoryId: detail?.categoryId ?? Number.NaN,
   }), [detail])
 
   const onSubmit = async (form: CreateArticleDto) => {

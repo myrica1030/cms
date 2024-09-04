@@ -11,7 +11,6 @@ export default defineConfig({
   },
   ignores: [
     'apps/cms-page-builder/public/ionicons',
-    'apps/cms-admin/src/services/api.ts',
   ],
   rules: {
     // TODO
@@ -30,5 +29,19 @@ export default defineConfig({
     camelcase: ['error', {
       allow: [String.raw`^\S+(Id|ID|Key)_\S+(Id|ID|Key)$`],
     }],
+  },
+}, {
+  name: 'cms/api-client-rules',
+  files: ['apps/*/src/client/**/*-api.ts'],
+  // @keep-sorted
+  rules: {
+    'ts/no-unnecessary-type-constraint': 'off',
+    'ts/no-unsafe-argument': 'off',
+    'ts/no-unsafe-assignment': 'off',
+    'ts/no-unsafe-call': 'off',
+    'ts/no-unsafe-member-access': 'off',
+    'ts/no-unsafe-return': 'off',
+    'unicorn/no-array-reduce': 'off',
+    'unicorn/no-nested-ternary': 'off',
   },
 })

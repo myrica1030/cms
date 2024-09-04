@@ -1,17 +1,17 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Header, Icon, Menu, Segment } from 'semantic-ui-react'
+import { api, useSubmit } from 'src/client'
+import type { CreateArticleDto } from 'src/client/cms/cms-api'
 import FormRenderer from 'src/components/form/FormRenderer'
 import useToast from 'src/contexts/toast/toast.context'
 import { articleForm, articleFormConfig } from 'src/pages/content/article/article-form.config'
-import { service, useSubmit } from 'src/services'
-import type { CreateArticleDto } from 'src/services/api'
 
 const ArticleCreatePage: React.FC = () => {
   const navigate = useNavigate()
   const toast = useToast()
 
-  const { formRef, submitting, submitRequest } = useSubmit(service.article.createArticle)
+  const { formRef, submitting, submitRequest } = useSubmit(api.article.createArticle)
 
   const onSubmit = async (form: CreateArticleDto) => {
     try {

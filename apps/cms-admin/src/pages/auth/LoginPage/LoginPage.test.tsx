@@ -2,14 +2,14 @@ import React from 'react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
 import { noop } from 'lodash'
 import type { MockedFunction } from 'vitest'
+import { useSubmit } from 'src/client'
+import type { UserEntity } from 'src/client/cms/cms-api'
 import useAuthorizationContext from 'src/contexts/authorization/authorization.context'
 import { routeMap } from 'src/route'
-import { useSubmit } from 'src/services'
-import type { ProfileRo } from 'src/services/api'
 import LoginPage from './LoginPage'
 
 vi.mock('src/contexts/authorization/authorization.context')
-vi.mock('src/services')
+vi.mock('src/client')
 
 const mockNavigate = vi.fn()
 vi.mock('react-router-dom', () => ({
@@ -49,7 +49,7 @@ describe('# Login page', () => {
 
   it('should redirect to home page when user is already logged in', () => {
     mockUseAuthorizationContext.mockReturnValue({
-      profile: { username: 'admin' } as ProfileRo,
+      profile: { username: 'admin' } as UserEntity,
       loading: false,
       mountAuthorization: mockMountAuthorization,
       unmountAuthorization: vi.fn(),
