@@ -2,6 +2,8 @@ name: test-api
 
 on:
   push:
+    branches:
+      - main
     paths-ignore:
       - apps/cms-admin
       - apps/cms-page-builder
