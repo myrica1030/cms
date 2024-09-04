@@ -13,7 +13,7 @@ importers:
         version: 0.0.1-beta.10(vite@5.4.2(@types/node@20.16.3)(sass@1.77.8)(terser@5.31.6))
       '@mutoe/eslint-config':
         specifier: 2.27.3-2
-        version: 2.27.3-2(@typescript-eslint/utils@8.3.0(eslint@9.9.1)(typescript@5.5.4))(@vue/compiler-sfc@3.4.38)(eslint@9.9.1)(typescript@5.5.4)(vitest@2.0.5(@types/node@20.16.3)(@vitest/ui@2.0.5)(happy-dom@15.7.3)(sass@1.77.8)(terser@5.31.6))
+        version: 2.27.3-2(@typescript-eslint/utils@8.3.0(eslint@9.9.1)(typescript@5.5.4))(@vue/compiler-sfc@3.4.38)(eslint-plugin-cypress@3.5.0(eslint@9.9.1))(eslint@9.9.1)(typescript@5.5.4)(vitest@2.0.5(@types/node@20.16.3)(@vitest/ui@2.0.5)(happy-dom@15.7.3)(sass@1.77.8)(terser@5.31.6))
       '@types/node':
         specifier: ^20
         version: 20.16.3
@@ -239,6 +239,9 @@ importers:
       cypress-multi-reporters:
         specifier: ^1.6.4
         version: 1.6.4(mocha@10.7.3)
+      eslint-plugin-cypress:
+        specifier: ^3.5.0
+        version: 3.5.0(eslint@9.9.1)
       mocha-junit-reporter:
         specifier: ^2.2.1
         version: 2.2.1(mocha@10.7.3)
@@ -2381,6 +2384,11 @@ packages:
     resolution: {integrity: sha512-1bBYNfjZg60N2ZpLV5ATYSYyueIJ+zl5yKrTs0UFDdnyu07dNSZ7Xplnc+Wb6SXTdc1sIaoIrnuyhvztcltX6A==}
     peerDependencies:
       eslint: ^9.9.1
+
+  eslint-plugin-cypress@3.5.0:
+    resolution: {integrity: sha512-JZQ6XnBTNI8h1B9M7wJSFzc48SYbh7VMMKaNTQOFa3BQlnmXPrVc4PKen8R+fpv6VleiPeej6VxloGb42zdRvw==}
+    peerDependencies:
+      eslint: '>=7'
 
   eslint-plugin-es-x@7.8.0:
     resolution: {integrity: sha512-7Ds8+wAAoV3T+LAKeu39Y5BzXCrGKrcISfgKEqTS4BDN8SFEDQd0S43jiQ8vIa3wUKD07qitZdfzlenSi8/0qQ==}
@@ -5589,7 +5597,7 @@ snapshots:
       got: 11.8.6
       os-filter-obj: 2.0.0
 
-  '@mutoe/eslint-config@2.27.3-2(@typescript-eslint/utils@8.3.0(eslint@9.9.1)(typescript@5.5.4))(@vue/compiler-sfc@3.4.38)(eslint@9.9.1)(typescript@5.5.4)(vitest@2.0.5(@types/node@20.16.3)(@vitest/ui@2.0.5)(happy-dom@15.7.3)(sass@1.77.8)(terser@5.31.6))':
+  '@mutoe/eslint-config@2.27.3-2(@typescript-eslint/utils@8.3.0(eslint@9.9.1)(typescript@5.5.4))(@vue/compiler-sfc@3.4.38)(eslint-plugin-cypress@3.5.0(eslint@9.9.1))(eslint@9.9.1)(typescript@5.5.4)(vitest@2.0.5(@types/node@20.16.3)(@vitest/ui@2.0.5)(happy-dom@15.7.3)(sass@1.77.8)(terser@5.31.6))':
     dependencies:
       '@antfu/install-pkg': 0.4.1
       '@clack/prompts': 0.7.0
@@ -5628,6 +5636,8 @@ snapshots:
       vue-eslint-parser: 9.4.3(eslint@9.9.1)
       yaml-eslint-parser: 1.2.3
       yargs: 17.7.2
+    optionalDependencies:
+      eslint-plugin-cypress: 3.5.0(eslint@9.9.1)
     transitivePeerDependencies:
       - '@typescript-eslint/utils'
       - '@vue/compiler-sfc'
@@ -7388,6 +7398,11 @@ snapshots:
     dependencies:
       '@es-joy/jsdoccomment': 0.43.1
       eslint: 9.9.1
+
+  eslint-plugin-cypress@3.5.0(eslint@9.9.1):
+    dependencies:
+      eslint: 9.9.1
+      globals: 13.24.0
 
   eslint-plugin-es-x@7.8.0(eslint@9.9.1):
     dependencies:
