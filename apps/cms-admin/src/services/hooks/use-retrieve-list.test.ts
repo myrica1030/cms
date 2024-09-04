@@ -1,7 +1,7 @@
 import { act, renderHook } from '@testing-library/react'
 import { noop } from 'lodash'
-import type { PaginationRo } from './useRetrieveList'
-import { useRetrieveList } from './useRetrieveList'
+import type { PaginationRo } from './use-retrieve-list'
+import { useRetrieveList } from './use-retrieve-list'
 
 describe('# useRetrieveList', () => {
   it('should call request when call retrieveList method', async () => {

@@ -1,12 +1,12 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 import { Loader } from 'semantic-ui-react'
-import { appMenus } from 'src/appMenu'
+import { appMenus } from 'src/app-menu'
 import AppHeader from 'src/components/layout/AppHeader'
 import AppSidebar from 'src/components/layout/AppSidebar'
 import NotFound from 'src/components/NotFound'
 import useAuthorizationContext from 'src/contexts/authorization/authorization.context'
-import useModuleName from 'src/hooks/useModuleName'
+import useModuleName from 'src/hooks/use-module-name'
 
 import './PortalPage.scss'
 

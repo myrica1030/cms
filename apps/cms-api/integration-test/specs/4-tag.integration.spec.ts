@@ -2,7 +2,7 @@ import type { INestApplication } from '@nestjs/common'
 import type { PaginatedMetadata } from 'common/entity/paginated.entity'
 import { getToken, initIntegrationTestingModule, mockDate } from 'integration-test/test-utils'
 import request from 'supertest'
-import type { CreateTagDto } from 'src/tag/dto/createTag.dto'
+import type { CreateTagDto } from 'src/tag/dto/create-tag.dto'
 import type { TagEntity } from 'src/tag/entity/tag.entity'
 import { anyDateString } from '../../test-utils/expect.util'
 

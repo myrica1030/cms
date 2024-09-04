@@ -5,7 +5,7 @@ import { PaginatedEntity } from 'common/entity/paginated.entity'
 import { FormException } from 'common/exception/form-exception.exception'
 import { PrismaService } from 'infra/prisma.service'
 import { xor } from 'lodash'
-import { CreateTagDto } from 'src/tag/dto/createTag.dto'
+import { CreateTagDto } from 'src/tag/dto/create-tag.dto'
 import { TagEntity } from 'src/tag/entity/tag.entity'
 
 @Injectable()

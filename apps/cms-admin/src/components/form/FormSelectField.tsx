@@ -83,7 +83,7 @@ function FormSelectField<T>(props: FormSelectFieldProps<T>) {
     'clearable': !props.required,
     'aria-label': props.label,
     'onChange': (_, { value }) => onChange(value),
-    'onAddItem': async (_, { value }) => onAddItem(value as string),
+    'onAddItem': async (_, { value }) => await onAddItem(value as string),
   }
 
   return <Form.Dropdown {...dropdownProps} />

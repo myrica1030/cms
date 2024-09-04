@@ -1,5 +1,5 @@
 import type { Tag } from '@prisma/client'
-import type { CreateTagDto } from 'src/tag/dto/createTag.dto'
+import type { CreateTagDto } from 'src/tag/dto/create-tag.dto'
 
 const dto: CreateTagDto = {
   key: 'semantic-ui',

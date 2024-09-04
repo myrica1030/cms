@@ -29,11 +29,11 @@
 
 <script setup lang="ts">
 import { onMounted } from 'vue'
-import examplePageConfig from 'src/examplePageConfig'
+import examplePageConfig from 'src/example-page-config'
 import SectionDistributor from 'src/page-builder/SectionDistributor.vue'
 import SectionOperator from 'src/page-builder/SectionOperator.vue'
-import { currentDragOverSection, currentDragSection, currentSection, sectionModal } from 'src/stores/pageBuilder'
-import { pageConfig } from 'src/stores/pageConfig'
+import { currentDragOverSection, currentDragSection, currentSection, sectionModal } from 'src/stores/page-builder'
+import { pageConfig } from 'src/stores/page-config'
 import { throttle } from 'src/utils'
 
 pageConfig.value = examplePageConfig

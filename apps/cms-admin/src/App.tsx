@@ -7,9 +7,9 @@ import DashboardPage from 'src/pages/dashboard/DashboardPage'
 import PortalPage from 'src/pages/PortalPage'
 import { routeMap } from 'src/route'
 
-const ArticleListPage = React.lazy(async () => import('src/pages/content/article/ArticleListPage'))
-const ArticleCreatePage = React.lazy(async () => import('src/pages/content/article/ArticleCreatePage'))
-const ArticleEditPage = React.lazy(async () => import('src/pages/content/article/ArticleEditPage'))
+const ArticleListPage = React.lazy(async () => await import('src/pages/content/article/ArticleListPage'))
+const ArticleCreatePage = React.lazy(async () => await import('src/pages/content/article/ArticleCreatePage'))
+const ArticleEditPage = React.lazy(async () => await import('src/pages/content/article/ArticleEditPage'))
 
 const App: React.FC = () => {
   const routes = useRoutes([

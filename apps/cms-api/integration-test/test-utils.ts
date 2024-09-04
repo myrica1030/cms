@@ -7,7 +7,7 @@ import request from 'supertest'
 import { AppModule } from 'src/app/app.module'
 
 export async function getToken(app: INestApplication): Promise<string> {
-  return new Promise((resolve, reject) => {
+  return await new Promise((resolve, reject) => {
     request(app.getHttpServer()).post('/auth/login')
       .send({
         username: 'admin',

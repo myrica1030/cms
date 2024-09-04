@@ -48,7 +48,7 @@ export default defineConfig({
       provider: 'v8',
       exclude: [
         'node_modules/',
-        'src/setupTests.ts',
+        'src/setup-tests.ts',
         '**/__test__/',
       ],
     },

@@ -34,13 +34,13 @@ export default defineConfig({
         target: 'http://localhost:8080',
         changeOrigin: true,
         configure: proxy => {
-          proxy.on('proxyReq', req => {
+          proxy.on('proxyReq', request => {
             // eslint-disable-next-line no-console
-            console.log(dayjs().format('HH:mm:ss.SSS'), `Request '${req.method} ${req.path}' sent`)
+            console.log(dayjs().format('HH:mm:ss.SSS'), `Request '${request.method} ${request.path}' sent`)
           })
-          proxy.on('proxyRes', (res, req) => {
+          proxy.on('proxyRes', (res, request) => {
             // eslint-disable-next-line no-console
-            console.log(dayjs().format('HH:mm:ss.SSS'), `Request '${req.method} ${req.url}' was proxy with response ${res.statusCode}`)
+            console.log(dayjs().format('HH:mm:ss.SSS'), `Request '${request.method} ${request.url}' was proxy with response ${res.statusCode}`)
           })
         },
       },
@@ -50,7 +50,7 @@ export default defineConfig({
     name: 'admin-unit',
     globals: true,
     testTimeout: 4000,
-    setupFiles: 'src/setupTests.ts',
+    setupFiles: 'src/setup-tests.ts',
     environment: 'happy-dom',
     reporters: isCI ? ['basic', 'json', 'junit'] : 'default',
     include: [
