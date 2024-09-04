@@ -1,4 +1,4 @@
-import { cryptoPassword } from './cryptoPassword'
+import { cryptoPassword } from './crypto.util'
 
 describe('utilities', () => {
   it('cryptoPassword', () => {

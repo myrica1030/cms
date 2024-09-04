@@ -1,6 +1,6 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
 import { Category } from '@prisma/client'
-import { ApiPropertyDatetime, ApiPropertyRichText } from 'src/decorators'
+import { ApiPropertyDatetime, ApiPropertyRichText } from 'common/decorator/api-property.decorator'
 import { NullToUndefined } from 'types/fest'
 
 export class CategoryEntity implements NullToUndefined<Category> {

@@ -2,12 +2,12 @@ import { BadRequestException, ForbiddenException, Injectable, NotFoundException 
 import { Prisma, Tag } from '@prisma/client'
 import { PaginationQuery } from 'common/dto/pagination.query'
 import { PaginatedEntity } from 'common/entity/paginated.entity'
+import { FormException } from 'common/exception/form-exception.exception'
 import { PrismaService } from 'infra/prisma.service'
 import { ArticleIncludeAuthorAndTags, articleIncludeAuthorAndTags } from 'src/article/article.model'
 import { CreateArticleDto } from 'src/article/dto/create-article.dto'
 import { ArticleEntity } from 'src/article/entity/article-entity'
 import { CategoryService } from 'src/category/category.service'
-import { FormException } from 'src/exception'
 import { TagService } from 'src/tag/tag.service'
 import { UserService } from 'src/user/user.service'
 

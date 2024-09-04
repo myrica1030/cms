@@ -1,10 +1,10 @@
 import { Body, Controller, Get, NotFoundException, Param, Post } from '@nestjs/common'
 import { ApiCreatedResponse, ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger'
+import { ApiInvalidFormResponse } from 'common/decorator/api-response.decorator'
+import { UseJwtGuards } from 'common/decorator/auth-guard.decorator'
 import { CategoryService } from 'src/category/category.service'
 import { CreateCategoryDto } from 'src/category/dto/create-category.dto'
 import { CategoryEntity } from 'src/category/entity/category.entity'
-import { ApiInvalidFormResponse } from 'src/decorators'
-import { UseJwtGuards } from 'src/guards'
 
 @Controller('category')
 @ApiTags('Category')

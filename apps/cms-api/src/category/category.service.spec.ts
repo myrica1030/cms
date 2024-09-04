@@ -1,11 +1,11 @@
 import type { TestingModule } from '@nestjs/testing'
 import { Test } from '@nestjs/testing'
 import type { PrismaClient } from '@prisma/client'
+import { FormException } from 'common/exception/form-exception.exception'
 import { PrismaService } from 'infra/prisma.service'
 import type { DeepMockProxy } from 'vitest-mock-extended'
 import { mockDeep } from 'vitest-mock-extended'
 import { categoryFixture } from 'src/category/category.fixture'
-import { FormException } from 'src/exception'
 import { CategoryService } from './category.service'
 
 describe('category service', () => {

@@ -1,9 +1,9 @@
 import process from 'node:process'
 import { PrismaClient } from '@prisma/client'
+import { cryptoPassword } from 'common/utils/crypto.util'
 import { config } from 'dotenv-flow'
 import { categoryFixture } from 'src/category/category.fixture'
 import { userFixture } from 'src/user/user.fixture'
-import { cryptoPassword } from 'src/utils/cryptoPassword'
 
 config()
 

@@ -1,6 +1,6 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
 import { User } from '@prisma/client'
-import { ApiPropertyDatetime } from 'src/decorators'
+import { ApiPropertyDatetime } from 'common/decorator/api-property.decorator'
 import { NullToUndefined } from 'types/fest'
 
 export class UserEntity implements NullToUndefined<User> {

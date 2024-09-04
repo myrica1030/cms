@@ -2,9 +2,9 @@
 import type { INestApplication } from '@nestjs/common'
 import type { TestingModule } from '@nestjs/testing'
 import { Test } from '@nestjs/testing'
+import { validationPipe } from 'common/pipe/pipes'
 import request from 'supertest'
 import { AppModule } from 'src/app/app.module'
-import { validationPipe } from 'src/pipes'
 
 export async function getToken(app: INestApplication): Promise<string> {
   return new Promise((resolve, reject) => {
