@@ -9,8 +9,14 @@ config({
   files: [path.resolve(__dirname, '../.env')],
 })
 
-const databaseUrl = new URL(process.env.DATABASE_URL || '')
-databaseUrl.pathname += '_test'
+if (!process.env.DATABASE_URL) {
+  throw new Error('DATABASE_URL is not defined!')
+}
+
+const databaseUrl = new URL(process.env.DATABASE_URL)
+if (!databaseUrl.pathname.endsWith('_test')) {
+  databaseUrl.pathname += '_test'
+}
 
 process.env.DATABASE_URL = databaseUrl.toString()
 process.env.APP_SECRET = 'secret'
