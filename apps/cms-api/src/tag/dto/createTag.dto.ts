@@ -4,12 +4,12 @@ import { ApiPropertyRichText } from 'src/decorators'
 
 export class CreateTagDto {
   @IsNotEmpty()
-  @ApiProperty({ example: 'Semantic UI' })
-  readonly name: string
-
-  @IsNotEmpty()
   @ApiProperty({ example: 'semantic-ui' })
   readonly key: string
+
+  @IsNotEmpty()
+  @ApiProperty({ example: 'Semantic UI' })
+  readonly name: string
 
   @ApiPropertyRichText()
   readonly description?: string

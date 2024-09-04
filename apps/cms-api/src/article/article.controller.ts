@@ -1,13 +1,21 @@
 import { Body, Controller, Get, NotFoundException, Param, Post, Put, Query, Request } from '@nestjs/common'
-import { ApiCreatedResponse, ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger'
-import { ArticleEntity } from 'src/article/article.entity'
+import {
+  ApiCreatedResponse,
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiParam,
+  ApiTags,
+} from '@nestjs/swagger'
+import { ApiListResponse } from 'common/decorator/api-response.decorator'
+import { PaginationQuery } from 'common/dto/pagination.query'
+import { PaginatedEntity } from 'common/entity/paginated.entity'
 import { ArticleService } from 'src/article/article.service'
-import { ArticlesRo } from 'src/article/dto/articles.ro'
-import { CreateArticleDto } from 'src/article/dto/createArticle.dto'
 import { AuthRequest } from 'src/auth/jwt.strategy'
-import { ApiInvalidFormResponse, ApiListResponse } from 'src/decorators'
+import { ApiInvalidFormResponse } from 'src/decorators'
 import { UseJwtGuards } from 'src/guards'
-import { PaginationRo } from 'src/utils/paginate'
+import { CreateArticleDto } from './dto/create-article.dto'
+import { ArticleEntity } from './entity/article-entity'
 
 @Controller('article')
 @ApiTags('Article')
@@ -18,49 +26,45 @@ export class ArticleController {
 
   @Post('/')
   @UseJwtGuards()
-  @ApiOperation({ operationId: 'createArticle', summary: 'Create article' })
+  @ApiOperation({ summary: 'Create article' })
   @ApiCreatedResponse({ type: ArticleEntity })
   @ApiInvalidFormResponse()
-  async createArticle(
-    @Request() { user }: AuthRequest,
-      @Body() createArticleDto: CreateArticleDto,
-  ): Promise<ArticleEntity> {
-    return this.service.createArticle(+user.userId, createArticleDto)
+  async createArticle(@Request() { user: { userId } }: AuthRequest, @Body() createArticleDto: CreateArticleDto): Promise<ArticleEntity> {
+    const article = await this.service.createArticle(userId, createArticleDto)
+    return new ArticleEntity(article)
   }
 
   @Get('/')
-  @ApiOperation({ operationId: 'retrieveArticles', summary: 'Retrieve articles' })
-  @ApiListResponse(ArticlesRo)
-  async retrieveArticles(
-    @Query('page') page: number,
-      @Query('limit') limit: number,
-  ): Promise<PaginationRo<ArticleEntity>> {
-    return this.service.retrieveArticles({ page, limit })
+  @ApiOperation({ summary: 'Retrieve articles' })
+  @ApiListResponse(ArticleEntity)
+  async retrieveArticles(@Query() { page, limit }: PaginationQuery): Promise<PaginatedEntity<ArticleEntity>> {
+    return await this.service.retrievePaginatedArticles({ page, limit })
   }
 
   @Get('/:articleId')
-  @ApiOperation({ operationId: 'retrieveArticle', summary: 'Retrieve article by article id' })
+  @ApiOperation({ summary: 'Retrieve article by article id' })
   @ApiParam({ name: 'articleId', type: Number, example: '1' })
   @ApiOkResponse({ type: ArticleEntity })
   @ApiNotFoundResponse()
   async retrieveArticle(@Param('articleId') articleId: string): Promise<ArticleEntity> {
-    const articleEntity = await this.service.findArticle(+articleId)
-    if (!articleEntity) throw new NotFoundException()
-    return articleEntity
+    const article = await this.service.findArticle(+articleId)
+    if (!article) throw new NotFoundException('Article not found')
+    return new ArticleEntity(article)
   }
 
   @Put('/:articleId')
   @UseJwtGuards()
-  @ApiOperation({ operationId: 'updateArticle', summary: 'Update article' })
+  @ApiOperation({ summary: 'Update article' })
   @ApiParam({ name: 'articleId', type: Number, example: '1' })
   @ApiOkResponse({ type: ArticleEntity })
   @ApiNotFoundResponse()
   @ApiInvalidFormResponse()
   async updateArticle(
-    @Param('articleId') articleId: string,
-      @Request() { user }: AuthRequest,
-      @Body() createArticleDto: CreateArticleDto,
+    @Param('articleId') articleId: number,
+    @Request() { user: { userId } }: AuthRequest,
+    @Body() createArticleDto: CreateArticleDto,
   ): Promise<ArticleEntity> {
-    return this.service.updateArticle(+articleId, createArticleDto, user.userId)
+    const article = await this.service.updateArticle(articleId, createArticleDto, userId)
+    return new ArticleEntity(article)
   }
 }

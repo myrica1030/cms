@@ -1,9 +1,9 @@
 import assert from 'node:assert'
 import { Controller, Get, Request } from '@nestjs/common'
-import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger'
+import { ApiOkResponse, ApiTags } from '@nestjs/swagger'
 import { AuthRequest } from 'src/auth/jwt.strategy'
 import { UseJwtGuards } from 'src/guards'
-import { ProfileRo } from 'src/user/ro/profile.ro'
+import { UserEntity } from 'src/user/entity/user.entity'
 import { UserService } from 'src/user/user.service'
 
 @Controller('user')
@@ -14,12 +14,11 @@ export class UserController {
   ) {}
 
   @UseJwtGuards()
+  @ApiOkResponse({ type: UserEntity })
   @Get('/')
-  @ApiOperation({ operationId: 'profile' })
-  @ApiOkResponse({ type: ProfileRo })
-  async profile(@Request() { user }: AuthRequest): Promise<ProfileRo> {
-    const userSafeEntity = await this.service.findUser({ id: user.userId })
-    assert(userSafeEntity, `User ${user.userId} not exist`)
-    return userSafeEntity
+  async profile(@Request() { user: { userId } }: AuthRequest): Promise<UserEntity> {
+    const user = await this.service.findUser({ id: userId })
+    assert(user, `User ${userId} not exist`)
+    return new UserEntity(user)
   }
 }

@@ -1,21 +1,22 @@
 import { NotFoundException } from '@nestjs/common'
 import type { TestingModule } from '@nestjs/testing'
 import { Test } from '@nestjs/testing'
-import { getRepositoryToken } from '@nestjs/typeorm'
-import type { Repository } from 'typeorm'
-import { ArticleEntity } from 'src/article/article.entity'
+import type { PrismaClient, User } from '@prisma/client'
+import { PaginatedEntity } from 'common/entity/paginated.entity'
+import { PrismaService } from 'infra/prisma.service'
+import { expect } from 'vitest'
+import type { DeepMockProxy } from 'vitest-mock-extended'
+import { mockDeep } from 'vitest-mock-extended'
 import { articleFixture } from 'src/article/article.fixture'
+import { articleIncludeAuthorAndTags } from 'src/article/article.model'
 import { ArticleService } from 'src/article/article.service'
-import type { ArticlesRo } from 'src/article/dto/articles.ro'
-import type { CreateArticleDto } from 'src/article/dto/createArticle.dto'
-import { CategoryEntity } from 'src/category/category.entity'
+import type { CreateArticleDto } from 'src/article/dto/create-article.dto'
 import { categoryFixture } from 'src/category/category.fixture'
 import { CategoryService } from 'src/category/category.service'
 import { FormException } from 'src/exception'
-import { TagEntity } from 'src/tag/tag.entity'
 import { tagFixture } from 'src/tag/tag.fixture'
 import { TagService } from 'src/tag/tag.service'
-import { UserEntity } from 'src/user/user.entity'
+import { userFixture } from 'src/user/user.fixture'
 import { UserService } from 'src/user/user.service'
 
 describe('article service', () => {
@@ -23,7 +24,7 @@ describe('article service', () => {
   let userService: UserService
   let categoryService: CategoryService
   let tagService: TagService
-  let repository: Repository<ArticleEntity>
+  let mockedPrisma: DeepMockProxy<PrismaClient>
 
   const createArticleDto: CreateArticleDto = {
     title: 'title',
@@ -32,38 +33,15 @@ describe('article service', () => {
   }
 
   beforeEach(async () => {
+    mockedPrisma = mockDeep<PrismaClient>()
+
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         ArticleService,
         UserService,
         TagService,
         CategoryService,
-        {
-          provide: getRepositoryToken(ArticleEntity),
-          useValue: {
-            create: vi.fn(),
-            save: vi.fn(),
-            findOneBy: vi.fn(),
-            findAndCount: vi.fn(),
-            merge: Object.assign,
-          },
-        },
-        {
-          provide: getRepositoryToken(TagEntity),
-          useValue: {
-            find: vi.fn(),
-          },
-        },
-        {
-          provide: getRepositoryToken(UserEntity),
-          useValue: {
-            findOne: vi.fn(),
-          },
-        },
-        {
-          provide: getRepositoryToken(CategoryEntity),
-          useValue: {},
-        },
+        { provide: PrismaService, useValue: mockedPrisma },
       ],
     }).compile()
 
@@ -71,32 +49,31 @@ describe('article service', () => {
     userService = module.get(UserService)
     categoryService = module.get(CategoryService)
     tagService = module.get(TagService)
-    repository = module.get(getRepositoryToken(ArticleEntity))
-  })
-
-  it('should be defined', () => {
-    expect(service).toBeDefined()
-    expect(userService).toBeDefined()
-    expect(categoryService).toBeDefined()
-    expect(tagService).toBeDefined()
-    expect(repository).toBeDefined()
   })
 
   describe('createArticle', () => {
     it('should create article correctly', async () => {
       vi.spyOn(tagService, 'getTags').mockResolvedValue([tagFixture.entity])
       vi.spyOn(categoryService, 'findCategory').mockResolvedValue(categoryFixture.entity)
-      vi.spyOn(repository, 'create').mockReturnValue(articleFixture.entity)
+      vi.spyOn(userService, 'findUser').mockResolvedValue(userFixture.adminEntity as User)
 
       const articleDto: CreateArticleDto = { ...createArticleDto, categoryId: 1 }
       await service.createArticle(articleFixture.entity.id, articleDto)
 
-      expect(repository.save).toHaveBeenCalledWith(articleFixture.entity)
+      expect(mockedPrisma.article.create).toHaveBeenCalledWith({
+        include: articleIncludeAuthorAndTags,
+        data: {
+          title: articleDto.title,
+          content: articleDto.content,
+          author: expect.any(Object),
+          category: expect.any(Object),
+          tags: expect.any(Object),
+        },
+      })
     })
 
     it('should throw error when create article given tags not exist', async () => {
       vi.spyOn(tagService, 'getTags').mockRejectedValue(new FormException({}))
-      vi.spyOn(repository, 'create').mockReturnValue({ title: 'foo', content: 'content', id: 1 } as ArticleEntity)
 
       await expect(
         service.createArticle(1, { title: 'foo', content: 'content', tags: ['not-exist'] }),
@@ -105,7 +82,6 @@ describe('article service', () => {
 
     it('should throw error given not existed categoryId', async () => {
       vi.spyOn(tagService, 'getTags').mockResolvedValue([tagFixture.entity])
-      vi.spyOn(repository, 'create').mockReturnValue(articleFixture.entity)
       vi.spyOn(categoryService, 'findCategory').mockResolvedValue(null)
 
       const articleDto: CreateArticleDto = { ...createArticleDto, categoryId: 999 }
@@ -116,34 +92,36 @@ describe('article service', () => {
 
   describe('retrieveArticles', () => {
     it('should find articles correctly', async () => {
-      vi.spyOn(repository, 'findAndCount').mockResolvedValue([[], 0])
-      const articlesRo = await service.retrieveArticles({ page: 1, limit: 10 })
+      mockedPrisma.article.findMany.mockResolvedValue([])
+      mockedPrisma.article.count.mockResolvedValue(0)
 
-      expect(articlesRo).toEqual({
-        items: [],
-        meta: {
-          limit: 10,
-          currentPage: 1,
-          total: 0,
-          totalPages: 0,
-        },
-      } as ArticlesRo)
-      expect(repository.findAndCount).toHaveBeenCalledWith({ order: { createdAt: 'DESC' }, skip: 0, take: 10 })
+      const articlesPaginatedEntity = await service.retrievePaginatedArticles({ page: 1, limit: 10, order: 'desc' })
+
+      expect(articlesPaginatedEntity).toEqual(new PaginatedEntity(1, 10, 0, []))
+      expect(mockedPrisma.article.findMany).toHaveBeenCalledWith({
+        orderBy: { createdAt: 'desc' },
+        skip: 0,
+        take: 10,
+        include: articleIncludeAuthorAndTags,
+      })
     })
   })
 
   describe('retrieveArticle', () => {
     it('should return article entity when article is exist', async () => {
-      vi.spyOn(repository, 'findOneBy').mockResolvedValue(articleFixture.entity)
+      mockedPrisma.article.findUnique.mockResolvedValue(articleFixture.entity)
 
       const articleEntity = await service.findArticle(articleFixture.entity.id)
 
       expect(articleEntity).toEqual(articleFixture.entity)
-      expect(repository.findOneBy).toHaveBeenCalledWith({ id: articleFixture.entity.id })
+      expect(mockedPrisma.article.findUnique).toHaveBeenCalledWith({
+        where: { id: articleFixture.entity.id },
+        include: articleIncludeAuthorAndTags,
+      })
     })
 
     it('should throw NotFound error when article is not exist', async () => {
-      vi.spyOn(repository, 'findOneBy').mockResolvedValue(null)
+      mockedPrisma.article.findUnique.mockResolvedValue(null)
 
       const result = await service.findArticle(articleFixture.entity.id)
 
@@ -153,24 +131,29 @@ describe('article service', () => {
 
   describe('updateArticle', () => {
     it('should return the article when submit a valid article with login', async () => {
-      vi.spyOn(repository, 'findOneBy').mockResolvedValue(articleFixture.entity)
-      vi.spyOn(repository, 'save').mockResolvedValue(articleFixture.entity)
+      mockedPrisma.article.findUnique.mockResolvedValue(articleFixture.entity)
+      mockedPrisma.article.update.mockResolvedValue(articleFixture.entity)
       vi.spyOn(tagService, 'getTags').mockResolvedValue([tagFixture.entity])
       vi.spyOn(categoryService, 'findCategory').mockResolvedValue(categoryFixture.entity)
+      vi.spyOn(userService, 'findUser').mockResolvedValue(userFixture.adminEntity as User)
 
       const dto: CreateArticleDto = { ...createArticleDto, categoryId: 2 }
       const articleEntity = await service.updateArticle(1, dto, 1)
 
-      expect(repository.save).toHaveBeenCalledWith(expect.objectContaining({
-        ...createArticleDto,
-        tags: [tagFixture.entity],
-        category: categoryFixture.entity,
-      }))
+      expect(mockedPrisma.article.update).toHaveBeenCalledWith({
+        where: { id: 1 },
+        data: expect.objectContaining({
+          ...createArticleDto,
+          tags: { set: expect.any(Array) },
+          categoryId: categoryFixture.entity.id,
+        }),
+        include: articleIncludeAuthorAndTags,
+      })
       expect(articleEntity).toHaveProperty('id')
     })
 
     it('should throw NotFound error when article is not exist', async () => {
-      vi.spyOn(repository, 'findOneBy').mockResolvedValue(null)
+      mockedPrisma.article.findUnique.mockResolvedValue(null)
       vi.spyOn(tagService, 'getTags').mockResolvedValue([])
 
       await expect(service.updateArticle(articleFixture.entity.id, createArticleDto, 1))
@@ -178,7 +161,7 @@ describe('article service', () => {
     })
 
     it('should throw FormException when submit a not existed category', async () => {
-      vi.spyOn(repository, 'findOneBy').mockResolvedValue(null)
+      mockedPrisma.article.findUnique.mockResolvedValue(null)
       vi.spyOn(tagService, 'getTags').mockResolvedValue([])
       vi.spyOn(categoryService, 'findCategory').mockResolvedValue(null)
 
@@ -188,7 +171,7 @@ describe('article service', () => {
     })
 
     it('should throw FormException when submit a not existed tag', async () => {
-      vi.spyOn(repository, 'findOneBy').mockResolvedValue(articleFixture.entity)
+      mockedPrisma.article.findUnique.mockResolvedValue(articleFixture.entity)
       vi.spyOn(tagService, 'getTags').mockRejectedValue(new FormException({}))
 
       const dto = { ...createArticleDto, tags: ['not-exist'] }

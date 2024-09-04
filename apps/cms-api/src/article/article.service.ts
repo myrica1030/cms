@@ -1,81 +1,103 @@
-import { Injectable, NotFoundException } from '@nestjs/common'
-import { InjectRepository } from '@nestjs/typeorm'
-import { Repository } from 'typeorm'
-import { ArticleEntity } from 'src/article/article.entity'
-import { CreateArticleDto } from 'src/article/dto/createArticle.dto'
+import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common'
+import { Prisma, Tag } from '@prisma/client'
+import { PaginationQuery } from 'common/dto/pagination.query'
+import { PaginatedEntity } from 'common/entity/paginated.entity'
+import { PrismaService } from 'infra/prisma.service'
+import { ArticleIncludeAuthorAndTags, articleIncludeAuthorAndTags } from 'src/article/article.model'
+import { CreateArticleDto } from 'src/article/dto/create-article.dto'
+import { ArticleEntity } from 'src/article/entity/article-entity'
 import { CategoryService } from 'src/category/category.service'
 import { FormException } from 'src/exception'
 import { TagService } from 'src/tag/tag.service'
 import { UserService } from 'src/user/user.service'
-import { PaginationOptions, PaginationRo, paginate } from 'src/utils/paginate'
 
 @Injectable()
 export class ArticleService {
   constructor(
-    @InjectRepository(ArticleEntity)
-    private readonly repository: Repository<ArticleEntity>,
+    private readonly prisma: PrismaService,
     private readonly tagService: TagService,
     private readonly userService: UserService,
     private readonly categoryService: CategoryService,
   ) {}
 
-  async createArticle(userId: number, createArticleDto: CreateArticleDto): Promise<ArticleEntity> {
-    const { categoryId, tags, ...dto } = createArticleDto
+  async createArticle(userId: number, createArticleDto: CreateArticleDto): Promise<ArticleIncludeAuthorAndTags> {
+    const { categoryId, tags: tagLabels = [], ...dto } = createArticleDto
 
-    const articleEntity = this.repository.create(dto)
-
-    const [
-      tagEntities,
-      categoryEntity,
-      userSafeEntity,
-    ] = await Promise.all([
-      tags?.length ? this.tagService.getTags(tags) : [],
-      categoryId ? this.categoryService.findCategory(categoryId) : undefined,
+    const [tags, category, user] = await Promise.all([
+      tagLabels.length ? this.tagService.getTags(tagLabels) : [],
+      categoryId ? this.categoryService.findCategory(categoryId) : null,
       this.userService.findUser({ id: userId }),
     ])
 
-    if (categoryId && !categoryEntity) throw new FormException({ categoryId: ['isNotExist'] })
+    if (!user) throw new FormException({ userId: ['isNotExist'] })
+    if (categoryId && !category) throw new FormException({ categoryId: ['isNotExist'] })
+    if (tagLabels.length !== tags.length) throw new FormException({ tags: ['isInvalid'] })
 
-    this.repository.merge(articleEntity, {
-      ...dto,
-      tags: tagEntities,
-      category: categoryEntity ?? undefined,
-      author: userSafeEntity ?? undefined,
+    const article = await this.prisma.article.create({
+      include: articleIncludeAuthorAndTags,
+      data: {
+        ...dto,
+        tags: {
+          createMany: { data: tags.map(({ key }) => ({ tagKey: key })) },
+        },
+        category: categoryId ? { connect: { id: categoryId } } : undefined,
+        author: { connect: { id: user.id } },
+      },
     })
-    return this.repository.save(articleEntity)
+
+    return article
   }
 
-  async retrieveArticles(options: PaginationOptions): Promise<PaginationRo<ArticleEntity>> {
-    return paginate(this.repository, options)
-  }
-
-  async findArticle(id: number): Promise<ArticleEntity | null> {
-    return this.repository.findOneBy({ id })
-  }
-
-  async updateArticle(id: number, createArticleDto: CreateArticleDto, userId: number): Promise<ArticleEntity> {
-    const { tags, categoryId, ...dto } = createArticleDto
-    const [
-      articleEntity,
-      tagEntities,
-      categoryEntity,
-      userSafeEntity,
-    ] = await Promise.all([
-      this.repository.findOneBy({ id }),
-      tags?.length ? this.tagService.getTags(tags) : [],
-      categoryId ? this.categoryService.findCategory(categoryId) : undefined,
-      this.userService.findUser({ id: userId }),
+  async retrievePaginatedArticles(options: PaginationQuery<Prisma.ArticleOrderByWithRelationInput>): Promise<PaginatedEntity<ArticleEntity>> {
+    const { page, limit, order } = options
+    const [count, articles] = await Promise.all([
+      this.prisma.article.count(),
+      this.prisma.article.findMany({
+        skip: (page - 1) * limit,
+        take: limit,
+        orderBy: { createdAt: order },
+        include: articleIncludeAuthorAndTags,
+      }),
     ])
-    if (!articleEntity) throw new NotFoundException()
 
-    if (categoryId && !categoryEntity) throw new FormException({ categoryId: ['isNotExist'] })
+    return new PaginatedEntity(page, limit, count, articles.map(article => new ArticleEntity(article)))
+  }
 
-    this.repository.merge(articleEntity, {
-      ...dto,
-      tags: tagEntities,
-      category: categoryEntity ?? undefined,
-      author: userSafeEntity ?? undefined,
+  async findArticle(id: number): Promise<ArticleIncludeAuthorAndTags | null> {
+    return await this.prisma.article.findUnique({
+      where: { id },
+      include: articleIncludeAuthorAndTags,
     })
-    return this.repository.save(articleEntity)
+  }
+
+  async updateArticle(id: number, createArticleDto: CreateArticleDto, userId: number): Promise<ArticleIncludeAuthorAndTags> {
+    const { tags: tagNames, categoryId, ...dto } = createArticleDto
+    const [
+      article,
+      tags,
+      category,
+      user,
+    ] = await Promise.all([
+      this.prisma.article.findUnique({ where: { id } }),
+      tagNames?.length ? this.tagService.getTags(tagNames) : [] as Tag[],
+      categoryId ? this.categoryService.findCategory(categoryId) : null,
+      this.userService.findUser({ id: userId }),
+    ] as const)
+    if (!article) throw new NotFoundException()
+    if (!user) throw new BadRequestException('User not found')
+    if (user.id !== article.authorId) throw new ForbiddenException('You are not the author of this article')
+    if (categoryId && !category) throw new FormException({ categoryId: ['isNotExist'] })
+
+    return await this.prisma.article.update({
+      where: { id },
+      data: {
+        ...dto,
+        tags: {
+          set: tags.map(({ key }) => ({ articleId_tagKey: { articleId: id, tagKey: key } })),
+        },
+        categoryId,
+      },
+      include: articleIncludeAuthorAndTags,
+    })
   }
 }

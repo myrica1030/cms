@@ -2,14 +2,25 @@ import path from 'node:path'
 import process from 'node:process'
 import swc from 'unplugin-swc'
 import { defineConfig } from 'vitest/config'
+import type { WorkspaceSpec } from 'vitest/node'
 
 const isCI = !!process.env.CI
+
+class Sequencer {
+  async sort(files: WorkspaceSpec[]): Promise<WorkspaceSpec[]> {
+    return files.sort(([,a], [,b]) => Number.parseInt(a) - Number.parseInt(b))
+  }
+
+  async shard(files: WorkspaceSpec[]): Promise<WorkspaceSpec[]> { return files }
+}
 
 export default defineConfig({
   resolve: {
     alias: {
       'src': path.resolve(__dirname, '../src'),
       'integration-test': path.resolve(__dirname, '.'),
+      'common': path.resolve(__dirname, '../src/_common'),
+      'infra': path.resolve(__dirname, '../src/_infra'),
     },
   },
   plugins: [
@@ -20,6 +31,15 @@ export default defineConfig({
     dir: __dirname,
     include: ['specs/**/*.integration.spec.ts'],
     globals: true,
+    globalSetup: [path.resolve(__dirname, './setup-test.ts')],
+    fileParallelism: false,
+    sequence: { sequencer: Sequencer },
+    pool: 'forks',
+    poolOptions: {
+      forks: {
+        singleFork: true,
+      },
+    },
     reporters: isCI ? ['basic', 'json', 'junit'] : 'default',
     coverage: {
       provider: 'v8',

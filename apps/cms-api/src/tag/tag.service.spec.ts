@@ -1,70 +1,54 @@
 import type { TestingModule } from '@nestjs/testing'
 import { Test } from '@nestjs/testing'
-import { getRepositoryToken } from '@nestjs/typeorm'
-import type { Repository } from 'typeorm'
+import type { PrismaClient } from '@prisma/client'
+import { PaginatedEntity } from 'common/entity/paginated.entity'
+import { PrismaService } from 'infra/prisma.service'
+import type { DeepMockProxy } from 'vitest-mock-extended'
+import { mockDeep } from 'vitest-mock-extended'
 import { FormException } from 'src/exception'
-import type { TagsRo } from 'src/tag/dto/tags.ro'
 import { tagFixture } from 'src/tag/tag.fixture'
-import { TagEntity } from './tag.entity'
 import { TagService } from './tag.service'
 
 describe('tag service', () => {
   let service: TagService
-  let repository: Repository<TagEntity>
+  let mockedPrisma: DeepMockProxy<PrismaClient>
 
   beforeEach(async () => {
+    mockedPrisma = mockDeep<PrismaClient>()
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         TagService,
-        {
-          provide: getRepositoryToken(TagEntity),
-          useValue: {
-            save: vi.fn(),
-            find: vi.fn(),
-            findAndCount: vi.fn(),
-          },
-        },
+        { provide: PrismaService, useValue: mockedPrisma },
       ],
     }).compile()
 
     service = module.get<TagService>(TagService)
-    repository = module.get(getRepositoryToken(TagEntity))
-  })
-
-  it('should be defined', () => {
-    expect(service).toBeDefined()
-    expect(repository).toBeDefined()
   })
 
   describe('createTag', () => {
     it('should return tag entity when create tag given a valid tag', async () => {
       await service.createTag(tagFixture.dto)
 
-      expect(repository.save).toHaveBeenCalledWith(tagFixture.dto)
+      expect(mockedPrisma.tag.create).toHaveBeenCalledWith({ data: tagFixture.dto })
     })
   })
 
   describe('find all tags', () => {
     it('should find tags correctly', async () => {
-      vi.spyOn(repository, 'findAndCount').mockResolvedValue([[], 0])
-      const articlesRo = await service.retrieveTags({ page: 1, limit: 10 })
+      mockedPrisma.tag.findMany.mockResolvedValue([])
+      mockedPrisma.tag.count.mockResolvedValue(0)
 
-      expect(articlesRo).toEqual({
-        items: [],
-        meta: {
-          limit: 10,
-          currentPage: 1,
-          total: 0,
-          totalPages: 0,
-        },
-      } as TagsRo)
-      expect(repository.findAndCount).toHaveBeenCalledWith({ order: { createdAt: 'DESC' }, skip: 0, take: 10 })
+      const articlesPaginatedEntity = await service.retrievePaginatedTags({ page: 1, limit: 10, order: 'desc' })
+
+      expect(articlesPaginatedEntity).toEqual(new PaginatedEntity(1, 10, 0, []))
+      expect(mockedPrisma.tag.findMany).toHaveBeenCalledWith({ orderBy: { createdAt: 'desc' }, skip: 0, take: 10 })
+      expect(mockedPrisma.tag.count).toHaveBeenCalledWith()
     })
   })
 
   describe('getTags', () => {
     it('should return tag entities given existing tag keys', async () => {
-      vi.spyOn(repository, 'find').mockResolvedValue([tagFixture.entity])
+      mockedPrisma.tag.findMany.mockResolvedValue([tagFixture.entity])
 
       const result = await service.getTags(['semantic-ui'])
 
@@ -72,10 +56,10 @@ describe('tag service', () => {
     })
 
     it('should throw exception given not existed tag key', async () => {
-      vi.spyOn(repository, 'find').mockResolvedValue([tagFixture.entity])
+      mockedPrisma.tag.findMany.mockResolvedValue([tagFixture.entity])
 
       await expect(service.getTags(['semantic-ui', 'not-exist']))
-        .rejects.toThrow(FormException)
+        .rejects.toThrowError(FormException)
     })
   })
 })

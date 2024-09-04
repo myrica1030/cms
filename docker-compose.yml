@@ -9,25 +9,22 @@ services:
     env_file:
       - .env
     environment:
-      POSTGRES_USER: ${TYPEORM_USERNAME:-postgres}
-      POSTGRES_PASSWORD: ${TYPEORM_PASSWORD:-postgres}
+      POSTGRES_USER: ${POSTGRES_USERNAME:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
       PGDATA: /data/postgres
-      POSTGRES_DB: ${TYPEORM_DATABASE:-cms_api}
+      POSTGRES_DB: ${POSTGRES_DATABASE:-cms}
     ports:
-      - '${TYPEORM_PORT:-5432}:5432'
+      - '${POSTGRES_PORT:-5432}:5432'
 
   nest:
     container_name: mutoe-cms-api
     image: mutoe/cms-api:latest
     build:
-      context: cms-api
+      context: apps/cms-api
     env_file:
       - .env
     networks:
       - mutoe-cms
-    environment:
-      SWAGGER_ENABLE: 'true'
-      TYPEORM_HOST: postgres
     ports:
       - '${API_PORT:-8080}:8080'
     depends_on:
@@ -37,7 +34,7 @@ services:
     container_name: mutoe-cms-admin
     image: mutoe/cms-admin:latest
     build:
-      context: cms-admin
+      context: apps/cms-admin
       target: build
     volumes:
       - type: volume
@@ -47,7 +44,6 @@ services:
           nocopy: true
     env_file:
       - .env
-      - cms-admin/.env
     networks:
       - mutoe-cms
 

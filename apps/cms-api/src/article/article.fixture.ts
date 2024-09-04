@@ -1,5 +1,5 @@
-import type { ArticleEntity } from 'src/article/article.entity'
-import type { CreateArticleDto } from 'src/article/dto/createArticle.dto'
+import type { ArticleIncludeAuthorAndTags } from 'src/article/article.model'
+import type { CreateArticleDto } from 'src/article/dto/create-article.dto'
 import { categoryFixture } from 'src/category/category.fixture'
 import { tagFixture } from 'src/tag/tag.fixture'
 import { userFixture } from 'src/user/user.fixture'
@@ -11,28 +11,30 @@ const dto: CreateArticleDto = {
   content: '# Article content',
 }
 
-const entity: ArticleEntity = {
+const entity: ArticleIncludeAuthorAndTags = {
   id: 1,
   title: 'Article title',
+  authorId: userFixture.adminEntity.id,
   author: userFixture.adminEntity,
-  category: categoryFixture.uncategorizedCategoryEntity,
-  tags: [tagFixture.entity],
+  categoryId: categoryFixture.uncategorizedCategoryEntity.id,
+  tags: [{ tag: tagFixture.entity }],
   content: '# Article content',
-  createdAt: '2021-04-18T07:51:33.299Z',
-  updatedAt: '2021-04-18T07:51:33.299Z',
+  createdAt: new Date('2021-04-18T07:51:33.299Z'),
+  updatedAt: new Date('2021-04-18T07:51:33.299Z'),
 }
-const entity2: ArticleEntity = {
+const entity2: ArticleIncludeAuthorAndTags = {
   id: 2,
   title: 'Article title 2',
+  authorId: userFixture.adminEntity.id,
   author: userFixture.adminEntity,
-  category: categoryFixture.entity,
-  tags: tagFixture.entities,
+  categoryId: categoryFixture.entity.id,
+  tags: tagFixture.entities.map(tag => ({ tag })),
   content: '# Article content 2',
-  createdAt: '2021-04-18T07:51:33.299Z',
-  updatedAt: '2021-04-18T07:51:33.299Z',
+  createdAt: new Date('2021-04-18T07:51:33.299Z'),
+  updatedAt: new Date('2021-04-18T07:51:33.299Z'),
 }
 
-const entities: ArticleEntity[] = [
+const entities: ArticleIncludeAuthorAndTags[] = [
   entity,
   entity2,
 ]
