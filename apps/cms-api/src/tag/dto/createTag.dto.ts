@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { IsNotEmpty } from 'class-validator'
-import { ApiPropertyRichText } from 'src/decorators'
+import { ApiPropertyRichText } from 'common/decorator/api-property.decorator'
 
 export class CreateTagDto {
   @IsNotEmpty()

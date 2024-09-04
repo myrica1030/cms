@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common'
 import { Category } from '@prisma/client'
+import { FormException } from 'common/exception/form-exception.exception'
 import { PrismaService } from 'infra/prisma.service'
 import { CreateCategoryDto } from 'src/category/dto/create-category.dto'
-import { FormException } from 'src/exception'
 
 @Injectable()
 export class CategoryService {

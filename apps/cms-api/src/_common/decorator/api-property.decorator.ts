@@ -1,5 +1,6 @@
 import type { ApiParamOptions, ApiPropertyOptions } from '@nestjs/swagger'
 import { ApiParam, ApiProperty } from '@nestjs/swagger'
+import { createApiPropertyDecorator } from '@nestjs/swagger/dist/decorators/api-property.decorator'
 import type { SwaggerEnumType } from '@nestjs/swagger/dist/types/swagger-enum.type'
 
 interface ApiEnumPropertyOptions extends ApiPropertyOptions {
@@ -74,4 +75,20 @@ export function ApiEnumParam(name: string, enumType: Record<string, Record<strin
   }
 
   return ApiParam(apiParamOptions)
+}
+
+export function ApiPropertyRichText(options?: ApiPropertyOptions): PropertyDecorator {
+  return createApiPropertyDecorator({
+    description: 'HTML content',
+    example: '<p>Hello <strong>Mutoe CMS</strong></p>',
+    ...options,
+  })
+}
+
+export function ApiPropertyDatetime(options?: ApiPropertyOptions): PropertyDecorator {
+  return createApiPropertyDecorator({
+    example: '2020-08-16T00:04:59.343Z',
+    format: 'date-time',
+    ...options,
+  })
 }

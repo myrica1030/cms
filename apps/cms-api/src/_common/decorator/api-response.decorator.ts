@@ -1,6 +1,15 @@
-import type { ApiResponseOptions } from '@nestjs/swagger'
-import { ApiOkResponse, ApiQuery, getSchemaPath } from '@nestjs/swagger'
+import type {
+  ApiResponseOptions,
+} from '@nestjs/swagger'
+import {
+  ApiOkResponse,
+  ApiQuery,
+  ApiUnprocessableEntityResponse,
+  getSchemaPath,
+} from '@nestjs/swagger'
+import type { SchemaObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface'
 import type { ClassConstructor } from 'class-transformer'
+import type { FormExceptionBody } from 'common/exception/form-exception.exception'
 import { PaginatedEntity } from '../entity/paginated.entity'
 
 export function ApiPaginatedOkResponse(itemType: ClassConstructor<unknown>, options: ApiResponseOptions = {}): MethodDecorator {
@@ -34,4 +43,16 @@ export function ApiListResponse(type: ClassConstructor<unknown>): MethodDecorato
     limitQueryDecorator(...args)
     okResponseDecorator(...args)
   }
+}
+
+export function ApiInvalidFormResponse(): MethodDecorator & ClassDecorator {
+  const schema: SchemaObject = {
+    title: 'UnprocessableEntityResponse',
+    example: {
+      username: ['isInvalid', 'isExist'],
+      password: ['isNotEmpty'],
+    } as FormExceptionBody,
+  }
+
+  return ApiUnprocessableEntityResponse({ schema })
 }

@@ -1,5 +1,5 @@
 import { HttpStatus, ValidationPipe } from '@nestjs/common'
-import { FormException } from 'src/exception'
+import { FormException } from 'common/exception/form-exception.exception'
 
 export const validationPipe = new ValidationPipe({
   errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY,

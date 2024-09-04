@@ -31,7 +31,7 @@ export default defineConfig({
       include: ['src/**/*.ts'],
       exclude: [
         'src/*.ts',
-        'src/**/*.{module,dto,ro,strategy,controller,fixture}.ts',
+        'src/**/*.{fixture}.ts',
       ],
     },
   },
