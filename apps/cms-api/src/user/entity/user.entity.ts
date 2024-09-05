@@ -1,28 +1,37 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
 import { User } from '@prisma/client'
-import { ApiPropertyDatetime } from 'common/decorator/api-property.decorator'
+import { IsEmail, IsNotEmpty, IsOptional, IsString, IsUrl } from 'class-validator'
+import { IsDatetimeProperty, IsIdProperty } from 'common/decorator/api-property.decorator'
 import { NullToUndefined } from 'types/fest'
 
 export class UserEntity implements NullToUndefined<User> {
-  @ApiProperty({ example: 1 })
+  @IsIdProperty()
   id: number
 
   @ApiProperty({ example: 'foo@example.com' })
+  @IsEmail()
+  @IsNotEmpty()
   email: string
 
   @ApiProperty({ example: 'foo' })
+  @IsEmail()
+  @IsNotEmpty()
   username: string
 
-  @ApiPropertyDatetime()
+  @IsDatetimeProperty({ created: true })
   createdAt: Date
 
-  @ApiPropertyDatetime()
+  @IsDatetimeProperty({ updated: true })
   updatedAt: Date
 
-  @ApiPropertyOptional({ example: 'This guy is lazy and has left nothing.' })
+  @ApiPropertyOptional({ title: 'The biography of the user', example: 'This guy is lazy and has left nothing.' })
+  @IsString()
+  @IsOptional()
   bio?: string
 
-  @ApiPropertyOptional({ example: 'https://picsum.photos/200' })
+  @ApiPropertyOptional({ title: 'The URL of the user avatar image', example: 'https://picsum.photos/200', format: 'url' })
+  @IsUrl()
+  @IsOptional()
   image?: string
 
   constructor(user: Omit<User, 'password'>) {

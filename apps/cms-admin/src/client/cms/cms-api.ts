@@ -9,88 +9,294 @@
 
 type UtilRequiredKeys<T, K extends keyof T> = Omit<T, K> & Required<Pick<T, K>>
 
+export type FormError = Record<string, (FormErrorCause | string)[]>
+
+export interface PaginationQuery {
+  /**
+   * The page number of the items
+   * @min 1
+   * @default 1
+   */
+  page?: number
+  /**
+   * The limit of the items per page
+   * @min 1
+   * @max 500
+   * @default 10
+   */
+  limit?: number
+  /**
+   * The order of the items `createdAt` property
+   *
+   * Enum name: SortOrder
+   * Enum values:
+   * ```
+   *   Asc = asc,
+   *   Desc = desc,
+   * ```
+   * @default "desc"
+   */
+  order?: SortOrder
+}
+
+export interface TagEntity {
+  /**
+   * The unique identifier
+   * @minLength 1
+   * @pattern ^\w+$
+   * @example "foo-bar"
+   */
+  key: string
+  /**
+   * The name of the tag
+   * @minLength 1
+   */
+  name: string
+  /** The description of the tag */
+  description: string
+  /**
+   * The creation datetime
+   * @format date-time
+   * @example "2020-08-16T00:04:59.343Z"
+   */
+  createdAt: string
+  /**
+   * The last update datetime
+   * @format date-time
+   * @example "2020-08-16T00:04:59.343Z"
+   */
+  updatedAt: string
+}
+
 export interface UserEntity {
-  /** @example 1 */
+  /**
+   * The unique identifier
+   * @min 1
+   * @example "123"
+   */
   id: number
-  /** @example "foo@example.com" */
+  /**
+   * The email address
+   * @minLength 1
+   * @example "foo@example.com"
+   */
   email: string
-  /** @example "foo" */
+  /**
+   * The email address
+   * @minLength 1
+   * @example "foo"
+   */
   username: string
   /**
+   * The creation datetime
    * @format date-time
    * @example "2020-08-16T00:04:59.343Z"
    */
   createdAt: string
   /**
+   * The last update datetime
    * @format date-time
    * @example "2020-08-16T00:04:59.343Z"
    */
   updatedAt: string
-  /** @example "This guy is lazy and has left nothing." */
+  /**
+   * The biography of the user
+   * @example "This guy is lazy and has left nothing."
+   */
   bio?: string
-  /** @example "https://picsum.photos/200" */
+  /**
+   * The URL of the user avatar image
+   * @format url
+   * @example "https://picsum.photos/200"
+   */
   image?: string
-}
-
-export interface RegisterDto {
-  /** @example "foo@example.com" */
-  email: string
-  /** @example "username" */
-  username: string
-  /**
-   * @format password
-   * @example "123456"
-   */
-  password: string
-}
-
-export interface AuthEntity {
-  /** @example 1 */
-  id: number
-  /** @example "foo@example.com" */
-  email: string
-  /** @example "foo" */
-  username: string
-  /**
-   * @format date-time
-   * @example "2020-08-16T00:04:59.343Z"
-   */
-  createdAt: string
-  /**
-   * @format date-time
-   * @example "2020-08-16T00:04:59.343Z"
-   */
-  updatedAt: string
-  /** @example "This guy is lazy and has left nothing." */
-  bio?: string
-  /** @example "https://picsum.photos/200" */
-  image?: string
-  /** @example "jwt" */
-  token: string
-}
-
-export interface LoginDto {
-  /** @example "admin" */
-  username: string
-  /**
-   * @format password
-   * @example "123456"
-   */
-  password: string
 }
 
 export interface CreateArticleDto {
-  /** @example "Lorem ipsum" */
+  /**
+   * The title of the article
+   * @minLength 1
+   * @maxLength 60
+   * @example "Lorem ipsum"
+   */
   title: string
+  /**
+   * The content of the article
+   * @example "<p>Hello <strong>Mutoe CMS</strong></p>"
+   */
+  content?: string
+  /**
+   * The category ID of the article
+   * @min 1
+   * @example "123"
+   */
+  categoryId?: number
+  /**
+   * The tag names of the article
+   * @example ["semantic-ui","material-ui"]
+   */
+  tags?: string[]
+}
+
+export interface LoginDto {
+  /**
+   * @minLength 1
+   * @example "admin"
+   */
+  username: string
+  /**
+   * @format password
+   * @minLength 6
+   * @maxLength 32
+   */
+  password: string
+}
+
+export interface RegisterDto {
+  /**
+   * The email address
+   * @example "foo@example.com"
+   */
+  email: string
+  /**
+   * @minLength 1
+   * @example "admin"
+   */
+  username: string
+  /**
+   * @format password
+   * @minLength 6
+   * @maxLength 32
+   */
+  password: string
+}
+
+export interface CreateCategoryDto {
+  /**
+   * The identifier of the category
+   * @minLength 1
+   * @maxLength 32
+   * @example "study-notes"
+   */
+  key: string
+  /**
+   * The display text of the category
+   * @minLength 1
+   * @example "Study notes"
+   */
+  label: string
   /**
    * HTML content
    * @example "<p>Hello <strong>Mutoe CMS</strong></p>"
    */
-  content: string
-  /** @example 1 */
-  categoryId?: number
-  /** @example ["semantic-ui","material-ui"] */
-  tags?: string[]
+  description?: string
+  /**
+   * Category parent ID
+   * @min 1
+   * @example "123"
+   */
+  parentId?: number
+}
+
+export interface CategoryEntity {
+  /**
+   * The identifier of the category
+   * @min 1
+   * @example "123"
+   */
+  id: number
+  /**
+   * Category parent ID
+   * @min 1
+   * @example "123"
+   */
+  parentId?: number
+  /**
+   * The key of the category
+   * @example "study-notes"
+   */
+  key: string
+  /**
+   * The display text of the category
+   * @minLength 1
+   * @example "Study notes"
+   */
+  label: string
+  /**
+   * The description of the category
+   * @example "<p>Hello <strong>Mutoe CMS</strong></p>"
+   */
+  description?: string
+  /**
+   * The creation datetime
+   * @format date-time
+   * @example "2020-08-16T00:04:59.343Z"
+   */
+  createdAt: string
+  /**
+   * The last update datetime
+   * @format date-time
+   * @example "2020-08-16T00:04:59.343Z"
+   */
+  updatedAt: string
+}
+
+export interface CreateTagDto {
+  /**
+   * The key of the tag
+   * @minLength 1
+   * @pattern ^\w+$
+   * @example "semantic-ui"
+   */
+  key: string
+  /**
+   * The display name of the tag
+   * @minLength 1
+   * @example "Semantic UI"
+   */
+  name: string
+  /**
+   * The description of the tag
+   * @example "<p>Hello <strong>Mutoe CMS</strong></p>"
+   */
+  description?: string
+}
+
+export interface AuthEntity {
+  /**
+   * The unique identifier
+   * @example "123"
+   */
+  id: number
+  /** @example "foo@example.com" */
+  email: string
+  /** @example "foo" */
+  username: string
+  /**
+   * The creation datetime
+   * @format date-time
+   * @example "2020-08-16T00:04:59.343Z"
+   */
+  createdAt: string
+  /**
+   * The last update datetime
+   * @format date-time
+   * @example "2020-08-16T00:04:59.343Z"
+   */
+  updatedAt: string
+  /**
+   * The biography of the user
+   * @example "This guy is lazy and has left nothing."
+   */
+  bio?: string
+  /**
+   * The URL of the user avatar image
+   * @format url
+   * @example "https://picsum.photos/200"
+   */
+  image?: string
+  /** @example "jwt" */
+  token: string
 }
 
 export interface ArticleEntity {
@@ -122,111 +328,6 @@ export interface ArticleEntity {
 export enum SortOrder {
   Asc = 'asc',
   Desc = 'desc',
-}
-
-export interface CreateCategoryDto {
-  /** @example "study-notes" */
-  key: string
-  /** @example "Study notes" */
-  label: string
-  /**
-   * HTML content
-   * @example "<p>Hello <strong>Mutoe CMS</strong></p>"
-   */
-  description: string
-  /** @example 1 */
-  parentId?: number
-}
-
-export interface CategoryEntity {
-  /** @example 1 */
-  id: number
-  /** Category parent ID */
-  parentId?: number
-  /**
-   * The key of the category
-   * @example "study-notes"
-   */
-  key: string
-  /**
-   * The display text of the category
-   * @example "Study notes"
-   */
-  label: string
-  /**
-   * HTML content
-   * @example "<p>Hello <strong>Mutoe CMS</strong></p>"
-   */
-  description?: string
-  /**
-   * The creation date of the category
-   * @format date-time
-   * @example "2020-08-16T00:04:59.343Z"
-   */
-  createdAt: string
-  /**
-   * The last update date of the category
-   * @format date-time
-   * @example "2020-08-16T00:04:59.343Z"
-   */
-  updatedAt: string
-}
-
-export interface CreateTagDto {
-  /** @example "semantic-ui" */
-  key: string
-  /** @example "Semantic UI" */
-  name: string
-  /**
-   * HTML content
-   * @example "<p>Hello <strong>Mutoe CMS</strong></p>"
-   */
-  description?: string
-}
-
-export interface TagEntity {
-  /** The key of the tag */
-  key: string
-  /** The name of the tag */
-  name: string
-  /** The description of the tag */
-  description?: string
-  /**
-   * The creation date of the tag
-   * @format date-time
-   * @example "2020-08-16T00:04:59.343Z"
-   */
-  createdAt: string
-  /**
-   * The last update date of the tag
-   * @format date-time
-   * @example "2020-08-16T00:04:59.343Z"
-   */
-  updatedAt: string
-}
-
-export interface PaginationQuery {
-  /**
-   * The page number of the items
-   * @default 1
-   */
-  page?: number
-  /**
-   * The limit of the items per page
-   * @default 10
-   */
-  limit?: number
-  /**
-   * The order of the items `createdAt` property
-   *
-   * Enum name: SortOrder
-   * Enum values:
-   * ```
-   *   Asc = asc,
-   *   Desc = desc,
-   * ```
-   */
-  order?: SortOrder
 }
 
 export interface PaginatedMetadata {
@@ -265,8 +366,6 @@ export enum FormErrorCause {
   IsNotExist = 'isNotExist',
   IsInvalid = 'isInvalid',
 }
-
-export type FormError = Record<string, (FormErrorCause | string)[]>
 
 export type QueryParamsType = Record<string | number, any>
 export type ResponseFormat = keyof Omit<Body, 'body' | 'bodyUsed'>

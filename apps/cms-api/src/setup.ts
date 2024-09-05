@@ -1,6 +1,7 @@
 import type { INestApplication } from '@nestjs/common'
 import { Logger } from '@nestjs/common'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
+import { mergeDocumentSchema } from 'common/decorator/schema-converter'
 import { PaginationQuery } from 'common/dto/pagination.query'
 import { PaginatedEntity } from 'common/entity/paginated.entity'
 import { FormError } from 'common/exception/form-exception.exception'
@@ -29,6 +30,9 @@ export function createSwagger(app: INestApplication): void {
       FormError,
     ],
   })
+
+  mergeDocumentSchema(document)
+
   SwaggerModule.setup('/docs', app, document)
 
   setTimeout(() => {

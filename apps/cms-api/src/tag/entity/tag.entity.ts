@@ -1,22 +1,26 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
 import type { Tag } from '@prisma/client'
-import { ApiPropertyDatetime } from 'common/decorator/api-property.decorator'
+import { IsNotEmpty, IsString } from 'class-validator'
+import { IsDatetimeProperty, IsKeyProperty } from 'common/decorator/api-property.decorator'
 import { NullToUndefined } from 'types/fest'
 
 export class TagEntity implements NullToUndefined<Tag> {
-  @ApiProperty({ title: 'The key of the tag' })
+  @IsKeyProperty()
   key: string
 
   @ApiProperty({ title: 'The name of the tag' })
+  @IsString()
+  @IsNotEmpty()
   name: string
 
   @ApiPropertyOptional({ title: 'The description of the tag' })
+  @IsString()
   description?: string
 
-  @ApiPropertyDatetime({ title: 'The creation date of the tag' })
+  @IsDatetimeProperty({ created: true })
   createdAt: Date
 
-  @ApiPropertyDatetime({ title: 'The last update date of the tag' })
+  @IsDatetimeProperty({ updated: true })
   updatedAt: Date
 
   constructor(tag: Tag) {

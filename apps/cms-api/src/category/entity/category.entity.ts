@@ -1,28 +1,35 @@
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
+import { ApiProperty } from '@nestjs/swagger'
 import { Category } from '@prisma/client'
-import { ApiPropertyDatetime, ApiPropertyRichText } from 'common/decorator/api-property.decorator'
+import { IsNotEmpty, IsOptional, IsString } from 'class-validator'
+import { IsDatetimeProperty, IsIdProperty, IsRichTextProperty } from 'common/decorator/api-property.decorator'
 import { NullToUndefined } from 'types/fest'
 
 export class CategoryEntity implements NullToUndefined<Category> {
-  @ApiProperty({ example: 1 })
+  @IsIdProperty({ title: 'The identifier of the category' })
   id: number
 
-  @ApiPropertyOptional({ description: 'Category parent ID' })
+  @IsIdProperty({ title: 'Category parent ID' })
+  @IsOptional()
   parentId?: number
 
-  @ApiProperty({ description: 'The key of the category', example: 'study-notes' })
+  // TODO remove this property
+  @ApiProperty({ title: 'The key of the category', example: 'study-notes' })
+  @IsString()
   key: string
 
-  @ApiProperty({ description: 'The display text of the category', example: 'Study notes' })
+  @ApiProperty({ title: 'The display text of the category', example: 'Study notes' })
+  @IsString()
+  @IsNotEmpty()
   label: string
 
-  @ApiPropertyRichText({ required: false })
+  @IsRichTextProperty({ title: 'The description of the category' })
+  @IsOptional()
   description?: string
 
-  @ApiPropertyDatetime({ description: 'The creation date of the category' })
+  @IsDatetimeProperty({ created: true })
   createdAt: Date
 
-  @ApiPropertyDatetime({ description: 'The last update date of the category' })
+  @IsDatetimeProperty({ updated: true })
   updatedAt: Date
 
   constructor(category: Category) {

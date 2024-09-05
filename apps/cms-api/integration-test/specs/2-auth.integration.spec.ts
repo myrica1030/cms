@@ -22,7 +22,7 @@ describe('auth module', () => {
         .post('/auth/register')
         .send(requestBody)
 
-      expect(response.status).toBe(201)
+      expect(response.status, JSON.stringify(response.body)).toBe(201)
       expect(response.body).toEqual(expect.objectContaining({
         id: 3,
         username: 'user1',

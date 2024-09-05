@@ -29,8 +29,8 @@ export class ArticleController {
   @Get('/')
   @ApiOperation({ summary: 'Retrieve articles' })
   @ApiListResponse(ArticleEntity)
-  async retrieveArticles(@Query() { page, limit }: PaginationQuery): Promise<PaginatedEntity<ArticleEntity>> {
-    return await this.service.retrievePaginatedArticles({ page, limit })
+  async retrieveArticles(@Query() query: PaginationQuery): Promise<PaginatedEntity<ArticleEntity>> {
+    return await this.service.retrievePaginatedArticles(query)
   }
 
   @Get('/:articleId')

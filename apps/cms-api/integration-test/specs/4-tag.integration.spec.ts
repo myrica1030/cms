@@ -63,7 +63,7 @@ describe('tag module', () => {
         .send(requestBody)
 
       expect(response.status).toBe(422)
-      expect(response.body).toHaveProperty('name', ['isNotEmpty'])
+      expect(response.body).toHaveProperty('name', ['name should not be empty', 'name must be a string'])
     })
   })
 
@@ -72,7 +72,7 @@ describe('tag module', () => {
       const response = await request(app.getHttpServer())
         .get('/tag')
 
-      expect(response.status).toBe(200)
+      expect(response.status, JSON.stringify(response.body)).toBe(200)
       expect(response.body).toHaveProperty('metadata')
       expect(response.body).toHaveProperty('items')
 
@@ -84,7 +84,7 @@ describe('tag module', () => {
       } satisfies PaginatedMetadata)
 
       expect(response.body.items).toHaveLength(4)
-      expect(response.body.items[3]).toEqual({
+      expect(response.body.items[0]).toEqual({
         ...dto,
         createdAt: expect.stringMatching(anyDateString),
         updatedAt: expect.stringMatching(anyDateString),

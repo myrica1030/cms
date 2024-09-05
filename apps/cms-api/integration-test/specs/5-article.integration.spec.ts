@@ -60,7 +60,11 @@ describe('article module', () => {
         .send(requestBody)
 
       expect(response.status).toBe(422)
-      expect(response.body).toHaveProperty('title', ['isNotEmpty'])
+      expect(response.body).toHaveProperty('title', [
+        'title should not be empty',
+        'title must be shorter than or equal to 60 characters',
+        'title must be a string',
+      ])
     })
 
     it('should return 422 when create article given an invalid tag', async () => {
@@ -96,7 +100,7 @@ describe('article module', () => {
       } satisfies PaginatedMetadata)
 
       expect(response.body.items).toHaveLength(3)
-      expect(response.body.items[2]).toEqual({
+      expect(response.body.items[0]).toEqual({
         id: 3,
         ...dto,
         tags: [],
