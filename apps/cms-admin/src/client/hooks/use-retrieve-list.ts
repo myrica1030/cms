@@ -1,6 +1,11 @@
 import { useCallback, useEffect, useState } from 'react'
-import type { HttpResponse, PaginatedMetadata, PaginationQuery, RequestParams } from 'src/client/cms/cms-api'
-import type { PaginatedEntity } from 'src/client/type'
+import type {
+  HttpResponse,
+  PaginatedEntity,
+  PaginatedMetadata,
+  PaginationQuery,
+  RequestParams,
+} from 'src/client/cms/cms-api'
 
 type RetrieveListRequest<Query extends PaginationQuery = PaginationQuery, Entity = unknown> = (query?: Query, params?: RequestParams) => Promise<HttpResponse<PaginatedEntity<Entity>>>
 

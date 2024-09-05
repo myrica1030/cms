@@ -252,11 +252,11 @@ export interface PaginatedMetadata {
   currentPage: number
 }
 
-export interface PaginatedEntity {
+export interface PaginatedEntity<T = never> {
   /** The metadata of the paginated items */
   metadata: PaginatedMetadata
   /** The items on the current page */
-  items: object
+  items: T[]
 }
 
 export enum FormErrorCause {
@@ -608,7 +608,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @name RetrieveArticles
      * @summary Retrieve articles
      * @request `GET` `/api/article`
-     * @response `200` `(UtilRequiredKeys<PaginatedEntity,"items"> & { items: (ArticleEntity)[] })`
+     * @response `200` `PaginatedEntity<ArticleEntity>`
      */
     retrieveArticles: (
       query?: {
@@ -637,12 +637,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       },
       params: RequestParams = {},
     ) =>
-      this.request<
-        UtilRequiredKeys<PaginatedEntity, 'items'> & {
-          items: ArticleEntity[]
-        },
-        any
-      >({
+      this.request<PaginatedEntity<ArticleEntity>, any>({
         path: `/api/article`,
         method: 'GET',
         query,
@@ -724,7 +719,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @name RetrieveRootCategories
      * @summary Retrieve some categories that not have parent category
      * @request `GET` `/api/category`
-     * @response `200` `(CategoryEntity)[]`
+     * @response `200` `CategoryEntity[]`
      * @response `404` `void`
      */
     retrieveRootCategories: (params: RequestParams = {}) =>
@@ -785,7 +780,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @name RetrieveTags
      * @summary Retrieve tags
      * @request `GET` `/api/tag`
-     * @response `200` `(UtilRequiredKeys<PaginatedEntity,"items"> & { items: (TagEntity)[] })`
+     * @response `200` `PaginatedEntity<TagEntity>`
      */
     retrieveTags: (
       query?: {
@@ -814,12 +809,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       },
       params: RequestParams = {},
     ) =>
-      this.request<
-        UtilRequiredKeys<PaginatedEntity, 'items'> & {
-          items: TagEntity[]
-        },
-        any
-      >({
+      this.request<PaginatedEntity<TagEntity>, any>({
         path: `/api/tag`,
         method: 'GET',
         query,

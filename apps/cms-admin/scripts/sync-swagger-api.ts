@@ -74,7 +74,6 @@ void (async () => {
     enumNamesAsValues: true,
     hooks: {
       onCreateComponent: component => {
-        // TODO: add generic type to PaginatedEntity<T>
         if (component.typeName === 'FormError') {
           if (component.rawTypeData) {
             delete component.rawTypeData.properties

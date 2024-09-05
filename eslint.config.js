@@ -43,5 +43,6 @@ export default defineConfig({
     'ts/no-unsafe-return': 'off',
     'unicorn/no-array-reduce': 'off',
     'unicorn/no-nested-ternary': 'off',
+    'unused-imports/no-unused-vars': 'off',
   },
 })

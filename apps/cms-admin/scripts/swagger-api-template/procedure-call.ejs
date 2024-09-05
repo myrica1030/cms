@@ -88,7 +88,14 @@ const describeReturnType = () => {
 
  */
 <%~ route.routeName.usage %><%~ route.namespace ? ': ' : ' = ' %>(<%~ wrapperArgs %>)<%~ config.toJS ? `: ${describeReturnType()}` : "" %> =>
-    <%~ config.singleHttpClient ? 'this.http.request' : 'this.request' %><<%~ type %>, <%~ errorType %>>({
+    <%
+        let genericType = _.replace(type, /,\n/g, '\n')
+        genericType = _.replace(genericType, /\n+/g, ' ')
+        genericType = _.replace(genericType, / +/g, ' ')
+        genericType = _.replace(genericType, /\(UtilRequiredKeys<PaginatedEntity,"items"> & \{ items: \((.+)\)\[] }\)/, 'PaginatedEntity<$1>')
+        genericType = _.replace(genericType, /\((\w+)\)/g, '$1')
+    %>
+    <%~ config.singleHttpClient ? 'this.http.request' : 'this.request' %><<%~ genericType %>, <%~ errorType %>>({
         path: `<%~ path %>`,
         method: '<%~ _.upperCase(method) %>',
         <%~ queryTmpl ? `query: ${queryTmpl},` : '' %>

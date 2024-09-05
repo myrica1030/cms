@@ -1,6 +1,7 @@
 import { act, renderHook } from '@testing-library/react'
 import { noop } from 'lodash'
-import type { PaginatedEntity } from 'src/client/type'
+import type { PaginatedEntity } from 'src/client/cms/cms-api'
+import { paginatedMetadataFixture } from 'src/fixtures'
 import { useRetrieveList } from './use-retrieve-list'
 
 describe('# useRetrieveList', () => {
@@ -8,10 +9,7 @@ describe('# useRetrieveList', () => {
     const items = [1, 2, 3]
     const request = vi.fn().mockResolvedValue({
       status: 200,
-      data: {
-        items,
-        metadata: { currentPage: 1, limit: 15, total: 10, totalPages: 1 },
-      } as PaginatedEntity<number>,
+      data: { items, metadata: paginatedMetadataFixture } as PaginatedEntity<number>,
     })
     const { result } = renderHook(() => useRetrieveList(request))
 

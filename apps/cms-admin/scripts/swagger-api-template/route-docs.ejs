@@ -19,9 +19,11 @@ const jsDocLines = _.compact([
     ? raw.responsesTypes.map(({ type, status, description, isSuccess }) => {
         type = _.replace(type, /\/\*/g, "\\*")
         type = _.replace(type, /\*\//g, "*\\")
-        type = _.replace(type, /\n+/g, " ")
+        type = _.replace(type, /[\n\r]+/g, " ")
         type = _.replace(type, / +/g, " ")
         type = _.replace(type, /, }/g, " }")
+        type = _.replace(type, /\(UtilRequiredKeys<PaginatedEntity,"items"> & \{ items: \((.+)\)\[] }\)/, 'PaginatedEntity<$1>')
+        type = _.replace(type, /\((\w+)\)/g, '$1')
         return ` * @response \`${status}\` \`${type}\` ${description}`
     })
     : []),
