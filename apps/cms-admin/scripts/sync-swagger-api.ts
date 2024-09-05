@@ -54,77 +54,75 @@ function handleEnumSchema(parsedSchema: ParsedSchema<unknown>) {
   })
 }
 
-void (async () => {
-  await testURL()
-  await generateApi({
-    name: fileName,
-    output,
-    url,
-    templates: path.join(__dirname, './swagger-api-template'),
-    httpClientType: 'fetch',
-    moduleNameFirstTag: true,
-    generateRouteTypes: false,
-    generateResponses: true,
-    extractRequestParams: false,
-    extractRequestBody: true,
-    extractResponseError: true,
-    extractEnums: true,
-    unwrapResponseData: false,
-    cleanOutput: true,
-    enumNamesAsValues: true,
-    hooks: {
-      onCreateComponent: component => {
-        if (component.typeName === 'FormError') {
-          if (component.rawTypeData) {
-            delete component.rawTypeData.properties
-            delete component.rawTypeData.required
-            // @ts-expect-error rawTypeData is exists
-            component.rawTypeData.additionalProperties = {
-              type: 'array',
-              items: {
-                oneOf: [
-                  { $ref: '#/components/schemas/FormErrorCause' },
-                  { type: 'string' },
-                ],
-              },
-            }
+await testURL()
+await generateApi({
+  name: fileName,
+  output,
+  url,
+  templates: path.join(__dirname, './swagger-api-template'),
+  httpClientType: 'fetch',
+  moduleNameFirstTag: true,
+  generateRouteTypes: false,
+  generateResponses: true,
+  extractRequestParams: false,
+  extractRequestBody: true,
+  extractResponseError: true,
+  extractEnums: true,
+  unwrapResponseData: false,
+  cleanOutput: true,
+  enumNamesAsValues: true,
+  hooks: {
+    onCreateComponent: component => {
+      if (component.typeName === 'FormError') {
+        if (component.rawTypeData) {
+          delete component.rawTypeData.properties
+          delete component.rawTypeData.required
+          // @ts-expect-error rawTypeData is exists
+          component.rawTypeData.additionalProperties = {
+            type: 'array',
+            items: {
+              oneOf: [
+                { $ref: '#/components/schemas/FormErrorCause' },
+                { type: 'string' },
+              ],
+            },
           }
         }
-        return component
-      },
-      onCreateRequestParams: rawType => rawType,
-      onCreateRoute: routeData => {
-        if (routeData.raw.responses?.['422']) {
-          if ('errorType' in routeData.response) routeData.response.errorType = 'FormError'
-          const unprocessEntityError = routeData.raw.responsesTypes.find(type => type.status === 422)
-          if (unprocessEntityError) {
-            unprocessEntityError.type = 'FormError'
-            unprocessEntityError.description = 'Form validation error'
-          }
-        }
-        return routeData
-      },
-      onCreateRouteName: (routeNameInfo, _rawRouteInfo) => routeNameInfo,
-      onFormatRouteName: (routeInfo, _templateRouteName) => {
-        return routeInfo.operationId.split('_').at(1)
-      },
-      onFormatTypeName: (_typeName, _rawTypeName, _schemaType) => _typeName,
-      onInit: _configuration => _configuration,
-      onPreParseSchema: (_originalSchema, _typeName, _schemaType) => {},
-      onParseSchema: (_originalSchema, _parsedSchema) => {
-        const parsedSchema = _parsedSchema as ParsedSchema<unknown>
-        const { schemaType } = parsedSchema
-        if (schemaType === 'enum') {
-          handleEnumSchema(parsedSchema)
-        }
-      },
+      }
+      return component
     },
-  })
+    onCreateRequestParams: rawType => rawType,
+    onCreateRoute: routeData => {
+      if (routeData.raw.responses?.['422']) {
+        if ('errorType' in routeData.response) routeData.response.errorType = 'FormError'
+        const unprocessEntityError = routeData.raw.responsesTypes.find(type => type.status === 422)
+        if (unprocessEntityError) {
+          unprocessEntityError.type = 'FormError'
+          unprocessEntityError.description = 'Form validation error'
+        }
+      }
+      return routeData
+    },
+    onCreateRouteName: (routeNameInfo, _rawRouteInfo) => routeNameInfo,
+    onFormatRouteName: (routeInfo, _templateRouteName) => {
+      return routeInfo.operationId.split('_').at(1)
+    },
+    onFormatTypeName: (_typeName, _rawTypeName, _schemaType) => _typeName,
+    onInit: _configuration => _configuration,
+    onPreParseSchema: (_originalSchema, _typeName, _schemaType) => {},
+    onParseSchema: (_originalSchema, _parsedSchema) => {
+      const parsedSchema = _parsedSchema as ParsedSchema<unknown>
+      const { schemaType } = parsedSchema
+      if (schemaType === 'enum') {
+        handleEnumSchema(parsedSchema)
+      }
+    },
+  },
+})
 
-  // remove eslint-ignore comments
-  const data = fs.readFileSync(path.join(output, fileName), 'utf8')
-  const result = data.split('\n').slice(2).join('\n')
-  fs.writeFileSync(path.join(output, fileName), result)
+// remove eslint-ignore comments
+const data = fs.readFileSync(path.join(output, fileName), 'utf8')
+const result = data.split('\n').slice(2).join('\n')
+fs.writeFileSync(path.join(output, fileName), result)
 
-  process.exit(0)
-})()
+process.exit(0)
