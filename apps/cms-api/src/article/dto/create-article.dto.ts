@@ -1,18 +1,23 @@
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
-import { IsNotEmpty } from 'class-validator'
-import { ApiPropertyRichText } from 'common/decorator/api-property.decorator'
+import { IsNotEmpty, IsOptional, IsString, MaxLength, MinLength } from 'class-validator'
+import { JSONSchema } from 'class-validator-jsonschema'
+import { IsIdProperty, IsRichTextProperty } from 'common/decorator/api-property.decorator'
 
 export class CreateArticleDto {
+  @JSONSchema({ title: 'The title of the article', example: 'Lorem ipsum' })
+  @IsString() @MaxLength(60)
   @IsNotEmpty()
-  @ApiProperty({ example: 'Lorem ipsum' })
-  readonly title: string
+  title: string
 
-  @ApiPropertyRichText()
-  readonly content?: string
+  @IsRichTextProperty({ title: 'The content of the article' })
+  @IsOptional()
+  content?: string
 
-  @ApiPropertyOptional({ example: 1 })
-  readonly categoryId?: number
+  @IsIdProperty({ title: 'The category ID of the article' })
+  @IsOptional()
+  categoryId?: number
 
-  @ApiPropertyOptional({ example: ['semantic-ui', 'material-ui'] })
-  readonly tags?: string[]
+  @JSONSchema({ title: 'The tag names of the article', example: ['semantic-ui', 'material-ui'] })
+  @MinLength(1, { each: true }) @MaxLength(20, { each: true })
+  @IsOptional()
+  tags?: string[]
 }

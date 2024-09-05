@@ -48,8 +48,8 @@ export class ArticleService {
     return article
   }
 
-  async retrievePaginatedArticles(options: PaginationQuery<Prisma.ArticleOrderByWithRelationInput>): Promise<PaginatedEntity<ArticleEntity>> {
-    const { page, limit, order } = options
+  async retrievePaginatedArticles(query: PaginationQuery<Prisma.ArticleOrderByWithRelationInput>): Promise<PaginatedEntity<ArticleEntity>> {
+    const { page, limit, order } = query
     const [count, articles] = await Promise.all([
       this.prisma.article.count(),
       this.prisma.article.findMany({

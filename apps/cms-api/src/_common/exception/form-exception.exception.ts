@@ -1,5 +1,5 @@
 import { UnprocessableEntityException } from '@nestjs/common'
-import { ApiEnumProperty } from 'src/_common/decorator/api-property.decorator'
+import { IsEnumProperty } from 'src/_common/decorator/api-property.decorator'
 
 export enum FormErrorCause {
   IsNotEmpty = 'isNotEmpty',
@@ -9,7 +9,7 @@ export enum FormErrorCause {
 }
 
 export class FormError implements Record<string, (string | FormErrorCause)[]> {
-  @ApiEnumProperty({ FormErrorCause })
+  @IsEnumProperty({ FormErrorCause })
   _?: any
 
   [field: string]: (string | FormErrorCause)[]
