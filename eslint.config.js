@@ -1,4 +1,4 @@
-import defineConfig, { GLOB_TSX } from '@mutoe/eslint-config'
+import defineConfig, { GLOB_TSX, GLOB_VUE } from '@mutoe/eslint-config'
 
 export default defineConfig({
   isInEditor: false,
@@ -12,23 +12,30 @@ export default defineConfig({
   ignores: [
     'apps/cms-page-builder/public/ionicons',
   ],
+}, {
+  name: 'cms/apps-api',
+  files: ['apps/cms-api/**/*.ts'],
+  // @keep-sorted
   rules: {
-    // TODO
+    'camelcase': ['error', {
+      // Prisma m-n connect key camelcase
+      allow: [String.raw`^\S+(Id|ID|Key)_\S+(Id|ID|Key)$`],
+    }],
+    // Nestjs has no immediate plans to migrate to the ESM module https://github.com/nestjs/nest/pull/8736
     'unicorn/prefer-module': 'off',
     'unicorn/prefer-top-level-await': 'off',
   },
 }, {
+  name: 'cms/vue-fix',
+  files: [GLOB_VUE],
+  rules: {
+    'unicorn/prefer-module': 'off',
+  },
+}, {
+  name: 'cms/react-fix',
   files: [GLOB_TSX],
   rules: {
     'ts/no-misused-promises': 'off',
-  },
-}, {
-  name: 'cms/ignore-prisma-connect-camelcase',
-  files: ['apps/cms-api/src/**/*.ts'],
-  rules: {
-    camelcase: ['error', {
-      allow: [String.raw`^\S+(Id|ID|Key)_\S+(Id|ID|Key)$`],
-    }],
   },
 }, {
   name: 'cms/api-client-rules',
