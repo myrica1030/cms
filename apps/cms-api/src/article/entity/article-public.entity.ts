@@ -1,5 +1,6 @@
 import { ApiProperty, OmitType } from '@nestjs/swagger'
 import { Prisma } from '@prisma/client'
+import { ApiPropertyNullable } from 'common/decorator/api-property.decorator'
 import { ArticleEntity } from 'src/article/entity/article.entity'
 import { CategoryEntity } from 'src/category/entity/category.entity'
 import { TagOnArticleEntity } from 'src/tag/entity/tag-on-article.entity'
@@ -23,8 +24,10 @@ export type TagOnArticle = ArticlePublic['tags'][number]
 export class ArticlePublicEntity
   extends OmitType(ArticleEntity, ['authorId', 'categoryId'] as const)
   implements ArticlePublic {
-  // FIXME
-  @ApiProperty({ title: 'The category ID of the article' })
+  @ApiPropertyNullable({
+    type: CategoryEntity,
+    title: 'The category ID of the article',
+  })
   category: CategoryEntity | null
 
   @ApiProperty({ title: 'The author of the article' })
