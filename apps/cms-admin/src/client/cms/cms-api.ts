@@ -138,8 +138,8 @@ export interface CreateArticleDto {
    */
   categoryId?: number
   /**
-   * The tag names of the article
-   * @example ["semantic-ui","material-ui"]
+   * The tag keys of the article
+   * @example ["semantic-ui","vue"]
    */
   tags?: string[]
 }
