@@ -21,6 +21,7 @@ export default defineConfig({
       'integration-test': path.resolve(__dirname, '.'),
       'common': path.resolve(__dirname, '../src/_common'),
       'infra': path.resolve(__dirname, '../src/_infra'),
+      'test-utils': path.resolve(__dirname, '../test-utils'),
     },
   },
   plugins: [

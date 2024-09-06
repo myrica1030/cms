@@ -2,7 +2,9 @@
 import type { INestApplication } from '@nestjs/common'
 import type { TestingModule } from '@nestjs/testing'
 import { Test } from '@nestjs/testing'
+import { HttpExceptionFilter } from 'common/filter/http-exception.filter'
 import { validationPipe } from 'common/pipe/pipes'
+import type { Response } from 'supertest'
 import request from 'supertest'
 import { AppModule } from 'src/app/app.module'
 
@@ -42,7 +44,15 @@ export async function initIntegrationTestingModule(app: INestApplication): Promi
 
   app = moduleFixture.createNestApplication()
   app.useGlobalPipes(validationPipe)
+  app.useGlobalFilters(new HttpExceptionFilter())
 
   await app.init()
   return app
+}
+
+export function prettyResponse(response: Response) {
+  return Object.fromEntries(Object.entries(response.body).map(([k, v]) => {
+    if (typeof v === 'string' && v.includes('\n')) return [k, v.split('\n')]
+    return [k, v]
+  }))
 }

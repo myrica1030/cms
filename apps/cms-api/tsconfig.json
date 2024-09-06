@@ -11,7 +11,8 @@
       "infra/*": ["src/_infra/*"],
       "common/*": ["src/_common/*"],
       "src/*": ["src/*"],
-      "types/*": ["types/*"]
+      "types/*": ["types/*"],
+      "test-utils/*": ["test-utils/*"]
     },
     "resolveJsonModule": true,
     "types": ["vitest/globals"],

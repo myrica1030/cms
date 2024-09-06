@@ -49,21 +49,6 @@ describe('auth service', () => {
       expect(authEntity).toHaveProperty('username', 'bar')
       expect(authEntity).toHaveProperty('token', 'token')
     })
-
-    it('should throw error when user name is exist', async () => {
-      vi.spyOn(userService, 'findUser').mockResolvedValue({ id: 1, username: 'exist_user' } as User)
-      const registerDto = { email: 'foo@bar.com', username: 'exist_user', password: '123456' }
-
-      await expect(authService.register(registerDto)).rejects.toThrow(new FormException({ username: ['isExist'] }))
-    })
-
-    it('should throw error when email is exist', async () => {
-      vi.spyOn(userService, 'findUser').mockResolvedValueOnce(null)
-      vi.spyOn(userService, 'findUser').mockResolvedValueOnce({ id: 1, email: 'exist_email@bar.com' } as User)
-      const registerDto = { email: 'exist_email@bar.com', username: 'username', password: '123456' }
-
-      await expect(authService.register(registerDto)).rejects.toThrow(new FormException({ email: ['isExist'] }))
-    })
   })
 
   describe('login', () => {

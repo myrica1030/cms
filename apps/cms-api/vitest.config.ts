@@ -8,9 +8,10 @@ const isCI = !!process.env.CI
 export default defineConfig({
   resolve: {
     alias: {
-      src: path.resolve(__dirname, 'src'),
-      common: path.resolve(__dirname, 'src/_common'),
-      infra: path.resolve(__dirname, 'src/_infra'),
+      'src': path.resolve(__dirname, 'src'),
+      'common': path.resolve(__dirname, 'src/_common'),
+      'infra': path.resolve(__dirname, 'src/_infra'),
+      'test-utils': path.resolve(__dirname, '../test-utils'),
     },
   },
   plugins: [

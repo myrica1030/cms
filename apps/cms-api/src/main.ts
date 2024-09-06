@@ -1,5 +1,6 @@
 import { Logger } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
+import { HttpExceptionFilter } from 'common/filter/http-exception.filter'
 import { validationPipe } from 'common/pipe/pipes'
 import { AppModule } from 'src/app/app.module'
 import { NEST_PORT, PROD, SWAGGER_ENABLE } from 'src/config'
@@ -9,8 +10,10 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     cors: !PROD,
   })
-  app.useGlobalPipes(validationPipe)
+
   app.setGlobalPrefix('/api')
+  app.useGlobalPipes(validationPipe)
+  app.useGlobalFilters(new HttpExceptionFilter())
 
   if (SWAGGER_ENABLE) createSwagger(app)
 

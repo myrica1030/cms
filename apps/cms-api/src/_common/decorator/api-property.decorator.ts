@@ -90,9 +90,9 @@ export function IsIdProperty(options?: ApiPropertyOptions): PropertyDecorator {
 
 export function IsKeyProperty(options?: ApiPropertyOptions): PropertyDecorator {
   return function (target: NonNullable<unknown>, key: string | symbol) {
-    IsString()(target, key)
     IsNotEmpty()(target, key)
-    Matches(/^\w+$/)(target, key)
+    // eslint-disable-next-line regexp/use-ignore-case
+    Matches(/^[\dA-Za-z\-]+$/, { message: 'key must be a string with only letters (a-z, A-Z), numbers (0-9) and dashes (-)' })(target, key)
     ApiProperty({
       title: 'The unique identifier',
       example: 'foo-bar',

@@ -10,6 +10,7 @@ config()
 const prisma = new PrismaClient()
 
 async function main() {
+  // TODO: using creation dto
   const user = await prisma.user.create({
     data: {
       username: 'mutoe',
