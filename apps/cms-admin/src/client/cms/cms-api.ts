@@ -18,15 +18,10 @@ export interface UserEntity {
   id: number
   /**
    * The email address
-   * @minLength 1
    * @example "foo@example.com"
    */
   email: string
-  /**
-   * The email address
-   * @minLength 1
-   * @example "foo"
-   */
+  /** @example "foo" */
   username: string
   /**
    * The creation datetime
@@ -72,29 +67,28 @@ export interface RegisterDto {
   password: string
 }
 
-// FIXME
 export interface AuthEntity {
   /**
    * The unique identifier
    * @example "123"
    */
-  id?: number
+  id: number
   /** @example "foo@example.com" */
-  email?: string
+  email: string
   /** @example "foo" */
-  username?: string
+  username: string
   /**
    * The creation datetime
    * @format date-time
    * @example "2020-08-16T00:04:59.343Z"
    */
-  createdAt?: string
+  createdAt: string
   /**
    * The last update datetime
    * @format date-time
    * @example "2020-08-16T00:04:59.343Z"
    */
-  updatedAt?: string
+  updatedAt: string
   /**
    * The biography of the user
    * @example "This guy is lazy and has left nothing."
@@ -107,7 +101,7 @@ export interface AuthEntity {
    */
   image?: string
   /** @example "jwt" */
-  token?: string
+  token: string
 }
 
 export interface LoginDto {
@@ -158,13 +152,10 @@ export interface TagEntity {
    * @example "foo-bar"
    */
   key: string
-  /**
-   * The name of the tag
-   * @minLength 1
-   */
+  /** The name of the tag */
   name: string
   /** The description of the tag */
-  description: string
+  description?: string
   /**
    * The creation datetime
    * @format date-time
@@ -187,15 +178,15 @@ export interface ArticleEntity {
    */
   id: number
   /** The title of the article */
-  title?: string
+  title: string
   /** The content of the article */
-  content?: string
+  content: string
   /**
    * The category ID of the article
    * @min 1
    * @example "123"
    */
-  categoryId: number
+  categoryId?: number
   /**
    * The creation datetime
    * @format date-time
@@ -209,9 +200,9 @@ export interface ArticleEntity {
    */
   updatedAt: string
   /** The author of the article */
-  author?: UserEntity
+  author: UserEntity
   /** The tags of the article */
-  tags?: TagEntity[]
+  tags: TagEntity[]
 }
 
 /** @default "desc" */
@@ -267,7 +258,6 @@ export interface CategoryEntity {
   key: string
   /**
    * The display text of the category
-   * @minLength 1
    * @example "Study notes"
    */
   label: string
@@ -339,36 +329,34 @@ export interface PaginationQuery {
   order?: SortOrder
 }
 
-// FIXME
 export interface PaginatedMetadata {
   /**
    * The number of items per page
    * @example 10
    */
-  limit?: number
+  limit: number
   /**
    * The total number of items
    * @example 24
    */
-  total?: number
+  total: number
   /**
    * The total number of pages
    * @example 3
    */
-  totalPages?: number
+  totalPages: number
   /**
    * The current page number
    * @example 1
    */
-  currentPage?: number
+  currentPage: number
 }
 
-// FIXME
 export interface PaginatedEntity<T = never> {
   /** The metadata of the paginated items */
-  metadata?: PaginatedMetadata
+  metadata: PaginatedMetadata
   /** The items on the current page */
-  items?: object
+  items: T[]
 }
 
 export enum FormErrorCause {
