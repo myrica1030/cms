@@ -1,8 +1,9 @@
+import { Prisma } from '@prisma/client'
 import { IsNotEmpty, IsOptional, IsString, MaxLength, MinLength } from 'class-validator'
 import { JSONSchema } from 'class-validator-jsonschema'
 import { IsIdProperty, IsRichTextProperty } from 'common/decorator/api-property.decorator'
 
-export class CreateArticleDto {
+export class CreateArticleDto implements Omit<Prisma.ArticleUncheckedCreateInput, 'tags' | 'authorId'> {
   @JSONSchema({ title: 'The title of the article', example: 'Lorem ipsum' })
   @IsString() @MaxLength(60)
   @IsNotEmpty()
