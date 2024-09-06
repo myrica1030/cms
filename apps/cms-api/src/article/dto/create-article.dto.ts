@@ -9,8 +9,7 @@ export class CreateArticleDto {
   title: string
 
   @IsRichTextProperty({ title: 'The content of the article' })
-  @IsOptional()
-  content?: string
+  content: string
 
   @IsIdProperty({ title: 'The category ID of the article' })
   @IsOptional()
