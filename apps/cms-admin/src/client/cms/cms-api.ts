@@ -39,13 +39,13 @@ export interface UserEntity {
    * The biography of the user
    * @example "This guy is lazy and has left nothing."
    */
-  bio?: string
+  bio: string | null
   /**
    * The URL of the user avatar image
    * @format url
    * @example "https://picsum.photos/200"
    */
-  image?: string
+  image: string | null
 }
 
 export interface RegisterDto {
@@ -93,13 +93,13 @@ export interface AuthEntity {
    * The biography of the user
    * @example "This guy is lazy and has left nothing."
    */
-  bio?: string
+  bio: string | null
   /**
    * The URL of the user avatar image
    * @format url
    * @example "https://picsum.photos/200"
    */
-  image?: string
+  image: string | null
   /** @example "jwt" */
   token: string
 }
@@ -144,6 +144,46 @@ export interface CreateArticleDto {
   tags?: string[]
 }
 
+export interface CategoryEntity {
+  /**
+   * The identifier of the category
+   * @example "123"
+   */
+  id: number
+  /**
+   * Category parent ID
+   * @example "123"
+   */
+  parentId: number | null
+  /**
+   * The key of the category
+   * @example "study-notes"
+   */
+  key: string
+  /**
+   * The display text of the category
+   * @example "Study notes"
+   */
+  label: string
+  /**
+   * The description of the category
+   * @example "<p>Hello <strong>Mutoe CMS</strong></p>"
+   */
+  description: string | null
+  /**
+   * The creation datetime
+   * @format date-time
+   * @example "2020-08-16T00:04:59.343Z"
+   */
+  createdAt: string
+  /**
+   * The last update datetime
+   * @format date-time
+   * @example "2020-08-16T00:04:59.343Z"
+   */
+  updatedAt: string
+}
+
 export interface TagEntity {
   /**
    * The unique identifier
@@ -155,7 +195,7 @@ export interface TagEntity {
   /** The name of the tag */
   name: string
   /** The description of the tag */
-  description?: string
+  description: string | null
   /**
    * The creation datetime
    * @format date-time
@@ -205,7 +245,7 @@ export interface ArticlePublicEntity {
    */
   updatedAt: string
   /** The category ID of the article */
-  category?: object
+  category: CategoryEntity | null
   /** The author of the article */
   author: UserEntity
   /** The tags of the article */
@@ -243,48 +283,6 @@ export interface CreateCategoryDto {
    * @example "123"
    */
   parentId?: number
-}
-
-export interface CategoryEntity {
-  /**
-   * The identifier of the category
-   * @min 1
-   * @example "123"
-   */
-  id: number
-  /**
-   * Category parent ID
-   * @min 1
-   * @example "123"
-   */
-  parentId?: number
-  /**
-   * The key of the category
-   * @example "study-notes"
-   */
-  key: string
-  /**
-   * The display text of the category
-   * @example "Study notes"
-   */
-  label: string
-  /**
-   * The description of the category
-   * @example "<p>Hello <strong>Mutoe CMS</strong></p>"
-   */
-  description?: string
-  /**
-   * The creation datetime
-   * @format date-time
-   * @example "2020-08-16T00:04:59.343Z"
-   */
-  createdAt: string
-  /**
-   * The last update datetime
-   * @format date-time
-   * @example "2020-08-16T00:04:59.343Z"
-   */
-  updatedAt: string
 }
 
 export interface CreateTagDto {

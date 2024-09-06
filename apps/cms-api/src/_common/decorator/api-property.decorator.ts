@@ -5,6 +5,12 @@ import type { SwaggerEnumType } from '@nestjs/swagger/dist/types/swagger-enum.ty
 import { IsDate, IsEnum, IsInt, IsNotEmpty, IsString, Matches, Min } from 'class-validator'
 import { JSONSchema } from 'class-validator-jsonschema'
 
+export function ApiPropertyNullable(options: { type: ApiPropertyOptions['type'] } & Omit<ApiPropertyOptions, 'type'>): PropertyDecorator {
+  return function (target: NonNullable<unknown>, key: string | symbol) {
+    ApiProperty({ nullable: true, ...options })(target, key)
+  }
+}
+
 interface ApiEnumPropertyOptions extends ApiPropertyOptions {
   /**
    * @deprecated `description` in the enum property is not working, using `title` instead
@@ -76,54 +82,73 @@ export function ApiEnumParam(name: string, enumType: Record<string, Record<strin
   return ApiParam(apiParamOptions)
 }
 
-export function IsIdProperty(options?: ApiPropertyOptions): PropertyDecorator {
+export function IsIdProperty(options?: ApiPropertyOptions & { validation?: boolean }): PropertyDecorator {
+  const { validation, ...propertyOptions } = options || {}
   return function (target: NonNullable<unknown>, key: string | symbol) {
-    IsInt()(target, key)
-    Min(1)(target, key)
+    if (validation ?? true) {
+      IsInt()(target, key)
+      Min(1)(target, key)
+    }
     ApiProperty({
       title: 'The unique identifier',
       example: '123',
-      ...options,
+      type: Number,
+      ...propertyOptions,
     })(target, key)
   }
 }
 
-export function IsKeyProperty(options?: ApiPropertyOptions & { each?: boolean }): PropertyDecorator {
-  const { each, ...propOptions } = options || {}
+export function IsKeyProperty(options?: ApiPropertyOptions & {
+  each?: boolean
+  validation?: boolean
+}): PropertyDecorator {
+  const { each, validation, ...propOptions } = options || {}
+  const pattern = String.raw`^[\dA-Za-z\-]+$`
   return function (target: NonNullable<unknown>, key: string | symbol) {
-    IsNotEmpty({ each })(target, key)
-    // eslint-disable-next-line regexp/use-ignore-case
-    Matches(/^[\dA-Za-z\-]+$/, {
-      each,
-      message: 'key must be a string with only letters (a-z, A-Z), numbers (0-9) and dashes (-)',
-    })(target, key)
+    if (validation ?? true) {
+      IsNotEmpty({ each })(target, key)
+      // eslint-disable-next-line regexp/use-ignore-case
+      Matches(new RegExp(pattern), {
+        each,
+        message: 'key must be a string with only letters (a-z, A-Z), numbers (0-9) and dashes (-)',
+      })(target, key)
+    }
     ApiProperty({
       title: 'The unique identifier',
       example: 'foo-bar',
+      pattern,
       ...propOptions,
     })(target, key)
   }
 }
 
-export function IsRichTextProperty(options?: ApiPropertyOptions): PropertyDecorator {
+export function IsRichTextProperty(options?: ApiPropertyOptions & { validation?: boolean }): PropertyDecorator {
+  const { validation, ...propOptions } = options || {}
   return function (target: NonNullable<unknown>, key: string | symbol) {
-    IsString()(target, key)
+    if (validation ?? true) {
+      IsString()(target, key)
+    }
     ApiProperty({
       title: 'HTML content',
       example: '<p>Hello <strong>Mutoe CMS</strong></p>',
-      ...options,
+      type: String,
+      ...propOptions,
     })(target, key)
   }
 }
 
-export function IsDatetimeProperty(options: ApiPropertyOptions & { created?: boolean, updated?: boolean } = {}): PropertyDecorator {
+export function IsDatetimeProperty(options: ApiPropertyOptions & { created?: boolean, updated?: boolean, validation?: boolean } = {}): PropertyDecorator {
+  const { created, updated, validation, ...propOptions } = options
   return function (target: NonNullable<unknown>, key: string | symbol) {
-    IsDate()(target, key)
+    if (validation ?? true) {
+      IsDate()(target, key)
+    }
     ApiProperty({
       // eslint-disable-next-line unicorn/no-nested-ternary
-      title: options?.created ? 'The creation datetime' : options?.updated ? 'The last update datetime' : undefined,
+      title: created ? 'The creation datetime' : updated ? 'The last update datetime' : undefined,
       example: '2020-08-16T00:04:59.343Z',
-      ...options,
+      format: 'date-time',
+      ...propOptions,
     })(target, key)
   }
 }

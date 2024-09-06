@@ -5,6 +5,7 @@
     <content url="file://$MODULE_DIR$/apps/cms-admin">
       <excludeFolder url="file://$MODULE_DIR$/apps/cms-admin/coverage" />
       <excludeFolder url="file://$MODULE_DIR$/apps/cms-admin/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/apps/cms-admin/scripts/swagger-api-template" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

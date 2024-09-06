@@ -1,7 +1,7 @@
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
+import { ApiProperty } from '@nestjs/swagger'
 import { Article } from '@prisma/client'
-import { IsDatetimeProperty, IsIdProperty } from 'common/decorator/api-property.decorator'
-import { NullableOptional } from 'types/fest'
+import { ApiPropertyNullable, IsDatetimeProperty, IsIdProperty } from 'common/decorator/api-property.decorator'
+import type { NullableOptional } from 'types/fest'
 
 export class ArticleEntity implements Article {
   @IsIdProperty({ title: 'The ID of the article' })
@@ -19,7 +19,7 @@ export class ArticleEntity implements Article {
   @IsDatetimeProperty({ updated: true })
   updatedAt: Date
 
-  @ApiPropertyOptional({ title: 'The category ID of the article' })
+  @ApiPropertyNullable({ type: Number, title: 'The category ID of the article' })
   categoryId: number | null
 
   @ApiProperty({ title: 'The author of the article' })
