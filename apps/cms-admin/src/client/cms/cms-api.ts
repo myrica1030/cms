@@ -144,6 +144,35 @@ export interface CreateArticleDto {
   tags?: string[]
 }
 
+export interface ArticleEntity {
+  /**
+   * The ID of the article
+   * @min 1
+   * @example 123
+   */
+  id: number
+  /** The title of the article */
+  title: string
+  /** The content of the article */
+  content: string
+  /**
+   * The creation datetime
+   * @format date-time
+   * @example "2020-08-16T00:04:59.343Z"
+   */
+  createdAt: string
+  /**
+   * The last update datetime
+   * @format date-time
+   * @example "2020-08-16T00:04:59.343Z"
+   */
+  updatedAt: string
+  /** The category ID of the article */
+  categoryId?: object
+  /** The author of the article */
+  authorId: number
+}
+
 export interface CategoryEntity {
   /**
    * The identifier of the category
@@ -371,21 +400,6 @@ export enum FormErrorCause {
 }
 
 export type FormError = Record<string, (FormErrorCause | string)[]>
-
-// FIXME
-export interface ArticleEntity {
-  /** @min 1 */
-  id: number
-  createdAt: string
-  updatedAt: string
-}
-
-export interface OmitTypeClass {
-  /** @min 1 */
-  id: number
-  createdAt: string
-  updatedAt: string
-}
 
 export type QueryParamsType = Record<string | number, any>
 export type ResponseFormat = keyof Omit<Body, 'body' | 'bodyUsed'>
