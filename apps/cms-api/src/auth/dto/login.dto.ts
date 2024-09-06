@@ -1,8 +1,8 @@
+import { ApiProperty } from '@nestjs/swagger'
 import { IsNotEmpty, IsString, IsStrongPassword, MaxLength } from 'class-validator'
-import { JSONSchema } from 'class-validator-jsonschema'
 
 export class LoginDto {
-  @JSONSchema({ example: 'admin' })
+  @ApiProperty({ example: 'admin' })
   @IsNotEmpty()
   @IsString()
   readonly username: string
