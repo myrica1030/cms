@@ -15,3 +15,4 @@ component_management:
 
 ignore:
   - 'apps/*/*.config.(js|ts)'
+  - apps/cms-api/src/_common/decorator/schema-converter.ts
