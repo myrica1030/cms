@@ -4,9 +4,8 @@ import { PaginationQuery } from 'common/dto/pagination.query'
 import { PaginatedEntity } from 'common/entity/paginated.entity'
 import { FormException } from 'common/exception/form-exception.exception'
 import { PrismaService } from 'infra/prisma.service'
-import { ArticleIncludeAuthorAndTags, articleIncludeAuthorAndTags } from 'src/article/article.model'
 import { CreateArticleDto } from 'src/article/dto/create-article.dto'
-import { ArticleEntity } from 'src/article/entity/article-entity'
+import { ArticlePublic, ArticlePublicEntity, articlePublicArgs } from 'src/article/entity/article-public.entity'
 import { CategoryService } from 'src/category/category.service'
 import { TagService } from 'src/tag/tag.service'
 import { UserService } from 'src/user/user.service'
@@ -20,7 +19,7 @@ export class ArticleService {
     private readonly categoryService: CategoryService,
   ) {}
 
-  async createArticle(userId: number, createArticleDto: CreateArticleDto): Promise<ArticleIncludeAuthorAndTags> {
+  async createArticle(userId: number, createArticleDto: CreateArticleDto): Promise<ArticlePublic> {
     const { categoryId, tags: tagLabels = [], ...dto } = createArticleDto
 
     const [tags, category] = await Promise.all([
@@ -32,7 +31,7 @@ export class ArticleService {
     if (tagLabels.length !== tags.length) throw new FormException({ tags: ['isInvalid'] })
 
     const article = await this.prisma.article.create({
-      include: articleIncludeAuthorAndTags,
+      ...articlePublicArgs,
       data: {
         ...dto,
         tags: {
@@ -46,29 +45,30 @@ export class ArticleService {
     return article
   }
 
-  async retrievePaginatedArticles(query: PaginationQuery<Prisma.ArticleOrderByWithRelationInput>): Promise<PaginatedEntity<ArticleEntity>> {
+  async retrievePaginatedArticles(query: PaginationQuery<Prisma.ArticleOrderByWithRelationInput>): Promise<PaginatedEntity<ArticlePublicEntity>> {
     const { page, limit, order } = query
     const [count, articles] = await Promise.all([
       this.prisma.article.count(),
       this.prisma.article.findMany({
+        ...articlePublicArgs,
         skip: (page - 1) * limit,
         take: limit,
         orderBy: { createdAt: order },
-        include: articleIncludeAuthorAndTags,
       }),
     ])
 
-    return new PaginatedEntity(page, limit, count, articles.map(article => new ArticleEntity(article)))
+    return new PaginatedEntity(page, limit, count, articles.map(article => new ArticlePublicEntity(article)))
   }
 
-  async findArticle(id: number): Promise<ArticleIncludeAuthorAndTags | null> {
+  async findArticle(id: number): Promise<ArticlePublic | null> {
     return await this.prisma.article.findUnique({
+      ...articlePublicArgs,
       where: { id },
-      include: articleIncludeAuthorAndTags,
     })
   }
 
-  async updateArticle(id: number, createArticleDto: CreateArticleDto, userId: number): Promise<ArticleIncludeAuthorAndTags> {
+  // FIXME: using update article dto
+  async updateArticle(id: number, createArticleDto: CreateArticleDto, userId: number): Promise<ArticlePublic> {
     const { tags: tagNames, categoryId, ...dto } = createArticleDto
     const [
       article,
@@ -87,6 +87,7 @@ export class ArticleService {
     if (categoryId && !category) throw new FormException({ categoryId: ['isNotExist'] })
 
     return await this.prisma.article.update({
+      ...articlePublicArgs,
       where: { id },
       data: {
         ...dto,
@@ -95,7 +96,6 @@ export class ArticleService {
         },
         categoryId,
       },
-      include: articleIncludeAuthorAndTags,
     })
   }
 }

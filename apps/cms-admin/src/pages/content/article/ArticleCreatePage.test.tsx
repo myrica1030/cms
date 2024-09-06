@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import type { MockedFunction } from 'vitest'
 import { api } from 'src/client'
-import type { ArticleEntity, HttpResponse, PaginatedEntity } from 'src/client/cms/cms-api'
+import type { ArticlePublicEntity, HttpResponse, PaginatedEntity } from 'src/client/cms/cms-api'
 import { articleFixture, paginatedMetadataFixture } from 'src/fixtures'
 import ArticleCreatePage from './ArticleCreatePage'
 
@@ -26,7 +26,7 @@ describe('# ArticleCreatePage', () => {
 
   beforeEach(async () => {
     mockedUseParams.mockReturnValue({ id: '1' })
-    mockedCreateRequest.mockResolvedValue({ status: 200, data: articleFixture.entity } as HttpResponse<ArticleEntity>)
+    mockedCreateRequest.mockResolvedValue({ status: 200, data: articleFixture.entity } as HttpResponse<ArticlePublicEntity>)
     mockedRetrieveTags.mockResolvedValue({ status: 200, data: { items: [], metadata: paginatedMetadataFixture } } as HttpResponse<PaginatedEntity>)
     mockedRetrieveCategories.mockResolvedValue({ status: 200, data: [] } as HttpResponse)
 

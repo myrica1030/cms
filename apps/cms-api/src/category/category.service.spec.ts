@@ -29,9 +29,9 @@ describe('category service', () => {
       mockedPrisma.category.create.mockResolvedValueOnce(categoryFixture.entity)
       mockedPrisma.category.findFirst.mockResolvedValueOnce(null)
 
-      await service.createCategory(categoryFixture.dto)
+      await service.createCategory(categoryFixture.creationDto)
 
-      expect(mockedPrisma.category.create).toBeCalledWith({ data: categoryFixture.dto })
+      expect(mockedPrisma.category.create).toBeCalledWith({ data: categoryFixture.creationDto })
     })
 
     it('should return created category given a valid form and existed parent category id', async () => {
@@ -40,9 +40,9 @@ describe('category service', () => {
         .mockResolvedValueOnce(null)
         .mockResolvedValueOnce(categoryFixture.entity)
 
-      await service.createCategory({ ...categoryFixture.dto, parentId: 1 })
+      await service.createCategory({ ...categoryFixture.creationDto, parentId: 1 })
 
-      expect(mockedPrisma.category.create).toBeCalledWith({ data: { ...categoryFixture.dto, parentId: 1 } })
+      expect(mockedPrisma.category.create).toBeCalledWith({ data: { ...categoryFixture.creationDto, parentId: 1 } })
     })
   })
 

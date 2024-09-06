@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import type { MockedFunction } from 'vitest'
 import { api } from 'src/client'
-import type { ArticleEntity, HttpResponse, PaginatedEntity, TagEntity } from 'src/client/cms/cms-api'
+import type { ArticlePublicEntity, HttpResponse, PaginatedEntity, TagEntity } from 'src/client/cms/cms-api'
 import { paginatedMetadataFixture, tagFixture } from 'src/fixtures'
 import ArticleEditPage from './ArticleEditPage'
 
@@ -33,9 +33,9 @@ describe('# ArticleEditPage', () => {
         id: 1,
         title: 'Title',
         content: '<p>content</p>',
-        tags: [tagFixture.entity],
+        tags: [{ tag: tagFixture.entity }],
       },
-    } as HttpResponse<ArticleEntity>)
+    } as HttpResponse<ArticlePublicEntity>)
     mockedRetrieveTags.mockResolvedValue({
       status: 200,
       data: { items: [tagFixture.entity], metadata: paginatedMetadataFixture },
@@ -66,7 +66,7 @@ describe('# ArticleEditPage', () => {
 
     await waitFor(() => expect(mockedUpdateRequest).toHaveBeenCalledWith(1, {
       title: 'article title',
-      tags: ['Semantic UI'],
+      tags: ['semantic-ui'],
       content: '<p>content</p>',
       categoryId: Number.NaN,
     }))

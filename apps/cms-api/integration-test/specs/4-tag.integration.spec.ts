@@ -48,7 +48,7 @@ describe('tag module', () => {
         ...dto,
         createdAt: expect.stringMatching(anyDateString),
         updatedAt: expect.stringMatching(anyDateString),
-      } satisfies TagEntity)
+      } as TagEntity)
     })
 
     it('should return 401 given an invalid token', async () => {
@@ -145,7 +145,7 @@ describe('tag module', () => {
         ...dto,
         createdAt: expect.stringMatching(anyDateString),
         updatedAt: expect.stringMatching(anyDateString),
-      } satisfies TagEntity)
+      } as TagEntity)
     })
   })
 })

@@ -6,7 +6,7 @@ import request from 'supertest'
 import { anyDateString } from 'test-utils/expect.util'
 import { beforeEach, onTestFailed } from 'vitest'
 import type { CreateArticleDto } from 'src/article/dto/create-article.dto'
-import type { ArticleEntity } from 'src/article/entity/article-entity'
+import type { ArticlePublicEntity } from 'src/article/entity/article-public.entity'
 import { tagFixture } from 'src/tag/tag.fixture'
 
 describe('article module', () => {
@@ -46,10 +46,11 @@ describe('article module', () => {
         id: 3,
         ...dto,
         tags: [],
+        category: null,
         author: expect.objectContaining({ username: 'admin' }),
         createdAt: expect.stringMatching(anyDateString),
         updatedAt: expect.stringMatching(anyDateString),
-      } satisfies ArticleEntity)
+      } as ArticlePublicEntity)
       expect(response.body.author).not.toHaveProperty('password')
     })
 
@@ -84,11 +85,10 @@ describe('article module', () => {
       `)
     })
 
-    // FIXME
-    it.todo('should return 422 given some invalid tags', async () => {
+    it('should return 422 given some invalid tags', async () => {
       const requestBody: CreateArticleDto = {
         ...dto,
-        tags: [tagFixture.entity.name, 'not-exist', 'not-exist2'],
+        tags: [tagFixture.entity.key, 'not-exist', 'not-exist2'],
       }
 
       response = await request(app.getHttpServer())
@@ -133,7 +133,7 @@ describe('article module', () => {
         limit: 10,
         totalPages: 1,
         currentPage: 1,
-      } satisfies PaginatedMetadata)
+      } as PaginatedMetadata)
 
       expect(response.body.items).toHaveLength(3)
       expect(response.body.items[0]).toEqual({
@@ -143,7 +143,8 @@ describe('article module', () => {
         author: expect.objectContaining({ username: 'admin' }),
         createdAt: expect.stringMatching(anyDateString),
         updatedAt: expect.stringMatching(anyDateString),
-      } satisfies ArticleEntity)
+        category: null,
+      } as ArticlePublicEntity)
       expect(response.body.items[2].author).not.toHaveProperty('password')
     })
   })
@@ -158,10 +159,11 @@ describe('article module', () => {
         id: 3,
         ...dto,
         tags: [],
+        category: null,
         author: expect.objectContaining({ username: 'admin' }),
         createdAt: expect.stringMatching(anyDateString),
         updatedAt: expect.stringMatching(anyDateString),
-      } satisfies ArticleEntity)
+      } as ArticlePublicEntity)
     })
 
     it('should throw not found when retrieve a not existed article', async () => {
@@ -187,7 +189,7 @@ describe('article module', () => {
       expect(response.body).toEqual(expect.objectContaining({
         content: requestBody.content,
         author: expect.objectContaining({ username: 'admin' }),
-      } satisfies Partial<ArticleEntity>))
+      } as Partial<ArticlePublicEntity>))
     })
 
     it('should return 401 when submit a valid form without login', async () => {

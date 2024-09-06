@@ -18,8 +18,8 @@ const ArticleEditPage: React.FC = () => {
   const form: Required<CreateArticleDto> = useMemo(() => ({
     title: detail?.title ?? '',
     content: detail?.content ?? '',
-    tags: detail?.tags?.map(tag => tag.name) ?? [],
-    categoryId: detail?.categoryId ?? Number.NaN,
+    tags: detail?.tags?.map(({ tag }) => tag.key) ?? [],
+    categoryId: detail?.category?.id ?? Number.NaN,
   }), [detail])
 
   const onSubmit = async (form: CreateArticleDto) => {
