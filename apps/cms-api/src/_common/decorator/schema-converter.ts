@@ -23,22 +23,22 @@ export const additionalConverters: ISchemaConverters = {
   },
 }
 
-export function mergeMetadata<T = any>(a: any, b: any): any {
-  if (a === undefined || b === undefined) return b ?? a
-  const result: any = structuredClone(a)
-  for (const name of new Set([...Object.keys(a), ...Object.keys(b)])) {
+export function mergeMetadata<T = any>(v: any, p: any): any {
+  if (v === undefined || p === undefined) return v ?? p
+  const result: any = structuredClone(p)
+  for (const name of new Set([...Object.keys(p), ...Object.keys(v)])) {
     if (result[name]) {
       result[name] = {
-        ...a[name],
-        ...b[name],
+        ...v[name],
+        ...p[name],
         properties: {},
         required: [],
       }
-      result[name].properties = mergeMetadata(a[name]?.properties, b[name]?.properties)
-      a[name]?.required && (result[name].required = a[name]?.required)
+      result[name].properties = mergeMetadata(v[name]?.properties, p[name]?.properties)
+      v[name]?.required && (result[name].required = v[name]?.required)
     }
     else {
-      result[name] = b[name]
+      result[name] = v[name]
     }
   }
   return result as T

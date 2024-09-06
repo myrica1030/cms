@@ -9,65 +9,6 @@
 
 type UtilRequiredKeys<T, K extends keyof T> = Omit<T, K> & Required<Pick<T, K>>
 
-export type FormError = Record<string, (FormErrorCause | string)[]>
-
-export interface PaginationQuery {
-  /**
-   * The page number of the items
-   * @min 1
-   * @default 1
-   */
-  page?: number
-  /**
-   * The limit of the items per page
-   * @min 1
-   * @max 500
-   * @default 10
-   */
-  limit?: number
-  /**
-   * The order of the items `createdAt` property
-   *
-   * Enum name: SortOrder
-   * Enum values:
-   * ```
-   *   Asc = asc,
-   *   Desc = desc,
-   * ```
-   * @default "desc"
-   */
-  order?: SortOrder
-}
-
-export interface TagEntity {
-  /**
-   * The unique identifier
-   * @minLength 1
-   * @pattern ^[\dA-Za-z\-]+$
-   * @example "foo-bar"
-   */
-  key: string
-  /**
-   * The name of the tag
-   * @minLength 1
-   */
-  name: string
-  /** The description of the tag */
-  description: string
-  /**
-   * The creation datetime
-   * @format date-time
-   * @example "2020-08-16T00:04:59.343Z"
-   */
-  createdAt: string
-  /**
-   * The last update datetime
-   * @format date-time
-   * @example "2020-08-16T00:04:59.343Z"
-   */
-  updatedAt: string
-}
-
 export interface UserEntity {
   /**
    * The unique identifier
@@ -112,39 +53,75 @@ export interface UserEntity {
   image?: string
 }
 
-export interface ArticleEntity {
+export interface RegisterDto {
   /**
-   * The ID of the article
-   * @min 1
+   * @minLength 1
+   * @example "admin"
+   */
+  username: string
+  /**
+   * The email address
+   * @example "foo@example.com"
+   */
+  email: string
+  /**
+   * @format password
+   * @minLength 6
+   * @maxLength 32
+   */
+  password: string
+}
+
+// FIXME
+export interface AuthEntity {
+  /**
+   * The unique identifier
    * @example "123"
    */
-  id: number
-  /**
-   * The category ID of the article
-   * @min 1
-   * @example "123"
-   */
-  categoryId: number
+  id?: number
+  /** @example "foo@example.com" */
+  email?: string
+  /** @example "foo" */
+  username?: string
   /**
    * The creation datetime
    * @format date-time
    * @example "2020-08-16T00:04:59.343Z"
    */
-  createdAt: string
+  createdAt?: string
   /**
    * The last update datetime
    * @format date-time
    * @example "2020-08-16T00:04:59.343Z"
    */
-  updatedAt: string
-  /** The title of the article */
-  title?: string
-  /** The content of the article */
-  content?: string
-  /** The author of the article */
-  author?: UserEntity
-  /** The tags of the article */
-  tags?: TagEntity[]
+  updatedAt?: string
+  /**
+   * The biography of the user
+   * @example "This guy is lazy and has left nothing."
+   */
+  bio?: string
+  /**
+   * The URL of the user avatar image
+   * @format url
+   * @example "https://picsum.photos/200"
+   */
+  image?: string
+  /** @example "jwt" */
+  token?: string
+}
+
+export interface LoginDto {
+  /**
+   * @minLength 1
+   * @example "admin"
+   */
+  username: string
+  /**
+   * @format password
+   * @minLength 6
+   * @maxLength 32
+   */
+  password: string
 }
 
 export interface CreateArticleDto {
@@ -173,37 +150,74 @@ export interface CreateArticleDto {
   tags?: string[]
 }
 
-export interface LoginDto {
+export interface TagEntity {
   /**
+   * The unique identifier
    * @minLength 1
-   * @example "admin"
+   * @pattern ^[\dA-Za-z\-]+$
+   * @example "foo-bar"
    */
-  username: string
+  key: string
   /**
-   * @format password
-   * @minLength 6
-   * @maxLength 32
+   * The name of the tag
+   * @minLength 1
    */
-  password: string
+  name: string
+  /** The description of the tag */
+  description: string
+  /**
+   * The creation datetime
+   * @format date-time
+   * @example "2020-08-16T00:04:59.343Z"
+   */
+  createdAt: string
+  /**
+   * The last update datetime
+   * @format date-time
+   * @example "2020-08-16T00:04:59.343Z"
+   */
+  updatedAt: string
 }
 
-export interface RegisterDto {
+export interface ArticleEntity {
   /**
-   * The email address
-   * @example "foo@example.com"
+   * The ID of the article
+   * @min 1
+   * @example "123"
    */
-  email: string
+  id: number
+  /** The title of the article */
+  title?: string
+  /** The content of the article */
+  content?: string
   /**
-   * @minLength 1
-   * @example "admin"
+   * The category ID of the article
+   * @min 1
+   * @example "123"
    */
-  username: string
+  categoryId: number
   /**
-   * @format password
-   * @minLength 6
-   * @maxLength 32
+   * The creation datetime
+   * @format date-time
+   * @example "2020-08-16T00:04:59.343Z"
    */
-  password: string
+  createdAt: string
+  /**
+   * The last update datetime
+   * @format date-time
+   * @example "2020-08-16T00:04:59.343Z"
+   */
+  updatedAt: string
+  /** The author of the article */
+  author?: UserEntity
+  /** The tags of the article */
+  tags?: TagEntity[]
+}
+
+/** @default "desc" */
+export enum SortOrder {
+  Asc = 'asc',
+  Desc = 'desc',
 }
 
 export interface CreateCategoryDto {
@@ -297,77 +311,64 @@ export interface CreateTagDto {
   description?: string
 }
 
-export interface AuthEntity {
+export interface PaginationQuery {
   /**
-   * The unique identifier
-   * @example "123"
+   * The page number of the items
+   * @min 1
+   * @default 1
    */
-  id: number
-  /** @example "foo@example.com" */
-  email: string
-  /** @example "foo" */
-  username: string
+  page?: number
   /**
-   * The creation datetime
-   * @format date-time
-   * @example "2020-08-16T00:04:59.343Z"
+   * The limit of the items per page
+   * @min 1
+   * @max 500
+   * @default 10
    */
-  createdAt: string
+  limit?: number
   /**
-   * The last update datetime
-   * @format date-time
-   * @example "2020-08-16T00:04:59.343Z"
+   * The order of the items `createdAt` property
+   *
+   * Enum name: SortOrder
+   * Enum values:
+   * ```
+   *   Asc = asc,
+   *   Desc = desc,
+   * ```
+   * @default "desc"
    */
-  updatedAt: string
-  /**
-   * The biography of the user
-   * @example "This guy is lazy and has left nothing."
-   */
-  bio?: string
-  /**
-   * The URL of the user avatar image
-   * @format url
-   * @example "https://picsum.photos/200"
-   */
-  image?: string
-  /** @example "jwt" */
-  token: string
+  order?: SortOrder
 }
 
-/** @default "desc" */
-export enum SortOrder {
-  Asc = 'asc',
-  Desc = 'desc',
-}
-
+// FIXME
 export interface PaginatedMetadata {
   /**
    * The number of items per page
    * @example 10
    */
-  limit: number
+  limit?: number
   /**
    * The total number of items
    * @example 24
    */
-  total: number
+  total?: number
   /**
    * The total number of pages
    * @example 3
    */
-  totalPages: number
+  totalPages?: number
   /**
    * The current page number
    * @example 1
    */
-  currentPage: number
+  currentPage?: number
 }
 
+// FIXME
 export interface PaginatedEntity<T = never> {
   /** The metadata of the paginated items */
-  metadata: PaginatedMetadata
+  metadata?: PaginatedMetadata
   /** The items on the current page */
-  items: T[]
+  items?: object
 }
 
 export enum FormErrorCause {
@@ -376,6 +377,8 @@ export enum FormErrorCause {
   IsNotExist = 'isNotExist',
   IsInvalid = 'isInvalid',
 }
+
+export type FormError = Record<string, (FormErrorCause | string)[]>
 
 export type QueryParamsType = Record<string | number, any>
 export type ResponseFormat = keyof Omit<Body, 'body' | 'bodyUsed'>
