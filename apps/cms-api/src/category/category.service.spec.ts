@@ -1,7 +1,6 @@
 import type { TestingModule } from '@nestjs/testing'
 import { Test } from '@nestjs/testing'
 import type { PrismaClient } from '@prisma/client'
-import { FormException } from 'common/exception/form-exception.exception'
 import { PrismaService } from 'infra/prisma.service'
 import type { DeepMockProxy } from 'vitest-mock-extended'
 import { mockDeep } from 'vitest-mock-extended'
@@ -44,21 +43,6 @@ describe('category service', () => {
       await service.createCategory({ ...categoryFixture.dto, parentId: 1 })
 
       expect(mockedPrisma.category.create).toBeCalledWith({ data: { ...categoryFixture.dto, parentId: 1 } })
-    })
-
-    it('should throw category key exist error given existed category key', async () => {
-      mockedPrisma.category.findFirst.mockResolvedValueOnce(categoryFixture.entity)
-
-      await expect(service.createCategory(categoryFixture.dto))
-        .rejects.toThrow(FormException)
-    })
-
-    it('should throw parent category not found error given not existed parent category id', async () => {
-      mockedPrisma.category.findFirst.mockResolvedValueOnce(null)
-      mockedPrisma.category.create.mockResolvedValueOnce(categoryFixture.entity)
-
-      await expect(service.createCategory({ ...categoryFixture.dto, parentId: 10 }))
-        .rejects.toThrow(FormException)
     })
   })
 

@@ -23,13 +23,11 @@ export class ArticleService {
   async createArticle(userId: number, createArticleDto: CreateArticleDto): Promise<ArticleIncludeAuthorAndTags> {
     const { categoryId, tags: tagLabels = [], ...dto } = createArticleDto
 
-    const [tags, category, user] = await Promise.all([
+    const [tags, category] = await Promise.all([
       tagLabels.length ? this.tagService.getTags(tagLabels) : [],
       categoryId ? this.categoryService.findCategory(categoryId) : null,
-      this.userService.findUser({ id: userId }),
     ])
 
-    if (!user) throw new FormException({ userId: ['isNotExist'] })
     if (categoryId && !category) throw new FormException({ categoryId: ['isNotExist'] })
     if (tagLabels.length !== tags.length) throw new FormException({ tags: ['isInvalid'] })
 
@@ -41,7 +39,7 @@ export class ArticleService {
           createMany: { data: tags.map(({ key }) => ({ tagKey: key })) },
         },
         category: categoryId ? { connect: { id: categoryId } } : undefined,
-        author: { connect: { id: user.id } },
+        author: { connect: { id: userId } },
       },
     })
 

@@ -17,14 +17,7 @@ export class AuthService {
   ) {}
 
   async register(registerDto: RegisterDto): Promise<AuthEntity> {
-    let user: User | null
-    user = await this.userService.findUser({ username: registerDto.username })
-    if (user) throw new FormException({ username: ['isExist'] })
-
-    user = await this.userService.findUser({ email: registerDto.email })
-    if (user) throw new FormException({ email: ['isExist'] })
-
-    user = await this.userService.createUser(registerDto)
+    const user = await this.userService.createUser(registerDto)
     const token = this.generateToken(user.id, user.email)
     return new AuthEntity(user, token)
   }

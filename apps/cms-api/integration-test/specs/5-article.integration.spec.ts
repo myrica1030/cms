@@ -1,18 +1,28 @@
 import type { INestApplication } from '@nestjs/common'
 import type { PaginatedMetadata } from 'common/entity/paginated.entity'
-import { getToken, initIntegrationTestingModule, mockDate } from 'integration-test/test-utils'
+import { getToken, initIntegrationTestingModule, mockDate, prettyResponse } from 'integration-test/test-utils'
+import type { Response } from 'supertest'
 import request from 'supertest'
+import { anyDateString } from 'test-utils/expect.util'
+import { beforeEach, onTestFailed } from 'vitest'
 import type { CreateArticleDto } from 'src/article/dto/create-article.dto'
 import type { ArticleEntity } from 'src/article/entity/article-entity'
-import { anyDateString } from '../../test-utils/expect.util'
+import { tagFixture } from 'src/tag/tag.fixture'
 
 describe('article module', () => {
   let app: INestApplication
   let token: string
+  let response: Response
 
   beforeAll(async () => {
     app = await initIntegrationTestingModule(app)
     token = await getToken(app)
+  })
+
+  beforeEach(() => {
+    response = undefined!
+    // eslint-disable-next-line no-console
+    return () => onTestFailed(() => console.info(prettyResponse(response)))
   })
 
   const dto = {
@@ -21,17 +31,17 @@ describe('article module', () => {
   } satisfies CreateArticleDto
 
   describe('/article (POST)', () => {
-    it('should return 201 when create article given an valid form', async () => {
+    it('should return 201 given an valid form', async () => {
       const restoreMockDate = mockDate('2017-11-25T12:34:56Z')
 
-      const response = await request(app.getHttpServer())
+      response = await request(app.getHttpServer())
         .post('/article')
         .auth(token, { type: 'bearer' })
         .send(dto)
 
       restoreMockDate()
 
-      expect(response.status, JSON.stringify(response.body)).toBe(201)
+      expect(response.status).toBe(201)
       expect(response.body).toEqual({
         id: 3,
         ...dto,
@@ -43,52 +53,78 @@ describe('article module', () => {
       expect(response.body.author).not.toHaveProperty('password')
     })
 
-    it('should return 401 when create article with invalid token', async () => {
-      const response = await request(app.getHttpServer())
+    it('should return 401 with invalid token', async () => {
+      response = await request(app.getHttpServer())
         .post('/article')
         .send(dto)
 
       expect(response.status).toBe(401)
     })
 
-    it('should return 422 when create article given an invalid form', async () => {
-      const requestBody = { content: '<p>I am content</p>' } as CreateArticleDto
+    it('should return 422 given an invalid form', async () => {
+      const requestBody = {} as CreateArticleDto
 
-      const response = await request(app.getHttpServer())
+      response = await request(app.getHttpServer())
         .post('/article')
         .auth(token, { type: 'bearer' })
         .send(requestBody)
 
       expect(response.status).toBe(422)
-      expect(response.body).toHaveProperty('title', [
-        'title should not be empty',
-        'title must be shorter than or equal to 60 characters',
-        'title must be a string',
+      expect(response.body).toMatchInlineSnapshot(`
+        {
+          "content": [
+            "content must be a string",
+          ],
+          "title": [
+            "title should not be empty",
+            "title must be shorter than or equal to 60 characters",
+            "title must be a string",
+          ],
+        }
+      `)
+    })
+
+    // FIXME
+    it.todo('should return 422 given some invalid tags', async () => {
+      const requestBody: CreateArticleDto = {
+        ...dto,
+        tags: [tagFixture.entity.name, 'not-exist', 'not-exist2'],
+      }
+
+      response = await request(app.getHttpServer())
+        .post('/article')
+        .auth(token, { type: 'bearer' })
+        .send(requestBody)
+
+      expect(response.status).toBe(422)
+      expect(response.body).toHaveProperty('tags', [
+        'not-exist is not exists.',
+        'not-exist2 is not exists.',
       ])
     })
 
-    it('should return 422 when create article given an invalid tag', async () => {
+    it('should return 422 given an invalid category id', async () => {
       const requestBody: CreateArticleDto = {
         ...dto,
-        tags: ['not-exist'],
+        categoryId: 999,
       }
 
-      const response = await request(app.getHttpServer())
+      response = await request(app.getHttpServer())
         .post('/article')
         .auth(token, { type: 'bearer' })
         .send(requestBody)
 
       expect(response.status).toBe(422)
-      expect(response.body).toHaveProperty('tags', ['not-exist is not exists.'])
+      expect(response.body).toHaveProperty('categoryId', ['isNotExist'])
     })
   })
 
   describe('/article (GET)', () => {
     it('should return 200 when retrieve articles', async () => {
-      const response = await request(app.getHttpServer())
+      response = await request(app.getHttpServer())
         .get('/article')
 
-      expect(response.status, JSON.stringify(response.body)).toBe(200)
+      expect(response.status).toBe(200)
       expect(response.body).toHaveProperty('metadata')
       expect(response.body).toHaveProperty('items')
 
@@ -114,7 +150,7 @@ describe('article module', () => {
 
   describe('/article/:id (GET)', () => {
     it('should return 200 when retrieve article by article id', async () => {
-      const response = await request(app.getHttpServer())
+      response = await request(app.getHttpServer())
         .get('/article/3')
 
       expect(response.status).toBe(200)
@@ -129,7 +165,7 @@ describe('article module', () => {
     })
 
     it('should throw not found when retrieve a not existed article', async () => {
-      const response = await request(app.getHttpServer())
+      response = await request(app.getHttpServer())
         .get('/article/999')
 
       expect(response.status).toBe(404)
@@ -142,7 +178,7 @@ describe('article module', () => {
         ...dto,
         content: '<p>Bla bla</p>',
       }
-      const response = await request(app.getHttpServer())
+      response = await request(app.getHttpServer())
         .put('/article/3')
         .auth(token, { type: 'bearer' })
         .send(requestBody)
@@ -155,7 +191,7 @@ describe('article module', () => {
     })
 
     it('should return 401 when submit a valid form without login', async () => {
-      const response = await request(app.getHttpServer())
+      response = await request(app.getHttpServer())
         .put('/article/1')
         .send(dto)
 

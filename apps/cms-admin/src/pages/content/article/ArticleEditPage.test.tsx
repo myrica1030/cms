@@ -29,7 +29,12 @@ describe('# ArticleEditPage', () => {
     mockedUpdateRequest.mockResolvedValue({ status: 200, data: { id: 1 } } as any)
     mockedRetrieveArticle.mockResolvedValue({
       status: 200,
-      data: { id: 1, title: 'Title', content: '<p>content</p>', tags: [tagFixture.entity.key] },
+      data: {
+        id: 1,
+        title: 'Title',
+        content: '<p>content</p>',
+        tags: [tagFixture.entity],
+      },
     } as HttpResponse<ArticleEntity>)
     mockedRetrieveTags.mockResolvedValue({
       status: 200,
@@ -61,7 +66,7 @@ describe('# ArticleEditPage', () => {
 
     await waitFor(() => expect(mockedUpdateRequest).toHaveBeenCalledWith(1, {
       title: 'article title',
-      tags: ['semantic-ui'],
+      tags: ['Semantic UI'],
       content: '<p>content</p>',
       categoryId: Number.NaN,
     }))
