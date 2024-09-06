@@ -88,15 +88,19 @@ export function IsIdProperty(options?: ApiPropertyOptions): PropertyDecorator {
   }
 }
 
-export function IsKeyProperty(options?: ApiPropertyOptions): PropertyDecorator {
+export function IsKeyProperty(options?: ApiPropertyOptions & { each?: boolean }): PropertyDecorator {
+  const { each, ...propOptions } = options || {}
   return function (target: NonNullable<unknown>, key: string | symbol) {
-    IsNotEmpty()(target, key)
+    IsNotEmpty({ each })(target, key)
     // eslint-disable-next-line regexp/use-ignore-case
-    Matches(/^[\dA-Za-z\-]+$/, { message: 'key must be a string with only letters (a-z, A-Z), numbers (0-9) and dashes (-)' })(target, key)
+    Matches(/^[\dA-Za-z\-]+$/, {
+      each,
+      message: 'key must be a string with only letters (a-z, A-Z), numbers (0-9) and dashes (-)',
+    })(target, key)
     ApiProperty({
       title: 'The unique identifier',
       example: 'foo-bar',
-      ...options,
+      ...propOptions,
     })(target, key)
   }
 }
