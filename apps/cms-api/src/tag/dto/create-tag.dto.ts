@@ -1,8 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger'
+import { Prisma } from '@prisma/client'
 import { IsNotEmpty, IsOptional, IsString } from 'class-validator'
 import { IsKeyProperty, IsRichTextProperty } from 'common/decorator/api-property.decorator'
 
-export class CreateTagDto {
+export class CreateTagDto implements Prisma.TagUncheckedCreateInput {
   @IsKeyProperty({ title: 'The key of the tag', example: 'semantic-ui' })
   key: string
 
