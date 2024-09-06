@@ -168,7 +168,7 @@ export interface ArticleEntity {
    */
   updatedAt: string
   /** The category ID of the article */
-  categoryId?: object
+  categoryId: number | null
   /** The author of the article */
   authorId: number
 }
