@@ -27,6 +27,11 @@ export function mergeMetadata<T = any>(v: any, p: any): any {
   if (v === undefined || p === undefined) return v ?? p
   const result: any = structuredClone(p)
   for (const name of new Set([...Object.keys(p), ...Object.keys(v)])) {
+    if (['OmitTypeClass', 'PickTypeClass', 'PartialTypeClass'].includes(name)) {
+      delete result[name]
+      continue
+    }
+
     if (result[name]) {
       result[name] = {
         ...v[name],

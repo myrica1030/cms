@@ -1,11 +1,11 @@
-import { ApiProperty, OmitType } from '@nestjs/swagger'
+import { ApiExtraModels, ApiProperty, OmitType } from '@nestjs/swagger'
 import { Prisma } from '@prisma/client'
 import { ApiPropertyNullable } from 'common/decorator/api-property.decorator'
 import { ArticleEntity } from 'src/article/entity/article.entity'
 import { CategoryEntity } from 'src/category/entity/category.entity'
 import { TagOnArticleEntity } from 'src/tag/entity/tag-on-article.entity'
 import { UserEntity } from 'src/user/entity/user.entity'
-import { NullableOptional } from 'types/fest'
+import type { NullableOptional } from 'types/fest'
 
 export const articlePublicArgs = Prisma.validator<Prisma.ArticleDefaultArgs>()({
   omit: {
@@ -21,6 +21,7 @@ export const articlePublicArgs = Prisma.validator<Prisma.ArticleDefaultArgs>()({
 export type ArticlePublic = Prisma.ArticleGetPayload<typeof articlePublicArgs>
 export type TagOnArticle = ArticlePublic['tags'][number]
 
+@ApiExtraModels(ArticleEntity)
 export class ArticlePublicEntity
   extends OmitType(ArticleEntity, ['authorId', 'categoryId'] as const)
   implements ArticlePublic {
