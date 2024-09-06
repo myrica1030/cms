@@ -167,7 +167,7 @@ describe('article service', () => {
         .rejects.toThrow(NotFoundException)
     })
 
-    it.todo('should throw Forbidden error when user is not author', async () => {
+    it('should throw Forbidden error when user is not author', async () => {
       mockedPrisma.article.findUnique.mockResolvedValue(articleFixture.entity)
       vi.spyOn(tagService, 'getTags').mockResolvedValue([tagFixture.entity])
       vi.spyOn(categoryService, 'findCategory').mockResolvedValue(categoryFixture.entity)

@@ -83,7 +83,7 @@ export class ArticleService {
     ] as const)
     if (!article) throw new NotFoundException()
     if (!user) throw new BadRequestException('User not found')
-    if (user.id !== article.authorId) throw new ForbiddenException('You are not the author of this article')
+    if (userId !== article.authorId) throw new ForbiddenException('You are not the author of this article')
     if (categoryId && !category) throw new FormException({ categoryId: ['isNotExist'] })
 
     return await this.prisma.article.update({
