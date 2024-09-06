@@ -91,7 +91,7 @@ export function IsIdProperty(options?: ApiPropertyOptions & { validation?: boole
     }
     ApiProperty({
       title: 'The unique identifier',
-      example: '123',
+      example: 123,
       type: Number,
       ...propertyOptions,
     })(target, key)

@@ -13,7 +13,7 @@ export interface UserEntity {
   /**
    * The unique identifier
    * @min 1
-   * @example "123"
+   * @example 123
    */
   id: number
   /**
@@ -70,7 +70,7 @@ export interface RegisterDto {
 export interface AuthEntity {
   /**
    * The unique identifier
-   * @example "123"
+   * @example 123
    */
   id: number
   /** @example "foo@example.com" */
@@ -134,7 +134,7 @@ export interface CreateArticleDto {
   /**
    * The category ID of the article
    * @min 1
-   * @example "123"
+   * @example 123
    */
   categoryId?: number
   /**
@@ -147,12 +147,12 @@ export interface CreateArticleDto {
 export interface CategoryEntity {
   /**
    * The identifier of the category
-   * @example "123"
+   * @example 123
    */
   id: number
   /**
    * Category parent ID
-   * @example "123"
+   * @example 123
    */
   parentId: number | null
   /**
@@ -224,8 +224,7 @@ export interface TagOnArticleEntity {
 export interface ArticlePublicEntity {
   /**
    * The ID of the article
-   * TODO: fix example value
-   * @example "123"
+   * @example 123
    */
   id: number
   /** The title of the article */
@@ -280,7 +279,7 @@ export interface CreateCategoryDto {
   /**
    * Category parent ID
    * @min 1
-   * @example "123"
+   * @example 123
    */
   parentId?: number
 }
