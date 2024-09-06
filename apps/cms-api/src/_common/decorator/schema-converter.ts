@@ -34,8 +34,14 @@ export function mergeMetadata<T = any>(v: any, p: any): any {
         properties: {},
         required: [],
       }
+      result[name].type = v[name]?.type || p[name]?.type
       result[name].properties = mergeMetadata(v[name]?.properties, p[name]?.properties)
-      v[name]?.required && (result[name].required = v[name]?.required)
+      if (/(?:Entity|PaginatedMetadata)$/.test(name)) {
+        result[name].required = p[name]?.required
+      }
+      else if (/(?:Dto|Query)$/.test(name)) {
+        result[name].required = v[name]?.required
+      }
     }
     else {
       result[name] = v[name]

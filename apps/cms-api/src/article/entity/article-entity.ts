@@ -16,7 +16,7 @@ export class ArticleEntity implements NullToUndefined<Article> {
   @ApiProperty({ title: 'The content of the article' })
   content: string
 
-  @IsIdProperty({ title: 'The category ID of the article' })
+  @IsIdProperty({ title: 'The category ID of the article', required: false })
   categoryId?: number
 
   @IsDatetimeProperty({ created: true })

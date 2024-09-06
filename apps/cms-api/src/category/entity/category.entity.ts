@@ -1,6 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { Category } from '@prisma/client'
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator'
 import { IsDatetimeProperty, IsIdProperty, IsRichTextProperty } from 'common/decorator/api-property.decorator'
 import { NullToUndefined } from 'types/fest'
 
@@ -8,22 +7,16 @@ export class CategoryEntity implements NullToUndefined<Category> {
   @IsIdProperty({ title: 'The identifier of the category' })
   id: number
 
-  @IsIdProperty({ title: 'Category parent ID' })
-  @IsOptional()
+  @IsIdProperty({ title: 'Category parent ID', required: false })
   parentId?: number
 
-  // TODO remove this property
   @ApiProperty({ title: 'The key of the category', example: 'study-notes' })
-  @IsString()
   key: string
 
   @ApiProperty({ title: 'The display text of the category', example: 'Study notes' })
-  @IsString()
-  @IsNotEmpty()
   label: string
 
-  @IsRichTextProperty({ title: 'The description of the category' })
-  @IsOptional()
+  @IsRichTextProperty({ title: 'The description of the category', required: false })
   description?: string
 
   @IsDatetimeProperty({ created: true })
