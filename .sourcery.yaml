@@ -3,3 +3,4 @@ rule_settings:
     - use-braces
     - avoid-function-declarations-in-blocks
     - inline-immediately-returned-variable
+    - merge-nested-ifs
