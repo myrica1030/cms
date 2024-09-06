@@ -26,6 +26,13 @@ export default defineConfig({
     'unicorn/prefer-top-level-await': 'off',
   },
 }, {
+  name: 'cms/apps-api/dto',
+  files: ['apps/cms-api/**/*.dto.ts'],
+  // @keep-sorted
+  rules: {
+    'ts/no-non-null-asserted-optional-chain': 'off',
+  },
+}, {
   name: 'cms/vue-fix',
   files: [GLOB_VUE],
   rules: {

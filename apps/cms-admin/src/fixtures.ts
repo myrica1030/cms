@@ -1,5 +1,6 @@
-import type { ArticleEntity, PaginatedMetadata, TagEntity, UserEntity } from 'src/client/cms/cms-api'
+import type { ArticlePublicEntity, PaginatedMetadata, TagEntity, UserEntity } from 'src/client/cms/cms-api'
 
+// TODO extract fixtures to common library
 export const paginatedMetadataFixture: PaginatedMetadata = {
   currentPage: 1,
   limit: 10,
@@ -33,5 +34,5 @@ export const articleFixture = {
     author: userFixture.entity,
     createdAt: '2022-01-05T12:01:59+0800',
     updatedAt: '2022-01-05T12:01:59+0800',
-  } as ArticleEntity,
+  } as ArticlePublicEntity,
 }

@@ -24,11 +24,11 @@ describe('category module', () => {
     return () => void onTestFailed(() => console.log(prettyResponse(response)))
   })
 
-  const dto: CreateCategoryDto = {
+  const dto = {
     key: 'study-notes2',
     label: 'Study notes2',
     description: '<p>This is personal study notes2</p>',
-  }
+  } satisfies CreateCategoryDto
 
   describe('/category (POST)', () => {
     it('should return 201 when post a valid create category form', async () => {
@@ -41,6 +41,7 @@ describe('category module', () => {
       expect(response.body).toEqual({
         id: 3,
         ...dto,
+        parentId: null,
         createdAt: expect.stringMatching(anyDateString),
         updatedAt: expect.stringMatching(anyDateString),
       } satisfies CategoryEntity)
@@ -72,7 +73,7 @@ describe('category module', () => {
       response = await request(app.getHttpServer())
         .post('/category')
         .auth(token, { type: 'bearer' })
-        .send(categoryFixture.dto)
+        .send(categoryFixture.creationDto)
 
       expect(response.status).toBe(422)
       expect(response.body).toEqual({ key: ['isExist'] })
@@ -104,7 +105,17 @@ describe('category module', () => {
         .get('/category/1')
 
       expect(response.status).toBe(200)
-      expect(response.body).toMatchSnapshot()
+      expect(response.body).toMatchInlineSnapshot(`
+        {
+          "createdAt": "2024-09-02T12:04:58.000Z",
+          "description": null,
+          "id": 1,
+          "key": "uncategorized",
+          "label": "Uncategorized",
+          "parentId": null,
+          "updatedAt": "2024-09-02T12:04:58.000Z",
+        }
+      `)
     })
 
     it('should return 404 when category not exist', async () => {

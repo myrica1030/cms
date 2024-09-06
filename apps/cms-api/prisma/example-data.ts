@@ -2,7 +2,10 @@ import process from 'node:process'
 import { PrismaClient } from '@prisma/client'
 import { cryptoPassword } from 'common/utils/crypto.util'
 import { config } from 'dotenv-flow'
+import { omit } from 'lodash'
+import { articleFixture } from 'src/article/article.fixture'
 import { categoryFixture } from 'src/category/category.fixture'
+import { tagFixture } from 'src/tag/tag.fixture'
 import { userFixture } from 'src/user/user.fixture'
 
 config()
@@ -10,45 +13,32 @@ config()
 const prisma = new PrismaClient()
 
 async function main() {
-  // TODO: using creation dto
-  const user = await prisma.user.create({
+  await prisma.user.create({
     data: {
-      username: 'mutoe',
-      email: 'imutoe@gmail.com',
+      ...omit(userFixture.entity, 'id'),
       password: cryptoPassword('123456'),
-      bio: 'This guy is lazy and has left nothing.',
     },
   })
 
-  const category = await prisma.category.create({
-    data: {
-      key: 'study-notes',
-      label: 'Study notes',
-      description: '<p>This is personal study notes</p>',
-    },
+  await prisma.category.create({
+    data: categoryFixture.creationDto,
   })
 
   await prisma.tag.createMany({
-    data: [
-      { key: 'semantic-ui', name: 'Semantic UI', description: 'Semantic UI is a smoothly UI library' },
-      { key: 'database', name: 'Database' },
-      { key: 'linux', name: 'Linux' },
-    ],
+    data: tagFixture.createTagsDto,
   })
 
-  await prisma.article.createMany({
-    data: [{
-      title: 'Article title',
-      authorId: userFixture.adminEntity.id,
-      categoryId: categoryFixture.uncategorizedCategoryEntity.id,
-      content: '# Article content',
-    }, {
-      title: 'Article title 2',
-      authorId: user.id,
-      categoryId: category.id,
-      content: '# Article content 2',
-    }],
-  })
+  await prisma.article.create({ data: {
+    ...omit(articleFixture.creationDto, 'tags'),
+    authorId: userFixture.adminEntity.id,
+  } })
+  await prisma.article.create({ data: {
+    ...omit(articleFixture.creationDto, 'tags'),
+    authorId: userFixture.entity.id,
+    tags: {
+      createMany: { data: articleFixture.creationDto.tags.map(key => ({ tagKey: key })) },
+    },
+  } })
 }
 
 main()

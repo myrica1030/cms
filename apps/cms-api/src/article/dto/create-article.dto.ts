@@ -21,10 +21,10 @@ export class CreateArticleDto implements Omit<Prisma.ArticleUncheckedCreateInput
   @IsOptional()
   tags?: string[]
 
-  constructor(dto: CreateArticleDto) {
-    this.title = dto.title
-    this.content = dto.content
-    this.categoryId = dto.categoryId
-    this.tags = dto.tags
+  constructor(dto?: CreateArticleDto) {
+    this.title = dto?.title!
+    this.content = dto?.content!
+    this.categoryId = dto?.categoryId
+    this.tags = dto?.tags
   }
 }

@@ -1,46 +1,67 @@
-import type { ArticleIncludeAuthorAndTags } from 'src/article/article.model'
+import { omit } from 'lodash'
 import type { CreateArticleDto } from 'src/article/dto/create-article.dto'
+import { ArticlePublicEntity } from 'src/article/entity/article-public.entity'
+import { ArticleEntity } from 'src/article/entity/article.entity'
 import { categoryFixture } from 'src/category/category.fixture'
+import { TagOnArticleEntity } from 'src/tag/entity/tag-on-article.entity'
 import { tagFixture } from 'src/tag/tag.fixture'
 import { userFixture } from 'src/user/user.fixture'
 
-const dto: CreateArticleDto = {
-  title: 'Article title',
-  categoryId: 1,
-  tags: ['semantic-ui'],
-  content: '# Article content',
-}
+const tagOnArticleEntity = new TagOnArticleEntity({
+  tag: tagFixture.entity,
+  createdAt: tagFixture.entity.createdAt,
+})
 
-const entity: ArticleIncludeAuthorAndTags = {
-  id: 1,
+const creationDto = {
   title: 'Article title',
-  authorId: userFixture.adminEntity.id,
-  author: userFixture.adminEntity,
-  categoryId: categoryFixture.uncategorizedCategoryEntity.id,
-  tags: [{ tag: tagFixture.entity }],
   content: '# Article content',
-  createdAt: new Date('2021-04-18T07:51:33.299Z'),
-  updatedAt: new Date('2021-04-18T07:51:33.299Z'),
-}
-const entity2: ArticleIncludeAuthorAndTags = {
-  id: 2,
-  title: 'Article title 2',
-  authorId: userFixture.adminEntity.id,
-  author: userFixture.adminEntity,
   categoryId: categoryFixture.entity.id,
-  tags: tagFixture.entities.map(tag => ({ tag })),
-  content: '# Article content 2',
+  tags: [tagOnArticleEntity.tag.key],
+} satisfies CreateArticleDto
+
+const entity = new ArticleEntity({
+  id: 1,
+  ...creationDto,
+  authorId: userFixture.adminEntity.id,
+  categoryId: categoryFixture.entity.id,
   createdAt: new Date('2021-04-18T07:51:33.299Z'),
   updatedAt: new Date('2021-04-18T07:51:33.299Z'),
-}
+})
 
-const entities: ArticleIncludeAuthorAndTags[] = [
-  entity,
-  entity2,
+const publicEntity = new ArticlePublicEntity({
+  ...omit(entity, ['authorId', 'categoryId']),
+  author: userFixture.adminEntity,
+  category: categoryFixture.entity,
+  tags: [tagOnArticleEntity],
+})
+
+const creationDto2 = {
+  title: 'Article title 2',
+  content: '# Article content 2',
+  categoryId: categoryFixture.entity.id,
+  tags: [tagOnArticleEntity.tag.name],
+} satisfies CreateArticleDto
+
+const publicEntity2 = new ArticlePublicEntity({
+  id: 2,
+  ...creationDto2,
+  author: userFixture.entity,
+  category: categoryFixture.entity,
+  tags: [tagOnArticleEntity],
+  createdAt: new Date('2021-04-18T07:51:33.299Z'),
+  updatedAt: new Date('2021-04-18T07:51:33.299Z'),
+})
+
+const publicEntities: ArticlePublicEntity[] = [
+  publicEntity,
+  publicEntity2,
 ]
 
 export const articleFixture = {
-  dto,
+  creationDto,
+  creationDto2,
   entity,
-  entities,
+  publicEntity,
+  publicEntities,
+  tagOnArticleEntity,
 }

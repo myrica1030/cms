@@ -5,9 +5,9 @@ import { UseJwtGuards } from 'common/decorator/auth-guard.decorator'
 import { PaginationQuery } from 'common/dto/pagination.query'
 import { PaginatedEntity } from 'common/entity/paginated.entity'
 import { ArticleService } from 'src/article/article.service'
+import { ArticlePublicEntity } from 'src/article/entity/article-public.entity'
 import { AuthRequest } from 'src/auth/jwt.strategy'
 import { CreateArticleDto } from './dto/create-article.dto'
-import { ArticleEntity } from './entity/article-entity'
 
 @Controller('article')
 @ApiTags('Article')
@@ -19,44 +19,44 @@ export class ArticleController {
   @Post('/')
   @UseJwtGuards()
   @ApiOperation({ summary: 'Create article' })
-  @ApiCreatedResponse({ type: ArticleEntity })
+  @ApiCreatedResponse({ type: ArticlePublicEntity })
   @ApiInvalidFormResponse()
-  async createArticle(@Request() { user: { userId } }: AuthRequest, @Body() createArticleDto: CreateArticleDto): Promise<ArticleEntity> {
+  async createArticle(@Request() { user: { userId } }: AuthRequest, @Body() createArticleDto: CreateArticleDto): Promise<ArticlePublicEntity> {
     const article = await this.service.createArticle(userId, createArticleDto)
-    return new ArticleEntity(article)
+    return new ArticlePublicEntity(article)
   }
 
   @Get('/')
   @ApiOperation({ summary: 'Retrieve articles' })
-  @ApiListResponse(ArticleEntity)
-  async retrieveArticles(@Query() query: PaginationQuery): Promise<PaginatedEntity<ArticleEntity>> {
+  @ApiListResponse(ArticlePublicEntity)
+  async retrieveArticles(@Query() query: PaginationQuery): Promise<PaginatedEntity<ArticlePublicEntity>> {
     return await this.service.retrievePaginatedArticles(query)
   }
 
   @Get('/:articleId')
   @ApiOperation({ summary: 'Retrieve article by article id' })
   @ApiParam({ name: 'articleId', type: Number, example: '1' })
-  @ApiOkResponse({ type: ArticleEntity })
+  @ApiOkResponse({ type: ArticlePublicEntity })
   @ApiNotFoundResponse()
-  async retrieveArticle(@Param('articleId') articleId: string): Promise<ArticleEntity> {
+  async retrieveArticle(@Param('articleId') articleId: string): Promise<ArticlePublicEntity> {
     const article = await this.service.findArticle(+articleId)
     if (!article) throw new NotFoundException('Article not found')
-    return new ArticleEntity(article)
+    return new ArticlePublicEntity(article)
   }
 
   @Put('/:articleId')
   @UseJwtGuards()
   @ApiOperation({ summary: 'Update article' })
   @ApiParam({ name: 'articleId', type: Number, example: '1' })
-  @ApiOkResponse({ type: ArticleEntity })
+  @ApiOkResponse({ type: ArticlePublicEntity })
   @ApiNotFoundResponse()
   @ApiInvalidFormResponse()
   async updateArticle(
     @Param('articleId') articleId: number,
     @Request() { user: { userId } }: AuthRequest,
     @Body() createArticleDto: CreateArticleDto,
-  ): Promise<ArticleEntity> {
+  ): Promise<ArticlePublicEntity> {
     const article = await this.service.updateArticle(articleId, createArticleDto, userId)
-    return new ArticleEntity(article)
+    return new ArticlePublicEntity(article)
   }
 }

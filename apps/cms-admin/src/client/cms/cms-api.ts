@@ -170,10 +170,21 @@ export interface TagEntity {
   updatedAt: string
 }
 
-export interface ArticleEntity {
+export interface TagOnArticleEntity {
+  /** Tag entity */
+  tag: TagEntity
+  /**
+   * The creation datetime
+   * @format date-time
+   * @example "2020-08-16T00:04:59.343Z"
+   */
+  createdAt: string
+}
+
+export interface ArticlePublicEntity {
   /**
    * The ID of the article
-   * @min 1
+   * TODO: fix example value
    * @example "123"
    */
   id: number
@@ -181,12 +192,6 @@ export interface ArticleEntity {
   title: string
   /** The content of the article */
   content: string
-  /**
-   * The category ID of the article
-   * @min 1
-   * @example "123"
-   */
-  categoryId?: number
   /**
    * The creation datetime
    * @format date-time
@@ -199,10 +204,12 @@ export interface ArticleEntity {
    * @example "2020-08-16T00:04:59.343Z"
    */
   updatedAt: string
+  /** The category ID of the article */
+  category?: object
   /** The author of the article */
   author: UserEntity
   /** The tags of the article */
-  tags: TagEntity[]
+  tags: TagOnArticleEntity[]
 }
 
 /** @default "desc" */
@@ -367,6 +374,21 @@ export enum FormErrorCause {
 }
 
 export type FormError = Record<string, (FormErrorCause | string)[]>
+
+// FIXME
+export interface ArticleEntity {
+  /** @min 1 */
+  id: number
+  createdAt: string
+  updatedAt: string
+}
+
+export interface OmitTypeClass {
+  /** @min 1 */
+  id: number
+  createdAt: string
+  updatedAt: string
+}
 
 export type QueryParamsType = Record<string | number, any>
 export type ResponseFormat = keyof Omit<Body, 'body' | 'bodyUsed'>
@@ -686,12 +708,12 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @summary Create article
      * @request `POST` `/api/article`
      * @secure
-     * @response `201` `ArticleEntity`
+     * @response `201` `ArticlePublicEntity`
      * @response `401` `void` Unauthorized
      * @response `422` `FormError` Form validation error
      */
     createArticle: (data: CreateArticleDto, params: RequestParams = {}) =>
-      this.request<ArticleEntity, FormError>({
+      this.request<ArticlePublicEntity, FormError>({
         path: `/api/article`,
         method: 'POST',
         body: data,
@@ -708,7 +730,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @name RetrieveArticles
      * @summary Retrieve articles
      * @request `GET` `/api/article`
-     * @response `200` `PaginatedEntity<ArticleEntity>`
+     * @response `200` `PaginatedEntity<ArticlePublicEntity>`
      */
     retrieveArticles: (
       query?: {
@@ -737,7 +759,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       },
       params: RequestParams = {},
     ) =>
-      this.request<PaginatedEntity<ArticleEntity>, any>({
+      this.request<PaginatedEntity<ArticlePublicEntity>, any>({
         path: `/api/article`,
         method: 'GET',
         query,
@@ -752,11 +774,11 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @name RetrieveArticle
      * @summary Retrieve article by article id
      * @request `GET` `/api/article/{articleId}`
-     * @response `200` `ArticleEntity`
+     * @response `200` `ArticlePublicEntity`
      * @response `404` `void`
      */
     retrieveArticle: (articleId: number, params: RequestParams = {}) =>
-      this.request<ArticleEntity, void>({
+      this.request<ArticlePublicEntity, void>({
         path: `/api/article/${articleId}`,
         method: 'GET',
         format: 'json',
@@ -771,13 +793,13 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @summary Update article
      * @request `PUT` `/api/article/{articleId}`
      * @secure
-     * @response `200` `ArticleEntity`
+     * @response `200` `ArticlePublicEntity`
      * @response `401` `void` Unauthorized
      * @response `404` `void`
      * @response `422` `FormError` Form validation error
      */
     updateArticle: (articleId: number, data: CreateArticleDto, params: RequestParams = {}) =>
-      this.request<ArticleEntity, FormError>({
+      this.request<ArticlePublicEntity, FormError>({
         path: `/api/article/${articleId}`,
         method: 'PUT',
         body: data,
