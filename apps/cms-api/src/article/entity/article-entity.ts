@@ -1,12 +1,13 @@
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
+import { ApiProperty } from '@nestjs/swagger'
 import { Article } from '@prisma/client'
+import { IsDatetimeProperty, IsIdProperty } from 'common/decorator/api-property.decorator'
 import { ArticleIncludeAuthorAndTags } from 'src/article/article.model'
-import { TagOnArticleEntity } from 'src/tag/entity/tag-on-article.entity'
+import { TagEntity } from 'src/tag/entity/tag.entity'
 import { UserEntity } from 'src/user/entity/user.entity'
 import { NullToUndefined } from 'types/fest'
 
 export class ArticleEntity implements NullToUndefined<Article> {
-  @ApiProperty({ title: 'The ID of the article' })
+  @IsIdProperty({ title: 'The ID of the article' })
   id: number
 
   @ApiProperty({ title: 'The title of the article' })
@@ -15,20 +16,20 @@ export class ArticleEntity implements NullToUndefined<Article> {
   @ApiProperty({ title: 'The content of the article' })
   content: string
 
-  @ApiPropertyOptional({ title: 'The category ID of the article' })
+  @IsIdProperty({ title: 'The category ID of the article' })
   categoryId?: number
 
-  @ApiProperty({ title: 'The creation date of the article', format: 'date-time' })
+  @IsDatetimeProperty({ created: true })
   createdAt: Date
 
-  @ApiProperty({ title: 'The last update date of the article', format: 'date-time' })
+  @IsDatetimeProperty({ updated: true })
   updatedAt: Date
 
   @ApiProperty({ title: 'The author of the article' })
   author: UserEntity
 
-  @ApiProperty({ title: 'The tags of the article' })
-  tags: TagOnArticleEntity[]
+  @ApiProperty({ title: 'The tags of the article', type: [TagEntity] })
+  tags: TagEntity[]
 
   constructor(article: ArticleIncludeAuthorAndTags) {
     this.id = article.id
@@ -38,6 +39,6 @@ export class ArticleEntity implements NullToUndefined<Article> {
     this.createdAt = article.createdAt
     this.updatedAt = article.updatedAt
     this.author = new UserEntity(article.author)
-    this.tags = article.tags.map(({ tag }) => new TagOnArticleEntity(tag))
+    this.tags = article.tags.map(({ tag }) => new TagEntity(tag))
   }
 }

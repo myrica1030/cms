@@ -112,6 +112,41 @@ export interface UserEntity {
   image?: string
 }
 
+export interface ArticleEntity {
+  /**
+   * The ID of the article
+   * @min 1
+   * @example "123"
+   */
+  id: number
+  /**
+   * The category ID of the article
+   * @min 1
+   * @example "123"
+   */
+  categoryId: number
+  /**
+   * The creation datetime
+   * @format date-time
+   * @example "2020-08-16T00:04:59.343Z"
+   */
+  createdAt: string
+  /**
+   * The last update datetime
+   * @format date-time
+   * @example "2020-08-16T00:04:59.343Z"
+   */
+  updatedAt: string
+  /** The title of the article */
+  title?: string
+  /** The content of the article */
+  content?: string
+  /** The author of the article */
+  author?: UserEntity
+  /** The tags of the article */
+  tags?: TagEntity[]
+}
+
 export interface CreateArticleDto {
   /**
    * The title of the article
@@ -124,7 +159,7 @@ export interface CreateArticleDto {
    * The content of the article
    * @example "<p>Hello <strong>Mutoe CMS</strong></p>"
    */
-  content?: string
+  content: string
   /**
    * The category ID of the article
    * @min 1
@@ -297,31 +332,6 @@ export interface AuthEntity {
   image?: string
   /** @example "jwt" */
   token: string
-}
-
-export interface ArticleEntity {
-  /** The ID of the article */
-  id: number
-  /** The title of the article */
-  title: string
-  /** The content of the article */
-  content: string
-  /** The category ID of the article */
-  categoryId?: number
-  /**
-   * The creation date of the article
-   * @format date-time
-   */
-  createdAt: string
-  /**
-   * The last update date of the article
-   * @format date-time
-   */
-  updatedAt: string
-  /** The author of the article */
-  author: UserEntity
-  /** The tags of the article */
-  tags: string[]
 }
 
 /** @default "desc" */

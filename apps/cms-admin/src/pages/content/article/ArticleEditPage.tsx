@@ -18,7 +18,7 @@ const ArticleEditPage: React.FC = () => {
   const form: Required<CreateArticleDto> = useMemo(() => ({
     title: detail?.title ?? '',
     content: detail?.content ?? '',
-    tags: detail?.tags ?? [],
+    tags: detail?.tags?.map(tag => tag.name) ?? [],
     categoryId: detail?.categoryId ?? Number.NaN,
   }), [detail])
 
