@@ -8,12 +8,12 @@
     "version": "pnpm changelog && git add CHANGELOG.md",
     "dev": "vite",
     "build": "vite build",
+    "build:openapi": "tsx scripts/sync-swagger-api.js && eslint --fix src/client/cms/cms-api.ts",
     "serve": "vite preview",
     "type-check": "tsc",
     "lint": "eslint .",
     "test": "pnpm test:unit",
     "test:unit": "vitest run",
-    "swagger": "tsx scripts/sync-swagger-api.js && eslint --fix src/client/cms/cms-api.ts",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },
   "dependencies": {

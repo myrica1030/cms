@@ -3,7 +3,7 @@
     <package-json value="$PROJECT_DIR$/apps/cms-admin/package.json" />
     <command value="run" />
     <scripts>
-      <script value="swagger" />
+      <script value="build:openapi" />
     </scripts>
     <node-interpreter value="project" />
     <envs />
