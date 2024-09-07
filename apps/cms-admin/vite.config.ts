@@ -3,7 +3,7 @@ import { PrimeVueResolver } from '@primevue/auto-import-resolver'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import UnoCSS from 'unocss/vite'
-import Components from 'unplugin-vue-components/vite'
+import unplugComponents from 'unplugin-vue-components/vite'
 import { defineConfig } from 'vite'
 import vueDevTools from 'vite-plugin-vue-devtools'
 import { configDefaults } from 'vitest/config'
@@ -20,9 +20,7 @@ export default defineConfig({
     vue(),
     vueJsx(),
     vueDevTools(),
-    Components({
-      resolvers: [PrimeVueResolver()],
-    }),
+    unplugComponents({ resolvers: [PrimeVueResolver()] }),
   ],
   test: {
     environment: 'jsdom',

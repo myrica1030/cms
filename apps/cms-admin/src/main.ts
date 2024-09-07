@@ -1,4 +1,4 @@
-import '@unocss/reset/tailwind-compat.css'
+import '@unocss/reset/tailwind.css'
 import 'virtual:uno.css'
 import '@/assets/styles.scss'
 
@@ -18,7 +18,16 @@ app.use(PrimeVue, {
   theme: {
     preset: Aura,
     options: {
-      darkModeSelector: '.app-dark',
+      darkModeSelector: '.dark',
+    },
+  },
+  semantic: {
+    screens: {
+      'sm': '576px',
+      'md': '768px',
+      'lg': '992px',
+      'xl': '1200px',
+      '2xl': '1920px',
     },
   },
 })

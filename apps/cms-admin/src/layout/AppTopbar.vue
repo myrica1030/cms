@@ -40,8 +40,16 @@
           <i class="pi" :class="[{ 'pi-moon': isDarkTheme, 'pi-sun': !isDarkTheme }]" />
         </button>
         <div class="relative">
+          <!-- FIXME: animation effects https://github.dev/primefaces/tailwindcss-primeui -->
           <button
-            v-styleclass="{ selector: '@next', enterFromClass: 'hidden', enterActiveClass: 'animate-scalein', leaveToClass: 'hidden', leaveActiveClass: 'animate-fadeout', hideOnOutsideClick: true }"
+            v-styleclass="{
+              selector: '@next',
+              enterFromClass: 'hidden',
+              enterActiveClass: 'animate-scalein',
+              leaveToClass: 'hidden',
+              leaveActiveClass: 'animate-fadeout',
+              hideOnOutsideClick: true,
+            }"
             type="button"
             class="layout-topbar-action layout-topbar-action-highlight"
           >
@@ -79,6 +87,7 @@
 </template>
 
 <script setup>
+import vStyleclass from 'primevue/styleclass'
 import AppConfigurator from './AppConfigurator.vue'
 import { useLayout } from '@/layout/composables/layout'
 
