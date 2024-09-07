@@ -1,7 +1,7 @@
 {
   "references": [
-    { "path": "apps/cms-admin/tsconfig.json" },
     { "path": "apps/cms-api/tsconfig.json" },
+    { "path": "apps/cms-admin-react/tsconfig.json" },
     { "path": "apps/cms-page-builder/tsconfig.json" }
   ],
   "files": [
