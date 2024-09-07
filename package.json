@@ -11,7 +11,11 @@
   "main": "index.js",
   "scripts": {
     "prepare": "simple-git-hooks",
+    "cms-api": "pnpm --filter cms-api",
+    "cms-admin": "pnpm --filter cms-admin",
+    "cms-page-builder": "pnpm --filter cms-page-builder",
     "build": "pnpm -r build",
+    "build:prisma": "pnpm cms-api exec prisma generate",
     "type-check": "pnpm -r type-check",
     "test": "vitest run"
   },
@@ -24,13 +28,15 @@
     "@types/node": "^20",
     "@vitest/coverage-v8": "^2.0.5",
     "@vitest/ui": "^2.0.5",
+    "concurrently": "^8.2.2",
     "eslint": "^9.9.1",
     "lint-staged": "^15.2.9",
     "simple-git-hooks": "^2.11.1",
     "tsx": "^4.19.0",
     "type-fest": "^4.26.0",
     "typescript": "~5.5.4",
-    "vitest": "^2.0.5"
+    "vitest": "^2.0.5",
+    "wait-on": "^8.0.0"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged",

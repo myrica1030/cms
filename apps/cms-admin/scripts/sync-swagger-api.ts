@@ -14,7 +14,7 @@ if (!process.env.CMS_API_URL && !process.env.CMS_API_PORT) {
   process.exit(1)
 }
 
-const url = `${process.env.CMS_API_URL ?? `http://localhost:${process.env.CMS_API_PORT}`}/docs-json`
+const url = `${process.env.CMS_API_URL ?? `http://localhost:${process.env.CMS_API_PORT}`}/docs.json`
 
 async function testURL() {
   try {

@@ -33,7 +33,9 @@ export function createSwagger(app: INestApplication): void {
 
   mergeDocumentSchema(document)
 
-  SwaggerModule.setup('/docs', app, document)
+  SwaggerModule.setup('/docs', app, document, {
+    jsonDocumentUrl: '/docs.json',
+  })
 
   setTimeout(() => {
     logger.log(`Swagger is started at http://0.0.0.0:${NEST_PORT}/docs`)
