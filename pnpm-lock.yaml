@@ -55,7 +55,7 @@ importers:
         specifier: ^8.0.0
         version: 8.0.0
 
-  apps/cms-admin:
+  apps/cms-admin-react:
     dependencies:
       axios:
         specifier: ^1.7.7

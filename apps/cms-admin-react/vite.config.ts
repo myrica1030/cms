@@ -23,7 +23,7 @@ export default defineConfig({
     reactPlugin(),
     codecovVitePlugin({
       enableBundleAnalysis: process.env.CODECOV_TOKEN !== undefined,
-      bundleName: 'cms-admin',
+      bundleName: 'cms-admin-react',
       uploadToken: process.env.CODECOV_TOKEN,
     }),
   ],
