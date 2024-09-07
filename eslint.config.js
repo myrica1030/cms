@@ -6,6 +6,7 @@ export default defineConfig({
     tsconfigPath: 'tsconfig.json',
   },
   vue: true,
+  react: false,
   test: {
     cypress: true,
   },
@@ -31,6 +32,12 @@ export default defineConfig({
   // @keep-sorted
   rules: {
     'ts/no-non-null-asserted-optional-chain': 'off',
+  },
+}, {
+  name: 'cms/apps-admin',
+  files: ['apps/cms-admin/**/*.ts'],
+  rules: {
+    'ts/no-unsafe-assignment': 'off',
   },
 }, {
   name: 'cms/vue-fix',
