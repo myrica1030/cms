@@ -13,6 +13,9 @@ export default defineConfig({
   ignores: [
     'apps/cms-page-builder/public/ionicons',
   ],
+  rules: {
+    'style/no-extra-parens': ['error', 'functions'],
+  },
 }, {
   name: 'cms/apps-api',
   files: ['apps/cms-api/**/*.ts'],

@@ -99,7 +99,9 @@ function itemClick(event, item) {
     item.command({ originalEvent: event, item })
   }
 
-  const foundItemKey = item.items ? isActiveMenu.value ? props.parentItemKey : itemKey : itemKey.value
+  const foundItemKey = item.items
+    ? (isActiveMenu.value ? props.parentItemKey : itemKey)
+    : itemKey.value
 
   setActiveMenuItem(foundItemKey)
 }
