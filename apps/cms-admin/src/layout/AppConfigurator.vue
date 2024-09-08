@@ -5,7 +5,7 @@
     <div class="flex flex-col gap-4">
       <div>
         <span class="text-sm text-muted-color font-semibold">Primary</span>
-        <div class="pt-2 flex gap-2 flex-wrap justify-between">
+        <div class="pt-2 flex gap-2 flex-wrap justify-start">
           <button
             v-for="primaryColor of primaryColors"
             :key="primaryColor.name"
@@ -20,16 +20,14 @@
       </div>
       <div>
         <span class="text-sm text-muted-color font-semibold">Surface</span>
-        <div class="pt-2 flex gap-2 flex-wrap justify-between">
+        <div class="pt-2 flex gap-2 flex-wrap justify-start">
           <button
             v-for="surface of surfaces"
             :key="surface.name"
             type="button"
             :title="surface.name"
             class="border-none w-5 h-5 rounded-full p-0 cursor-pointer outline-none outline-offset-1"
-            :class="[
-              { 'outline-primary': layoutConfig.surface ? layoutConfig.surface === surface.name : isDarkTheme ? surface.name === 'zinc' : surface.name === 'slate' },
-            ]"
+            :class="{ 'outline-primary': layoutConfig.surface ? layoutConfig.surface === surface.name : isDarkTheme ? surface.name === 'zinc' : surface.name === 'slate' }"
             :style="{ backgroundColor: `${surface.palette['500']}` }"
             @click="updateColors('surface', surface)"
           />

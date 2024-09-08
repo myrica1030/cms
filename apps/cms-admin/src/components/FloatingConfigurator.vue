@@ -9,7 +9,14 @@
     />
     <div class="relative">
       <Button
-        v-styleclass="{ selector: '@next', enterFromClass: 'hidden', enterActiveClass: 'animate-scalein', leaveToClass: 'hidden', leaveActiveClass: 'animate-fadeout', hideOnOutsideClick: true }"
+        v-styleclass="{
+          selector: '@next',
+          enterFromClass: 'hidden',
+          enterActiveClass: 'animate-in fade-in',
+          leaveToClass: 'hidden',
+          leaveActiveClass: 'animate-out fade-out',
+          hideOnOutsideClick: true,
+        }"
         icon="pi pi-palette"
         type="button"
         rounded

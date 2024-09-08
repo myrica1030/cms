@@ -1,4 +1,5 @@
 import { defineConfig, presetUno, presetWebFonts } from 'unocss'
+import presetAnimations from 'unocss-preset-animations'
 
 function convert(color: string) {
   return `color-mix(in srgb, ${color} calc(100% * <alpha-value>), transparent)`
@@ -18,6 +19,7 @@ export default defineConfig({
   ],
   presets: [
     presetUno(),
+    presetAnimations(),
     presetWebFonts({
       provider: 'bunny',
       fonts: {
@@ -66,230 +68,97 @@ export default defineConfig({
     },
     keyframes: {
       fadein: {
-        '0%': {
-          opacity: '0',
-        },
-        '100%': {
-          opacity: '1',
-        },
+        '0%': { opacity: '0' },
+        '100%': { opacity: '1' },
       },
       fadeout: {
-        '0%': {
-          opacity: '1',
-        },
-        '100%': {
-          opacity: '0',
-        },
+        '0%': { opacity: '1' },
+        '100%': { opacity: '0' },
       },
       scalein: {
-        '0%': {
-          opacity: '0',
-          transform: 'scaleY(0.8)',
-          transition: 'transform 0.12s cubic-bezier(0, 0, 0.2, 1), opacity 0.12s cubic-bezier(0, 0, 0.2, 1)',
+        '0%': { opacity: '0', transform: 'scaleY(0.8)', transition: 'transform 0.12s cubic-bezier(0, 0, 0.2, 1), opacity 0.12s cubic-bezier(0, 0, 0.2, 1)',
         },
-        '100%': {
-          opacity: '1',
-          transform: 'scaleY(1)',
-        },
+        '100%': { opacity: '1', transform: 'scaleY(1)' },
       },
       slidedown: {
-        '0%': {
-          maxHeight: '0',
-        },
-        '100%': {
-          maxHeight: 'auto',
-        },
+        '0%': { maxHeight: '0' },
+        '100%': { maxHeight: 'auto' },
       },
       slideup: {
-        '0%': {
-          maxHeight: '1000px',
-        },
-        '100%': {
-          maxHeight: '0',
-        },
+        '0%': { maxHeight: '1000px' },
+        '100%': { maxHeight: '0' },
       },
       fadeinleft: {
-        '0%': {
-          opacity: '0',
-          transform: 'translateX(-100%)',
-          transition: 'transform 0.12s cubic-bezier(0, 0, 0.2, 1), opacity 0.12s cubic-bezier(0, 0, 0.2, 1)',
-        },
-        '100%': {
-          opacity: '1',
-          transform: 'translateX(0%)',
-        },
+        '0%': { opacity: '0', transform: 'translateX(-100%)', transition: 'transform 0.12s cubic-bezier(0, 0, 0.2, 1), opacity 0.12s cubic-bezier(0, 0, 0.2, 1)' },
+        '100%': { opacity: '1', transform: 'translateX(0%)' },
       },
       fadeoutleft: {
-        '0%': {
-          opacity: '1',
-          transform: 'translateX(0%)',
-          transition: 'transform 0.12s cubic-bezier(0, 0, 0.2, 1), opacity 0.12s cubic-bezier(0, 0, 0.2, 1)',
-        },
-        '100%': {
-          opacity: '0',
-          transform: 'translateX(-100%)',
-        },
+        '0%': { opacity: '1', transform: 'translateX(0%)', transition: 'transform 0.12s cubic-bezier(0, 0, 0.2, 1), opacity 0.12s cubic-bezier(0, 0, 0.2, 1)' },
+        '100%': { opacity: '0', transform: 'translateX(-100%)' },
       },
       fadeinright: {
-        '0%': {
-          opacity: '0',
-          transform: 'translateX(100%)',
-          transition: 'transform 0.12s cubic-bezier(0, 0, 0.2, 1), opacity 0.12s cubic-bezier(0, 0, 0.2, 1)',
-        },
-        '100%': {
-          opacity: '1',
-          transform: 'translateX(0%)',
-        },
+        '0%': { opacity: '0', transform: 'translateX(100%)', transition: 'transform 0.12s cubic-bezier(0, 0, 0.2, 1), opacity 0.12s cubic-bezier(0, 0, 0.2, 1)' },
+        '100%': { opacity: '1', transform: 'translateX(0%)' },
       },
       fadeoutright: {
-        '0%': {
-          opacity: '1',
-          transform: 'translateX(0%)',
-          transition: 'transform 0.12s cubic-bezier(0, 0, 0.2, 1), opacity 0.12s cubic-bezier(0, 0, 0.2, 1)',
-        },
-        '100%': {
-          opacity: '0',
-          transform: 'translateX(100%)',
-        },
+        '0%': { opacity: '1', transform: 'translateX(0%)', transition: 'transform 0.12s cubic-bezier(0, 0, 0.2, 1), opacity 0.12s cubic-bezier(0, 0, 0.2, 1)' },
+        '100%': { opacity: '0', transform: 'translateX(100%)' },
       },
       fadeinup: {
-        '0%': {
-          opacity: '0',
-          transform: 'translateY(-100%)',
-          transition: 'transform 0.12s cubic-bezier(0, 0, 0.2, 1), opacity 0.12s cubic-bezier(0, 0, 0.2, 1)',
-        },
-        '100%': {
-          opacity: '1',
-          transform: 'translateY(0%)',
-        },
+        '0%': { opacity: '0', transform: 'translateY(-100%)', transition: 'transform 0.12s cubic-bezier(0, 0, 0.2, 1), opacity 0.12s cubic-bezier(0, 0, 0.2, 1)' },
+        '100%': { opacity: '1', transform: 'translateY(0%)' },
       },
       fadeoutup: {
-        '0%': {
-          opacity: '1',
-          transform: 'translateY(0%)',
-          transition: 'transform 0.12s cubic-bezier(0, 0, 0.2, 1), opacity 0.12s cubic-bezier(0, 0, 0.2, 1)',
-        },
-        '100%': {
-          opacity: '0',
-          transform: 'translateY(-100%)',
-        },
+        '0%': { opacity: '1', transform: 'translateY(0%)', transition: 'transform 0.12s cubic-bezier(0, 0, 0.2, 1), opacity 0.12s cubic-bezier(0, 0, 0.2, 1)' },
+        '100%': { opacity: '0', transform: 'translateY(-100%)' },
       },
       fadeindown: {
-        '0%': {
-          opacity: '0',
-          transform: 'translateY(100%)',
-          transition: 'transform 0.12s cubic-bezier(0, 0, 0.2, 1), opacity 0.12s cubic-bezier(0, 0, 0.2, 1)',
-        },
-        '100%': {
-          opacity: '1',
-          transform: 'translateY(0%)',
-        },
+        '0%': { opacity: '0', transform: 'translateY(100%)', transition: 'transform 0.12s cubic-bezier(0, 0, 0.2, 1), opacity 0.12s cubic-bezier(0, 0, 0.2, 1)' },
+        '100%': { opacity: '1', transform: 'translateY(0%)' },
       },
       fadeoutdown: {
-        '0%': {
-          opacity: '1',
-          transform: 'translateY(0%)',
-          transition: 'transform 0.12s cubic-bezier(0, 0, 0.2, 1), opacity 0.12s cubic-bezier(0, 0, 0.2, 1)',
-        },
-        '100%': {
-          opacity: '0',
-          transform: 'translateY(100%)',
-        },
+        '0%': { opacity: '1', transform: 'translateY(0%)', transition: 'transform 0.12s cubic-bezier(0, 0, 0.2, 1), opacity 0.12s cubic-bezier(0, 0, 0.2, 1)' },
+        '100%': { opacity: '0', transform: 'translateY(100%)' },
       },
       width: {
-        '0%': {
-          width: '0',
-        },
-        '100%': {
-          width: '100%',
-        },
+        '0%': { width: '0' },
+        '100%': { width: '100%' },
       },
       flip: {
-        from: {
-          transform: 'perspective(2000px) rotateX(-100deg)',
-        },
-        to: {
-          transform: 'perspective(2000px) rotateX(0)',
-        },
+        from: { transform: 'perspective(2000px) rotateX(-100deg)' },
+        to: { transform: 'perspective(2000px) rotateX(0)' },
       },
       flipleft: {
-        from: {
-          transform: 'perspective(2000px) rotateY(-100deg)',
-          opacity: '0',
-        },
-        to: {
-          transform: 'perspective(2000px) rotateY(0)',
-          opacity: '1',
-        },
+        from: { transform: 'perspective(2000px) rotateY(-100deg)', opacity: '0' },
+        to: { transform: 'perspective(2000px) rotateY(0)', opacity: '1' },
       },
       flipright: {
-        from: {
-          transform: 'perspective(2000px) rotateY(100deg)',
-          opacity: '0',
-        },
-        to: {
-          transform: 'perspective(2000px) rotateY(0)',
-          opacity: '1',
-        },
+        from: { transform: 'perspective(2000px) rotateY(100deg)', opacity: '0' },
+        to: { transform: 'perspective(2000px) rotateY(0)', opacity: '1' },
       },
       flipup: {
-        from: {
-          transform: 'perspective(2000px) rotateX(-100deg)',
-          opacity: '0',
-        },
-        to: {
-          transform: 'perspective(2000px) rotateX(0)',
-          opacity: '1',
-        },
+        from: { transform: 'perspective(2000px) rotateX(-100deg)', opacity: '0' },
+        to: { transform: 'perspective(2000px) rotateX(0)', opacity: '1' },
       },
       zoomin: {
-        'from': {
-          transform: 'scale3d(0.3, 0.3, 0.3)',
-          opacity: '0',
-        },
-        '50%': {
-          opacity: '1',
-        },
+        'from': { transform: 'scale3d(0.3, 0.3, 0.3)', opacity: '0' },
+        '50%': { opacity: '1' },
       },
       zoomindown: {
-        'from': {
-          transform: 'scale3d(0.1, 0.1, 0.1) translate3d(0, -1000px, 0)',
-          opacity: '0',
-        },
-        '60%': {
-          transform: 'scale3d(0.475, 0.475, 0.475) translate3d(0, 60px, 0)',
-          opacity: '1',
-        },
+        'from': { transform: 'scale3d(0.1, 0.1, 0.1) translate3d(0, -1000px, 0)', opacity: '0' },
+        '60%': { transform: 'scale3d(0.475, 0.475, 0.475) translate3d(0, 60px, 0)', opacity: '1' },
       },
       zoominleft: {
-        'from': {
-          transform: 'scale3d(0.1, 0.1, 0.1) translate3d(-1000px, 0, 0)',
-          opacity: '0',
-        },
-        '60%': {
-          transform: 'scale3d(0.475, 0.475, 0.475) translate3d(10px, 0, 0)',
-          opacity: '1',
-        },
+        'from': { transform: 'scale3d(0.1, 0.1, 0.1) translate3d(-1000px, 0, 0)', opacity: '0' },
+        '60%': { transform: 'scale3d(0.475, 0.475, 0.475) translate3d(10px, 0, 0)', opacity: '1' },
       },
       zoominright: {
-        'from': {
-          transform: 'scale3d(0.1, 0.1, 0.1) translate3d(1000px, 0, 0)',
-          opacity: '0',
-        },
-        '60%': {
-          transform: 'scale3d(0.475, 0.475, 0.475) translate3d(-10px, 0, 0)',
-          opacity: '1',
-        },
+        'from': { transform: 'scale3d(0.1, 0.1, 0.1) translate3d(1000px, 0, 0)', opacity: '0' },
+        '60%': { transform: 'scale3d(0.475, 0.475, 0.475) translate3d(-10px, 0, 0)', opacity: '1' },
       },
       zoominup: {
-        'from': {
-          transform: 'scale3d(0.1, 0.1, 0.1) translate3d(0, 1000px, 0)',
-          opacity: '0',
-        },
-        '60%': {
-          transform: 'scale3d(0.475, 0.475, 0.475) translate3d(0, -60px, 0)',
-          opacity: '1',
-        },
+        'from': { transform: 'scale3d(0.1, 0.1, 0.1) translate3d(0, 1000px, 0)', opacity: '0' },
+        '60%': { transform: 'scale3d(0.475, 0.475, 0.475) translate3d(0, -60px, 0)', opacity: '1' },
       },
     },
     animation: {

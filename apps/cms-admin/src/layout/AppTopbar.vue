@@ -40,14 +40,13 @@
           <i class="pi" :class="[{ 'pi-moon': isDarkTheme, 'pi-sun': !isDarkTheme }]" />
         </button>
         <div class="relative">
-          <!-- FIXME: animation effects https://github.dev/primefaces/tailwindcss-primeui -->
           <button
             v-styleclass="{
               selector: '@next',
               enterFromClass: 'hidden',
-              enterActiveClass: 'animate-scalein',
+              enterActiveClass: 'animate-in scale-in',
               leaveToClass: 'hidden',
-              leaveActiveClass: 'animate-fadeout',
+              leaveActiveClass: 'animate-out fade-out',
               hideOnOutsideClick: true,
             }"
             type="button"
@@ -60,7 +59,14 @@
       </div>
 
       <button
-        v-styleclass="{ selector: '@next', enterFromClass: 'hidden', enterActiveClass: 'animate-scalein', leaveToClass: 'hidden', leaveActiveClass: 'animate-fadeout', hideOnOutsideClick: true }"
+        v-styleclass="{
+          selector: '@next',
+          enterFromClass: 'hidden',
+          enterActiveClass: 'animate-in scale-in',
+          leaveToClass: 'hidden',
+          leaveActiveClass: 'animate-out fade-out',
+          hideOnOutsideClick: true,
+        }"
         class="layout-topbar-menu-button layout-topbar-action"
       >
         <i class="pi pi-ellipsis-v" />

@@ -8,7 +8,7 @@
       </div>
       <AppFooter />
     </div>
-    <div class="layout-mask animate-fadein" />
+    <div class="layout-mask animate-in fade-in" />
   </div>
   <Toast />
 </template>

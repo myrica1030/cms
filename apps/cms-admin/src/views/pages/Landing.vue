@@ -37,7 +37,14 @@
           <span class="text-surface-900 dark:text-surface-0 font-medium text-2xl leading-normal mr-20">SAKAI</span>
         </a>
         <Button
-          v-styleclass="{ selector: '@next', enterFromClass: 'hidden', enterActiveClass: 'animate-scalein', leaveToClass: 'hidden', leaveActiveClass: 'animate-fadeout', hideOnOutsideClick: true }"
+          v-styleclass="{
+            selector: '@next',
+            enterFromClass: 'hidden',
+            enterActiveClass: 'animate-in scale-in',
+            leaveToClass: 'hidden',
+            leaveActiveClass: 'animate-out fade-out',
+            hideOnOutsideClick: true,
+          }"
           class="lg:!hidden"
           text
           severity="secondary"
