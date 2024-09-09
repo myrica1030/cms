@@ -1,0 +1,11 @@
+{
+  "references": [
+    { "path": "apps/cms-api/tsconfig.json" },
+    { "path": "apps/cms-admin/tsconfig.json" },
+    { "path": "apps/cms-page-builder/tsconfig.json" }
+  ],
+  "files": [
+    "vitest.config.ts",
+    "vitest.workspace.ts"
+  ]
+}

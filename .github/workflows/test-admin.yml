@@ -1,0 +1,56 @@
+name: test-admin
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - apps/cms-api
+      - apps/cms-page-builder
+      - '**/*.md'
+  pull_request:
+    paths:
+      - apps/cms-api
+      - apps/cms-page-builder
+      - '**/*.md'
+
+env:
+  CI: true
+
+jobs:
+  admin-unit-test:
+    name: 'Unit Test: cms-admin'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install
+
+      - run: pnpm type-check
+        working-directory: apps/cms-admin
+
+      - run: pnpm lint
+        working-directory: apps/cms-admin
+
+      - run: pnpm test:unit --coverage
+        working-directory: apps/cms-admin
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: unit-test,admin
+
+      - name: Upload test results to Codecov
+        if: ${{ !cancelled() }}
+        uses: codecov/test-results-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}

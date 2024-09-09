@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "incremental": true,
+    "target": "ES2020",
+    "lib": ["ESNext"],
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "baseUrl": "./",
+    "module": "commonjs",
+    "paths": {
+      "infra/*": ["src/_infra/*"],
+      "common/*": ["src/_common/*"],
+      "src/*": ["src/*"],
+      "types/*": ["types/*"],
+      "test-utils/*": ["test-utils/*"]
+    },
+    "resolveJsonModule": true,
+    "types": ["vitest/globals"],
+    "strict": true,
+    "strictPropertyInitialization": false,
+    "declaration": false,
+    "noEmit": true,
+    "outDir": "./dist",
+    "removeComments": true,
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true
+  },
+  "files": [
+    "vitest.config.ts"
+  ],
+  "include": [
+    "types",
+    "src",
+    "prisma",
+    "integration-test"
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "name": "cms-admin-react",
+  "private": true,
+  "version": "0.4.0",
+  "type": "module",
+  "scripts": {
+    "preversion": "pnpm type-check && pnpm lint && pnpm test",
+    "version": "pnpm changelog && git add CHANGELOG.md",
+    "dev": "vite",
+    "build": "vite build",
+    "build:openapi": "tsx scripts/sync-swagger-api.js && eslint --fix src/client/cms/cms-api.ts",
+    "serve": "vite preview",
+    "type-check": "tsc",
+    "lint": "eslint .",
+    "test": "pnpm test:unit",
+    "test:unit": "vitest run",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
+  },
+  "dependencies": {
+    "axios": "^1.7.7",
+    "dayjs": "^1.11.13",
+    "history": "^5.3.0",
+    "lodash": "^4.17.21",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-quill": "^2.0.0",
+    "react-router-dom": "^6.26.1",
+    "semantic-ui-css": "^2.5.0",
+    "semantic-ui-react": "^3.0.0-beta.2"
+  },
+  "devDependencies": {
+    "@testing-library/react": "^16.0.1",
+    "@types/lodash": "^4.17.7",
+    "@types/react": "^18.3.5",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react-swc": "^3.7.0",
+    "classnames": "^2.5.1",
+    "happy-dom": "^15.7.2",
+    "sass": "^1.77.8",
+    "swagger-typescript-api": "^13.0.22",
+    "vite": "^5.4.2",
+    "vitest-dom": "^0.1.1"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

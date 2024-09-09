@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/cms-admin.iml" filepath="$PROJECT_DIR$/.idea/cms-admin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/cms-admin-react.iml" filepath="$PROJECT_DIR$/.idea/cms-admin-react.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/cms-api.iml" filepath="$PROJECT_DIR$/.idea/cms-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/cms-page-builder.iml" filepath="$PROJECT_DIR$/.idea/cms-page-builder.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/myrica-cms.iml" filepath="$PROJECT_DIR$/.idea/myrica-cms.iml" />
+    </modules>
+  </component>
+</project>

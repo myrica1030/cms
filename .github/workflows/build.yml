@@ -1,0 +1,83 @@
+name: build
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '**/*.md'
+  pull_request:
+    paths:
+      - '**/*.md'
+
+env:
+  CI: true
+
+jobs:
+  openapi-check:
+    name: OpenAPI Type Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install
+
+      - run: pnpm prisma generate
+        working-directory: apps/cms-api
+
+      - run: pnpm type-check
+        working-directory: apps/cms-api
+
+      - name: build openapi
+        env:
+          APP_SECRET: ${{ env.APP_SECRET || 'test' }}
+          CMS_API_PORT: 10300
+          DATABASE_URL: ${{ env.DATABASE_URL || 'postgresql://' }}
+          ONLY_SWAGGER: true
+        run: |
+          set -x
+          pnpm cms-api start &
+          pnpm wait-on http://localhost:10300/docs.json
+          pnpm cms-admin build:openapi
+
+      - name: check if cms-admin files are changed
+        run: git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep "apps/cms-admin" && exit 1 || exit 0
+
+      - run: pnpm --filter !cms-api type-check
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    needs: openapi-check
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install
+
+      - name: build cms-api
+        run: pnpm build
+        working-directory: apps/cms-api
+
+      - name: build cms-admin
+        run: pnpm build
+        working-directory: apps/cms-admin
+
+      - name: build cms-page-builder
+        run: pnpm build
+        working-directory: apps/cms-page-builder

@@ -1,0 +1,109 @@
+name: test-api
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - apps/cms-admin
+      - apps/cms-page-builder
+      - '**.md'
+  pull_request:
+    paths-ignore:
+      - apps/cms-admin
+      - apps/cms-page-builder
+      - '**.md'
+
+env:
+  CI: true
+
+jobs:
+  api-unit-test:
+    name: 'Unit test: cms-api'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install
+
+      - run: pnpm prisma generate
+        working-directory: apps/cms-api
+
+      - run: pnpm type-check
+        working-directory: apps/cms-api
+
+      - run: pnpm lint
+        working-directory: apps/cms-api
+
+      - run: pnpm test:unit --coverage
+        working-directory: apps/cms-api
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: unit-test,api
+
+      - name: Upload test results to Codecov
+        if: ${{ !cancelled() }}
+        uses: codecov/test-results-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+  integration-test:
+    name: 'Integration test: cms-api'
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/cms?schema=public
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install
+
+      - run: pnpm prisma generate
+        working-directory: apps/cms-api
+
+      - run: pnpm test:integration --coverage
+        working-directory: apps/cms-api
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: integration-test,api
+
+      - name: Upload test results to Codecov
+        if: ${{ !cancelled() }}
+        uses: codecov/test-results-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
