@@ -13,6 +13,7 @@ const router = createRouter({
     {
       name: RouteName.Login,
       path: '/login',
+      meta: { requiresGuest: true },
       component: () => import('@/pages/auth/LoginPage.vue'),
     },
 
@@ -146,6 +147,16 @@ const router = createRouter({
       ],
     },
   ],
+})
+
+router.beforeEach(to => {
+  const authStore = useAuthStore()
+  if ((to.meta.requiresAuth ?? true) && !authStore.user) {
+    return { name: RouteName.Login }
+  }
+  if (to.meta.requiresGuest && authStore.user) {
+    return { name: RouteName.Dashboard }
+  }
 })
 
 export default router

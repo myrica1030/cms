@@ -64,13 +64,12 @@
 </template>
 
 <script setup lang="ts">
-import { useId } from 'vue'
-import { useToast } from 'primevue/usetoast'
+import { useRouter } from 'vue-router'
 import { api } from '@/client'
 import { isHttpResponse } from '@/client/cms/cms-api'
 import type { FormError } from '@/client/cms/cms-api'
 import FloatingConfigurator from '@/components/FloatingConfigurator.vue'
-import router, { RouteName } from '@/router'
+import { RouteName } from '@/router'
 import { useAuthStore } from '@/stores/auth.store'
 import { capitalize } from '@/utils/string'
 
@@ -83,19 +82,7 @@ const loading = ref(false)
 const errors = ref<Partial<FormError>>({})
 
 const authStore = useAuthStore()
-const toast = useToast()
-
-onMounted(async () => {
-  if (authStore.user) {
-    toast.add({
-      severity: 'success',
-      summary: 'Already Logged In',
-      detail: 'Redirecting to dashboard...',
-      life: 3000,
-    })
-    await router.replace ({ name: RouteName.Dashboard })
-  }
-})
+const router = useRouter()
 
 async function onSubmit() {
   loading.value = true
