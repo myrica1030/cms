@@ -1,12 +1,51 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import AppLayout from '@/layout/AppLayout.vue'
+import { useAuthStore } from '@/stores/auth.store'
+
+export enum RouteName {
+  Dashboard = 'dashboard',
+  Login = 'login',
+}
 
 const router = createRouter({
   history: createWebHistory(),
   routes: [
     {
+      path: '/landing',
+      name: 'landing',
+      component: () => import('@/views/pages/Landing.vue'),
+    },
+    {
+      path: '/pages/notfound',
+      name: 'notfound',
+      component: () => import('@/views/pages/NotFound.vue'),
+    },
+
+    {
+      name: RouteName.Login,
+      path: '/login',
+      component: () => import('@/views/pages/auth/Login.vue'),
+    },
+    {
+      path: '/auth/access',
+      name: 'accessDenied',
+      component: () => import('@/views/pages/auth/Access.vue'),
+    },
+    {
+      path: '/auth/error',
+      name: 'error',
+      component: () => import('@/views/pages/auth/Error.vue'),
+    },
+    {
+      name: RouteName.Dashboard,
       path: '/',
       component: AppLayout,
+      beforeEnter: to => {
+        const authStore = useAuthStore()
+        if (to.name !== RouteName.Login && !authStore.user) {
+          return ({ name: RouteName.Login })
+        }
+      },
       children: [
         {
           path: '/',
@@ -105,32 +144,6 @@ const router = createRouter({
           component: () => import('@/views/pages/Documentation.vue'),
         },
       ],
-    },
-    {
-      path: '/landing',
-      name: 'landing',
-      component: () => import('@/views/pages/Landing.vue'),
-    },
-    {
-      path: '/pages/notfound',
-      name: 'notfound',
-      component: () => import('@/views/pages/NotFound.vue'),
-    },
-
-    {
-      path: '/auth/login',
-      name: 'login',
-      component: () => import('@/views/pages/auth/Login.vue'),
-    },
-    {
-      path: '/auth/access',
-      name: 'accessDenied',
-      component: () => import('@/views/pages/auth/Access.vue'),
-    },
-    {
-      path: '/auth/error',
-      name: 'error',
-      component: () => import('@/views/pages/auth/Error.vue'),
     },
   ],
 })

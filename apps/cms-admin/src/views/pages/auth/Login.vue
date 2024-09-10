@@ -1,77 +1,148 @@
 <template>
-  <FloatingConfigurator />
-  <div class="bg-surface-50 dark:bg-surface-950 flex items-center justify-center min-h-screen min-w-[100vw] overflow-hidden">
-    <div class="flex flex-col items-center justify-center">
-      <div style="border-radius: 56px; padding: 0.3rem; background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%)">
-        <div class="w-full bg-surface-0 dark:bg-surface-900 py-20 px-8 sm:px-20" style="border-radius: 53px">
+  <div class="page">
+    <div class="main">
+      <div class="rounded-transition-border">
+        <form class="content" @submit.prevent="onSubmit()">
           <div class="text-center mb-8">
             <SvgLogo class="mb-8 w-16 shrink-0 mx-auto" />
-            <div class="text-surface-900 dark:text-surface-0 text-3xl font-medium mb-4">Welcome to Myrica!</div>
+            <h1 class="slogan">Welcome to Myrica!</h1>
             <span class="text-muted-color font-medium">Sign in to continue</span>
           </div>
 
           <div>
-            <label for="email1" class="block text-surface-900 dark:text-surface-0 text-xl font-medium mb-2">Email</label>
-            <InputText
-              id="email1"
-              v-model="email"
-              type="text"
-              placeholder="Email address"
-              class="w-full md:w-[30rem] mb-8"
-            />
+            <label class="field">
+              <span class="label">Username</span>
+              <InputText
+                v-model="username"
+                type="text"
+                placeholder="Username"
+                fluid
+                :invalid="!!errors?.username?.length"
+                :aria-labelledby="usernameId"
+                @change="() => errors && (errors.username = undefined)"
+              />
+              <small v-if="errors?.username?.length" :id="usernameId">{{ capitalize(errors.username[0]) }}</small>
+            </label>
 
-            <label for="password1" class="block text-surface-900 dark:text-surface-0 font-medium text-xl mb-2">Password</label>
-            <Password
-              id="password1"
-              v-model="password"
-              placeholder="Password"
-              :toggle-mask="true"
-              class="mb-4"
-              fluid
-              :feedback="false"
-            />
+            <label class="field mb-4!">
+              <span class="label">Password</span>
+              <Password
+                v-model="password"
+                placeholder="Password"
+                toggle-mask
+                fluid
+                :feedback="false"
+                :aria-labelledby="passwordId"
+                :invalid="!!errors.password?.length"
+                @change="() => (errors.password = undefined)"
+              />
+              <small v-if="errors.password?.length" :id="passwordId">{{ capitalize(errors.password[0]) }}</small>
+            </label>
 
-            <div class="flex items-center justify-between mt-2 mb-8 gap-8">
-              <div class="flex items-center">
-                <Checkbox
-                  id="rememberme1"
-                  v-model="checked"
-                  binary
-                  class="mr-2"
-                />
-                <label for="rememberme1">Remember me</label>
-              </div>
+            <div class="flex items-center justify-between mb-8 gap-8">
+              <label class="flex items-center cursor-pointer">
+                <Checkbox v-model="rememberMe" binary class="mr-2" />
+                <span>Remember me</span>
+              </label>
+              <!-- TODO implement forgot password -->
               <span class="font-medium no-underline ml-2 text-right cursor-pointer text-primary">Forgot password?</span>
             </div>
+
             <Button
+              :loading="loading"
               label="Sign In"
-              class="w-full"
-              as="router-link"
-              to="/"
+              fluid
+              type="submit"
             />
           </div>
-        </div>
+        </form>
       </div>
     </div>
   </div>
+
+  <FloatingConfigurator />
 </template>
 
 <script setup lang="ts">
+import { useId } from 'vue'
+import { useToast } from 'primevue/usetoast'
+import { capitalize } from 'radash'
+import { api } from '@/client'
+import { isHttpResponse } from '@/client/cms/cms-api'
+import type { FormError } from '@/client/cms/cms-api'
 import FloatingConfigurator from '@/components/FloatingConfigurator.vue'
+import router, { RouteName } from '@/router'
+import { useAuthStore } from '@/stores/auth.store'
 
-const email = ref('')
+const usernameId = useId()
+const passwordId = useId()
+const username = ref('')
 const password = ref('')
-const checked = ref(false)
+const rememberMe = ref(false)
+const loading = ref(false)
+const errors = ref<Partial<FormError>>({})
+
+const authStore = useAuthStore()
+const toast = useToast()
+
+onMounted(async () => {
+  if (authStore.user) {
+    toast.add({
+      severity: 'success',
+      summary: 'Already Logged In',
+      detail: 'Redirecting to dashboard...',
+      life: 3000,
+    })
+    await router.replace ({ name: RouteName.Dashboard })
+  }
+})
+
+async function onSubmit() {
+  loading.value = true
+  try {
+    const response = await api.auth.login({ username: username.value, password: password.value })
+    authStore.saveAuth(response.data)
+    await router.replace({ name: RouteName.Dashboard })
+  }
+  catch (error) {
+    if (isHttpResponse(error)) {
+      errors.value = error.error
+    }
+    console.error(error)
+  }
+  finally {
+    loading.value = false
+  }
+}
 </script>
 
-<style scoped>
-.pi-eye {
-    transform: scale(1.6);
-    margin-right: 1rem;
+<style scoped lang="scss">
+.slogan {
+  @apply: text-surface-900 dark:text-surface-0 text-3xl font-medium mb-4;
 }
 
-.pi-eye-slash {
-    transform: scale(1.6);
-    margin-right: 1rem;
+.field {
+  @apply: block mb-8 md:w-[30rem];
+
+  .label {
+    @apply: block text-xl font-medium mb-2 text-surface-900 dark:text-surface-0;
+  }
+}
+
+.page {
+  @apply: bg-surface-50 dark:bg-surface-950 flex items-center justify-center min-h-screen min-w-[100vw] overflow-hidden;
+}
+
+.main {
+  @apply: flex flex-col items-center justify-center;
+}
+
+.rounded-transition-border {
+  @apply: rounded-56px p-1.2;
+  background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%);
+}
+
+.content {
+  @apply: w-full bg-surface-0 dark:bg-surface-900 py-20 px-8 sm:px-20 rounded-53px;
 }
 </style>
