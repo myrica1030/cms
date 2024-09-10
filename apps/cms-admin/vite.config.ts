@@ -1,7 +1,10 @@
 import path from 'node:path'
-import { URL, fileURLToPath } from 'node:url'
+import process from 'node:process'
+import { codecovVitePlugin } from '@codecov/vite-plugin'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
+import dayjs from 'dayjs'
+import { config } from 'dotenv'
 import UnoCSS from 'unocss/vite'
 import unpluginAutoImport from 'unplugin-auto-import/vite'
 import { FileSystemIconLoader } from 'unplugin-icons/loaders'
@@ -16,8 +19,14 @@ import { configDefaults } from 'vitest/config'
 
 const __dirname = import.meta.dirname
 
+config({ path: [path.join(__dirname, '../../.env')] })
+
+const isCI = process.env.CI
+const apiUrl = String(process.env.CMS_API_URL ?? `http://localhost:${process.env.CMS_API_PORT}`)
+
 // https://vitejs.dev/config/
 export default defineConfig({
+  envPrefix: 'CMS_',
   resolve: {
     alias: {
       '@/assets': path.join(__dirname, 'src/assets'),
@@ -32,7 +41,7 @@ export default defineConfig({
     viteSvgLoader(),
     unpluginAutoImport({
       vueTemplate: true,
-      imports: ['vue'],
+      imports: ['vue', '@vueuse/core'],
       viteOptimizeDeps: false,
       dts: 'src/types/auto-imports.d.ts',
     }),
@@ -60,10 +69,60 @@ export default defineConfig({
         },
       ],
     }),
+    codecovVitePlugin({
+      enableBundleAnalysis: process.env.CODECOV_TOKEN !== undefined,
+      bundleName: 'cms-admin',
+      uploadToken: process.env.CODECOV_TOKEN,
+    }),
   ],
+  build: {
+    chunkSizeWarningLimit: 768,
+  },
+  server: {
+    proxy: {
+      '/api': {
+        target: apiUrl,
+        changeOrigin: true,
+        configure: proxy => {
+          proxy.on('proxyReq', request => {
+            // eslint-disable-next-line no-console
+            console.log(dayjs().format('HH:mm:ss.SSS'), `Request '${request.method} ${request.path}' sent`)
+          })
+          proxy.on('proxyRes', (res, request) => {
+            // eslint-disable-next-line no-console
+            console.log(dayjs().format('HH:mm:ss.SSS'), `Request '${request.method} ${request.url}' was proxy with response ${res.statusCode}`)
+          })
+        },
+      },
+    },
+  },
   test: {
-    environment: 'jsdom',
+    name: 'admin-unit',
+    globals: true,
+    root: __dirname,
+    include: [
+      '**/__tests__/**/*.{ts,tsx}',
+      '**/*.{spec,test}.{ts,tsx}',
+    ],
     exclude: [...configDefaults.exclude, 'e2e/**'],
-    root: fileURLToPath(new URL('./', import.meta.url)),
+    testTimeout: 4000,
+    setupFiles: 'src/setup-tests.ts',
+    environment: 'happy-dom',
+    reporters: isCI ? ['basic', 'json', 'junit'] : 'default',
+    alias: {
+      '**/*.(css|sass|scss)$': path.resolve('./scripts/test-mock/mock-css.js'),
+      '**/*.(jpg|svg)$': path.resolve('./scripts/test-mock/mock-file.js'),
+    },
+    coverage: {
+      provider: 'v8',
+      include: [
+        'src/**/*.{js,jsx,ts,tsx}',
+        '!src/**/*.{form,context}.ts?(x)',
+        '!src/services/{index,api}.ts',
+        '!src/constants/**',
+        '!src/{index,App}.tsx',
+        '!src/{appMenu,serviceWorker,fixtures}.ts',
+      ],
+    },
   },
 })

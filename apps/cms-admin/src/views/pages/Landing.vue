@@ -51,10 +51,10 @@
               label="Login"
               text
               as="router-link"
-              to="/auth/login"
+              to="/login"
               rounded
             />
-            <Button label="Register" to="/auth/login" rounded />
+            <Button label="Register" to="/login" rounded />
           </div>
         </div>
       </div>

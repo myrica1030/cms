@@ -1,25 +1,14 @@
 /* eslint-disable ts/no-unsafe-member-access,ts/no-unsafe-assignment,ts/no-unsafe-argument */
 import type { OpenAPIObject } from '@nestjs/swagger'
-import { IS_EMAIL, IS_STRONG_PASSWORD, MetadataStorage, getFromContainer } from 'class-validator'
+import { IS_EMAIL, MetadataStorage, getFromContainer } from 'class-validator'
 import { validationMetadatasToSchemas } from 'class-validator-jsonschema'
 import type { ISchemaConverters } from 'class-validator-jsonschema/build/defaultConverters'
-import type { SchemaConverter } from 'class-validator-jsonschema/src/defaultConverters'
 
 export const additionalConverters: ISchemaConverters = {
   [IS_EMAIL]: {
     type: 'string',
     description: 'The email address',
     example: 'foo@example.com',
-  },
-  [IS_STRONG_PASSWORD]: meta => {
-    const schema: ReturnType<SchemaConverter> = {
-      format: 'password',
-      type: 'string',
-    }
-    for (const constraint of meta.constraints) {
-      if (constraint.minLength) schema.minLength = constraint.minLength
-    }
-    return schema
   },
 }
 

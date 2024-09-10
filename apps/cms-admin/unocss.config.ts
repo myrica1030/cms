@@ -1,4 +1,4 @@
-import { defineConfig, presetUno, presetWebFonts } from 'unocss'
+import { defineConfig, presetUno, presetWebFonts, transformerDirectives } from 'unocss'
 import presetAnimations from 'unocss-preset-animations'
 
 function convert(color: string) {
@@ -26,6 +26,9 @@ export default defineConfig({
         sans: 'Lato',
       },
     }),
+  ],
+  transformers: [
+    transformerDirectives(),
   ],
   content: {
     pipeline: {

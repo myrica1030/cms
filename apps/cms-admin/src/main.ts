@@ -34,9 +34,10 @@ app.use(PrimeVue, {
 })
 app.use(ToastService)
 app.use(ConfirmationService)
-app.use(router)
 
 app.directive('styleclass', StyleClass)
 app.directive('tooltip', Tooltip)
+
+app.use(router)
 
 app.mount('#app')

@@ -1,0 +1,22 @@
+:root body {
+  --p-toast-content-padding: 1rem;
+  --p-toast-close-icon-size: 1.2rem;
+  --p-toast-close-button-width: 2.4rem;
+  --p-toast-close-button-height: var(--p-toast-close-button-width);
+
+  .p-toast-message {
+    border-width: 0;
+    border-left-width: 0.25rem;
+    @apply shadow-coolGray;
+
+    .p-toast-message-icon {
+      margin-top: 0.2rem;
+    }
+    .p-toast-close-button {
+      &:focus-visible {
+        outline-color: color-mix(in srgb, var(--p-green-700) 50%, transparent 50%);
+        outline-style: dashed;
+      }
+    }
+  }
+}
