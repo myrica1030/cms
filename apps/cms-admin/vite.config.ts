@@ -41,7 +41,7 @@ export default defineConfig({
     viteSvgLoader(),
     unpluginAutoImport({
       vueTemplate: true,
-      imports: ['vue', '@vueuse/core'],
+      imports: ['vue', 'vue-router', '@vueuse/core'],
       viteOptimizeDeps: false,
       dts: 'src/types/auto-imports.d.ts',
     }),

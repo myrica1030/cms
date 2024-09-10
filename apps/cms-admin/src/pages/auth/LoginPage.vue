@@ -64,7 +64,7 @@
 </template>
 
 <script setup lang="ts">
-import { useRouter } from 'vue-router'
+import { useId } from 'vue'
 import { api } from '@/client'
 import { isHttpResponse } from '@/client/cms/cms-api'
 import type { FormError } from '@/client/cms/cms-api'
