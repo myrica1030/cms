@@ -123,9 +123,10 @@ await generateApi({
   },
 })
 
+let data = fs.readFileSync(path.join(output, fileName), 'utf8')
 // remove eslint-ignore comments
-const data = fs.readFileSync(path.join(output, fileName), 'utf8')
-const result = data.split('\n').slice(2).join('\n')
-fs.writeFileSync(path.join(output, fileName), result)
+data = data.split('\n').slice(2).join('\n')
+data = `/// <reference lib="dom" />\n${data}`
+fs.writeFileSync(path.join(output, fileName), data)
 
 process.exit(0)

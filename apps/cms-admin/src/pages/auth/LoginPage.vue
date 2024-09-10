@@ -10,33 +10,33 @@
           </div>
 
           <div>
-            <label class="field">
+            <label class="field" :for="usernameId">
               <span class="label">Username</span>
               <InputText
+                :id="usernameId"
                 v-model="username"
                 type="text"
                 placeholder="Username"
                 fluid
                 :invalid="!!errors?.username?.length"
-                :aria-labelledby="usernameId"
                 @change="() => errors && (errors.username = undefined)"
               />
-              <small v-if="errors?.username?.length" :id="usernameId">{{ capitalize(errors.username[0]) }}</small>
+              <small v-if="errors?.username?.length">{{ capitalize(errors.username[0]) }}</small>
             </label>
 
-            <label class="field mb-4!">
+            <label :for="passwordId" class="field mb-4!">
               <span class="label">Password</span>
               <Password
+                :id="passwordId"
                 v-model="password"
                 placeholder="Password"
                 toggle-mask
                 fluid
                 :feedback="false"
-                :aria-labelledby="passwordId"
                 :invalid="!!errors.password?.length"
                 @change="() => (errors.password = undefined)"
               />
-              <small v-if="errors.password?.length" :id="passwordId">{{ capitalize(errors.password[0]) }}</small>
+              <small v-if="errors.password?.length">{{ capitalize(errors.password[0]) }}</small>
             </label>
 
             <div class="flex items-center justify-between mb-8 gap-8">

@@ -101,12 +101,13 @@ describe('auth module', () => {
       expect(response.body).toMatchInlineSnapshot(`
         {
           "password": [
-            "password is not strong enough",
             "password must be shorter than or equal to 32 characters",
+            "password must be longer than or equal to 6 characters",
+            "password must be a string",
           ],
           "username": [
-            "username must be a string",
             "username should not be empty",
+            "username must be a string",
           ],
         }
       `)

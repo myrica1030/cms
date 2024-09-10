@@ -1,3 +1,5 @@
+/// <reference lib="dom" />
+
 /*
  * ---------------------------------------------------------------
  * ## THIS FILE WAS GENERATED VIA SWAGGER-TYPESCRIPT-API        ##
