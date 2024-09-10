@@ -5,8 +5,8 @@ import PrimeVue from 'primevue/config'
 import StyleClass from 'primevue/styleclass'
 import { mockDeep } from 'vitest-mock-extended'
 import { api } from '@/client'
+import type { AuthEntity, FormError, HttpResponse } from '@/client/cms/cms-api'
 import LoginPage from '@/pages/auth/LoginPage.vue'
-import type { AuthEntity, FormError, HttpResponse } from 'src/client/cms/cms-api'
 
 vi.mock('primevue/usetoast')
 

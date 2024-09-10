@@ -66,13 +66,13 @@
 <script setup lang="ts">
 import { useId } from 'vue'
 import { useToast } from 'primevue/usetoast'
-import { capitalize } from 'radash'
 import { api } from '@/client'
 import { isHttpResponse } from '@/client/cms/cms-api'
 import type { FormError } from '@/client/cms/cms-api'
 import FloatingConfigurator from '@/components/FloatingConfigurator.vue'
 import router, { RouteName } from '@/router'
 import { useAuthStore } from '@/stores/auth.store'
+import { capitalize } from '@/utils/string'
 
 const usernameId = useId()
 const passwordId = useId()
