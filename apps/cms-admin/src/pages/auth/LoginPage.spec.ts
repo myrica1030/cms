@@ -7,8 +7,7 @@ import { mockDeep } from 'vitest-mock-extended'
 import { api } from '@/client'
 import type { AuthEntity, FormError, HttpResponse } from '@/client/cms/cms-api'
 import LoginPage from '@/pages/auth/LoginPage.vue'
-
-vi.mock('primevue/usetoast')
+import router from '@/router'
 
 describe('login page', () => {
   const mockedApi = mockDeep(api)
@@ -22,6 +21,7 @@ describe('login page', () => {
         plugins: [
           createTestingPinia(),
           PrimeVue,
+          router,
         ],
       },
     })
