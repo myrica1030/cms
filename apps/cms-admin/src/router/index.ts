@@ -11,6 +11,12 @@ const router = createRouter({
   history: createWebHistory(),
   routes: [
     {
+      name: RouteName.Login,
+      path: '/login',
+      component: () => import('@/pages/auth/LoginPage.vue'),
+    },
+
+    {
       path: '/landing',
       name: 'landing',
       component: () => import('@/views/pages/Landing.vue'),
@@ -19,12 +25,6 @@ const router = createRouter({
       path: '/pages/notfound',
       name: 'notfound',
       component: () => import('@/views/pages/NotFound.vue'),
-    },
-
-    {
-      name: RouteName.Login,
-      path: '/login',
-      component: () => import('@/views/pages/auth/Login.vue'),
     },
     {
       path: '/auth/access',

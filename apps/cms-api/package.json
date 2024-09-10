@@ -53,8 +53,7 @@
     "cross-env": "^7.0.3",
     "sqlite3": "^5.1.7",
     "supertest": "^7.0.0",
-    "unplugin-swc": "^1.5.1",
-    "vitest-mock-extended": "^2.0.2"
+    "unplugin-swc": "^1.5.1"
   },
   "prisma": {
     "seed": "tsx prisma/preset-data.ts"
