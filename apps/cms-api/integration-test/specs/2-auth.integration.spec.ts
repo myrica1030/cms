@@ -107,7 +107,7 @@ describe('auth module', () => {
           ],
           "username": [
             "username should not be empty",
-            "username must be a string",
+            "username must be a string with only letters (a-z, A-Z), numbers (0-9), dashes ("-", "_") and spaces",
           ],
         }
       `)

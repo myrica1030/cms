@@ -1,10 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { IsNotEmpty, IsString, MaxLength, MinLength } from 'class-validator'
+import { IsString, MaxLength, MinLength } from 'class-validator'
+import { IsUsernameProperty } from 'common/decorator/api-property.decorator'
 
 export class LoginDto {
-  // TODO not allow some special characters (e.g. only allow 0-9 a-z A-Z . _ - [space])
-  @ApiProperty({ example: 'admin' })
-  @IsString() @IsNotEmpty()
+  @IsUsernameProperty()
   readonly username: string
 
   @ApiProperty({ format: 'password' })

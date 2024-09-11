@@ -1,5 +1,4 @@
 /// <reference lib="dom" />
-
 /*
  * ---------------------------------------------------------------
  * ## THIS FILE WAS GENERATED VIA SWAGGER-TYPESCRIPT-API        ##
@@ -52,7 +51,9 @@ export interface UserEntity {
 
 export interface RegisterDto {
   /**
+   * Username
    * @minLength 1
+   * @pattern ^[\w. -]+$
    * @example "admin"
    */
   username: string
@@ -108,7 +109,9 @@ export interface AuthEntity {
 
 export interface LoginDto {
   /**
+   * Username
    * @minLength 1
+   * @pattern ^[\w. -]+$
    * @example "admin"
    */
   username: string
@@ -219,7 +222,7 @@ export interface TagEntity {
   /**
    * The unique identifier
    * @minLength 1
-   * @pattern ^[\dA-Za-z\-]+$
+   * @pattern ^[\dA-Za-z-]+$
    * @example "foo-bar"
    */
   key: string
@@ -319,7 +322,7 @@ export interface CreateTagDto {
   /**
    * The key of the tag
    * @minLength 1
-   * @pattern ^[\dA-Za-z\-]+$
+   * @pattern ^[\dA-Za-z-]+$
    * @example "semantic-ui"
    */
   key: string
