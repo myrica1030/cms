@@ -4,6 +4,7 @@ import { ApiParam, ApiProperty } from '@nestjs/swagger'
 import type { SwaggerEnumType } from '@nestjs/swagger/dist/types/swagger-enum.type'
 import { IsDate, IsEnum, IsInt, IsNotEmpty, IsString, Matches, Min } from 'class-validator'
 import { JSONSchema } from 'class-validator-jsonschema'
+import { REGEXP } from 'common/constants/regular-expressions'
 
 export function ApiPropertyNullable(options: { type: ApiPropertyOptions['type'] } & Omit<ApiPropertyOptions, 'type'>): PropertyDecorator {
   return function (target: NonNullable<unknown>, key: string | symbol) {
@@ -98,16 +99,40 @@ export function IsIdProperty(options?: ApiPropertyOptions & { validation?: boole
   }
 }
 
+export function IsUsernameProperty(options?: ApiPropertyOptions & {
+  each?: boolean
+  validation?: boolean
+}): PropertyDecorator {
+  const { each, validation, ...propOptions } = options || {}
+  const pattern = REGEXP.USERNAME
+  return function (target: NonNullable<unknown>, key: string | symbol) {
+    if (validation ?? true) {
+      IsNotEmpty({ each })(target, key)
+
+      Matches(new RegExp(pattern), {
+        each,
+        message: 'username must be a string with only letters (a-z, A-Z), numbers (0-9), dashes ("-", "_") and spaces',
+      })(target, key)
+    }
+    ApiProperty({
+      title: 'Username',
+      example: 'admin',
+      pattern,
+      ...propOptions,
+    })(target, key)
+  }
+}
+
 export function IsKeyProperty(options?: ApiPropertyOptions & {
   each?: boolean
   validation?: boolean
 }): PropertyDecorator {
   const { each, validation, ...propOptions } = options || {}
-  const pattern = String.raw`^[\dA-Za-z\-]+$`
+  const pattern = REGEXP.KEY
   return function (target: NonNullable<unknown>, key: string | symbol) {
     if (validation ?? true) {
       IsNotEmpty({ each })(target, key)
-      // eslint-disable-next-line regexp/use-ignore-case
+
       Matches(new RegExp(pattern), {
         each,
         message: 'key must be a string with only letters (a-z, A-Z), numbers (0-9) and dashes (-)',
