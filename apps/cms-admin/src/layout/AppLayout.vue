@@ -10,7 +10,6 @@
     </div>
     <div class="layout-mask animate-in fade-in" />
   </div>
-  <Toast />
 </template>
 
 <script setup>

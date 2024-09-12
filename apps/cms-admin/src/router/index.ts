@@ -38,19 +38,12 @@ const router = createRouter({
       component: () => import('@/views/pages/auth/Error.vue'),
     },
     {
-      name: RouteName.Dashboard,
       path: '/',
       component: AppLayout,
-      beforeEnter: to => {
-        const authStore = useAuthStore()
-        if (to.name !== RouteName.Login && !authStore.user) {
-          return ({ name: RouteName.Login })
-        }
-      },
       children: [
         {
+          name: RouteName.Dashboard,
           path: '/',
-          name: 'dashboard',
           component: () => import('@/views/Dashboard.vue'),
         },
         {
@@ -151,10 +144,10 @@ const router = createRouter({
 
 router.beforeEach(to => {
   const authStore = useAuthStore()
-  if ((to.meta.requiresAuth ?? true) && !authStore.user) {
+  if ((to.meta.requiresAuth ?? true) && !authStore.user && to.name !== RouteName.Login) {
     return { name: RouteName.Login }
   }
-  if (to.meta.requiresGuest && authStore.user) {
+  if (to.meta.requiresGuest && authStore.user && to.name !== RouteName.Dashboard) {
     return { name: RouteName.Dashboard }
   }
 })

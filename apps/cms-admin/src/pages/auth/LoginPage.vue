@@ -69,7 +69,7 @@ import { api } from '@/client'
 import { isHttpResponse } from '@/client/cms/cms-api'
 import type { FormError } from '@/client/cms/cms-api'
 import FloatingConfigurator from '@/components/FloatingConfigurator.vue'
-import { RouteName } from '@/router'
+import router, { RouteName } from '@/router'
 import { useAuthStore } from '@/stores/auth.store'
 import { capitalize } from '@/utils/string'
 
@@ -82,7 +82,6 @@ const loading = ref(false)
 const errors = ref<Partial<FormError>>({})
 
 const authStore = useAuthStore()
-const router = useRouter()
 
 async function onSubmit() {
   loading.value = true
