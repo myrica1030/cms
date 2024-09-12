@@ -62,16 +62,31 @@
             <i class="pi pi-user" />
             <span>Profile</span>
           </button>
+          <button type="button" class="layout-topbar-action" @click="onLogout">
+            <i class="pi pi-sign-out" />
+            <span>Logout</span>
+          </button>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<script setup>
-import vStyleclass from 'primevue/styleclass'
+<script setup lang="ts">
+import { useToast } from 'primevue/usetoast'
 import { useLayout } from '@/layout/composables/layout'
+import { RouteName } from '@/router'
+import { useAuthStore } from '@/stores/auth.store'
 import AppConfigurator from './AppConfigurator.vue'
 
 const { onMenuToggle, toggleDarkMode, isDarkTheme } = useLayout()
+
+const authStore = useAuthStore()
+const toast = useToast()
+const router = useRouter()
+function onLogout() {
+  authStore.saveAuth(null)
+  toast.add({ severity: 'success', summary: 'Logged out', life: 3000 })
+  router.replace({ name: RouteName.Login })
+}
 </script>
