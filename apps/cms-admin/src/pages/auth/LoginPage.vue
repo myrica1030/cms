@@ -2,7 +2,7 @@
   <div class="page">
     <div class="main">
       <div class="rounded-transition-border">
-        <form class="content" @submit.prevent="onSubmit()">
+        <form class="content" role="form" @submit.prevent="onSubmit">
           <div class="text-center mb-8">
             <SvgLogo class="mb-8 w-16 shrink-0 mx-auto" />
             <h1 class="slogan">Welcome to Myrica!</h1>
@@ -10,7 +10,7 @@
           </div>
 
           <div>
-            <label class="field" :for="usernameId">
+            <label class="field" :class="{ invalid: errors.username }" :for="usernameId">
               <span class="label">Username</span>
               <InputText
                 :id="usernameId"
@@ -18,25 +18,28 @@
                 type="text"
                 placeholder="Username"
                 fluid
-                :invalid="!!errors?.username?.length"
+                :aria-describedby="`${usernameId}-helper`"
+                :invalid="!!errors.username"
                 @change="() => errors && (errors.username = undefined)"
               />
-              <small v-if="errors?.username?.length">{{ capitalize(errors.username[0]) }}</small>
+              <small :id="`${usernameId}-helper`" class="helper p-placeholder">{{ capitalize(errors.username) }}</small>
             </label>
 
-            <label :for="passwordId" class="field mb-4!">
+            <label :for="passwordId" class="field mb-4!" :class="{ invalid: errors.password }">
               <span class="label">Password</span>
               <Password
                 :id="passwordId"
                 v-model="password"
                 placeholder="Password"
+                :aria-describedby="`${passwordId}-help`"
                 toggle-mask
                 fluid
                 :feedback="false"
-                :invalid="!!errors.password?.length"
+                :invalid="!!errors.password"
+                :class="{ 'p-invalid': errors.password }"
                 @change="() => (errors.password = undefined)"
               />
-              <small v-if="errors.password?.length">{{ capitalize(errors.password[0]) }}</small>
+              <small :id="`${passwordId}-help`" class="helper p-placeholder">{{ capitalize(errors.password) }}</small>
             </label>
 
             <div class="flex items-center justify-between mb-8 gap-8">
@@ -49,7 +52,7 @@
             </div>
 
             <Button
-              :loading="loading"
+              :loading="isSubmitting"
               label="Sign In"
               fluid
               type="submit"
@@ -65,26 +68,36 @@
 
 <script setup lang="ts">
 import { useId } from 'vue'
+import { useForm } from 'vee-validate'
+import * as yup from 'yup'
 import { api } from '@/client'
 import { isHttpResponse } from '@/client/cms/cms-api'
-import type { FormError } from '@/client/cms/cms-api'
 import FloatingConfigurator from '@/components/FloatingConfigurator.vue'
 import router, { RouteName } from '@/router'
 import { useAuthStore } from '@/stores/auth.store'
 import { capitalize } from '@/utils/string'
 
+const loginFormSchema = yup.object({
+  username: yup.string().required(),
+  password: yup.string().required().min(6),
+  rememberMe: yup.boolean(),
+})
+
+const { defineField, handleSubmit, errors, isSubmitting, setErrors } = useForm({
+  validationSchema: loginFormSchema,
+  validateOnMount: false,
+})
+
 const usernameId = useId()
 const passwordId = useId()
-const username = ref('')
-const password = ref('')
-const rememberMe = ref(false)
-const loading = ref(false)
-const errors = ref<Partial<FormError>>({})
+const [username] = defineField('username')
+const [password] = defineField('password', { validateOnModelUpdate: false, validateOnBlur: true })
+const [rememberMe] = defineField('rememberMe')
 
 const authStore = useAuthStore()
 
-async function onSubmit() {
-  loading.value = true
+const onSubmit = handleSubmit(async loginForm => {
+  await loginFormSchema.validate(loginForm)
   try {
     const response = await api.auth.login({ username: username.value, password: password.value })
     authStore.saveAuth(response.data)
@@ -92,14 +105,12 @@ async function onSubmit() {
   }
   catch (error) {
     if (isHttpResponse(error)) {
-      errors.value = error.error
+      // TODO: transform FormErrorCause to error message
+      setErrors(error.error)
     }
     console.error(error)
   }
-  finally {
-    loading.value = false
-  }
-}
+})
 </script>
 
 <style scoped lang="scss">
@@ -108,10 +119,14 @@ async function onSubmit() {
 }
 
 .field {
-  @apply: block mb-8 md:w-[30rem];
+  @apply: block mb-4 md:w-[30rem];
 
   .label {
     @apply: block text-xl font-medium mb-2 text-surface-900 dark:text-surface-0;
+  }
+
+  &.invalid .helper {
+    color: var(--p-inputtext-invalid-border-color);
   }
 }
 

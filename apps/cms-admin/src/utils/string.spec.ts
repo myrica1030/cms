@@ -1,4 +1,4 @@
-import { capitalize } from './string'
+import { capitalize, sentence } from './string'
 
 describe('capitalize', () => {
   it('capitalizes the first letter of a lowercase word', () => {
@@ -23,5 +23,17 @@ describe('capitalize', () => {
 
   it('capitalizes the first letter of each word and keeps the rest of the string unchanged', () => {
     expect(capitalize('hello world FOO')).toBe('Hello world FOO')
+  })
+})
+
+describe('# sentence', () => {
+  it('should convert camelCase text to sentence', () => {
+    const text = 'userName is Invalid'
+    expect(sentence(text)).toBe('User name is invalid')
+  })
+
+  it('should keep special chars exist', () => {
+    const text = 'userName is invalid (max value is 5)'
+    expect(sentence(text)).toBe('User name is invalid (max value is 5)')
   })
 })

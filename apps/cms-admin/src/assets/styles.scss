@@ -4,3 +4,7 @@
 @import '@/assets/demo/demo.scss';
 
 @import "./myrica/toast";
+
+.p-placeholder {
+  &::after {content: '\00a0'}
+}

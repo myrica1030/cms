@@ -4,6 +4,7 @@ import { render } from '@testing-library/vue'
 import PrimeVue from 'primevue/config'
 import StyleClass from 'primevue/styleclass'
 import { mockDeep } from 'vitest-mock-extended'
+import waitForExpect from 'wait-for-expect'
 import { api } from '@/client'
 import type { AuthEntity, FormError, HttpResponse } from '@/client/cms/cms-api'
 import LoginPage from '@/pages/auth/LoginPage.vue'
@@ -38,7 +39,9 @@ describe('login page', () => {
     await userEvent.type(password, 'password')
     await userEvent.click(submit)
 
-    expect(mockedApi.auth.login).toBeCalledWith({ username: 'admin', password: 'password' })
-    expect(mockedApi.setSecurityData('token'))
+    await waitForExpect(() => {
+      expect(mockedApi.auth.login).toBeCalledWith({ username: 'admin', password: 'password' })
+      expect(mockedApi.setSecurityData('token'))
+    })
   })
 })
