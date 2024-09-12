@@ -1,12 +1,10 @@
 import { ApiPropertyOptional } from '@nestjs/swagger'
-import { IsInt, IsOptional, Max, Min } from 'class-validator'
-import { IsEnumProperty } from 'src/_common/decorator/api-property.decorator'
+import { IsInt, IsOptional, Matches, Max, Min } from 'class-validator'
 import { IsQueryNumber } from '../decorator/validation.decorator'
 
-export enum SortOrder { Asc = 'asc', Desc = 'desc' }
+export type SortOrder = 'asc' | 'desc'
 
-// TODO: order by prisma orderBy type
-export class PaginationQuery<_T = unknown> {
+export class PaginationQuery<T extends Record<string, SortOrder> = Record<string, SortOrder>> {
   @ApiPropertyOptional({ title: 'The page number of the items', default: 1 })
   @IsQueryNumber() @IsInt() @Min(1)
   @IsOptional()
@@ -17,13 +15,25 @@ export class PaginationQuery<_T = unknown> {
   @IsOptional()
   limit: number
 
-  @IsEnumProperty({ SortOrder }, { title: 'The order of the items `createdAt` property', default: SortOrder.Desc, required: false })
+  @ApiPropertyOptional({ title: 'The order of the items property', example: 'articles_count:desc,name:asc,updatedAt:desc' })
   @IsOptional()
-  order: SortOrder
+  @Matches(/^(\w+):(asc|desc)(?:,(\w+):(asc|desc))*$/, { message: `The order should following this format 'field1:asc,field2:desc'` })
+  order?: string
 
   constructor(query?: PaginationQuery) {
     this.page = query?.page ?? 1
     this.limit = query?.limit ?? 10
-    this.order = query?.order ?? SortOrder.Desc
+    this.order = query?.order
+  }
+
+  get parsedOrder(): T {
+    if (!this.order) return {} as T
+    const result = {} as Record<string, SortOrder | undefined>
+    for (const order of this.order.split(',')) {
+      const [field, sortOrder] = order.split(':')
+      if (!field || !sortOrder) continue
+      result[field] = sortOrder as SortOrder
+    }
+    return result as T
   }
 }

@@ -1,9 +1,9 @@
 import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common'
-import { Prisma, Tag } from '@prisma/client'
-import { PaginationQuery } from 'common/dto/pagination.query'
+import { Tag } from '@prisma/client'
 import { PaginatedEntity } from 'common/entity/paginated.entity'
 import { FormException } from 'common/exception/form-exception.exception'
 import { PrismaService } from 'infra/prisma.service'
+import { ArticlePaginationQuery } from 'src/article/dto/article-pagination.query'
 import { CreateArticleDto } from 'src/article/dto/create-article.dto'
 import { ArticlePublic, ArticlePublicEntity, articlePublicArgs } from 'src/article/entity/article-public.entity'
 import { CategoryService } from 'src/category/category.service'
@@ -23,9 +23,9 @@ export class ArticleService {
     const { categoryId, tags: tagLabels = [], ...dto } = createArticleDto
 
     const [tags, category] = await Promise.all([
-      tagLabels.length ? this.tagService.getTags(tagLabels) : [],
+      tagLabels.length ? this.tagService.getTags(tagLabels) : [] as Tag[],
       categoryId ? this.categoryService.findCategory(categoryId) : null,
-    ])
+    ] as const)
 
     if (categoryId && !category) throw new FormException({ categoryId: ['isNotExist'] })
     if (tagLabels.length !== tags.length) throw new FormException({ tags: ['isInvalid'] })
@@ -45,15 +45,15 @@ export class ArticleService {
     return article
   }
 
-  async retrievePaginatedArticles(query: PaginationQuery<Prisma.ArticleOrderByWithRelationInput>): Promise<PaginatedEntity<ArticlePublicEntity>> {
-    const { page, limit, order } = query
+  async retrievePaginatedArticles(query: ArticlePaginationQuery): Promise<PaginatedEntity<ArticlePublicEntity>> {
+    const { page, limit, orderInput } = query
     const [count, articles] = await Promise.all([
       this.prisma.article.count(),
       this.prisma.article.findMany({
         ...articlePublicArgs,
         skip: (page - 1) * limit,
         take: limit,
-        orderBy: { createdAt: order },
+        orderBy: orderInput,
       }),
     ])
 

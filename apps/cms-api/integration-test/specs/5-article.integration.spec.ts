@@ -122,7 +122,7 @@ describe('article module', () => {
   describe('/article (GET)', () => {
     it('should return 200 when retrieve articles', async () => {
       response = await request(app.getHttpServer())
-        .get('/article')
+        .get('/article?order=createdAt:desc')
 
       expect(response.status).toBe(200)
       expect(response.body).toHaveProperty('metadata')
