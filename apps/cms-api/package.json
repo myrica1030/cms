@@ -9,12 +9,12 @@
     "start:dev": "nest start --watch",
     "start:prod": "cross-env NODE_ENV=production node dist/main",
     "build": "prisma generate && nest build",
-    "type-check": "prisma generate && tsc --build",
+    "type-check": "prisma generate && tsc --build --force",
     "lint": "eslint '{src,migration,seed,test}/**/*.ts'",
     "test": "pnpm test:unit && pnpm test:integration",
     "test:integration": "vitest --config integration-test/vitest.config.ts run",
     "test:unit": "vitest run",
-    "db:seed-example": "tsx prisma/example-data.ts",
+    "db:seed-example": "tsx --tsconfig tsconfig.app.json prisma/example-data.ts",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },
   "dependencies": {
@@ -56,6 +56,6 @@
     "unplugin-swc": "^1.5.1"
   },
   "prisma": {
-    "seed": "tsx prisma/preset-data.ts"
+    "seed": "tsx --tsconfig tsconfig.app.json prisma/preset-data.ts"
   }
 }

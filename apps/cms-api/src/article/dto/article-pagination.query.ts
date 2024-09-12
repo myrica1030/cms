@@ -23,7 +23,7 @@ export class ArticlePaginationQuery extends PaginationQuery {
     category: [CategoryPaginationQuery.fields, (field, sortOrder) => ({ category: { [field]: sortOrder } })],
   }
 
-  private handleSpecialCases(field: string, sortOrder: SortOrder): Prisma.ArticleOrderByWithRelationInput {
+  private handleSpecialCases(field: string, sortOrder: SortOrder): Prisma.ArticleOrderByWithRelationInput | null {
     if (field === 'tags_count') return { tags: { _count: sortOrder } }
     if (field === 'author_articles_count') return { author: { articles: { _count: sortOrder } } }
     if (field === 'category_articles_count') return { category: { articles: { _count: sortOrder } } }
