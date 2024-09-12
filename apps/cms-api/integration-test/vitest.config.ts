@@ -25,7 +25,10 @@ export default defineConfig({
     },
   },
   plugins: [
-    swc.vite() as any,
+    swc.vite({
+      module: { type: 'es6' },
+      tsconfigFile: path.resolve(__dirname, '../tsconfig.vitest.json'),
+    }),
   ],
   test: {
     name: 'api-integration',
