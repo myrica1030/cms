@@ -1,0 +1,22 @@
+{
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": {
+    "composite": true,
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.vitest.tsbuildinfo",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "strictNullChecks": false,
+    "noImplicitAny": false
+  },
+  "include": [
+    "types",
+    "src",
+    "prisma",
+    "test-utils",
+    "integration-test",
+    "vitest.config.ts"
+  ],
+  "exclude": []
+}

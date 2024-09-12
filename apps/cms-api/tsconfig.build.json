@@ -1,13 +1,17 @@
 {
-  "extends": "./tsconfig.json",
+  "extends": "./tsconfig.app.json",
   "compilerOptions": {
-    "noEmit": false
+    "declaration": true,
+    "outDir": "./dist",
+    "removeComments": true,
+    "sourceMap": true
   },
+  "files": [],
+  "include": [
+    "src",
+    "types"
+  ],
   "exclude": [
-    "node_modules",
-    "integration-test",
-    "dist",
-    "**/*spec.ts",
-    "vitest.config.ts"
+    "**/*.spec.ts"
   ]
 }

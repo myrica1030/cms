@@ -1,18 +1,17 @@
 import type { TestingModule } from '@nestjs/testing'
 import { Test } from '@nestjs/testing'
-import type { PrismaClient } from '@prisma/client'
 import { PrismaService } from 'infra/prisma.service'
-import type { DeepMockProxy } from 'vitest-mock-extended'
+import type { PrismaDeepMock } from 'test-utils/prisma-mock'
 import { mockDeep } from 'vitest-mock-extended'
 import { categoryFixture } from 'src/category/category.fixture'
 import { CategoryService } from './category.service'
 
 describe('category service', () => {
   let service: CategoryService
-  let mockedPrisma: DeepMockProxy<PrismaClient>
+  let mockedPrisma: PrismaDeepMock
 
   beforeEach(async () => {
-    mockedPrisma = mockDeep<PrismaClient>()
+    mockedPrisma = mockDeep()
 
     const module: TestingModule = await Test.createTestingModule({
       providers: [

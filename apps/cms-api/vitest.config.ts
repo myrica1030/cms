@@ -17,7 +17,8 @@ export default defineConfig({
   plugins: [
     swc.vite({
       module: { type: 'es6' },
-    }) as any,
+      tsconfigFile: './tsconfig.build.json',
+    }),
   ],
   test: {
     name: 'api-unit',

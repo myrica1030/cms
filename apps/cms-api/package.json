@@ -9,7 +9,7 @@
     "start:dev": "nest start --watch",
     "start:prod": "cross-env NODE_ENV=production node dist/main",
     "build": "prisma generate && nest build",
-    "type-check": "prisma generate && tsc",
+    "type-check": "prisma generate && tsc --build",
     "lint": "eslint '{src,migration,seed,test}/**/*.ts'",
     "test": "pnpm test:unit && pnpm test:integration",
     "test:integration": "vitest --config integration-test/vitest.config.ts run",

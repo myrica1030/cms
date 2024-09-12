@@ -1,14 +1,14 @@
 import { ForbiddenException, NotFoundException } from '@nestjs/common'
 import type { TestingModule } from '@nestjs/testing'
 import { Test } from '@nestjs/testing'
-import type { PrismaClient, User } from '@prisma/client'
+import type { User } from '@prisma/client'
 import { SortOrder } from 'common/dto/pagination.query'
 import { PaginatedEntity } from 'common/entity/paginated.entity'
 import { FormException } from 'common/exception/form-exception.exception'
 import { PrismaService } from 'infra/prisma.service'
+import type { PrismaDeepMock } from 'test-utils/prisma-mock'
 import type { Mock } from 'vitest'
 import { expect, vi } from 'vitest'
-import type { DeepMockProxy } from 'vitest-mock-extended'
 import { mockDeep } from 'vitest-mock-extended'
 import { articleFixture } from 'src/article/article.fixture'
 import { ArticleService } from 'src/article/article.service'
@@ -27,7 +27,7 @@ describe('article service', () => {
   let userService: UserService
   let categoryService: CategoryService
   let tagService: TagService
-  let mockedPrisma: DeepMockProxy<PrismaClient>
+  let mockedPrisma: PrismaDeepMock
   let mockedFindUnique: Mock<() => ArticlePublic>
   let mockedUpdate: Mock<() => ArticlePublic>
 
@@ -38,7 +38,7 @@ describe('article service', () => {
   }
 
   beforeEach(async () => {
-    mockedPrisma = mockDeep<PrismaClient>()
+    mockedPrisma = mockDeep()
     mockedFindUnique = mockedPrisma.article.findUnique as any
     mockedUpdate = mockedPrisma.article.update as any
 
