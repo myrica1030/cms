@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common'
-import { Prisma, Tag } from '@prisma/client'
-import { PaginationQuery } from 'common/dto/pagination.query'
+import { Tag } from '@prisma/client'
 import { PaginatedEntity } from 'common/entity/paginated.entity'
 import { FormException } from 'common/exception/form-exception.exception'
 import { PrismaService } from 'infra/prisma.service'
 import { xor } from 'lodash'
 import { CreateTagDto } from 'src/tag/dto/create-tag.dto'
+import { TagPaginationQuery } from 'src/tag/dto/tag-pagination.query'
 import { TagEntity } from 'src/tag/entity/tag.entity'
 
 @Injectable()
@@ -20,13 +20,13 @@ export class TagService {
     })
   }
 
-  async retrievePaginatedTags(query: PaginationQuery<Prisma.TagOrderByWithRelationInput>): Promise<PaginatedEntity<TagEntity>> {
-    const { page, limit, order } = query
+  async retrievePaginatedTags(query: TagPaginationQuery): Promise<PaginatedEntity<TagEntity>> {
+    const { page, limit, orderInput } = query
     const [tags, count] = await Promise.all([
       this.prisma.tag.findMany({
         skip: (page - 1) * limit,
         take: limit,
-        orderBy: { createdAt: order },
+        orderBy: orderInput,
       }),
       this.prisma.tag.count(),
     ])

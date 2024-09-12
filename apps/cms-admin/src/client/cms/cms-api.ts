@@ -285,12 +285,6 @@ export interface ArticlePublicEntity {
   tags: TagOnArticleEntity[]
 }
 
-/** @default "desc" */
-export enum SortOrder {
-  Asc = 'asc',
-  Desc = 'desc',
-}
-
 export interface CreateCategoryDto {
   /**
    * The identifier of the category
@@ -354,17 +348,11 @@ export interface PaginationQuery {
    */
   limit?: number
   /**
-   * The order of the items `createdAt` property
-   *
-   * Enum name: SortOrder
-   * Enum values:
-   * ```
-   *   Asc = asc,
-   *   Desc = desc,
-   * ```
-   * @default "desc"
+   * The order of the items property
+   * @pattern ^(\w+):(asc|desc)(?:,(\w+):(asc|desc))*$
+   * @example "articles_count:desc,name:asc,updatedAt:desc"
    */
-  order?: SortOrder
+  order?: string
 }
 
 export interface PaginatedMetadata {
@@ -776,15 +764,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
          */
         limit?: number
         /**
-         *
-         * Enum name: SortOrder
-         * Enum values:
-         * ```
-         *   Asc = asc,
-         *   Desc = desc,
-         * ```
+         * The order of the items property
+         * @example "articles_count:desc,name:asc,updatedAt:desc"
          */
-        order?: SortOrder
+        order?: string
       },
       params: RequestParams = {},
     ) =>
@@ -948,15 +931,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
          */
         limit?: number
         /**
-         *
-         * Enum name: SortOrder
-         * Enum values:
-         * ```
-         *   Asc = asc,
-         *   Desc = desc,
-         * ```
+         * The order of the items property
+         * @example "articles_count:desc,name:asc,updatedAt:desc"
          */
-        order?: SortOrder
+        order?: string
       },
       params: RequestParams = {},
     ) =>

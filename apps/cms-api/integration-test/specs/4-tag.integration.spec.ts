@@ -127,7 +127,7 @@ describe('tag module', () => {
   describe('/tag (GET)', () => {
     it('should return 200 when retrieve tags', async () => {
       response = await request(app.getHttpServer())
-        .get('/tag')
+        .get('/tag?order=createdAt:desc')
 
       expect(response.status).toBe(200)
       expect(response.body).toHaveProperty('metadata')
@@ -146,6 +146,32 @@ describe('tag module', () => {
         createdAt: expect.stringMatching(anyDateString),
         updatedAt: expect.stringMatching(anyDateString),
       } as TagEntity)
+    })
+
+    it.each([
+      { query: 'order=a', message: ["The order should following this format 'field1:asc,field2:desc'"] },
+      { query: 'order=name', message: ["The order should following this format 'field1:asc,field2:desc'"] },
+      { query: 'order=name:abc', message: ["The order should following this format 'field1:asc,field2:desc'"] },
+      { query: 'order=a:asc', message: ['Invalid order field: a'] },
+    ])('should return 422 given invalid query order ($query)', async ({ query, message }) => {
+      response = await request(app.getHttpServer())
+        .get(`/tag?${query}`)
+      expect(response.status).toBe(422)
+      expect(response.body).toHaveProperty('order', message)
+    })
+
+    it('should return expected ordering given order', async () => {
+      response = await request(app.getHttpServer())
+        .get('/tag?order=name:asc,createdAt:desc')
+
+      expect(response.status).toBe(200)
+      expect(response.body.items.map(it => it.name)).toEqual(['Database', 'Linux', 'Semantic UI', 'Vue'])
+
+      response = await request(app.getHttpServer())
+        .get('/tag?order=name:desc')
+
+      expect(response.status).toBe(200)
+      expect(response.body.items.map(it => it.name)).toEqual(['Vue', 'Semantic UI', 'Linux', 'Database'])
     })
   })
 })

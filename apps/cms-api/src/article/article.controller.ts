@@ -2,9 +2,9 @@ import { Body, Controller, Get, NotFoundException, Param, Post, Put, Query, Requ
 import { ApiCreatedResponse, ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger'
 import { ApiInvalidFormResponse, ApiListResponse } from 'common/decorator/api-response.decorator'
 import { UseJwtGuards } from 'common/decorator/auth-guard.decorator'
-import { PaginationQuery } from 'common/dto/pagination.query'
 import { PaginatedEntity } from 'common/entity/paginated.entity'
 import { ArticleService } from 'src/article/article.service'
+import { ArticlePaginationQuery } from 'src/article/dto/article-pagination.query'
 import { ArticlePublicEntity } from 'src/article/entity/article-public.entity'
 import { AuthRequest } from 'src/auth/jwt.strategy'
 import { CreateArticleDto } from './dto/create-article.dto'
@@ -29,7 +29,7 @@ export class ArticleController {
   @Get('/')
   @ApiOperation({ summary: 'Retrieve articles' })
   @ApiListResponse(ArticlePublicEntity)
-  async retrieveArticles(@Query() query: PaginationQuery): Promise<PaginatedEntity<ArticlePublicEntity>> {
+  async retrieveArticles(@Query() query: ArticlePaginationQuery): Promise<PaginatedEntity<ArticlePublicEntity>> {
     return await this.service.retrievePaginatedArticles(query)
   }
 

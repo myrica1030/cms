@@ -2,7 +2,6 @@ import { ForbiddenException, NotFoundException } from '@nestjs/common'
 import type { TestingModule } from '@nestjs/testing'
 import { Test } from '@nestjs/testing'
 import type { User } from '@prisma/client'
-import { SortOrder } from 'common/dto/pagination.query'
 import { PaginatedEntity } from 'common/entity/paginated.entity'
 import { FormException } from 'common/exception/form-exception.exception'
 import { PrismaService } from 'infra/prisma.service'
@@ -12,6 +11,7 @@ import { expect, vi } from 'vitest'
 import { mockDeep } from 'vitest-mock-extended'
 import { articleFixture } from 'src/article/article.fixture'
 import { ArticleService } from 'src/article/article.service'
+import type { ArticlePaginationQuery } from 'src/article/dto/article-pagination.query'
 import type { CreateArticleDto } from 'src/article/dto/create-article.dto'
 import type { ArticlePublic } from 'src/article/entity/article-public.entity'
 import { articlePublicArgs } from 'src/article/entity/article-public.entity'
@@ -102,12 +102,16 @@ describe('article service', () => {
       mockedPrisma.article.findMany.mockResolvedValue([])
       mockedPrisma.article.count.mockResolvedValue(0)
 
-      const articlesPaginatedEntity = await service.retrievePaginatedArticles({ page: 1, limit: 10, order: SortOrder.Desc })
+      const articlesPaginatedEntity = await service.retrievePaginatedArticles({
+        page: 1,
+        limit: 10,
+        orderInput: [{ createdAt: 'desc' }],
+      } as ArticlePaginationQuery)
 
       expect(articlesPaginatedEntity).toEqual(new PaginatedEntity(1, 10, 0, []))
       expect(mockedPrisma.article.findMany).toHaveBeenCalledWith({
         ...articlePublicArgs,
-        orderBy: { createdAt: 'desc' },
+        orderBy: [{ createdAt: 'desc' }],
         skip: 0,
         take: 10,
       })

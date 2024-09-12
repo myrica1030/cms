@@ -1,5 +1,5 @@
 import { UnprocessableEntityException } from '@nestjs/common'
-import { IsEnumProperty } from 'src/_common/decorator/api-property.decorator'
+import { IsEnumProperty } from 'common/decorator/api-property.decorator'
 
 export enum FormErrorCause {
   IsNotEmpty = 'isNotEmpty',
