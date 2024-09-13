@@ -1,8 +1,8 @@
 <template>
-  <div class="flex flex-col md:flex-row gap-8">
+  <div class="flex flex-col gap-8 md:flex-row">
     <div class="md:w-1/2">
       <div class="card">
-        <div class="font-semibold text-xl mb-4">Dialog</div>
+        <div class="mb-4 text-xl font-semibold">Dialog</div>
         <Dialog
           v-model:visible="display"
           header="Dialog"
@@ -10,7 +10,7 @@
           :style="{ width: '30vw' }"
           :modal="true"
         >
-          <p class="leading-normal m-0">
+          <p class="m-0 leading-normal">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
             consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
           </p>
@@ -22,7 +22,7 @@
       </div>
 
       <div class="card">
-        <div class="font-semibold text-xl mb-4">Popover</div>
+        <div class="mb-4 text-xl font-semibold">Popover</div>
         <div class="flex flex-wrap gap-2">
           <Button type="button" label="Show" @click="toggleDataTable" />
           <Popover id="overlay_panel" ref="op2" style="width: 450px">
@@ -59,7 +59,7 @@
       </div>
 
       <div class="card">
-        <div class="font-semibold text-xl mb-4">Tooltip</div>
+        <div class="mb-4 text-xl font-semibold">Tooltip</div>
         <div class="inline-flex gap-4">
           <InputText v-tooltip="'Your username'" type="text" placeholder="Username" />
           <Button v-tooltip="'Click to proceed'" type="button" label="Save" />
@@ -68,7 +68,7 @@
     </div>
     <div class="md:w-1/2">
       <div class="card">
-        <div class="font-semibold text-xl mb-4">Drawer</div>
+        <div class="mb-4 text-xl font-semibold">Drawer</div>
         <Drawer v-model:visible="visibleLeft" header="Drawer">
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
@@ -112,7 +112,7 @@
       </div>
 
       <div class="card">
-        <div class="font-semibold text-xl mb-4">ConfirmPopup</div>
+        <div class="mb-4 text-xl font-semibold">ConfirmPopup</div>
         <ConfirmPopup />
         <Button
           ref="popup"
@@ -124,7 +124,7 @@
       </div>
 
       <div class="card">
-        <div class="font-semibold text-xl mb-4">ConfirmDialog</div>
+        <div class="mb-4 text-xl font-semibold">ConfirmDialog</div>
         <Button
           label="Delete"
           icon="pi pi-trash"

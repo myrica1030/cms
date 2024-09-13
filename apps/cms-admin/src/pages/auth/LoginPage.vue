@@ -3,10 +3,10 @@
     <div class="main">
       <div class="rounded-transition-border">
         <form class="content" role="form" @submit.prevent="onSubmit">
-          <div class="text-center mb-8">
-            <SvgLogo class="mb-8 w-16 shrink-0 mx-auto" />
+          <div class="mb-8 text-center">
+            <SvgLogo class="mx-auto mb-8 w-16 shrink-0" />
             <h1 class="slogan">Welcome to Myrica!</h1>
-            <span class="text-muted-color font-medium">Sign in to continue</span>
+            <span class="font-medium text-muted-color">Sign in to continue</span>
           </div>
 
           <div>
@@ -32,8 +32,9 @@
                 v-model="password"
                 placeholder="Password"
                 :aria-describedby="`${passwordId}-help`"
-                toggle-mask
+
                 fluid
+                toggle-mask
                 :feedback="false"
                 :invalid="!!errors.password"
                 :class="{ 'p-invalid': errors.password }"
@@ -42,13 +43,13 @@
               <small :id="`${passwordId}-help`" class="helper p-placeholder">{{ capitalize(errors.password) }}</small>
             </label>
 
-            <div class="flex items-center justify-between mb-8 gap-8">
-              <label class="flex items-center cursor-pointer">
+            <div class="mb-8 flex items-center justify-between gap-8">
+              <label class="flex cursor-pointer items-center">
                 <Checkbox v-model="rememberMe" binary class="mr-2" />
                 <span>Remember me</span>
               </label>
               <!-- TODO implement forgot password -->
-              <span class="font-medium no-underline ml-2 text-right cursor-pointer text-primary">Forgot password?</span>
+              <span class="ml-2 cursor-pointer text-right text-primary font-medium no-underline">Forgot password?</span>
             </div>
 
             <Button

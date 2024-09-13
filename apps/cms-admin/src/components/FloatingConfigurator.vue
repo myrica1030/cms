@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed flex gap-4 top-8 right-8">
+  <div class="fixed right-8 top-8 flex gap-4">
     <Button
       type="button"
       rounded

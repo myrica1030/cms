@@ -6,6 +6,7 @@
   ],
   "files": [
     "vitest.config.ts",
-    "vitest.workspace.ts"
+    "vitest.workspace.ts",
+    "unocss.config.ts"
   ]
 }

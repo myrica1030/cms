@@ -43,7 +43,7 @@
           leaveActiveClass: 'animate-out fade-out',
           hideOnOutsideClick: true,
         }"
-        class="layout-topbar-menu-button layout-topbar-action"
+        class="layout-topbar-action layout-topbar-menu-button"
       >
         <i class="pi pi-ellipsis-v" />
       </button>

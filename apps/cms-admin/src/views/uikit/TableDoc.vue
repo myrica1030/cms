@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <div class="font-semibold text-xl mb-4">Filtering</div>
+    <div class="mb-4 text-xl font-semibold">Filtering</div>
     <DataTable
       v-model:filters="filters1"
       :value="customers1"
@@ -196,7 +196,7 @@
   </div>
 
   <div class="card">
-    <div class="font-semibold text-xl mb-4">Frozen Columns</div>
+    <div class="mb-4 text-xl font-semibold">Frozen Columns</div>
     <ToggleButton
       v-model="balanceFrozen"
       on-icon="pi pi-lock"
@@ -241,7 +241,7 @@
   </div>
 
   <div class="card">
-    <div class="font-semibold text-xl mb-4">Row Expansion</div>
+    <div class="mb-4 text-xl font-semibold">Row Expansion</div>
     <DataTable
       v-model:expanded-rows="expandedRows"
       :value="products"
@@ -321,7 +321,7 @@
   </div>
 
   <div class="card">
-    <div class="font-semibold text-xl mb-4">Grouping</div>
+    <div class="mb-4 text-xl font-semibold">Grouping</div>
     <DataTable
       :value="customers3"
       row-group-mode="subheader"
@@ -367,7 +367,7 @@
       </Column>
       <Column field="date" header="Date" style="min-width: 200px" />
       <template #groupfooter="slotProps">
-        <div class="flex justify-end font-bold w-full">Total Customers: {{ calculateCustomerTotal(slotProps.data.representative.name) }}</div>
+        <div class="w-full flex justify-end font-bold">Total Customers: {{ calculateCustomerTotal(slotProps.data.representative.name) }}</div>
       </template>
     </DataTable>
   </div>
