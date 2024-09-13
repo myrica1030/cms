@@ -6,7 +6,7 @@ export default defineConfig({
     tsconfigPath: 'tsconfig.json',
   },
   vue: true,
-  react: false,
+  unocss: true,
   test: {
     cypress: true,
   },

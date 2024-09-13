@@ -1,7 +1,7 @@
 <template>
   <div class="card">
-    <div class="font-semibold text-xl mb-4">ProgressBar</div>
-    <div class="flex flex-col md:flex-row gap-4">
+    <div class="mb-4 text-xl font-semibold">ProgressBar</div>
+    <div class="flex flex-col gap-4 md:flex-row">
       <div class="md:w-1/2">
         <ProgressBar :value="value" />
       </div>
@@ -11,10 +11,10 @@
     </div>
   </div>
 
-  <div class="flex flex-col md:flex-row gap-8">
+  <div class="flex flex-col gap-8 md:flex-row">
     <div class="md:w-1/2">
       <div class="card">
-        <div class="font-semibold text-xl mb-4">Badge</div>
+        <div class="mb-4 text-xl font-semibold">Badge</div>
         <div class="flex gap-2">
           <Badge :value="2" />
           <Badge :value="8" severity="success" />
@@ -23,7 +23,7 @@
           <Badge :value="3" severity="danger" />
         </div>
 
-        <div class="font-semibold my-4">Overlay</div>
+        <div class="my-4 font-semibold">Overlay</div>
         <div class="flex gap-6">
           <OverlayBadge value="2">
             <i class="pi pi-bell" style="font-size: 2rem" />
@@ -36,7 +36,7 @@
           </OverlayBadge>
         </div>
 
-        <div class="font-semibold my-4">Button</div>
+        <div class="my-4 font-semibold">Button</div>
         <div class="flex gap-2">
           <Button label="Emails" badge="8" class="mr-2" />
           <Button
@@ -48,7 +48,7 @@
           />
         </div>
 
-        <div class="font-semibold my-4">Sizes</div>
+        <div class="my-4 font-semibold">Sizes</div>
         <div class="flex items-start gap-2">
           <Badge :value="2" />
           <Badge :value="4" size="large" severity="warn" />
@@ -57,8 +57,8 @@
       </div>
 
       <div class="card">
-        <div class="font-semibold text-xl mb-4">Avatar</div>
-        <div class="font-semibold mb-4">Group</div>
+        <div class="mb-4 text-xl font-semibold">Avatar</div>
+        <div class="mb-4 font-semibold">Group</div>
         <AvatarGroup>
           <Avatar image="/demo/images/avatar/amyelsner.png" size="large" shape="circle" />
           <Avatar image="/demo/images/avatar/asiyajavayant.png" size="large" shape="circle" />
@@ -73,7 +73,7 @@
           />
         </AvatarGroup>
 
-        <div class="font-semibold my-4">Label - Circle</div>
+        <div class="my-4 font-semibold">Label - Circle</div>
         <Avatar
           label="P"
           class="mr-2"
@@ -94,14 +94,14 @@
           shape="circle"
         />
 
-        <div class="font-semibold my-4">Icon - Badge</div>
+        <div class="my-4 font-semibold">Icon - Badge</div>
         <OverlayBadge value="4" severity="danger" class="inline-flex">
           <Avatar label="U" size="xlarge" />
         </OverlayBadge>
       </div>
 
       <div class="card">
-        <div class="font-semibold text-xl mb-4">ScrollTop</div>
+        <div class="mb-4 text-xl font-semibold">ScrollTop</div>
         <ScrollPanel :style="{ width: '250px', height: '200px' }">
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae et leo duis ut diam. Ultricies mi quis hendrerit dolor magna eget est lorem. Amet consectetur
@@ -116,8 +116,8 @@
     </div>
     <div class="md:w-1/2">
       <div class="card">
-        <div class="font-semibold text-xl mb-4">Tag</div>
-        <div class="font-semibold mb-4">Default</div>
+        <div class="mb-4 text-xl font-semibold">Tag</div>
+        <div class="mb-4 font-semibold">Default</div>
         <div class="flex gap-2">
           <Tag value="Primary" />
           <Tag severity="success" value="Success" />
@@ -126,7 +126,7 @@
           <Tag severity="danger" value="Danger" />
         </div>
 
-        <div class="font-semibold my-4">Pills</div>
+        <div class="my-4 font-semibold">Pills</div>
         <div class="flex gap-2">
           <Tag value="Primary" :rounded="true" />
           <Tag severity="success" value="Success" :rounded="true" />
@@ -135,7 +135,7 @@
           <Tag severity="danger" value="Danger" :rounded="true" />
         </div>
 
-        <div class="font-semibold my-4">Icons</div>
+        <div class="my-4 font-semibold">Icons</div>
         <div class="flex gap-2">
           <Tag icon="pi pi-user" value="Primary" />
           <Tag icon="pi pi-check" severity="success" value="Success" />
@@ -146,20 +146,20 @@
       </div>
 
       <div class="card">
-        <div class="font-semibold text-xl mb-4">Chip</div>
-        <div class="font-semibold mb-4">Basic</div>
-        <div class="flex items-center flex-col sm:flex-row">
-          <Chip label="Action" class="mr-2 mb-2" />
-          <Chip label="Comedy" class="mr-2 mb-2" />
-          <Chip label="Mystery" class="mr-2 mb-2" />
+        <div class="mb-4 text-xl font-semibold">Chip</div>
+        <div class="mb-4 font-semibold">Basic</div>
+        <div class="flex flex-col items-center sm:flex-row">
+          <Chip label="Action" class="mb-2 mr-2" />
+          <Chip label="Comedy" class="mb-2 mr-2" />
+          <Chip label="Mystery" class="mb-2 mr-2" />
           <Chip label="Thriller" :removable="true" class="mb-2" />
         </div>
 
-        <div class="font-semibold my-4">Icon</div>
-        <div class="flex items-center flex-col sm:flex-row">
-          <Chip label="Apple" icon="pi pi-apple" class="mr-2 mb-2" />
-          <Chip label="Facebook" icon="pi pi-facebook" class="mr-2 mb-2" />
-          <Chip label="Google" icon="pi pi-google" class="mr-2 mb-2" />
+        <div class="my-4 font-semibold">Icon</div>
+        <div class="flex flex-col items-center sm:flex-row">
+          <Chip label="Apple" icon="pi pi-apple" class="mb-2 mr-2" />
+          <Chip label="Facebook" icon="pi pi-facebook" class="mb-2 mr-2" />
+          <Chip label="Google" icon="pi pi-google" class="mb-2 mr-2" />
           <Chip
             label="Microsoft"
             icon="pi pi-microsoft"
@@ -168,18 +168,18 @@
           />
         </div>
 
-        <div class="font-semibold my-4">Image</div>
-        <div class="flex items-center flex-col sm:flex-row">
-          <Chip label="Amy Elsner" image="/demo/images/avatar/amyelsner.png" class="mr-2 mb-2" />
-          <Chip label="Asiya Javayant" image="/demo/images/avatar/asiyajavayant.png" class="mr-2 mb-2" />
-          <Chip label="Onyama Limba" image="/demo/images/avatar/onyamalimba.png" class="mr-2 mb-2" />
+        <div class="my-4 font-semibold">Image</div>
+        <div class="flex flex-col items-center sm:flex-row">
+          <Chip label="Amy Elsner" image="/demo/images/avatar/amyelsner.png" class="mb-2 mr-2" />
+          <Chip label="Asiya Javayant" image="/demo/images/avatar/asiyajavayant.png" class="mb-2 mr-2" />
+          <Chip label="Onyama Limba" image="/demo/images/avatar/onyamalimba.png" class="mb-2 mr-2" />
         </div>
       </div>
 
       <div class="card">
-        <div class="font-semibold text-xl mb-4">Skeleton</div>
-        <div class="rounded-border border border-surface p-6">
-          <div class="flex mb-4">
+        <div class="mb-4 text-xl font-semibold">Skeleton</div>
+        <div class="border p-6 border-surface rounded-border">
+          <div class="mb-4 flex">
             <Skeleton shape="circle" size="4rem" class="mr-2" />
             <div>
               <Skeleton width="10rem" class="mb-2" />
@@ -188,7 +188,7 @@
             </div>
           </div>
           <Skeleton width="100%" height="150px" />
-          <div class="flex justify-between mt-4">
+          <div class="mt-4 flex justify-between">
             <Skeleton width="4rem" height="2rem" />
             <Skeleton width="4rem" height="2rem" />
           </div>

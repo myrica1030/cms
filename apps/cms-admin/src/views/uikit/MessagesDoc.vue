@@ -1,8 +1,8 @@
 <template>
-  <div class="flex flex-col md:flex-row gap-8">
+  <div class="flex flex-col gap-8 md:flex-row">
     <div class="md:w-1/2">
       <div class="card">
-        <div class="font-semibold text-xl mb-4">Toast</div>
+        <div class="mb-4 text-xl font-semibold">Toast</div>
         <div class="flex flex-wrap gap-2">
           <Button label="Success" severity="success" @click="showSuccess()" />
           <Button label="Info" severity="info" @click="showInfo()" />
@@ -10,8 +10,8 @@
           <Button label="Error" severity="danger" @click="showError()" />
         </div>
 
-        <div class="font-semibold text-xl mt-4 mb-4">Inline</div>
-        <div class="flex flex-wrap mb-4 gap-2">
+        <div class="mb-4 mt-4 text-xl font-semibold">Inline</div>
+        <div class="mb-4 flex flex-wrap gap-2">
           <InputText
             v-model="username"
             placeholder="Username"
@@ -33,8 +33,8 @@
     </div>
     <div class="md:w-1/2">
       <div class="card">
-        <div class="font-semibold text-xl mb-4">Message</div>
-        <div class="flex flex-col gap-4 mb-4">
+        <div class="mb-4 text-xl font-semibold">Message</div>
+        <div class="mb-4 flex flex-col gap-4">
           <Message severity="success">Success Message</Message>
           <Message severity="info">Info Message</Message>
           <Message severity="warn">Warn Message</Message>

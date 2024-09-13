@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col">
     <div class="card">
-      <div class="font-semibold text-xl mb-4">Toolbar</div>
+      <div class="mb-4 text-xl font-semibold">Toolbar</div>
       <Toolbar>
         <template #start>
           <Button
@@ -32,10 +32,10 @@
       </Toolbar>
     </div>
 
-    <div class="flex flex-col md:flex-row gap-8">
+    <div class="flex flex-col gap-8 md:flex-row">
       <div class="md:w-1/2">
         <div class="card">
-          <div class="font-semibold text-xl mb-4">Accordion</div>
+          <div class="mb-4 text-xl font-semibold">Accordion</div>
           <Accordion value="0">
             <AccordionPanel value="0">
               <AccordionHeader>Header I</AccordionHeader>
@@ -70,7 +70,7 @@
           </Accordion>
         </div>
         <div class="card">
-          <div class="font-semibold text-xl mb-4">Tabs</div>
+          <div class="mb-4 text-xl font-semibold">Tabs</div>
           <Tabs value="0">
             <TabList>
               <Tab value="0">Header I</Tab>
@@ -103,11 +103,11 @@
           </Tabs>
         </div>
       </div>
-      <div class="md:w-1/2 mt-6 md:mt-0">
+      <div class="mt-6 md:mt-0 md:w-1/2">
         <div class="card">
-          <div class="font-semibold text-xl mb-4">Panel</div>
+          <div class="mb-4 text-xl font-semibold">Panel</div>
           <Panel header="Header" :toggleable="true">
-            <p class="leading-normal m-0">
+            <p class="m-0 leading-normal">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
               consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
               laborum.
@@ -115,9 +115,9 @@
           </Panel>
         </div>
         <div class="card">
-          <div class="font-semibold text-xl mb-4">Fieldset</div>
+          <div class="mb-4 text-xl font-semibold">Fieldset</div>
           <Fieldset legend="Legend" :toggleable="true">
-            <p class="leading-normal m-0">
+            <p class="m-0 leading-normal">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
               consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
               laborum.
@@ -127,8 +127,8 @@
 
         <Card>
           <template #title>
-            <div class="flex items-center justify-between mb-0">
-              <div class="font-semibold text-xl mb-4">Card</div>
+            <div class="mb-0 flex items-center justify-between">
+              <div class="mb-4 text-xl font-semibold">Card</div>
               <Button icon="pi pi-plus" class="p-button-text" @click="toggle" />
             </div>
             <Menu
@@ -140,7 +140,7 @@
           </template>
 
           <template #content>
-            <p class="leading-normal m-0">
+            <p class="m-0 leading-normal">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
               consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
               laborum.
@@ -151,9 +151,9 @@
     </div>
 
     <div class="card mt-8">
-      <div class="font-semibold text-xl mb-4">Divider</div>
+      <div class="mb-4 text-xl font-semibold">Divider</div>
       <div class="flex flex-col md:flex-row">
-        <div class="w-full md:w-5/12 flex flex-col items-center justify-center gap-3 py-5">
+        <div class="w-full flex flex-col items-center justify-center gap-3 py-5 md:w-5/12">
           <div class="flex flex-col gap-2">
             <label for="username">Username</label>
             <InputText id="username" type="text" />
@@ -163,26 +163,26 @@
             <InputText id="password" type="password" />
           </div>
           <div class="flex">
-            <Button label="Login" icon="pi pi-user" class="w-full max-w-[17.35rem] mx-auto" />
+            <Button label="Login" icon="pi pi-user" class="mx-auto max-w-[17.35rem] w-full" />
           </div>
         </div>
         <div class="w-full md:w-2/12">
           <Divider layout="vertical" class="!hidden md:!flex"><b>OR</b></Divider>
           <Divider layout="horizontal" class="!flex md:!hidden" align="center"><b>OR</b></Divider>
         </div>
-        <div class="w-full md:w-5/12 flex items-center justify-center py-5">
+        <div class="w-full flex items-center justify-center py-5 md:w-5/12">
           <Button
             label="Sign Up"
             icon="pi pi-user-plus"
             severity="success"
-            class="w-full max-w-[17.35rem] mx-auto"
+            class="mx-auto max-w-[17.35rem] w-full"
           />
         </div>
       </div>
     </div>
 
     <div class="card">
-      <div class="font-semibold text-xl mb-4">Splitter</div>
+      <div class="mb-4 text-xl font-semibold">Splitter</div>
       <Splitter style="height: 300px" class="mb-8">
         <SplitterPanel :size="30" :min-size="10">
           <div className="h-full flex items-center justify-center">Panel 1</div>
