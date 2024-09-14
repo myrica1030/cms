@@ -53,18 +53,18 @@
           </div>
         </template>
 
-        <Column selection-mode="multiple" style="width: 3rem" :exportable="false" />
+        <Column selection-mode="multiple" style="width: 3rem;" :exportable="false" />
         <Column
           field="code"
           header="Code"
           sortable
-          style="min-width: 12rem"
+          style="min-width: 12rem;"
         />
         <Column
           field="name"
           header="Name"
           sortable
-          style="min-width: 16rem"
+          style="min-width: 16rem;"
         />
         <Column header="Image">
           <template #body="slotProps">
@@ -72,7 +72,7 @@
               :src="`https://primefaces.org/cdn/primevue/images/product/${slotProps.data.image}`"
               :alt="slotProps.data.image"
               class="rounded"
-              style="width: 64px"
+              style="width: 64px;"
             >
           </template>
         </Column>
@@ -80,7 +80,7 @@
           field="price"
           header="Price"
           sortable
-          style="min-width: 8rem"
+          style="min-width: 8rem;"
         >
           <template #body="slotProps">
             {{ formatCurrency(slotProps.data.price) }}
@@ -90,13 +90,13 @@
           field="category"
           header="Category"
           sortable
-          style="min-width: 10rem"
+          style="min-width: 10rem;"
         />
         <Column
           field="rating"
           header="Reviews"
           sortable
-          style="min-width: 12rem"
+          style="min-width: 12rem;"
         >
           <template #body="slotProps">
             <Rating :model-value="slotProps.data.rating" :readonly="true" />
@@ -106,13 +106,13 @@
           field="inventoryStatus"
           header="Status"
           sortable
-          style="min-width: 12rem"
+          style="min-width: 12rem;"
         >
           <template #body="slotProps">
             <Tag :value="slotProps.data.inventoryStatus" :severity="getStatusLabel(slotProps.data.inventoryStatus)" />
           </template>
         </Column>
-        <Column :exportable="false" style="min-width: 12rem">
+        <Column :exportable="false" style="min-width: 12rem;">
           <template #body="slotProps">
             <Button
               icon="pi pi-pencil"

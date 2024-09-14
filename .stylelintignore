@@ -1,0 +1,4 @@
+apps/cms-admin-react
+**/node_modules
+**/dist
+**/coverage

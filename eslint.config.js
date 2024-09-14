@@ -13,6 +13,7 @@ export default defineConfig({
   ignores: [
     'apps/cms-page-builder/public/ionicons',
     'apps/cms-admin-react',
+    '**/*.{css,scss}',
   ],
 }, {
   name: 'cms/apps-api',

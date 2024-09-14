@@ -12,7 +12,7 @@
           <div class="mb-4">
             <div class="relative mx-auto">
               <img :src="`https://primefaces.org/cdn/primevue/images/product/${slotProps.data.image}`" :alt="slotProps.data.name" class="w-full rounded">
-              <div class="absolute rounded-border dark:bg-surface-900" style="left: 5px; top: 5px">
+              <div class="absolute rounded-border dark:bg-surface-900" style=" top: 5px;left: 5px;">
                 <Tag :value="slotProps.data.inventoryStatus" :severity="getSeverity(slotProps.data.inventoryStatus)" />
               </div>
             </div>
@@ -44,7 +44,7 @@
       container-style="max-width: 640px"
     >
       <template #item="slotProps">
-        <img :src="slotProps.item.itemImageSrc" :alt="slotProps.item.alt" style="width: 100%">
+        <img :src="slotProps.item.itemImageSrc" :alt="slotProps.item.alt" style="width: 100%;">
       </template>
       <template #thumbnail="slotProps">
         <img :src="slotProps.item.thumbnailImageSrc" :alt="slotProps.item.alt">

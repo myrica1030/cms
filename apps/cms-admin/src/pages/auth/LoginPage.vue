@@ -116,14 +116,14 @@ const onSubmit = handleSubmit(async loginForm => {
 
 <style scoped lang="scss">
 .slogan {
-  @apply: text-surface-900 dark:text-surface-0 text-3xl font-medium mb-4;
+  @apply text-surface-900 dark:text-surface-0 text-3xl font-medium mb-4;
 }
 
 .field {
-  @apply: block mb-4 md:w-[30rem];
+  @apply block mb-4 md:w-[30rem];
 
   .label {
-    @apply: block text-xl font-medium mb-2 text-surface-900 dark:text-surface-0;
+    @apply block text-xl font-medium mb-2 text-surface-900 dark:text-surface-0;
   }
 
   &.invalid .helper {
@@ -132,19 +132,20 @@ const onSubmit = handleSubmit(async loginForm => {
 }
 
 .page {
-  @apply: bg-surface-50 dark:bg-surface-950 flex items-center justify-center min-h-screen min-w-[100vw] overflow-hidden;
+  @apply bg-surface-50 dark:bg-surface-950 flex items-center justify-center min-h-screen min-w-[100vw] overflow-hidden;
 }
 
 .main {
-  @apply: flex flex-col items-center justify-center;
+  @apply flex flex-col items-center justify-center;
 }
 
 .rounded-transition-border {
-  @apply: rounded-56px p-1.2;
-  background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%);
+  @apply rounded-56px p-1.2;
+
+  background: linear-gradient(180deg, var(--primary-color) 10%, rgb(33 150 243 / 0%) 30%);
 }
 
 .content {
-  @apply: w-full bg-surface-0 dark:bg-surface-900 py-20 px-8 sm:px-20 rounded-53px;
+  @apply w-full bg-surface-0 dark:bg-surface-900 py-20 px-8 sm:px-20 rounded-53px;
 }
 </style>

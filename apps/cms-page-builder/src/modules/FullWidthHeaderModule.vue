@@ -52,8 +52,8 @@ function updateContent(prop: keyof Pick<UI.FullWidthHeaderModule, 'title' | 'sub
 
 <style scoped lang="scss">
 .full-width-header {
-  color: #fff;
   padding: 64px;
+  color: #fff;
 
   h2 {
     margin-bottom: 16px;

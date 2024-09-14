@@ -39,13 +39,10 @@ function updateContent(index: number, prop: keyof UI.Slide, html: string) {
 <style scoped lang="scss">
 .mask {
   position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
   z-index: 0;
-  background-color: #000;
+  inset: 0;
   opacity: 0.3;
+  background-color: #000;
 }
 
 .content {
@@ -62,11 +59,11 @@ function updateContent(index: number, prop: keyof UI.Slide, html: string) {
   text-align: center;
 
   h2 {
-    text-shadow: 0 1px 3px rgba(0, 0, 0, .3);
+    text-shadow: 0 1px 3px rgb(0 0 0 / 30%);
   }
 
   p {
-    text-shadow: 0 1px 3px rgba(0, 0, 0, .3);
+    text-shadow: 0 1px 3px rgb(0 0 0 / 30%);
   }
 
   .button {

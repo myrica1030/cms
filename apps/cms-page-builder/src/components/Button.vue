@@ -37,47 +37,47 @@ defineProps<{
   position: relative;
   display: inline-block;
   margin: 0 0.5em 0 0;
-  padding: .3em 1em;
-  color: inherit;
-  font-weight: 500;
-  font-size: 20px;
-  line-height: 1.7em;
-  white-space: nowrap;
-  text-decoration: none;
-  text-shadow: none;
+  padding: 0.3em 1em;
   background-color: transparent;
-  outline: none;
-  cursor: pointer;
-  transition: all .2s;
   border: 2px solid;
   border-radius: 3px;
+  outline: none;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.7em;
+  color: inherit;
+  text-decoration: none;
+  text-shadow: none;
+  white-space: nowrap;
+  transition: all 0.2s;
+  cursor: pointer;
 
   ion-icon {
     position: absolute;
     top: 0;
-    bottom: 0;
-    opacity: 0;
-    transition: all .2s;
-    height: unset;
-    font-size: 120%;
     right: 0;
+    bottom: 0;
     width: 0;
+    height: unset;
+    opacity: 0;
+    font-size: 120%;
+    transition: all 0.2s;
   }
 
   &:hover,
   &:focus {
-    padding: .3em 1.8em .3em .7em;
-    background-color: hsla(0, 0%, 100%, .2);
+    padding: 0.3em 1.8em 0.3em 0.7em;
+    background-color: hsl(0deg 0% 100% / 20%);
     border-color: transparent;
 
     ion-icon {
-      opacity: 1;
       right: 0.3em;
       width: 1em;
+      opacity: 1;
     }
   }
 
-  span[contenteditable=true] {
+  span[contenteditable="true"] {
     display: inline-block;
     min-width: 1em;
     min-height: 1em;

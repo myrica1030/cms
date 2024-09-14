@@ -1,10 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
-@import '@/assets/layout/layout.scss';
-@import 'primeicons/primeicons.css';
-@import '@/assets/demo/demo.scss';
+@import "@/assets/layout/layout";
+@import "primeicons/primeicons.css";
+@import "@/assets/demo/demo";
 
 @import "./myrica/toast";
 
 .p-placeholder {
-  &::after {content: '\00a0'}
+  &::after { content: "\00a0"; }
 }

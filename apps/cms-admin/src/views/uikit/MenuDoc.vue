@@ -64,7 +64,7 @@
           type="button"
           label="Options"
           icon="pi pi-angle-down"
-          style="width: auto"
+          style="width: auto;"
           @click="toggleMenu"
         />
       </div>

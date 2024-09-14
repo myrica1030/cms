@@ -183,7 +183,7 @@
 
     <div class="card">
       <div class="mb-4 text-xl font-semibold">Splitter</div>
-      <Splitter style="height: 300px" class="mb-8">
+      <Splitter style="height: 300px;" class="mb-8">
         <SplitterPanel :size="30" :min-size="10">
           <div className="h-full flex items-center justify-center">Panel 1</div>
         </SplitterPanel>

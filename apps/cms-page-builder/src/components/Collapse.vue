@@ -57,6 +57,6 @@ const animations = {
 <style scoped lang="scss">
 .collapse {
   overflow: hidden;
-  transition: height .2s ease-in-out;
+  transition: height 0.2s ease-in-out;
 }
 </style>

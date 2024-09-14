@@ -26,13 +26,13 @@
         <div class="my-4 font-semibold">Overlay</div>
         <div class="flex gap-6">
           <OverlayBadge value="2">
-            <i class="pi pi-bell" style="font-size: 2rem" />
+            <i class="pi pi-bell" style="font-size: 2rem;" />
           </OverlayBadge>
           <OverlayBadge value="4" severity="danger">
-            <i class="pi pi-calendar" style="font-size: 2rem" />
+            <i class="pi pi-calendar" style="font-size: 2rem;" />
           </OverlayBadge>
           <OverlayBadge severity="danger">
-            <i class="pi pi-envelope" style="font-size: 2rem" />
+            <i class="pi pi-envelope" style="font-size: 2rem;" />
           </OverlayBadge>
         </div>
 

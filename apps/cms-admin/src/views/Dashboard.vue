@@ -7,7 +7,7 @@
             <span class="mb-4 block font-medium text-muted-color">Orders</span>
             <div class="text-xl text-surface-900 font-medium dark:text-surface-0">152</div>
           </div>
-          <div class="flex items-center justify-center bg-blue-100 rounded-border dark:bg-blue-400/10" style="width: 2.5rem; height: 2.5rem">
+          <div class="flex items-center justify-center bg-blue-100 rounded-border dark:bg-blue-400/10" style="width: 2.5rem; height: 2.5rem;">
             <i class="pi pi-shopping-cart text-blue-500 !text-xl" />
           </div>
         </div>
@@ -22,7 +22,7 @@
             <span class="mb-4 block font-medium text-muted-color">Revenue</span>
             <div class="text-xl text-surface-900 font-medium dark:text-surface-0">$2.100</div>
           </div>
-          <div class="flex items-center justify-center bg-orange-100 rounded-border dark:bg-orange-400/10" style="width: 2.5rem; height: 2.5rem">
+          <div class="flex items-center justify-center bg-orange-100 rounded-border dark:bg-orange-400/10" style="width: 2.5rem; height: 2.5rem;">
             <i class="pi pi-dollar text-orange-500 !text-xl" />
           </div>
         </div>
@@ -37,7 +37,7 @@
             <span class="mb-4 block font-medium text-muted-color">Customers</span>
             <div class="text-xl text-surface-900 font-medium dark:text-surface-0">28441</div>
           </div>
-          <div class="flex items-center justify-center bg-cyan-100 rounded-border dark:bg-cyan-400/10" style="width: 2.5rem; height: 2.5rem">
+          <div class="flex items-center justify-center bg-cyan-100 rounded-border dark:bg-cyan-400/10" style="width: 2.5rem; height: 2.5rem;">
             <i class="pi pi-users text-cyan-500 !text-xl" />
           </div>
         </div>
@@ -52,7 +52,7 @@
             <span class="mb-4 block font-medium text-muted-color">Comments</span>
             <div class="text-xl text-surface-900 font-medium dark:text-surface-0">152 Unread</div>
           </div>
-          <div class="flex items-center justify-center bg-purple-100 rounded-border dark:bg-purple-400/10" style="width: 2.5rem; height: 2.5rem">
+          <div class="flex items-center justify-center bg-purple-100 rounded-border dark:bg-purple-400/10" style="width: 2.5rem; height: 2.5rem;">
             <i class="pi pi-comment text-purple-500 !text-xl" />
           </div>
         </div>
@@ -70,7 +70,7 @@
           :paginator="true"
           responsive-layout="scroll"
         >
-          <Column style="width: 15%" header="Image">
+          <Column style="width: 15%;" header="Image">
             <template #body="slotProps">
               <img
                 :src="`https://primefaces.org/cdn/primevue/images/product/${slotProps.data.image}`"
@@ -84,19 +84,19 @@
             field="name"
             header="Name"
             :sortable="true"
-            style="width: 35%"
+            style="width: 35%;"
           />
           <Column
             field="price"
             header="Price"
             :sortable="true"
-            style="width: 35%"
+            style="width: 35%;"
           >
             <template #body="slotProps">
               {{ formatCurrency(slotProps.data.price) }}
             </template>
           </Column>
-          <Column style="width: 15%" header="View">
+          <Column style="width: 15%;" header="View">
             <template #body>
               <Button icon="pi pi-search" type="button" class="p-button-text" />
             </template>
@@ -123,8 +123,8 @@
               <div class="mt-1 text-muted-color">Clothing</div>
             </div>
             <div class="mt-2 flex items-center md:mt-0">
-              <div class="w-40 overflow-hidden bg-surface-300 rounded-border lg:w-24 dark:bg-surface-500" style="height: 8px">
-                <div class="h-full bg-orange-500" style="width: 50%" />
+              <div class="w-40 overflow-hidden bg-surface-300 rounded-border lg:w-24 dark:bg-surface-500" style="height: 8px;">
+                <div class="h-full bg-orange-500" style="width: 50%;" />
               </div>
               <span class="ml-4 text-orange-500 font-medium">%50</span>
             </div>
@@ -135,8 +135,8 @@
               <div class="mt-1 text-muted-color">Accessories</div>
             </div>
             <div class="ml-0 mt-2 flex items-center md:ml-20 md:mt-0">
-              <div class="w-40 overflow-hidden bg-surface-300 rounded-border lg:w-24 dark:bg-surface-500" style="height: 8px">
-                <div class="h-full bg-cyan-500" style="width: 16%" />
+              <div class="w-40 overflow-hidden bg-surface-300 rounded-border lg:w-24 dark:bg-surface-500" style="height: 8px;">
+                <div class="h-full bg-cyan-500" style="width: 16%;" />
               </div>
               <span class="ml-4 text-cyan-500 font-medium">%16</span>
             </div>
@@ -147,8 +147,8 @@
               <div class="mt-1 text-muted-color">Accessories</div>
             </div>
             <div class="ml-0 mt-2 flex items-center md:ml-20 md:mt-0">
-              <div class="w-40 overflow-hidden bg-surface-300 rounded-border lg:w-24 dark:bg-surface-500" style="height: 8px">
-                <div class="h-full bg-pink-500" style="width: 67%" />
+              <div class="w-40 overflow-hidden bg-surface-300 rounded-border lg:w-24 dark:bg-surface-500" style="height: 8px;">
+                <div class="h-full bg-pink-500" style="width: 67%;" />
               </div>
               <span class="ml-4 text-pink-500 font-medium">%67</span>
             </div>
@@ -159,8 +159,8 @@
               <div class="mt-1 text-muted-color">Office</div>
             </div>
             <div class="ml-0 mt-2 flex items-center md:ml-20 md:mt-0">
-              <div class="w-40 overflow-hidden bg-surface-300 rounded-border lg:w-24 dark:bg-surface-500" style="height: 8px">
-                <div class="h-full bg-green-500" style="width: 35%" />
+              <div class="w-40 overflow-hidden bg-surface-300 rounded-border lg:w-24 dark:bg-surface-500" style="height: 8px;">
+                <div class="h-full bg-green-500" style="width: 35%;" />
               </div>
               <span class="ml-4 text-primary font-medium">%35</span>
             </div>
@@ -171,8 +171,8 @@
               <div class="mt-1 text-muted-color">Accessories</div>
             </div>
             <div class="ml-0 mt-2 flex items-center md:ml-20 md:mt-0">
-              <div class="w-40 overflow-hidden bg-surface-300 rounded-border lg:w-24 dark:bg-surface-500" style="height: 8px">
-                <div class="h-full bg-purple-500" style="width: 75%" />
+              <div class="w-40 overflow-hidden bg-surface-300 rounded-border lg:w-24 dark:bg-surface-500" style="height: 8px;">
+                <div class="h-full bg-purple-500" style="width: 75%;" />
               </div>
               <span class="ml-4 text-purple-500 font-medium">%75</span>
             </div>
@@ -183,8 +183,8 @@
               <div class="mt-1 text-muted-color">Clothing</div>
             </div>
             <div class="ml-0 mt-2 flex items-center md:ml-20 md:mt-0">
-              <div class="w-40 overflow-hidden bg-surface-300 rounded-border lg:w-24 dark:bg-surface-500" style="height: 8px">
-                <div class="h-full bg-teal-500" style="width: 40%" />
+              <div class="w-40 overflow-hidden bg-surface-300 rounded-border lg:w-24 dark:bg-surface-500" style="height: 8px;">
+                <div class="h-full bg-teal-500" style="width: 40%;" />
               </div>
               <span class="ml-4 text-teal-500 font-medium">%40</span>
             </div>
