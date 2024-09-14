@@ -2,10 +2,10 @@
   <FloatingConfigurator />
   <div class="min-h-screen min-w-[100vw] flex items-center justify-center overflow-hidden bg-surface-50 dark:bg-surface-950">
     <div class="flex flex-col items-center justify-center">
-      <div style="border-radius: 56px; padding: 0.3rem; background: linear-gradient(180deg, rgba(247, 149, 48, 0.4) 10%, rgba(247, 149, 48, 0) 30%)">
-        <div class="w-full flex flex-col items-center bg-surface-0 px-8 py-20 dark:bg-surface-900 sm:px-20" style="border-radius: 53px">
+      <div style=" padding: 0.3rem; background: linear-gradient(180deg, rgb(247 149 48 / 40%) 10%, rgb(247 149 48 / 0%) 30%);border-radius: 56px;">
+        <div class="w-full flex flex-col items-center bg-surface-0 px-8 py-20 dark:bg-surface-900 sm:px-20" style="border-radius: 53px;">
           <div class="flex flex-col items-center gap-4">
-            <div class="flex items-center justify-center border-2 border-orange-500 rounded-full" style="width: 3.2rem; height: 3.2rem">
+            <div class="flex items-center justify-center border-2 border-orange-500 rounded-full" style="width: 3.2rem; height: 3.2rem;">
               <i class="pi pi-fw pi-lock text-orange-500 !text-2xl" />
             </div>
             <h1 class="mb-2 text-4xl text-surface-900 font-bold lg:text-5xl dark:text-surface-0">Access Denied</h1>

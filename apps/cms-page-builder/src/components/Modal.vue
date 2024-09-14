@@ -175,9 +175,9 @@ $border-radius: 4px;
 
 .modal {
   position: fixed;
+  z-index: 1000;
   top: calc(50% - 250px);
   left: calc(50% - 200px);
-  z-index: 1000;
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -189,8 +189,8 @@ $border-radius: 4px;
   min-height: 300px;
   max-height: 100vh;
   background-color: #fff;
-  box-shadow: 0 5px 30px rgba(#000, 0.4);
   border-radius: $border-radius;
+  box-shadow: 0 5px 30px rgba(#000, 0.4);
 
   &:hover .resize-handle {
     transform: scale(1, 1);
@@ -200,49 +200,50 @@ $border-radius: 4px;
 header {
   flex: none;
   padding: 24px;
-  color: #fff;
   background-color: #6c2eb9;
-  cursor: move;
-  user-select: none;
   border-top-left-radius: $border-radius;
   border-top-right-radius: $border-radius;
+  color: #fff;
+  cursor: move;
+  user-select: none;
 
   h2 {
     margin-bottom: 0;
-    font-weight: 600;
     font-size: 18px;
+    font-weight: 600;
   }
 }
 
 .tabs {
+  overflow: hidden scroll;
   flex: auto;
   min-height: 0;
-  overflow: hidden scroll;
 }
 
-[role=tablist] {
+[role="tablist"] {
   display: flex;
   flex: none;
   background-color: #7e3bd0;
 
   button {
     padding: 12px 24px;
-    color: #fff;
-    font-size: 14px;
     background-color: transparent;
     border: none;
+    font-size: 14px;
+    color: #fff;
 
-    &:hover, &:focus {
+    &:hover,
+    &:focus {
       background-color: #7435c1;
     }
 
-    &[aria-selected='true'] {
+    &[aria-selected="true"] {
       background-color: #8e42eb;
     }
   }
 }
 
-[role='tabpanel'] {
+[role="tabpanel"] {
   height: 100%;
   min-height: 300px;
   outline: none;
@@ -254,25 +255,26 @@ header {
   height: 48px;
 
   button {
+    --ionicon-stroke-width: 64px;
+
     flex: auto;
     height: 100%;
-    color: #fff;
-    font-size: 24px;
     border: none;
-    --ionicon-stroke-width: 64px;
+    font-size: 24px;
+    color: #fff;
 
     &.close {
       background-color: $red;
     }
 
     &.undo {
-      font-size: 22px;
       background-color: $purple;
+      font-size: 22px;
     }
 
     &.redo {
-      font-size: 22px;
       background-color: $blue;
+      font-size: 22px;
     }
 
     &.save {
@@ -285,24 +287,25 @@ header {
   position: absolute;
   right: -15px;
   bottom: -15px;
+  transform: scale(0, 0);
   display: flex;
   align-items: center;
   justify-content: center;
   width: 30px;
   height: 30px;
-  color: #fff;
-  font-size: 20px;
   background: #4c5866;
-  outline: none;
-  transform: scale(0, 0);
-  cursor: nwse-resize;
-  transition: transform .1s ease;
   border: none;
   border-radius: 20px;
+  outline: none;
+  font-size: 20px;
+  color: #fff;
+  transition: transform 0.1s ease;
+  cursor: nwse-resize;
 
   ion-icon {
-    transform: rotateZ(90deg);
     --ionicon-stroke-width: 64px;
+
+    transform: rotateZ(90deg);
   }
 }
 </style>

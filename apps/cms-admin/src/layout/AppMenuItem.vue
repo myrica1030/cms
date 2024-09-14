@@ -11,7 +11,7 @@
     >
       <i :class="item.icon" class="layout-menuitem-icon" />
       <span class="layout-menuitem-text">{{ item.label }}</span>
-      <i v-if="item.items" class="pi layout-submenu-toggler pi-fw pi-angle-down" />
+      <i v-if="item.items" class="layout-submenu-toggler pi pi-fw pi-angle-down" />
     </a>
     <router-link
       v-if="item.to && !item.items && item.visible !== false"

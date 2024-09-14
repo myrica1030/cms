@@ -18,14 +18,14 @@
             <Button label="Save" @click="close" />
           </template>
         </Dialog>
-        <Button label="Show" style="width: auto" @click="open" />
+        <Button label="Show" style="width: auto;" @click="open" />
       </div>
 
       <div class="card">
         <div class="mb-4 text-xl font-semibold">Popover</div>
         <div class="flex flex-wrap gap-2">
           <Button type="button" label="Show" @click="toggleDataTable" />
-          <Popover id="overlay_panel" ref="op2" style="width: 450px">
+          <Popover id="overlay_panel" ref="op2" style="width: 450px;">
             <DataTable
               v-model:selection="selectedProduct"
               :value="products"
@@ -38,7 +38,7 @@
                 field="name"
                 header="Name"
                 sortable
-                style="min-width: 12rem"
+                style="min-width: 12rem;"
               />
               <Column header="Image">
                 <template #body="slotProps">
@@ -49,7 +49,7 @@
                 field="price"
                 header="Price"
                 sortable
-                style="min-width: 8rem"
+                style="min-width: 8rem;"
               >
                 <template #body="slotProps"> $ {{ slotProps.data.price }} </template>
               </Column>
@@ -104,10 +104,10 @@
           </p>
         </Drawer>
 
-        <Button icon="pi pi-arrow-right" style="margin-right: 0.25em" @click="visibleLeft = true" />
-        <Button icon="pi pi-arrow-left" style="margin-right: 0.25em" @click="visibleRight = true" />
-        <Button icon="pi pi-arrow-down" style="margin-right: 0.25em" @click="visibleTop = true" />
-        <Button icon="pi pi-arrow-up" style="margin-right: 0.25em" @click="visibleBottom = true" />
+        <Button icon="pi pi-arrow-right" style="margin-right: 0.25em;" @click="visibleLeft = true" />
+        <Button icon="pi pi-arrow-left" style="margin-right: 0.25em;" @click="visibleRight = true" />
+        <Button icon="pi pi-arrow-down" style="margin-right: 0.25em;" @click="visibleTop = true" />
+        <Button icon="pi pi-arrow-up" style="margin-right: 0.25em;" @click="visibleBottom = true" />
         <Button icon="pi pi-external-link" @click="visibleFull = true" />
       </div>
 
@@ -129,7 +129,7 @@
           label="Delete"
           icon="pi pi-trash"
           severity="danger"
-          style="width: auto"
+          style="width: auto;"
           @click="openConfirmation"
         />
         <Dialog
@@ -139,7 +139,7 @@
           :modal="true"
         >
           <div class="flex items-center justify-center">
-            <i class="pi pi-exclamation-triangle mr-4" style="font-size: 2rem" />
+            <i class="pi pi-exclamation-triangle mr-4" style="font-size: 2rem;" />
             <span>Are you sure you want to proceed?</span>
           </div>
           <template #footer>

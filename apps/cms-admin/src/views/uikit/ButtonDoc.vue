@@ -75,10 +75,10 @@
         <div class="text-xl font-semibold">Templating</div>
         <div class="flex flex-wrap gap-2">
           <Button type="button">
-            <img alt="logo" src="/demo/images/logo-white.svg" style="width: 1.5rem">
+            <img alt="logo" src="/demo/images/logo-white.svg" style="width: 1.5rem;">
           </Button>
           <Button type="button" outlined severity="success">
-            <img alt="logo" src="/demo/images/logo.svg" style="width: 1.5rem">
+            <img alt="logo" src="/demo/images/logo.svg" style="width: 1.5rem;">
             <span class="text-bold ml-2">PrimeVue</span>
           </Button>
         </div>

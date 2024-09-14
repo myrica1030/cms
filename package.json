@@ -17,6 +17,8 @@
     "build": "pnpm -r build",
     "build:prisma": "pnpm cms-api exec prisma generate",
     "type-check": "pnpm -r type-check",
+    "lint": "concurrently 'eslint --fix .' 'pnpm lint:style'",
+    "lint:style": "stylelint --fix apps/**/*.{css,scss,html,vue}",
     "test": "vitest run"
   },
   "dependencies": {
@@ -25,6 +27,7 @@
   "devDependencies": {
     "@codecov/vite-plugin": "^1.0.1",
     "@mutoe/eslint-config": "3.5.0-1",
+    "@mutoe/stylelint-config": "2.1.0",
     "@types/node": "^20.16.5",
     "@unocss/eslint-plugin": "^0.62.3",
     "@vitest/coverage-v8": "^2.0.5",
@@ -33,6 +36,7 @@
     "eslint": "^9.10.0",
     "lint-staged": "^15.2.10",
     "simple-git-hooks": "^2.11.1",
+    "stylelint": "^16.9.0",
     "tsx": "^4.19.1",
     "type-fest": "^4.26.1",
     "typescript": "~5.6.2",
@@ -46,6 +50,7 @@
     "pre-push": "pnpm type-check && pnpm test"
   },
   "lint-staged": {
-    "*": "eslint --fix"
+    "**/*.{!css,!scss}": "eslint --fix",
+    "apps/**/*.{css,scss,html,vue}": "stylelint --fix"
   }
 }

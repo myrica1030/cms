@@ -33,7 +33,7 @@
       </template>
       <template #empty> No customers found. </template>
       <template #loading> Loading customers data. Please wait. </template>
-      <Column field="name" header="Name" style="min-width: 12rem">
+      <Column field="name" header="Name" style="min-width: 12rem;">
         <template #body="{ data }">
           {{ data.name }}
         </template>
@@ -41,14 +41,14 @@
           <InputText v-model="filterModel.value" type="text" placeholder="Search by name" />
         </template>
       </Column>
-      <Column header="Country" filter-field="country.name" style="min-width: 12rem">
+      <Column header="Country" filter-field="country.name" style="min-width: 12rem;">
         <template #body="{ data }">
           <div class="flex items-center gap-2">
             <img
               alt="flag"
               src="https://primefaces.org/cdn/primevue/images/flag/flag_placeholder.png"
               :class="`flag flag-${data.country.code}`"
-              style="width: 24px"
+              style="width: 24px;"
             >
             <span>{{ data.country.name }}</span>
           </div>
@@ -78,11 +78,11 @@
         filter-field="representative"
         :show-filter-match-modes="false"
         :filter-menu-style="{ width: '14rem' }"
-        style="min-width: 14rem"
+        style="min-width: 14rem;"
       >
         <template #body="{ data }">
           <div class="flex items-center gap-2">
-            <img :alt="data.representative.name" :src="`https://primefaces.org/cdn/primevue/images/avatar/${data.representative.image}`" style="width: 32px">
+            <img :alt="data.representative.name" :src="`https://primefaces.org/cdn/primevue/images/avatar/${data.representative.image}`" style="width: 32px;">
             <span>{{ data.representative.name }}</span>
           </div>
         </template>
@@ -95,7 +95,7 @@
           >
             <template #option="slotProps">
               <div class="flex items-center gap-2">
-                <img :alt="slotProps.option.name" :src="`https://primefaces.org/cdn/primevue/images/avatar/${slotProps.option.image}`" style="width: 32px">
+                <img :alt="slotProps.option.name" :src="`https://primefaces.org/cdn/primevue/images/avatar/${slotProps.option.image}`" style="width: 32px;">
                 <span>{{ slotProps.option.name }}</span>
               </div>
             </template>
@@ -106,7 +106,7 @@
         header="Date"
         filter-field="date"
         data-type="date"
-        style="min-width: 10rem"
+        style="min-width: 10rem;"
       >
         <template #body="{ data }">
           {{ formatDate(data.date) }}
@@ -119,7 +119,7 @@
         header="Balance"
         filter-field="balance"
         data-type="numeric"
-        style="min-width: 10rem"
+        style="min-width: 10rem;"
       >
         <template #body="{ data }">
           {{ formatCurrency(data.balance) }}
@@ -137,7 +137,7 @@
         header="Status"
         field="status"
         :filter-menu-style="{ width: '14rem' }"
-        style="min-width: 12rem"
+        style="min-width: 12rem;"
       >
         <template #body="{ data }">
           <Tag :value="data.status" :severity="getSeverity(data.status)" />
@@ -159,10 +159,10 @@
         field="activity"
         header="Activity"
         :show-filter-match-modes="false"
-        style="min-width: 12rem"
+        style="min-width: 12rem;"
       >
         <template #body="{ data }">
-          <ProgressBar :value="data.activity" :show-value="false" style="height: 6px" />
+          <ProgressBar :value="data.activity" :show-value="false" style="height: 6px;" />
         </template>
         <template #filter="{ filterModel }">
           <Slider v-model="filterModel.value" range class="m-4" />
@@ -177,7 +177,7 @@
         header="Verified"
         data-type="boolean"
         body-class="text-center"
-        style="min-width: 8rem"
+        style="min-width: 8rem;"
       >
         <template #body="{ data }">
           <i class="pi" :class="{ 'pi-check-circle text-green-500 ': data.verified, 'pi-times-circle text-red-500': !data.verified }" />
@@ -214,22 +214,22 @@
       <Column
         field="name"
         header="Name"
-        style="min-width: 200px"
+        style="min-width: 200px;"
         frozen
         class="font-bold"
       />
-      <Column field="id" header="Id" style="min-width: 100px" />
-      <Column field="name" header="Name" style="min-width: 200px" />
-      <Column field="country.name" header="Country" style="min-width: 200px" />
-      <Column field="date" header="Date" style="min-width: 200px" />
-      <Column field="company" header="Company" style="min-width: 200px" />
-      <Column field="status" header="Status" style="min-width: 200px" />
-      <Column field="activity" header="Activity" style="min-width: 200px" />
-      <Column field="representative.name" header="Representative" style="min-width: 200px" />
+      <Column field="id" header="Id" style="min-width: 100px;" />
+      <Column field="name" header="Name" style="min-width: 200px;" />
+      <Column field="country.name" header="Country" style="min-width: 200px;" />
+      <Column field="date" header="Date" style="min-width: 200px;" />
+      <Column field="company" header="Company" style="min-width: 200px;" />
+      <Column field="status" header="Status" style="min-width: 200px;" />
+      <Column field="activity" header="Activity" style="min-width: 200px;" />
+      <Column field="representative.name" header="Representative" style="min-width: 200px;" />
       <Column
         field="balance"
         header="Balance"
-        style="min-width: 200px"
+        style="min-width: 200px;"
         align-frozen="right"
         :frozen="balanceFrozen"
       >
@@ -264,7 +264,7 @@
           />
         </div>
       </template>
-      <Column expander style="width: 5rem" />
+      <Column expander style="width: 5rem;" />
       <Column field="name" header="Name" />
       <Column header="Image">
         <template #body="slotProps">
@@ -339,33 +339,33 @@
             :alt="slotProps.data.representative.name"
             :src="`https://primefaces.org/cdn/primevue/images/avatar/${slotProps.data.representative.image}`"
             width="32"
-            style="vertical-align: middle"
+            style="vertical-align: middle;"
           >
           <span>{{ slotProps.data.representative.name }}</span>
         </div>
       </template>
       <Column field="representative.name" header="Representative" />
-      <Column field="name" header="Name" style="min-width: 200px" />
-      <Column field="country" header="Country" style="min-width: 200px">
+      <Column field="name" header="Name" style="min-width: 200px;" />
+      <Column field="country" header="Country" style="min-width: 200px;">
         <template #body="slotProps">
           <div class="flex items-center gap-2">
             <img
               alt="flag"
               src="https://primefaces.org/cdn/primevue/images/flag/flag_placeholder.png"
               :class="`flag flag-${slotProps.data.country.code}`"
-              style="width: 24px"
+              style="width: 24px;"
             >
             <span>{{ slotProps.data.country.name }}</span>
           </div>
         </template>
       </Column>
-      <Column field="company" header="Company" style="min-width: 200px" />
-      <Column field="status" header="Status" style="min-width: 200px">
+      <Column field="company" header="Company" style="min-width: 200px;" />
+      <Column field="status" header="Status" style="min-width: 200px;">
         <template #body="slotProps">
           <Tag :value="slotProps.data.status" :severity="getSeverity(slotProps.data.status)" />
         </template>
       </Column>
-      <Column field="date" header="Date" style="min-width: 200px" />
+      <Column field="date" header="Date" style="min-width: 200px;" />
       <template #groupfooter="slotProps">
         <div class="w-full flex justify-end font-bold">Total Customers: {{ calculateCustomerTotal(slotProps.data.representative.name) }}</div>
       </template>
@@ -533,10 +533,10 @@ function calculateCustomerTotal(name) {
 
 <style scoped lang="scss">
 :deep(.p-datatable-frozen-tbody) {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 :deep(.p-datatable-scrollable .p-frozen-column) {
-    font-weight: bold;
+  font-weight: bold;
 }
 </style>

@@ -64,7 +64,7 @@
           </div>
           <div class="w-1/2 flex flex-col gap-4">
             <div class="text-xl font-semibold">ColorPicker</div>
-            <ColorPicker v-model="colorValue" style="width: 2rem" />
+            <ColorPicker v-model="colorValue" style="width: 2rem;" />
           </div>
         </div>
 
@@ -173,7 +173,7 @@
         >
           <template #value="slotProps">
             <div v-for="option of slotProps.value" :key="option.code" class="mr-2 inline-flex items-center bg-primary px-2 py-1 text-primary-contrast rounded-border">
-              <span :class="`mr-2 flag flag-${option.code.toLowerCase()}`" style="width: 18px; height: 12px" />
+              <span :class="`mr-2 flag flag-${option.code.toLowerCase()}`" style="width: 18px; height: 12px;" />
               <div>{{ option.name }}</div>
             </div>
             <template v-if="!slotProps.value || slotProps.value.length === 0">
@@ -182,7 +182,7 @@
           </template>
           <template #option="slotProps">
             <div class="flex items-center">
-              <span :class="`mr-2 flag flag-${slotProps.option.code.toLowerCase()}`" style="width: 18px; height: 12px" />
+              <span :class="`mr-2 flag flag-${slotProps.option.code.toLowerCase()}`" style="width: 18px; height: 12px;" />
               <div>{{ slotProps.option.name }}</div>
             </div>
           </template>

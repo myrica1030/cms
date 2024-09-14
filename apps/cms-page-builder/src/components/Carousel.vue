@@ -109,7 +109,7 @@ onBeforeUnmount(() => {
   display: flex;
   flex-wrap: nowrap;
   align-items: stretch;
-  transition: transform .4s ease-in-out;
+  transition: transform 0.4s ease-in-out;
 }
 
 .slide {
@@ -117,8 +117,8 @@ onBeforeUnmount(() => {
   flex: none;
   width: 100%;
   padding: 48px 0;
-  color: #fff;
   background: transparent center / cover no-repeat;
+  color: #fff;
 }
 
 .indicator {
@@ -134,43 +134,44 @@ onBeforeUnmount(() => {
     display: block;
     margin: 0 2px;
     padding: 4px;
+    opacity: 0.2;
+    transition: opacity 0.2s;
     cursor: pointer;
-    opacity: .2;
-    transition: opacity .2s;
 
     &::after {
+      content: "";
       display: block;
       width: 8px;
       height: 8px;
       background-color: #fff;
-      content: '';
       border-radius: 100%;
     }
 
     &.active {
-      opacity: .8;
+      opacity: 0.8;
     }
   }
 }
 
-.left-control, .right-control {
+.left-control,
+.right-control {
   position: absolute;
+  z-index: 5;
   top: 0;
   bottom: 0;
-  z-index: 5;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 10%;
   min-width: 48px;
   max-width: 128px;
-  cursor: pointer;
   opacity: 0;
-  transition: all .4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+  cursor: pointer;
 
   ion-icon {
-    color: rgba(#fff, .6);
     font-size: 40px;
+    color: rgba(#fff, 0.6);
   }
 }
 

@@ -7,52 +7,57 @@
 body {
   box-sizing: border-box;
   margin: 0;
+  font-family: "Open Sans", Arial, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", sans-serif;
   font-weight: 400;
-  font-family: 'Open Sans', 'Arial', 'Helvetica Neue', 'Helvetica', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑', sans-serif;
-  line-height: 1.5;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin-top: 0;
   font-weight: 500;
 }
 
 h1 {
-  font-size: 36px;
   margin-bottom: 28px;
+  font-size: 36px;
 }
 
 h2 {
-  font-size: 30px;
   margin-bottom: 24px;
+  font-size: 30px;
 }
 
 h3 {
-  font-size: 24px;
   margin-bottom: 20px;
+  font-size: 24px;
 }
 
 h4 {
-  font-size: 20px;
   margin-bottom: 18px;
+  font-size: 20px;
 }
 
 h5 {
-  font-size: 18px;
   margin-bottom: 16px;
+  font-size: 18px;
 }
 
 h6 {
-  font-size: 16px;
   margin-bottom: 12px;
+  font-size: 16px;
 }
 
 p {
-  font-size: 100%;
   margin-top: 0;
   margin-bottom: 12px;
+  font-size: 100%;
 }
 
 button {
@@ -63,8 +68,8 @@ ion-icon {
   vertical-align: -4px;
 }
 
-[contenteditable=true] {
-  outline-width: 1px;
+[contenteditable="true"] {
   outline-color: #fff;
+  outline-width: 1px;
   cursor: text;
 }

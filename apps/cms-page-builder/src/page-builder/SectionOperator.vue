@@ -133,34 +133,31 @@ function onDragEnd() {
   align-items: flex-start;
   justify-content: center;
   opacity: 0;
-  transition: all .2s ease-out;
+  transition: all 0.2s ease-out;
   pointer-events: none;
 
   .border {
     position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    pointer-events: none;
+    inset: 0;
     border: 4px solid $blue;
+    pointer-events: none;
   }
 
   .section-menu {
     display: flex;
     padding: 12px;
     background-color: $blue;
-    pointer-events: auto;
     border-radius: 3px;
+    pointer-events: auto;
 
     button {
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #fff;
-      font-size: 24px;
       background: transparent;
       border: none;
+      font-size: 24px;
+      color: #fff;
 
       &.move {
         cursor: move;
@@ -177,13 +174,13 @@ function onDragEnd() {
     margin-bottom: -19px;
     margin-left: -20px;
     padding: 0;
-    color: #fff;
-    font-size: 30px;
     background-color: $blue;
-    transition: all .2s;
-    pointer-events: auto;
     border: none;
     border-radius: 40px;
+    font-size: 30px;
+    color: #fff;
+    transition: all 0.2s;
+    pointer-events: auto;
 
     &:hover,
     &:focus {
@@ -195,10 +192,10 @@ function onDragEnd() {
 .drag-over-placeholder {
   position: absolute;
   right: 0;
-  left: 0;
   bottom: 100%;
-  background-color: rgba(#fff, .2);
-  transition: all .2s ease;
+  left: 0;
+  background-color: rgba(#fff, 0.2);
+  transition: all 0.2s ease;
   pointer-events: none;
 }
 </style>

@@ -47,14 +47,14 @@ function onToggle(index: number) {
       justify-content: space-between;
       margin: 0;
       padding: 16px 24px;
-      color: #a3b0c2;
       font-size: 20px;
+      color: #a3b0c2;
+      transition: all 0.2s ease-in-out;
       cursor: pointer;
-      transition: all .2s ease-in-out;
 
       ion-icon {
         transition: transform ease-in-out;
-        transition-duration: .2s;
+        transition-duration: 0.2s;
       }
     }
 

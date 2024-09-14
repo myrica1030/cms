@@ -62,7 +62,7 @@
       <div
         id="hero"
         class="flex flex-col overflow-hidden px-6 pt-6 lg:px-20"
-        style="background: linear-gradient(0deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)), radial-gradient(77.36% 256.97% at 77.36% 57.52%, rgb(238, 239, 175) 0%, rgb(195, 227, 250) 100%); clip-path: ellipse(150% 87% at 93% 13%)"
+        style="background: linear-gradient(0deg, rgb(255 255 255 / 20%), rgb(255 255 255 / 20%)), radial-gradient(77.36% 256.97% at 77.36% 57.52%, rgb(238 239 175) 0%, rgb(195 227 250) 100%); clip-path: ellipse(150% 87% at 93% 13%);"
       >
         <div class="mx-6 mt-0 md:mx-20 md:mt-6">
           <h1 class="text-6xl text-gray-900 font-bold leading-tight"><span class="block font-light">Eu sem integer</span>eget magna fermentum</h1>
@@ -88,10 +88,10 @@
           </div>
           <div class="col-span-12 mt-6 p-0 lg:col-span-4 md:col-span-12 lg:mt-0 lg:pb-8 lg:pr-8">
             <div
-              style="height: 160px; padding: 2px; border-radius: 10px; background: linear-gradient(90deg, rgba(253, 228, 165, 0.2), rgba(187, 199, 205, 0.2)), linear-gradient(180deg, rgba(253, 228, 165, 0.2), rgba(187, 199, 205, 0.2))"
+              style="height: 160px; padding: 2px; background: linear-gradient(90deg, rgb(253 228 165 / 20%), rgb(187 199 205 / 20%)), linear-gradient(180deg, rgb(253 228 165 / 20%), rgb(187 199 205 / 20%)); border-radius: 10px;"
             >
-              <div class="h-full bg-surface-0 p-4 dark:bg-surface-900" style="border-radius: 8px">
-                <div class="mb-4 flex items-center justify-center bg-yellow-200" style="width: 3.5rem; height: 3.5rem; border-radius: 10px">
+              <div class="h-full bg-surface-0 p-4 dark:bg-surface-900" style="border-radius: 8px;">
+                <div class="mb-4 flex items-center justify-center bg-yellow-200" style="width: 3.5rem; height: 3.5rem; border-radius: 10px;">
                   <i class="pi pi-fw pi-users text-yellow-700 !text-2xl" />
                 </div>
                 <h5 class="mb-2 text-surface-900 dark:text-surface-0">Easy to Use</h5>
@@ -102,10 +102,10 @@
 
           <div class="col-span-12 mt-6 p-0 lg:col-span-4 md:col-span-12 lg:mt-0 lg:pb-8 lg:pr-8">
             <div
-              style="height: 160px; padding: 2px; border-radius: 10px; background: linear-gradient(90deg, rgba(145, 226, 237, 0.2), rgba(251, 199, 145, 0.2)), linear-gradient(180deg, rgba(253, 228, 165, 0.2), rgba(172, 180, 223, 0.2))"
+              style="height: 160px; padding: 2px; background: linear-gradient(90deg, rgb(145 226 237 / 20%), rgb(251 199 145 / 20%)), linear-gradient(180deg, rgb(253 228 165 / 20%), rgb(172 180 223 / 20%)); border-radius: 10px;"
             >
-              <div class="h-full bg-surface-0 p-4 dark:bg-surface-900" style="border-radius: 8px">
-                <div class="mb-4 flex items-center justify-center bg-cyan-200" style="width: 3.5rem; height: 3.5rem; border-radius: 10px">
+              <div class="h-full bg-surface-0 p-4 dark:bg-surface-900" style="border-radius: 8px;">
+                <div class="mb-4 flex items-center justify-center bg-cyan-200" style="width: 3.5rem; height: 3.5rem; border-radius: 10px;">
                   <i class="pi pi-fw pi-palette text-cyan-700 !text-2xl" />
                 </div>
                 <h5 class="mb-2 text-surface-900 dark:text-surface-0">Fresh Design</h5>
@@ -116,10 +116,10 @@
 
           <div class="col-span-12 mt-6 p-0 lg:col-span-4 md:col-span-12 lg:mt-0 lg:pb-8">
             <div
-              style="height: 160px; padding: 2px; border-radius: 10px; background: linear-gradient(90deg, rgba(145, 226, 237, 0.2), rgba(172, 180, 223, 0.2)), linear-gradient(180deg, rgba(172, 180, 223, 0.2), rgba(246, 158, 188, 0.2))"
+              style="height: 160px; padding: 2px; background: linear-gradient(90deg, rgb(145 226 237 / 20%), rgb(172 180 223 / 20%)), linear-gradient(180deg, rgb(172 180 223 / 20%), rgb(246 158 188 / 20%)); border-radius: 10px;"
             >
-              <div class="h-full bg-surface-0 p-4 dark:bg-surface-900" style="border-radius: 8px">
-                <div class="flex items-center justify-center bg-indigo-200" style="width: 3.5rem; height: 3.5rem; border-radius: 10px">
+              <div class="h-full bg-surface-0 p-4 dark:bg-surface-900" style="border-radius: 8px;">
+                <div class="flex items-center justify-center bg-indigo-200" style="width: 3.5rem; height: 3.5rem; border-radius: 10px;">
                   <i class="pi pi-fw pi-map text-indigo-700 !text-2xl" />
                 </div>
                 <div class="mb-1 mt-6 text-xl text-surface-900 font-semibold dark:text-surface-0">Well Documented</div>
@@ -130,10 +130,10 @@
 
           <div class="col-span-12 mt-6 p-0 lg:col-span-4 md:col-span-12 lg:mt-0 lg:pb-8 lg:pr-8">
             <div
-              style="height: 160px; padding: 2px; border-radius: 10px; background: linear-gradient(90deg, rgba(187, 199, 205, 0.2), rgba(251, 199, 145, 0.2)), linear-gradient(180deg, rgba(253, 228, 165, 0.2), rgba(145, 210, 204, 0.2))"
+              style="height: 160px; padding: 2px; background: linear-gradient(90deg, rgb(187 199 205 / 20%), rgb(251 199 145 / 20%)), linear-gradient(180deg, rgb(253 228 165 / 20%), rgb(145 210 204 / 20%)); border-radius: 10px;"
             >
-              <div class="h-full bg-surface-0 p-4 dark:bg-surface-900" style="border-radius: 8px">
-                <div class="mb-4 flex items-center justify-center bg-slate-200" style="width: 3.5rem; height: 3.5rem; border-radius: 10px">
+              <div class="h-full bg-surface-0 p-4 dark:bg-surface-900" style="border-radius: 8px;">
+                <div class="mb-4 flex items-center justify-center bg-slate-200" style="width: 3.5rem; height: 3.5rem; border-radius: 10px;">
                   <i class="pi pi-fw pi-id-card text-slate-700 !text-2xl" />
                 </div>
                 <div class="mb-1 mt-6 text-xl text-surface-900 font-semibold dark:text-surface-0">Responsive Layout</div>
@@ -144,10 +144,10 @@
 
           <div class="col-span-12 mt-6 p-0 lg:col-span-4 md:col-span-12 lg:mt-0 lg:pb-8 lg:pr-8">
             <div
-              style="height: 160px; padding: 2px; border-radius: 10px; background: linear-gradient(90deg, rgba(187, 199, 205, 0.2), rgba(246, 158, 188, 0.2)), linear-gradient(180deg, rgba(145, 226, 237, 0.2), rgba(160, 210, 250, 0.2))"
+              style="height: 160px; padding: 2px; background: linear-gradient(90deg, rgb(187 199 205 / 20%), rgb(246 158 188 / 20%)), linear-gradient(180deg, rgb(145 226 237 / 20%), rgb(160 210 250 / 20%)); border-radius: 10px;"
             >
-              <div class="h-full bg-surface-0 p-4 dark:bg-surface-900" style="border-radius: 8px">
-                <div class="mb-4 flex items-center justify-center bg-orange-200" style="width: 3.5rem; height: 3.5rem; border-radius: 10px">
+              <div class="h-full bg-surface-0 p-4 dark:bg-surface-900" style="border-radius: 8px;">
+                <div class="mb-4 flex items-center justify-center bg-orange-200" style="width: 3.5rem; height: 3.5rem; border-radius: 10px;">
                   <i class="pi pi-fw pi-star text-orange-700 !text-2xl" />
                 </div>
                 <div class="mb-1 mt-6 text-xl text-surface-900 font-semibold dark:text-surface-0">Clean Code</div>
@@ -158,10 +158,10 @@
 
           <div class="col-span-12 mt-6 p-0 lg:col-span-4 md:col-span-12 lg:mt-0 lg:pb-8">
             <div
-              style="height: 160px; padding: 2px; border-radius: 10px; background: linear-gradient(90deg, rgba(251, 199, 145, 0.2), rgba(246, 158, 188, 0.2)), linear-gradient(180deg, rgba(172, 180, 223, 0.2), rgba(212, 162, 221, 0.2))"
+              style="height: 160px; padding: 2px; background: linear-gradient(90deg, rgb(251 199 145 / 20%), rgb(246 158 188 / 20%)), linear-gradient(180deg, rgb(172 180 223 / 20%), rgb(212 162 221 / 20%)); border-radius: 10px;"
             >
-              <div class="h-full bg-surface-0 p-4 dark:bg-surface-900" style="border-radius: 8px">
-                <div class="mb-4 flex items-center justify-center bg-pink-200" style="width: 3.5rem; height: 3.5rem; border-radius: 10px">
+              <div class="h-full bg-surface-0 p-4 dark:bg-surface-900" style="border-radius: 8px;">
+                <div class="mb-4 flex items-center justify-center bg-pink-200" style="width: 3.5rem; height: 3.5rem; border-radius: 10px;">
                   <i class="pi pi-fw pi-moon text-pink-700 !text-2xl" />
                 </div>
                 <div class="mb-1 mt-6 text-xl text-surface-900 font-semibold dark:text-surface-0">Dark Mode</div>
@@ -172,10 +172,10 @@
 
           <div class="col-span-12 mt-6 p-0 lg:col-span-4 md:col-span-12 lg:mt-0 lg:pr-8">
             <div
-              style="height: 160px; padding: 2px; border-radius: 10px; background: linear-gradient(90deg, rgba(145, 210, 204, 0.2), rgba(160, 210, 250, 0.2)), linear-gradient(180deg, rgba(187, 199, 205, 0.2), rgba(145, 210, 204, 0.2))"
+              style="height: 160px; padding: 2px; background: linear-gradient(90deg, rgb(145 210 204 / 20%), rgb(160 210 250 / 20%)), linear-gradient(180deg, rgb(187 199 205 / 20%), rgb(145 210 204 / 20%)); border-radius: 10px;"
             >
-              <div class="h-full bg-surface-0 p-4 dark:bg-surface-900" style="border-radius: 8px">
-                <div class="mb-4 flex items-center justify-center bg-teal-200" style="width: 3.5rem; height: 3.5rem; border-radius: 10px">
+              <div class="h-full bg-surface-0 p-4 dark:bg-surface-900" style="border-radius: 8px;">
+                <div class="mb-4 flex items-center justify-center bg-teal-200" style="width: 3.5rem; height: 3.5rem; border-radius: 10px;">
                   <i class="pi pi-fw pi-shopping-cart text-teal-700 !text-2xl" />
                 </div>
                 <div class="mb-1 mt-6 text-xl text-surface-900 font-semibold dark:text-surface-0">Ready to Use</div>
@@ -186,10 +186,10 @@
 
           <div class="col-span-12 mt-6 p-0 lg:col-span-4 md:col-span-12 lg:mt-0 lg:pr-8">
             <div
-              style="height: 160px; padding: 2px; border-radius: 10px; background: linear-gradient(90deg, rgba(145, 210, 204, 0.2), rgba(212, 162, 221, 0.2)), linear-gradient(180deg, rgba(251, 199, 145, 0.2), rgba(160, 210, 250, 0.2))"
+              style="height: 160px; padding: 2px; background: linear-gradient(90deg, rgb(145 210 204 / 20%), rgb(212 162 221 / 20%)), linear-gradient(180deg, rgb(251 199 145 / 20%), rgb(160 210 250 / 20%)); border-radius: 10px;"
             >
-              <div class="h-full bg-surface-0 p-4 dark:bg-surface-900" style="border-radius: 8px">
-                <div class="mb-4 flex items-center justify-center bg-blue-200" style="width: 3.5rem; height: 3.5rem; border-radius: 10px">
+              <div class="h-full bg-surface-0 p-4 dark:bg-surface-900" style="border-radius: 8px;">
+                <div class="mb-4 flex items-center justify-center bg-blue-200" style="width: 3.5rem; height: 3.5rem; border-radius: 10px;">
                   <i class="pi pi-fw pi-globe text-blue-700 !text-2xl" />
                 </div>
                 <div class="mb-1 mt-6 text-xl text-surface-900 font-semibold dark:text-surface-0">Modern Practices</div>
@@ -200,10 +200,10 @@
 
           <div class="lg-4 col-span-12 mt-6 p-0 lg:col-span-4 md:col-span-12 lg:mt-0">
             <div
-              style="height: 160px; padding: 2px; border-radius: 10px; background: linear-gradient(90deg, rgba(160, 210, 250, 0.2), rgba(212, 162, 221, 0.2)), linear-gradient(180deg, rgba(246, 158, 188, 0.2), rgba(212, 162, 221, 0.2))"
+              style="height: 160px; padding: 2px; background: linear-gradient(90deg, rgb(160 210 250 / 20%), rgb(212 162 221 / 20%)), linear-gradient(180deg, rgb(246 158 188 / 20%), rgb(212 162 221 / 20%)); border-radius: 10px;"
             >
-              <div class="h-full bg-surface-0 p-4 dark:bg-surface-900" style="border-radius: 8px">
-                <div class="mb-4 flex items-center justify-center bg-purple-200" style="width: 3.5rem; height: 3.5rem; border-radius: 10px">
+              <div class="h-full bg-surface-0 p-4 dark:bg-surface-900" style="border-radius: 8px;">
+                <div class="mb-4 flex items-center justify-center bg-purple-200" style="width: 3.5rem; height: 3.5rem; border-radius: 10px;">
                   <i class="pi pi-fw pi-eye text-purple-700 !text-2xl" />
                 </div>
                 <div class="mb-1 mt-6 text-xl text-surface-900 font-semibold dark:text-surface-0">Privacy</div>
@@ -214,12 +214,12 @@
 
           <div
             class="col-span-12 mb-20 mt-20 p-2 md:p-20"
-            style="border-radius: 20px; background: linear-gradient(0deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), radial-gradient(77.36% 256.97% at 77.36% 57.52%, #efe1af 0%, #c3dcfa 100%)"
+            style=" background: linear-gradient(0deg, rgb(255 255 255 / 60%), rgb(255 255 255 / 60%)), radial-gradient(77.36% 256.97% at 77.36% 57.52%, #efe1af 0%, #c3dcfa 100%);border-radius: 20px;"
           >
             <div class="flex flex-col items-center justify-center px-4 py-4 text-center md:py-0">
               <div class="mb-2 text-3xl text-gray-900 font-semibold">Joséphine Miller</div>
               <span class="text-2xl text-gray-600">Peak Interactive</span>
-              <p class="mt-6 text-2xl text-gray-900 md:line-height-4 sm:line-height-2" style="max-width: 800px">
+              <p class="mt-6 text-2xl text-gray-900 md:line-height-4 sm:line-height-2" style="max-width: 800px;">
                 “Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.”
               </p>
               <img src="/demo/images/landing/peak-logo.svg" class="mt-6" alt="Company logo">
@@ -235,35 +235,35 @@
         </div>
 
         <div class="grid grid-cols-12 mt-20 gap-4 pb-2 md:pb-20">
-          <div class="order-1 col-span-12 flex justify-center bg-purple-100 p-0 lg:order-none lg:col-span-6" style="border-radius: 8px">
+          <div class="order-1 col-span-12 flex justify-center bg-purple-100 p-0 lg:order-none lg:col-span-6" style="border-radius: 8px;">
             <img src="/demo/images/landing/mockup.svg" class="w-11/12" alt="mockup mobile">
           </div>
 
           <div class="col-span-12 my-auto flex flex-col gap-4 text-center lg:col-span-6 lg:items-end lg:text-right">
-            <div class="flex items-center self-center justify-center bg-purple-200 lg:self-end" style="width: 4.2rem; height: 4.2rem; border-radius: 10px">
+            <div class="flex items-center self-center justify-center bg-purple-200 lg:self-end" style="width: 4.2rem; height: 4.2rem; border-radius: 10px;">
               <i class="pi pi-fw pi-mobile text-purple-700 !text-4xl" />
             </div>
             <div class="text-3xl text-surface-900 font-normal leading-none dark:text-surface-0">Congue Quisque Egestas</div>
             <span
               class="ml-0 text-2xl text-surface-700 leading-normal md:ml-2 dark:text-surface-100"
-              style="max-width: 650px"
+              style="max-width: 650px;"
             >Lectus arcu bibendum at varius vel pharetra vel turpis nunc. Eget aliquet nibh praesent tristique magna sit amet purus gravida. Sit amet mattis vulputate enim nulla aliquet.</span>
           </div>
         </div>
 
         <div class="grid grid-cols-12 my-20 gap-4 pt-2 md:pt-20">
           <div class="col-span-12 my-auto flex flex-col gap-4 text-center lg:col-span-6 lg:items-start lg:text-left">
-            <div class="flex items-center self-center justify-center bg-yellow-200 lg:self-start" style="width: 4.2rem; height: 4.2rem; border-radius: 10px">
+            <div class="flex items-center self-center justify-center bg-yellow-200 lg:self-start" style="width: 4.2rem; height: 4.2rem; border-radius: 10px;">
               <i class="pi pi-fw pi-desktop text-yellow-700 !text-3xl" />
             </div>
             <div class="text-3xl text-surface-900 font-normal leading-none dark:text-surface-0">Celerisque Eu Ultrices</div>
             <span
               class="mr-0 text-2xl text-surface-700 leading-normal md:mr-2 dark:text-surface-100"
-              style="max-width: 650px"
+              style="max-width: 650px;"
             >Adipiscing commodo elit at imperdiet dui. Viverra nibh cras pulvinar mattis nunc sed blandit libero. Suspendisse in est ante in. Mauris pharetra et ultrices neque ornare aenean euismod elementum nisi.</span>
           </div>
 
-          <div class="order-1 col-span-12 flex justify-end bg-yellow-100 p-0 sm:order-2 lg:col-span-6" style="border-radius: 8px">
+          <div class="order-1 col-span-12 flex justify-end bg-yellow-100 p-0 sm:order-2 lg:col-span-6" style="border-radius: 8px;">
             <img src="/demo/images/landing/mockup-desktop.svg" class="w-11/12" alt="mockup">
           </div>
         </div>
@@ -277,7 +277,7 @@
 
         <div class="grid grid-cols-12 mt-20 justify-between gap-4 md:mt-0">
           <div class="col-span-12 p-0 lg:col-span-4 md:p-4">
-            <div class="pricing-card flex flex-col cursor-pointer border-2 border-surface-200 p-4 transition-all duration-300 dark:border-surface-600 hover:border-primary" style="border-radius: 10px">
+            <div class="pricing-card flex flex-col cursor-pointer border-2 border-surface-200 p-4 transition-all duration-300 dark:border-surface-600 hover:border-primary" style="border-radius: 10px;">
               <div class="my-8 text-center text-3xl text-surface-900 dark:text-surface-0">Free</div>
               <img src="/demo/images/landing/free.svg" class="mx-auto w-10/12" alt="free">
               <div class="my-8 flex flex-col items-center gap-4">
@@ -310,7 +310,7 @@
           </div>
 
           <div class="col-span-12 mt-6 p-0 lg:col-span-4 md:mt-0 md:p-4">
-            <div class="pricing-card flex flex-col cursor-pointer border-2 border-surface-200 p-4 transition-all duration-300 dark:border-surface-600 hover:border-primary" style="border-radius: 10px">
+            <div class="pricing-card flex flex-col cursor-pointer border-2 border-surface-200 p-4 transition-all duration-300 dark:border-surface-600 hover:border-primary" style="border-radius: 10px;">
               <div class="my-8 text-center text-3xl text-surface-900 dark:text-surface-0">Startup</div>
               <img src="/demo/images/landing/startup.svg" class="mx-auto w-10/12" alt="startup">
               <div class="my-8 flex flex-col items-center gap-4">
@@ -343,7 +343,7 @@
           </div>
 
           <div class="col-span-12 mt-6 p-0 lg:col-span-4 md:mt-0 md:p-4">
-            <div class="pricing-card flex flex-col cursor-pointer border-2 border-surface-200 p-4 transition-all duration-300 dark:border-surface-600 hover:border-primary" style="border-radius: 10px">
+            <div class="pricing-card flex flex-col cursor-pointer border-2 border-surface-200 p-4 transition-all duration-300 dark:border-surface-600 hover:border-primary" style="border-radius: 10px;">
               <div class="my-8 text-center text-3xl text-surface-900 dark:text-surface-0">Enterprise</div>
               <img src="/demo/images/landing/enterprise.svg" class="mx-auto w-10/12" alt="enterprise">
               <div class="my-8 flex flex-col items-center gap-4">

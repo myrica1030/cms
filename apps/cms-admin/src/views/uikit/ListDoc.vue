@@ -23,7 +23,7 @@
                     :value="item.inventoryStatus"
                     :severity="getSeverity(item)"
                     class="absolute dark:!bg-surface-900"
-                    style="left: 4px; top: 4px"
+                    style=" top: 4px;left: 4px;"
                   />
                 </div>
                 <div class="flex flex-1 flex-col justify-between gap-6 md:flex-row md:items-center">
@@ -32,15 +32,15 @@
                       <span class="text-sm text-surface-500 font-medium dark:text-surface-400">{{ item.category }}</span>
                       <div class="mt-2 text-lg font-medium">{{ item.name }}</div>
                     </div>
-                    <div class="bg-surface-100 p-1" style="border-radius: 30px">
+                    <div class="bg-surface-100 p-1" style="border-radius: 30px;">
                       <div
                         class="flex items-center justify-center gap-2 bg-surface-0 px-2 py-1"
                         style="
-                                                    border-radius: 30px;
-                                                    box-shadow:
-                                                        0px 1px 2px 0px rgba(0, 0, 0, 0.04),
-                                                        0px 1px 2px 0px rgba(0, 0, 0, 0.06);
-                                                "
+border-radius: 30px;
+box-shadow:
+  0 1px 2px 0 rgb(0 0 0 / 4%),
+  0 1px 2px 0 rgb(0 0 0 / 6%);
+"
                       >
                         <span class="text-sm text-surface-900 font-medium">{{ item.rating }}</span>
                         <i class="pi pi-star-fill text-yellow-500" />
@@ -75,13 +75,13 @@
                       class="w-full rounded"
                       :src="`https://primefaces.org/cdn/primevue/images/product/${item.image}`"
                       :alt="item.name"
-                      style="max-width: 300px"
+                      style="max-width: 300px;"
                     >
                     <Tag
                       :value="item.inventoryStatus"
                       :severity="getSeverity(item)"
                       class="absolute dark:!bg-surface-900"
-                      style="left: 4px; top: 4px"
+                      style=" top: 4px;left: 4px;"
                     />
                   </div>
                 </div>
@@ -91,15 +91,15 @@
                       <span class="text-sm text-surface-500 font-medium dark:text-surface-400">{{ item.category }}</span>
                       <div class="mt-1 text-lg font-medium">{{ item.name }}</div>
                     </div>
-                    <div class="bg-surface-100 p-1" style="border-radius: 30px">
+                    <div class="bg-surface-100 p-1" style="border-radius: 30px;">
                       <div
                         class="flex items-center justify-center gap-2 bg-surface-0 px-2 py-1"
                         style="
-                                                    border-radius: 30px;
-                                                    box-shadow:
-                                                        0px 1px 2px 0px rgba(0, 0, 0, 0.04),
-                                                        0px 1px 2px 0px rgba(0, 0, 0, 0.06);
-                                                "
+border-radius: 30px;
+box-shadow:
+  0 1px 2px 0 rgb(0 0 0 / 4%),
+  0 1px 2px 0 rgb(0 0 0 / 6%);
+"
                       >
                         <span class="text-sm text-surface-900 font-medium">{{ item.rating }}</span>
                         <i class="pi pi-star-fill text-yellow-500" />

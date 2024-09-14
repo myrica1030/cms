@@ -95,7 +95,7 @@ const onDragOver = throttle((event: DragEvent) => {
 
 .flip-leave-active {
   position: absolute;
-  left: 0;
   right: 0;
+  left: 0;
 }
 </style>
