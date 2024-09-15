@@ -5,7 +5,7 @@
       <DataView :value="products" :layout="layout">
         <template #header>
           <div class="flex justify-end">
-            <SelectButton v-model="layout" :options="options" :allow-empty="false">
+            <SelectButton v-model="layout" :allow-empty="false" :options="options">
               <template #option="{ option }">
                 <i :class="[option === 'list' ? 'pi pi-bars' : 'pi pi-table']" />
               </template>
@@ -18,12 +18,16 @@
             <div v-for="(item, index) in slotProps.items" :key="index">
               <div class="flex flex-col gap-4 p-6 sm:flex-row sm:items-center" :class="{ 'border-t border-surface': index !== 0 }">
                 <div class="relative md:w-40">
-                  <img class="mx-auto block w-full rounded xl:block" :src="`https://primefaces.org/cdn/primevue/images/product/${item.image}`" :alt="item.name">
+                  <img
+                    class="mx-auto block w-full rounded xl:block"
+                    :alt="item.name"
+                    :src="`https://primefaces.org/cdn/primevue/images/product/${item.image}`"
+                  >
                   <Tag
-                    :value="item.inventoryStatus"
-                    :severity="getSeverity(item)"
                     class="absolute dark:!bg-surface-900"
                     style=" top: 4px;left: 4px;"
+                    :value="item.inventoryStatus"
+                    :severity="getSeverity(item)"
                   />
                 </div>
                 <div class="flex flex-1 flex-col justify-between gap-6 md:flex-row md:items-center">
@@ -35,12 +39,7 @@
                     <div class="bg-surface-100 p-1" style="border-radius: 30px;">
                       <div
                         class="flex items-center justify-center gap-2 bg-surface-0 px-2 py-1"
-                        style="
-border-radius: 30px;
-box-shadow:
-  0 1px 2px 0 rgb(0 0 0 / 4%),
-  0 1px 2px 0 rgb(0 0 0 / 6%);
-"
+                        style=" border-radius: 30px; box-shadow: 0 1px 2px 0 rgb(0 0 0 / 4%), 0 1px 2px 0 rgb(0 0 0 / 6%);"
                       >
                         <span class="text-sm text-surface-900 font-medium">{{ item.rating }}</span>
                         <i class="pi pi-star-fill text-yellow-500" />
@@ -52,10 +51,10 @@ box-shadow:
                     <div class="flex flex-row-reverse gap-2 md:flex-row">
                       <Button icon="pi pi-heart" outlined />
                       <Button
+                        class="flex-auto whitespace-nowrap md:flex-initial"
+                        :disabled="item.inventoryStatus === 'OUTOFSTOCK'"
                         icon="pi pi-shopping-cart"
                         label="Buy Now"
-                        :disabled="item.inventoryStatus === 'OUTOFSTOCK'"
-                        class="flex-auto whitespace-nowrap md:flex-initial"
                       />
                     </div>
                   </div>
@@ -73,15 +72,15 @@ box-shadow:
                   <div class="relative mx-auto">
                     <img
                       class="w-full rounded"
-                      :src="`https://primefaces.org/cdn/primevue/images/product/${item.image}`"
-                      :alt="item.name"
                       style="max-width: 300px;"
+                      :alt="item.name"
+                      :src="`https://primefaces.org/cdn/primevue/images/product/${item.image}`"
                     >
                     <Tag
-                      :value="item.inventoryStatus"
-                      :severity="getSeverity(item)"
                       class="absolute dark:!bg-surface-900"
                       style=" top: 4px;left: 4px;"
+                      :value="item.inventoryStatus"
+                      :severity="getSeverity(item)"
                     />
                   </div>
                 </div>
@@ -94,12 +93,7 @@ box-shadow:
                     <div class="bg-surface-100 p-1" style="border-radius: 30px;">
                       <div
                         class="flex items-center justify-center gap-2 bg-surface-0 px-2 py-1"
-                        style="
-border-radius: 30px;
-box-shadow:
-  0 1px 2px 0 rgb(0 0 0 / 4%),
-  0 1px 2px 0 rgb(0 0 0 / 6%);
-"
+                        style=" border-radius: 30px; box-shadow: 0 1px 2px 0 rgb(0 0 0 / 4%), 0 1px 2px 0 rgb(0 0 0 / 6%);"
                       >
                         <span class="text-sm text-surface-900 font-medium">{{ item.rating }}</span>
                         <i class="pi pi-star-fill text-yellow-500" />
@@ -110,10 +104,10 @@ box-shadow:
                     <span class="text-2xl font-semibold">${{ item.price }}</span>
                     <div class="flex gap-2">
                       <Button
+                        class="flex-auto whitespace-nowrap"
+                        :disabled="item.inventoryStatus === 'OUTOFSTOCK'"
                         icon="pi pi-shopping-cart"
                         label="Buy Now"
-                        :disabled="item.inventoryStatus === 'OUTOFSTOCK'"
-                        class="flex-auto whitespace-nowrap"
                       />
                       <Button icon="pi pi-heart" outlined />
                     </div>
@@ -144,8 +138,8 @@ box-shadow:
           <OrderList
             v-model="orderlistProducts"
             breakpoint="1400px"
-            data-key="id"
             pt:pcList:root="w-full"
+            data-key="id"
           >
             <template #option="{ option }">
               {{ option.name }}

@@ -2,10 +2,10 @@
   <div
     ref="modal"
     class="modal"
-    role="dialog"
-    aria-label="Modal"
-    :aria-modal="true"
     :style="toStyle(modalStyle)"
+    role="dialog"
+    :aria-modal="true"
+    aria-label="Modal"
   >
     <header @mousedown="onDraggingStart">
       <h2>Section Settings</h2>
@@ -14,8 +14,8 @@
     <div role="tablist" aria-label="Tabs">
       <button
         v-for="(tab, i) in tabs"
-        :id="`tab-${i}`"
         :key="tab.title"
+        :id="`tab-${i}`"
         role="tab"
         :aria-controls="`panel-${i}`"
         :aria-selected="i === currentTab"
@@ -29,8 +29,8 @@
     <div class="tabs">
       <div
         v-for="(tab, i) in tabs"
-        :id="`panel-${i}`"
         :key="tab.title"
+        :id="`panel-${i}`"
         role="tabpanel"
         :aria-labelledby="`tab-${i}`"
         :tabindex="0"
@@ -44,20 +44,20 @@
 
     <div class="button-group">
       <button
-        aria-label="Close modal"
         class="close"
+        aria-label="Close modal"
         title="Close"
         @click="emit('close')"
       >
         <ion-icon name="close-outline" />
       </button>
-      <button aria-label="Undo" class="undo" title="Undo">
+      <button class="undo" aria-label="Undo" title="Undo">
         <ion-icon name="arrow-undo" />
       </button>
-      <button aria-label="Redo" class="redo" title="Redo">
+      <button class="redo" aria-label="Redo" title="Redo">
         <ion-icon name="arrow-redo" />
       </button>
-      <button aria-label="Save" class="save" title="Save">
+      <button class="save" aria-label="Save" title="Save">
         <ion-icon name="checkmark-outline" />
       </button>
     </div>

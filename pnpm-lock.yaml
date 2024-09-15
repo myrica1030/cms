@@ -16,8 +16,8 @@ importers:
         specifier: ^1.0.1
         version: 1.0.1(vite@5.4.4(@types/node@20.16.5)(sass@1.78.0)(stylus@0.57.0)(terser@5.32.0))(webpack-sources@3.2.3)
       '@mutoe/eslint-config':
-        specifier: 3.5.0-1
-        version: 3.5.0-1(@typescript-eslint/utils@8.5.0(eslint@9.10.0(jiti@1.21.6))(typescript@5.6.2))(@unocss/eslint-plugin@0.62.3(eslint@9.10.0(jiti@1.21.6))(typescript@5.6.2))(@vue/compiler-sfc@3.5.4)(eslint-plugin-cypress@3.5.0(eslint@9.10.0(jiti@1.21.6)))(eslint@9.10.0(jiti@1.21.6))(typescript@5.6.2)(vitest@2.0.5(@types/node@20.16.5)(@vitest/ui@2.0.5)(happy-dom@15.7.4)(jsdom@25.0.0)(sass@1.78.0)(stylus@0.57.0)(terser@5.32.0))
+        specifier: 3.6.0-3
+        version: 3.6.0-3(@typescript-eslint/utils@8.5.0(eslint@9.10.0(jiti@1.21.6))(typescript@5.6.2))(@unocss/eslint-plugin@0.62.3(eslint@9.10.0(jiti@1.21.6))(typescript@5.6.2))(@vue/compiler-sfc@3.5.4)(eslint-plugin-cypress@3.5.0(eslint@9.10.0(jiti@1.21.6)))(eslint@9.10.0(jiti@1.21.6))(typescript@5.6.2)(vitest@2.0.5(@types/node@20.16.5)(@vitest/ui@2.0.5)(happy-dom@15.7.4)(jsdom@25.0.0)(sass@1.78.0)(stylus@0.57.0)(terser@5.32.0))
       '@mutoe/stylelint-config':
         specifier: 2.1.0
         version: 2.1.0(stylelint@16.9.0(typescript@5.6.2))
@@ -985,8 +985,8 @@ packages:
     resolution: {integrity: sha512-sTGoeZnjI8N4KS+sW2AN95gDBErhAguvkw/tWdCjeM8bvxpz5lqrnd0vOJABA1A+Ic3zED7PYoLP/RANLgVotA==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
-  '@mutoe/eslint-config@3.5.0-1':
-    resolution: {integrity: sha512-nesGKLu4JU7O/FaYDlAcGvQ5Q7gUfoEYhM8095UOv73Zmd+XZMSDSeaQLD9ChgZn7I48+Z5v7uJYW7cGleJTog==}
+  '@mutoe/eslint-config@3.6.0-3':
+    resolution: {integrity: sha512-2AnvtPjz6KcEx19rR65Cw8JgxaOGcr/6d8Rd/NKp9J+ozkPqc/SQyDKPr9uB040A7ve2RtlTrSX+8VUp8V4DZw==}
     hasBin: true
     peerDependencies:
       '@eslint-react/eslint-plugin': ^1.5.8
@@ -7215,7 +7215,7 @@ snapshots:
       got: 11.8.6
       os-filter-obj: 2.0.0
 
-  '@mutoe/eslint-config@3.5.0-1(@typescript-eslint/utils@8.5.0(eslint@9.10.0(jiti@1.21.6))(typescript@5.6.2))(@unocss/eslint-plugin@0.62.3(eslint@9.10.0(jiti@1.21.6))(typescript@5.6.2))(@vue/compiler-sfc@3.5.4)(eslint-plugin-cypress@3.5.0(eslint@9.10.0(jiti@1.21.6)))(eslint@9.10.0(jiti@1.21.6))(typescript@5.6.2)(vitest@2.0.5(@types/node@20.16.5)(@vitest/ui@2.0.5)(happy-dom@15.7.4)(jsdom@25.0.0)(sass@1.78.0)(stylus@0.57.0)(terser@5.32.0))':
+  '@mutoe/eslint-config@3.6.0-3(@typescript-eslint/utils@8.5.0(eslint@9.10.0(jiti@1.21.6))(typescript@5.6.2))(@unocss/eslint-plugin@0.62.3(eslint@9.10.0(jiti@1.21.6))(typescript@5.6.2))(@vue/compiler-sfc@3.5.4)(eslint-plugin-cypress@3.5.0(eslint@9.10.0(jiti@1.21.6)))(eslint@9.10.0(jiti@1.21.6))(typescript@5.6.2)(vitest@2.0.5(@types/node@20.16.5)(@vitest/ui@2.0.5)(happy-dom@15.7.4)(jsdom@25.0.0)(sass@1.78.0)(stylus@0.57.0)(terser@5.32.0))':
     dependencies:
       '@antfu/install-pkg': 0.4.1
       '@clack/prompts': 0.7.0

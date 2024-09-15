@@ -46,7 +46,7 @@
     <div class="col-span-full">
       <div class="card">
         <div class="mb-4 text-xl font-semibold">Templating</div>
-        <Timeline :value="events" align="alternate" class="customized-timeline">
+        <Timeline class="customized-timeline" :value="events" align="alternate">
           <template #marker="slotProps">
             <span class="z-10 h-8 w-8 flex items-center justify-center rounded-full text-white shadow-sm" :style="{ backgroundColor: slotProps.item.color }">
               <i :class="slotProps.item.icon" />
@@ -63,16 +63,16 @@
               <template #content>
                 <img
                   v-if="slotProps.item.image"
-                  :src="`https://primefaces.org/cdn/primevue/images/product/${slotProps.item.image}`"
-                  :alt="slotProps.item.name"
-                  width="200"
                   class="shadow-sm"
+                  :alt="slotProps.item.name"
+                  :src="`https://primefaces.org/cdn/primevue/images/product/${slotProps.item.image}`"
+                  width="200"
                 >
                 <p>
                   Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse,
                   cupiditate neque quas!
                 </p>
-                <Button label="Read more" text />
+                <Button text label="Read more" />
               </template>
             </Card>
           </template>
@@ -83,21 +83,19 @@
       <div class="card">
         <div class="mb-4 text-xl font-semibold">Horizontal</div>
         <div class="mb-2 font-semibold">Top Align</div>
-        <Timeline :value="horizontalEvents" layout="horizontal" align="top">
+        <Timeline :value="horizontalEvents" align="top" layout="horizontal">
           <template #content="slotProps">
             {{ slotProps.item }}
           </template>
         </Timeline>
-
         <div class="mb-2 mt-4 font-semibold">Bottom Align</div>
-        <Timeline :value="horizontalEvents" layout="horizontal" align="bottom">
+        <Timeline :value="horizontalEvents" align="bottom" layout="horizontal">
           <template #content="slotProps">
             {{ slotProps.item }}
           </template>
         </Timeline>
-
         <div class="mb-2 mt-4 font-semibold">Alternate Align</div>
-        <Timeline :value="horizontalEvents" layout="horizontal" align="alternate">
+        <Timeline :value="horizontalEvents" align="alternate" layout="horizontal">
           <template #opposite> &nbsp; </template>
           <template #content="slotProps">
             {{ slotProps.item }}

@@ -8,6 +8,7 @@
           <span class="mr-20 text-2xl text-surface-900 font-medium leading-normal dark:text-surface-0">SAKAI</span>
         </a>
         <Button
+          class="lg:!hidden"
           v-styleclass="{
             selector: '@next',
             enterFromClass: 'hidden',
@@ -16,10 +17,9 @@
             leaveActiveClass: 'animate-out fade-out',
             hideOnOutsideClick: true,
           }"
-          class="lg:!hidden"
-          text
-          severity="secondary"
           rounded
+          severity="secondary"
+          text
         >
           <i class="pi pi-bars !text-2xl" />
         </Button>
@@ -48,13 +48,13 @@
           </ul>
           <div class="mt-4 flex gap-2 border-t py-4 border-surface lg:mt-0 lg:border-t-0 lg:py-0">
             <Button
-              label="Login"
-              text
               as="router-link"
               to="/login"
               rounded
+              text
+              label="Login"
             />
-            <Button label="Register" to="/login" rounded />
+            <Button to="/login" rounded label="Register" />
           </div>
         </div>
       </div>
@@ -68,15 +68,15 @@
           <h1 class="text-6xl text-gray-900 font-bold leading-tight"><span class="block font-light">Eu sem integer</span>eget magna fermentum</h1>
           <p class="text-2xl text-gray-700 font-normal leading-normal md:mt-4">Sed blandit libero volutpat sed cras. Fames ac turpis egestas integer. Placerat in egestas erat...</p>
           <Button
-            label="Get Started"
             as="router-link"
+            class="mt-8 !px-4 !text-xl"
             to="/"
             rounded
-            class="mt-8 !px-4 !text-xl"
+            label="Get Started"
           />
         </div>
         <div class="flex justify-center md:justify-end">
-          <img src="/demo/images/landing/screen-1.png" alt="Hero Image" class="w-9/12 md:w-auto">
+          <img class="w-9/12 md:w-auto" alt="Hero Image" src="/demo/images/landing/screen-1.png">
         </div>
       </div>
 
@@ -99,7 +99,6 @@
               </div>
             </div>
           </div>
-
           <div class="col-span-12 mt-6 p-0 lg:col-span-4 md:col-span-12 lg:mt-0 lg:pb-8 lg:pr-8">
             <div
               style="height: 160px; padding: 2px; background: linear-gradient(90deg, rgb(145 226 237 / 20%), rgb(251 199 145 / 20%)), linear-gradient(180deg, rgb(253 228 165 / 20%), rgb(172 180 223 / 20%)); border-radius: 10px;"
@@ -113,7 +112,6 @@
               </div>
             </div>
           </div>
-
           <div class="col-span-12 mt-6 p-0 lg:col-span-4 md:col-span-12 lg:mt-0 lg:pb-8">
             <div
               style="height: 160px; padding: 2px; background: linear-gradient(90deg, rgb(145 226 237 / 20%), rgb(172 180 223 / 20%)), linear-gradient(180deg, rgb(172 180 223 / 20%), rgb(246 158 188 / 20%)); border-radius: 10px;"
@@ -127,7 +125,6 @@
               </div>
             </div>
           </div>
-
           <div class="col-span-12 mt-6 p-0 lg:col-span-4 md:col-span-12 lg:mt-0 lg:pb-8 lg:pr-8">
             <div
               style="height: 160px; padding: 2px; background: linear-gradient(90deg, rgb(187 199 205 / 20%), rgb(251 199 145 / 20%)), linear-gradient(180deg, rgb(253 228 165 / 20%), rgb(145 210 204 / 20%)); border-radius: 10px;"
@@ -141,7 +138,6 @@
               </div>
             </div>
           </div>
-
           <div class="col-span-12 mt-6 p-0 lg:col-span-4 md:col-span-12 lg:mt-0 lg:pb-8 lg:pr-8">
             <div
               style="height: 160px; padding: 2px; background: linear-gradient(90deg, rgb(187 199 205 / 20%), rgb(246 158 188 / 20%)), linear-gradient(180deg, rgb(145 226 237 / 20%), rgb(160 210 250 / 20%)); border-radius: 10px;"
@@ -155,7 +151,6 @@
               </div>
             </div>
           </div>
-
           <div class="col-span-12 mt-6 p-0 lg:col-span-4 md:col-span-12 lg:mt-0 lg:pb-8">
             <div
               style="height: 160px; padding: 2px; background: linear-gradient(90deg, rgb(251 199 145 / 20%), rgb(246 158 188 / 20%)), linear-gradient(180deg, rgb(172 180 223 / 20%), rgb(212 162 221 / 20%)); border-radius: 10px;"
@@ -169,7 +164,6 @@
               </div>
             </div>
           </div>
-
           <div class="col-span-12 mt-6 p-0 lg:col-span-4 md:col-span-12 lg:mt-0 lg:pr-8">
             <div
               style="height: 160px; padding: 2px; background: linear-gradient(90deg, rgb(145 210 204 / 20%), rgb(160 210 250 / 20%)), linear-gradient(180deg, rgb(187 199 205 / 20%), rgb(145 210 204 / 20%)); border-radius: 10px;"
@@ -183,7 +177,6 @@
               </div>
             </div>
           </div>
-
           <div class="col-span-12 mt-6 p-0 lg:col-span-4 md:col-span-12 lg:mt-0 lg:pr-8">
             <div
               style="height: 160px; padding: 2px; background: linear-gradient(90deg, rgb(145 210 204 / 20%), rgb(212 162 221 / 20%)), linear-gradient(180deg, rgb(251 199 145 / 20%), rgb(160 210 250 / 20%)); border-radius: 10px;"
@@ -197,7 +190,6 @@
               </div>
             </div>
           </div>
-
           <div class="lg-4 col-span-12 mt-6 p-0 lg:col-span-4 md:col-span-12 lg:mt-0">
             <div
               style="height: 160px; padding: 2px; background: linear-gradient(90deg, rgb(160 210 250 / 20%), rgb(212 162 221 / 20%)), linear-gradient(180deg, rgb(246 158 188 / 20%), rgb(212 162 221 / 20%)); border-radius: 10px;"
@@ -211,7 +203,6 @@
               </div>
             </div>
           </div>
-
           <div
             class="col-span-12 mb-20 mt-20 p-2 md:p-20"
             style=" background: linear-gradient(0deg, rgb(255 255 255 / 60%), rgb(255 255 255 / 60%)), radial-gradient(77.36% 256.97% at 77.36% 57.52%, #efe1af 0%, #c3dcfa 100%);border-radius: 20px;"
@@ -222,7 +213,7 @@
               <p class="mt-6 text-2xl text-gray-900 md:line-height-4 sm:line-height-2" style="max-width: 800px;">
                 “Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.”
               </p>
-              <img src="/demo/images/landing/peak-logo.svg" class="mt-6" alt="Company logo">
+              <img class="mt-6" alt="Company logo" src="/demo/images/landing/peak-logo.svg">
             </div>
           </div>
         </div>
@@ -236,7 +227,7 @@
 
         <div class="grid grid-cols-12 mt-20 gap-4 pb-2 md:pb-20">
           <div class="order-1 col-span-12 flex justify-center bg-purple-100 p-0 lg:order-none lg:col-span-6" style="border-radius: 8px;">
-            <img src="/demo/images/landing/mockup.svg" class="w-11/12" alt="mockup mobile">
+            <img class="w-11/12" alt="mockup mobile" src="/demo/images/landing/mockup.svg">
           </div>
 
           <div class="col-span-12 my-auto flex flex-col gap-4 text-center lg:col-span-6 lg:items-end lg:text-right">
@@ -264,7 +255,7 @@
           </div>
 
           <div class="order-1 col-span-12 flex justify-end bg-yellow-100 p-0 sm:order-2 lg:col-span-6" style="border-radius: 8px;">
-            <img src="/demo/images/landing/mockup-desktop.svg" class="w-11/12" alt="mockup">
+            <img class="w-11/12" alt="mockup" src="/demo/images/landing/mockup-desktop.svg">
           </div>
         </div>
       </div>
@@ -279,13 +270,13 @@
           <div class="col-span-12 p-0 lg:col-span-4 md:p-4">
             <div class="pricing-card flex flex-col cursor-pointer border-2 border-surface-200 p-4 transition-all duration-300 dark:border-surface-600 hover:border-primary" style="border-radius: 10px;">
               <div class="my-8 text-center text-3xl text-surface-900 dark:text-surface-0">Free</div>
-              <img src="/demo/images/landing/free.svg" class="mx-auto w-10/12" alt="free">
+              <img class="mx-auto w-10/12" alt="free" src="/demo/images/landing/free.svg">
               <div class="my-8 flex flex-col items-center gap-4">
                 <div class="flex items-center">
                   <span class="mr-2 text-5xl text-surface-900 font-bold dark:text-surface-0">$0</span>
                   <span class="text-surface-600 dark:text-surface-200">per month</span>
                 </div>
-                <Button label="Get Started" class="p-button-rounded ml-4 border-0 bg-blue-500 text-white font-light leading-tight" />
+                <Button class="p-button-rounded ml-4 border-0 bg-blue-500 text-white font-light leading-tight" label="Get Started" />
               </div>
               <Divider class="w-full bg-surface-200" />
               <ul class="my-8 flex flex-col list-none p-0 px-8 text-surface-900 dark:text-surface-0">
@@ -312,13 +303,16 @@
           <div class="col-span-12 mt-6 p-0 lg:col-span-4 md:mt-0 md:p-4">
             <div class="pricing-card flex flex-col cursor-pointer border-2 border-surface-200 p-4 transition-all duration-300 dark:border-surface-600 hover:border-primary" style="border-radius: 10px;">
               <div class="my-8 text-center text-3xl text-surface-900 dark:text-surface-0">Startup</div>
-              <img src="/demo/images/landing/startup.svg" class="mx-auto w-10/12" alt="startup">
+              <img class="mx-auto w-10/12" alt="startup" src="/demo/images/landing/startup.svg">
               <div class="my-8 flex flex-col items-center gap-4">
                 <div class="flex items-center">
                   <span class="mr-2 text-5xl text-surface-900 font-bold dark:text-surface-0">$1</span>
                   <span class="text-surface-600 dark:text-surface-200">per month</span>
                 </div>
-                <Button label="Get Started" class="p-button-rounded ml-4 border-0 bg-blue-500 text-white font-light leading-tight" />
+                <Button
+                  class="p-button-rounded ml-4 border-0 bg-blue-500 text-white font-light leading-tight"
+                  label="Get Started"
+                />
               </div>
               <Divider class="w-full bg-surface-200" />
               <ul class="my-8 flex flex-col list-none p-0 px-8 text-surface-900 dark:text-surface-0">
@@ -345,13 +339,13 @@
           <div class="col-span-12 mt-6 p-0 lg:col-span-4 md:mt-0 md:p-4">
             <div class="pricing-card flex flex-col cursor-pointer border-2 border-surface-200 p-4 transition-all duration-300 dark:border-surface-600 hover:border-primary" style="border-radius: 10px;">
               <div class="my-8 text-center text-3xl text-surface-900 dark:text-surface-0">Enterprise</div>
-              <img src="/demo/images/landing/enterprise.svg" class="mx-auto w-10/12" alt="enterprise">
+              <img class="mx-auto w-10/12" alt="enterprise" src="/demo/images/landing/enterprise.svg">
               <div class="my-8 flex flex-col items-center gap-4">
                 <div class="flex items-center">
                   <span class="mr-2 text-5xl text-surface-900 font-bold dark:text-surface-0">$5</span>
                   <span class="text-surface-600 dark:text-surface-200">per month</span>
                 </div>
-                <Button label="Get Started" class="p-button-rounded ml-4 border-0 bg-blue-500 text-white font-light leading-tight" />
+                <Button class="p-button-rounded ml-4 border-0 bg-blue-500 text-white font-light leading-tight" label="Get Started" />
               </div>
               <Divider class="w-full bg-surface-200" />
               <ul class="my-8 flex flex-col list-none p-0 px-8 text-surface-900 dark:text-surface-0">
@@ -408,7 +402,9 @@
               <div class="col-span-12 md:col-span-3">
                 <h4 class="mb-4 text-2xl text-surface-900 font-medium leading-normal dark:text-surface-0">Community</h4>
                 <a class="mb-2 block cursor-pointer text-xl text-surface-700 leading-normal dark:text-surface-100">Discord</a>
-                <a class="mb-2 block cursor-pointer text-xl text-surface-700 leading-normal dark:text-surface-100">Events<img src="/demo/images/landing/new-badge.svg" class="ml-2"></a>
+                <a class="mb-2 block cursor-pointer text-xl text-surface-700 leading-normal dark:text-surface-100">
+                  Events<img class="ml-2" src="/demo/images/landing/new-badge.svg">
+                </a>
                 <a class="mb-2 block cursor-pointer text-xl text-surface-700 leading-normal dark:text-surface-100">FAQ</a>
                 <a class="block cursor-pointer text-xl text-surface-700 leading-normal dark:text-surface-100">Blog</a>
               </div>

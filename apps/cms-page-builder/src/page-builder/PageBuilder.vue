@@ -1,19 +1,19 @@
 <template>
   <div class="page-builder" :spellcheck="false">
     <TransitionGroup
-      tag="div"
-      name="flip"
       class="section-container"
+      name="flip"
+      tag="div"
       @dragover="onDragOver"
     >
       <section
         v-for="(section, index) in pageConfig.sections.filter(it => it)"
-        :id="`section-${section.id}`"
         :key="section.id"
+        :id="`section-${section.id}`"
         role="menuitem"
         tabindex="0"
-        @mouseenter="onSelectSection(section)"
         @focusin="onSelectSection(section)"
+        @mouseenter="onSelectSection(section)"
       >
         <SectionDistributor
           v-if="section.type === 'full-width'"

@@ -5,9 +5,9 @@
         <div class="mb-4 text-xl font-semibold">Advanced</div>
         <FileUpload
           name="demo[]"
+          :max-file-size="1000000"
           :multiple="true"
           accept="image/*"
-          :max-file-size="1000000"
           custom-upload
           @uploader="onUpload"
         />
@@ -20,14 +20,14 @@
           <Toast />
           <FileUpload
             ref="fileupload"
-            mode="basic"
             name="demo[]"
-            accept="image/*"
             :max-file-size="1000000"
+            accept="image/*"
             custom-upload
+            mode="basic"
             @uploader="onUpload"
           />
-          <Button label="Upload" severity="secondary" @click="upload" />
+          <Button severity="secondary" @click="upload" label="Upload" />
         </div>
       </div>
     </div>

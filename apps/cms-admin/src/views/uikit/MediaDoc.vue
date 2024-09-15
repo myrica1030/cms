@@ -3,15 +3,19 @@
     <div class="mb-4 text-xl font-semibold">Carousel</div>
     <Carousel
       :value="products"
-      :num-visible="3"
       :num-scroll="3"
+      :num-visible="3"
       :responsive-options="carouselResponsiveOptions"
     >
       <template #item="slotProps">
         <div class="m-2 border border-surface-200 rounded p-4 dark:border-surface-700">
           <div class="mb-4">
             <div class="relative mx-auto">
-              <img :src="`https://primefaces.org/cdn/primevue/images/product/${slotProps.data.image}`" :alt="slotProps.data.name" class="w-full rounded">
+              <img
+                class="w-full rounded"
+                :alt="slotProps.data.name"
+                :src="`https://primefaces.org/cdn/primevue/images/product/${slotProps.data.image}`"
+              >
               <div class="absolute rounded-border dark:bg-surface-900" style=" top: 5px;left: 5px;">
                 <Tag :value="slotProps.data.inventoryStatus" :severity="getSeverity(slotProps.data.inventoryStatus)" />
               </div>
@@ -21,8 +25,8 @@
           <div class="flex items-center justify-between">
             <div class="mt-0 text-xl font-semibold">${{ slotProps.data.price }}</div>
             <span>
-              <Button icon="pi pi-heart" severity="secondary" outlined />
-              <Button icon="pi pi-shopping-cart" class="ml-2" />
+              <Button icon="pi pi-heart" outlined severity="secondary" />
+              <Button class="ml-2" icon="pi pi-shopping-cart" />
             </span>
           </div>
         </div>
@@ -32,22 +36,22 @@
 
   <div class="card">
     <div class="mb-4 text-xl font-semibold">Image</div>
-    <Image src="https://primefaces.org/cdn/primevue/images/galleria/galleria10.jpg" alt="Image" width="250" />
+    <Image alt="Image" src="https://primefaces.org/cdn/primevue/images/galleria/galleria10.jpg" width="250" />
   </div>
 
   <div class="card">
     <div class="mb-4 text-xl font-semibold">Galleria</div>
     <Galleria
       :value="images"
-      :responsive-options="galleriaResponsiveOptions"
       :num-visible="5"
+      :responsive-options="galleriaResponsiveOptions"
       container-style="max-width: 640px"
     >
       <template #item="slotProps">
-        <img :src="slotProps.item.itemImageSrc" :alt="slotProps.item.alt" style="width: 100%;">
+        <img style="width: 100%;" :alt="slotProps.item.alt" :src="slotProps.item.itemImageSrc">
       </template>
       <template #thumbnail="slotProps">
-        <img :src="slotProps.item.thumbnailImageSrc" :alt="slotProps.item.alt">
+        <img :alt="slotProps.item.alt" :src="slotProps.item.thumbnailImageSrc">
       </template>
     </Galleria>
   </div>

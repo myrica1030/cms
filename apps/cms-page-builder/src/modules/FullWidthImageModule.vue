@@ -1,6 +1,6 @@
 <template>
   <div class="image">
-    <img :src="module.src || defaultImage" :alt="module.alt">
+    <img :alt="module.alt" :src="module.src || defaultImage">
   </div>
 </template>
 

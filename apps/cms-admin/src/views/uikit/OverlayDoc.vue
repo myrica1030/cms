@@ -4,52 +4,52 @@
       <div class="card">
         <div class="mb-4 text-xl font-semibold">Dialog</div>
         <Dialog
-          v-model:visible="display"
-          header="Dialog"
-          :breakpoints="{ '960px': '75vw' }"
           :style="{ width: '30vw' }"
-          :modal="true"
+          v-model:visible="display"
+          :breakpoints="{ '960px': '75vw' }"
+          header="Dialog"
+          modal
         >
           <p class="m-0 leading-normal">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
             consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
           </p>
           <template #footer>
-            <Button label="Save" @click="close" />
+            <Button @click="close" label="Save" />
           </template>
         </Dialog>
-        <Button label="Show" style="width: auto;" @click="open" />
+        <Button style="width: auto;" @click="open" label="Show" />
       </div>
 
       <div class="card">
         <div class="mb-4 text-xl font-semibold">Popover</div>
         <div class="flex flex-wrap gap-2">
-          <Button type="button" label="Show" @click="toggleDataTable" />
-          <Popover id="overlay_panel" ref="op2" style="width: 450px;">
+          <Button type="button" @click="toggleDataTable" label="Show" />
+          <Popover ref="op2" id="overlay_panel" style="width: 450px;">
             <DataTable
               v-model:selection="selectedProduct"
               :value="products"
-              selection-mode="single"
               :paginator="true"
               :rows="5"
+              selection-mode="single"
               @row-select="onProductSelect"
             >
               <Column
+                style="min-width: 12rem;"
                 field="name"
                 header="Name"
                 sortable
-                style="min-width: 12rem;"
               />
               <Column header="Image">
                 <template #body="slotProps">
-                  <img :src="`https://primefaces.org/cdn/primevue/images/product/${slotProps.data.image}`" :alt="slotProps.data.image" class="w-16 shadow-sm">
+                  <img class="w-16 shadow-sm" :alt="slotProps.data.image" :src="`https://primefaces.org/cdn/primevue/images/product/${slotProps.data.image}`">
                 </template>
               </Column>
               <Column
+                style="min-width: 8rem;"
                 field="price"
                 header="Price"
                 sortable
-                style="min-width: 8rem;"
               >
                 <template #body="slotProps"> $ {{ slotProps.data.price }} </template>
               </Column>
@@ -61,8 +61,8 @@
       <div class="card">
         <div class="mb-4 text-xl font-semibold">Tooltip</div>
         <div class="inline-flex gap-4">
-          <InputText v-tooltip="'Your username'" type="text" placeholder="Username" />
-          <Button v-tooltip="'Click to proceed'" type="button" label="Save" />
+          <InputText type="text" v-tooltip="'Your username'" placeholder="Username" />
+          <Button type="button" v-tooltip="'Click to proceed'" label="Save" />
         </div>
       </div>
     </div>
@@ -75,39 +75,34 @@
             consequat.
           </p>
         </Drawer>
-
         <Drawer v-model:visible="visibleRight" header="Drawer" position="right">
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
             consequat.
           </p>
         </Drawer>
-
         <Drawer v-model:visible="visibleTop" header="Drawer" position="top">
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
             consequat.
           </p>
         </Drawer>
-
         <Drawer v-model:visible="visibleBottom" header="Drawer" position="bottom">
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
             consequat.
           </p>
         </Drawer>
-
         <Drawer v-model:visible="visibleFull" header="Drawer" position="full">
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
             consequat.
           </p>
         </Drawer>
-
-        <Button icon="pi pi-arrow-right" style="margin-right: 0.25em;" @click="visibleLeft = true" />
-        <Button icon="pi pi-arrow-left" style="margin-right: 0.25em;" @click="visibleRight = true" />
-        <Button icon="pi pi-arrow-down" style="margin-right: 0.25em;" @click="visibleTop = true" />
-        <Button icon="pi pi-arrow-up" style="margin-right: 0.25em;" @click="visibleBottom = true" />
+        <Button style="margin-right: 0.25em;" icon="pi pi-arrow-right" @click="visibleLeft = true" />
+        <Button style="margin-right: 0.25em;" icon="pi pi-arrow-left" @click="visibleRight = true" />
+        <Button style="margin-right: 0.25em;" icon="pi pi-arrow-down" @click="visibleTop = true" />
+        <Button style="margin-right: 0.25em;" icon="pi pi-arrow-up" @click="visibleBottom = true" />
         <Button icon="pi pi-external-link" @click="visibleFull = true" />
       </div>
 
@@ -116,27 +111,27 @@
         <ConfirmPopup />
         <Button
           ref="popup"
-          icon="pi pi-check"
-          label="Confirm"
           class="mr-2"
+          icon="pi pi-check"
           @click="confirm($event)"
+          label="Confirm"
         />
       </div>
 
       <div class="card">
         <div class="mb-4 text-xl font-semibold">ConfirmDialog</div>
         <Button
-          label="Delete"
+          style="width: auto;"
           icon="pi pi-trash"
           severity="danger"
-          style="width: auto;"
           @click="openConfirmation"
+          label="Delete"
         />
         <Dialog
-          v-model:visible="displayConfirmation"
-          header="Confirmation"
           :style="{ width: '350px' }"
+          v-model:visible="displayConfirmation"
           :modal="true"
+          header="Confirmation"
         >
           <div class="flex items-center justify-center">
             <i class="pi pi-exclamation-triangle mr-4" style="font-size: 2rem;" />
@@ -144,19 +139,19 @@
           </div>
           <template #footer>
             <Button
-              label="No"
               icon="pi pi-times"
-              text
               severity="secondary"
+              text
               @click="closeConfirmation"
+              label="No"
             />
             <Button
-              label="Yes"
-              icon="pi pi-check"
-              severity="danger"
-              outlined
               autofocus
+              icon="pi pi-check"
+              outlined
+              severity="danger"
               @click="closeConfirmation"
+              label="Yes"
             />
           </template>
         </Dialog>

@@ -60,9 +60,10 @@
               <label for="lastname1" class="sr-only">Lastname</label>
               <InputText id="lastname1" type="text" placeholder="Lastname" />
             </div>
-            <Button label="Submit" :fluid="false" />
+            <Button :fluid="false" label="Submit" />
           </div>
         </div>
+
         <div class="card flex flex-col gap-4">
           <div class="text-xl font-semibold">Help Text</div>
           <div class="flex flex-wrap gap-2">
@@ -87,22 +88,20 @@
             <InputText id="lastname2" type="text" />
           </div>
         </div>
-
         <div class="flex flex-wrap">
           <label for="address">Address</label>
           <Textarea id="address" rows="4" />
         </div>
-
         <div class="flex flex-col gap-4 md:flex-row">
           <div class="w-full flex flex-wrap gap-2">
             <label for="state">State</label>
             <Select
               id="state"
+              class="w-full"
               v-model="dropdownItem"
               :options="dropdownItems"
               option-label="name"
               placeholder="Select One"
-              class="w-full"
             />
           </div>
           <div class="w-full flex flex-wrap gap-2">

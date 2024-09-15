@@ -1,10 +1,10 @@
 <template>
   <div
     class="carousel"
-    @mouseenter="pause = true"
-    @mouseleave="pause = false"
     @focusin="pause = true"
     @focusout="pause = false"
+    @mouseenter="pause = true"
+    @mouseleave="pause = false"
   >
     <div class="slides" :style="{ transform: `translateX(-${currentSlide * 100}%)` }">
       <div

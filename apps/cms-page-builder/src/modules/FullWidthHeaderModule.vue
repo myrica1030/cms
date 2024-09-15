@@ -24,6 +24,7 @@
       />
 
       <Button v-if="module.button1" v-bind="module.button1" :contenteditable="contenteditable" />
+
       <Button v-if="module.button2" v-bind="module.button2" :contenteditable="contenteditable" />
     </div>
   </div>

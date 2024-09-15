@@ -62,10 +62,10 @@
         <Menu ref="menu" :model="overlayMenuItems" :popup="true" />
         <Button
           type="button"
-          label="Options"
-          icon="pi pi-angle-down"
           style="width: auto;"
+          icon="pi pi-angle-down"
           @click="toggleMenu"
+          label="Options"
         />
       </div>
 
@@ -82,7 +82,6 @@
       <div class="card">
         <div class="mb-4 text-xl font-semibold">MegaMenu | Horizontal</div>
         <MegaMenu :model="megamenuItems" />
-
         <div class="mb-4 mt-8 text-xl font-semibold">MegaMenu | Vertical</div>
         <MegaMenu :model="megamenuItems" orientation="vertical" />
       </div>

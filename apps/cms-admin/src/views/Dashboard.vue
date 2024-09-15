@@ -15,6 +15,7 @@
         <span class="text-muted-color">since last visit</span>
       </div>
     </div>
+
     <div class="col-span-12 lg:col-span-6 xl:col-span-3">
       <div class="card mb-0">
         <div class="mb-4 flex justify-between">
@@ -30,6 +31,7 @@
         <span class="text-muted-color">since last week</span>
       </div>
     </div>
+
     <div class="col-span-12 lg:col-span-6 xl:col-span-3">
       <div class="card mb-0">
         <div class="mb-4 flex justify-between">
@@ -45,6 +47,7 @@
         <span class="text-muted-color">newly registered</span>
       </div>
     </div>
+
     <div class="col-span-12 lg:col-span-6 xl:col-span-3">
       <div class="card mb-0">
         <div class="mb-4 flex justify-between">
@@ -66,31 +69,31 @@
         <div class="mb-4 text-xl font-semibold">Recent Sales</div>
         <DataTable
           :value="products"
-          :rows="5"
           :paginator="true"
+          :rows="5"
           responsive-layout="scroll"
         >
           <Column style="width: 15%;" header="Image">
             <template #body="slotProps">
               <img
-                :src="`https://primefaces.org/cdn/primevue/images/product/${slotProps.data.image}`"
-                :alt="slotProps.data.image"
-                width="50"
                 class="shadow"
+                :alt="slotProps.data.image"
+                :src="`https://primefaces.org/cdn/primevue/images/product/${slotProps.data.image}`"
+                width="50"
               >
             </template>
           </Column>
           <Column
+            style="width: 35%;"
+            :sortable="true"
             field="name"
             header="Name"
-            :sortable="true"
-            style="width: 35%;"
           />
           <Column
+            style="width: 35%;"
+            :sortable="true"
             field="price"
             header="Price"
-            :sortable="true"
-            style="width: 35%;"
           >
             <template #body="slotProps">
               {{ formatCurrency(slotProps.data.price) }}
@@ -98,7 +101,7 @@
           </Column>
           <Column style="width: 15%;" header="View">
             <template #body>
-              <Button icon="pi pi-search" type="button" class="p-button-text" />
+              <Button type="button" class="p-button-text" icon="pi pi-search" />
             </template>
           </Column>
         </DataTable>
@@ -107,12 +110,12 @@
         <div class="mb-6 flex items-center justify-between">
           <div class="text-xl font-semibold">Best Selling Products</div>
           <div>
-            <Button icon="pi pi-ellipsis-v" class="p-button-text p-button-plain p-button-rounded" @click="$refs.menu2.toggle($event)" />
+            <Button class="p-button-text p-button-plain p-button-rounded" icon="pi pi-ellipsis-v" @click="$refs.menu2.toggle($event)" />
             <Menu
               ref="menu2"
-              :popup="true"
-              :model="items"
               class="!min-w-40"
+              :model="items"
+              :popup="true"
             />
           </div>
         </div>
@@ -192,31 +195,33 @@
         </ul>
       </div>
     </div>
+
     <div class="col-span-12 xl:col-span-6">
       <div class="card">
         <div class="mb-4 text-xl font-semibold">Revenue Stream</div>
         <Chart
           type="bar"
+          class="h-80"
           :data="chartData"
           :options="chartOptions"
-          class="h-80"
         />
       </div>
       <div class="card">
         <div class="mb-6 flex items-center justify-between">
           <div class="text-xl font-semibold">Notifications</div>
           <div>
-            <Button icon="pi pi-ellipsis-v" class="p-button-text p-button-plain p-button-rounded" @click="$refs.menu1.toggle($event)" />
+            <Button class="p-button-text p-button-plain p-button-rounded" icon="pi pi-ellipsis-v" @click="$refs.menu1.toggle($event)" />
             <Menu
               ref="menu1"
-              :popup="true"
-              :model="items"
               class="!min-w-40"
+              :model="items"
+              :popup="true"
             />
           </div>
         </div>
 
         <span class="mb-4 block font-medium text-muted-color">TODAY</span>
+
         <ul class="mx-0 mb-6 mt-0 list-none p-0">
           <li class="flex items-center border-b py-2 border-surface">
             <div class="mr-4 h-12 w-12 flex shrink-0 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-400/10">
@@ -235,6 +240,7 @@
         </ul>
 
         <span class="mb-4 block font-medium text-muted-color">YESTERDAY</span>
+
         <ul class="m-0 mb-6 list-none p-0">
           <li class="flex items-center border-b py-2 border-surface">
             <div class="mr-4 h-12 w-12 flex shrink-0 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-400/10">
@@ -253,7 +259,9 @@
             </span>
           </li>
         </ul>
+
         <span class="mb-4 block font-medium text-muted-color">LAST WEEK</span>
+
         <ul class="m-0 list-none p-0">
           <li class="flex items-center border-b py-2 border-surface">
             <div class="mr-4 h-12 w-12 flex shrink-0 items-center justify-center rounded-full bg-green-100 dark:bg-green-400/10">

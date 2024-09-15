@@ -10,16 +10,16 @@
           </div>
 
           <div>
-            <label class="field" :class="{ invalid: errors.username }" :for="usernameId">
+            <label :for="usernameId" class="field" :class="{ invalid: errors.username }">
               <span class="label">Username</span>
               <InputText
                 :id="usernameId"
-                v-model="username"
                 type="text"
-                placeholder="Username"
-                fluid
                 :aria-describedby="`${usernameId}-helper`"
+                v-model="username"
                 :invalid="!!errors.username"
+                fluid
+                placeholder="Username"
                 @change="() => errors && (errors.username = undefined)"
               />
               <small :id="`${usernameId}-helper`" class="helper p-placeholder">{{ capitalize(errors.username) }}</small>
@@ -29,15 +29,14 @@
               <span class="label">Password</span>
               <Password
                 :id="passwordId"
-                v-model="password"
-                placeholder="Password"
+                :class="{ 'p-invalid': errors.password }"
                 :aria-describedby="`${passwordId}-help`"
-
-                fluid
-                toggle-mask
+                v-model="password"
                 :feedback="false"
                 :invalid="!!errors.password"
-                :class="{ 'p-invalid': errors.password }"
+                fluid
+                placeholder="Password"
+                toggle-mask
                 @change="() => (errors.password = undefined)"
               />
               <small :id="`${passwordId}-help`" class="helper p-placeholder">{{ capitalize(errors.password) }}</small>
@@ -45,7 +44,7 @@
 
             <div class="mb-8 flex items-center justify-between gap-8">
               <label class="flex cursor-pointer items-center">
-                <Checkbox v-model="rememberMe" binary class="mr-2" />
+                <Checkbox class="mr-2" v-model="rememberMe" binary />
                 <span>Remember me</span>
               </label>
               <!-- TODO implement forgot password -->
@@ -53,10 +52,10 @@
             </div>
 
             <Button
-              :loading="isSubmitting"
-              label="Sign In"
-              fluid
               type="submit"
+              :loading="isSubmitting"
+              fluid
+              label="Sign In"
             />
           </div>
         </form>
