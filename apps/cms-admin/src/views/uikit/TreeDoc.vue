@@ -7,7 +7,7 @@
   <div class="card">
     <div class="mb-4 text-xl font-semibold">TreeTable</div>
     <TreeTable v-model:selection-keys="selectedTreeTableValue" :value="treeTableValue" selection-mode="checkbox">
-      <Column field="name" header="Name" :expander="true" />
+      <Column :expander="true" field="name" header="Name" />
       <Column field="size" header="Size" />
       <Column field="type" header="Type" />
     </TreeTable>

@@ -3,33 +3,33 @@
     <div v-if="root && item.visible !== false" class="layout-menuitem-root-text">{{ item.label }}</div>
     <a
       v-if="(!item.to || item.items) && item.visible !== false"
-      :href="item.url"
       :class="item.class"
-      :target="item.target"
       tabindex="0"
+      :href="item.url"
+      :target="item.target"
       @click="itemClick($event, item, index)"
     >
-      <i :class="item.icon" class="layout-menuitem-icon" />
+      <i class="layout-menuitem-icon" :class="item.icon" />
       <span class="layout-menuitem-text">{{ item.label }}</span>
       <i v-if="item.items" class="layout-submenu-toggler pi pi-fw pi-angle-down" />
     </a>
-    <router-link
+    <RouterLink
       v-if="item.to && !item.items && item.visible !== false"
       :class="[item.class, { 'active-route': checkActiveRoute(item) }]"
       tabindex="0"
       :to="item.to"
       @click="itemClick($event, item, index)"
     >
-      <i :class="item.icon" class="layout-menuitem-icon" />
+      <i class="layout-menuitem-icon" :class="item.icon" />
       <span class="layout-menuitem-text">{{ item.label }}</span>
       <i v-if="item.items" class="pi pi-fw pi-angle-down layout-submenu-toggler" />
-    </router-link>
+    </RouterLink>
     <Transition v-if="item.items && item.visible !== false" name="layout-submenu">
       <ul v-show="root ? true : isActiveMenu" class="layout-submenu">
         <app-menu-item
           v-for="(child, i) in item.items"
-          :key="child"
           :index="i"
+          :key="child"
           :item="child"
           :parent-item-key="itemKey"
           :root="false"

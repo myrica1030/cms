@@ -4,30 +4,29 @@
       <div class="card">
         <div class="mb-4 text-xl font-semibold">Toast</div>
         <div class="flex flex-wrap gap-2">
-          <Button label="Success" severity="success" @click="showSuccess()" />
-          <Button label="Info" severity="info" @click="showInfo()" />
-          <Button label="Warn" severity="warn" @click="showWarn()" />
-          <Button label="Error" severity="danger" @click="showError()" />
+          <Button severity="success" @click="showSuccess()" label="Success" />
+          <Button severity="info" @click="showInfo()" label="Info" />
+          <Button severity="warn" @click="showWarn()" label="Warn" />
+          <Button severity="danger" @click="showError()" label="Error" />
         </div>
-
         <div class="mb-4 mt-4 text-xl font-semibold">Inline</div>
         <div class="mb-4 flex flex-wrap gap-2">
           <InputText
-            v-model="username"
-            placeholder="Username"
             aria-label="username"
+            v-model="username"
             invalid
+            placeholder="Username"
           />
           <Message severity="error">Username is required</Message>
         </div>
         <div class="flex flex-wrap gap-2">
           <InputText
-            v-model="email"
-            placeholder="Email"
             aria-label="email"
+            v-model="email"
             invalid
+            placeholder="Email"
           />
-          <Message severity="error" icon="pi pi-times-circle" />
+          <Message icon="pi pi-times-circle" severity="error" />
         </div>
       </div>
     </div>
@@ -42,7 +41,6 @@
           <Message severity="secondary">Secondary Message</Message>
           <Message severity="contrast">Contrast Message</Message>
         </div>
-
         <transition-group name="p-message" tag="div">
           <Message v-for="msg of message" :key="msg.content" :severity="msg.severity">{{ msg.content }}</Message>
         </transition-group>

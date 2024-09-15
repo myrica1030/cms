@@ -4,26 +4,26 @@
 
     <div class="section-menu">
       <button
-        aria-label="Move"
         class="move"
+        aria-label="Move"
         draggable="true"
         @dragend="onDragEnd"
         @dragstart="onDratStart"
       >
         <ion-icon name="move-sharp" />
       </button>
-      <button aria-label="Settings" class="settings" @click="onModalOpen">
+      <button class="settings" aria-label="Settings" @click="onModalOpen">
         <ion-icon name="settings-sharp" />
       </button>
-      <button aria-label="Duplicate section" class="duplicate" @click="onDuplicate">
+      <button class="duplicate" aria-label="Duplicate section" @click="onDuplicate">
         <ion-icon name="duplicate-sharp" />
       </button>
-      <button aria-label="Delete section" class="delete" @click="onDelete">
+      <button class="delete" aria-label="Delete section" @click="onDelete">
         <ion-icon name="trash-sharp" />
       </button>
     </div>
 
-    <button aria-label="Add section" class="add-section">
+    <button class="add-section" aria-label="Add section">
       <ion-icon name="add-sharp" />
     </button>
   </div>

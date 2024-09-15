@@ -2,10 +2,10 @@
   <div class="layout-footer">
     SAKAI by
     <a
-      href="https://primevue.org"
-      target="_blank"
-      rel="noopener noreferrer"
       class="text-primary font-bold hover:underline"
+      href="https://primevue.org"
+      rel="noopener noreferrer"
+      target="_blank"
     >PrimeVue</a>
   </div>
 </template>

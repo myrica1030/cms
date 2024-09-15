@@ -5,14 +5,14 @@
       <Toolbar>
         <template #start>
           <Button
-            icon="pi pi-plus"
             class="mr-2"
+            icon="pi pi-plus"
             severity="secondary"
             text
           />
           <Button
-            icon="pi pi-print"
             class="mr-2"
+            icon="pi pi-print"
             severity="secondary"
             text
           />
@@ -28,7 +28,7 @@
           </IconField>
         </template>
 
-        <template #end> <SplitButton label="Save" :model="items" /></template>
+        <template #end><SplitButton :model="items" label="Save" /></template>
       </Toolbar>
     </div>
 
@@ -106,7 +106,7 @@
       <div class="mt-6 md:mt-0 md:w-1/2">
         <div class="card">
           <div class="mb-4 text-xl font-semibold">Panel</div>
-          <Panel header="Header" :toggleable="true">
+          <Panel :toggleable="true" header="Header">
             <p class="m-0 leading-normal">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
               consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
@@ -116,7 +116,7 @@
         </div>
         <div class="card">
           <div class="mb-4 text-xl font-semibold">Fieldset</div>
-          <Fieldset legend="Legend" :toggleable="true">
+          <Fieldset legend="Legend" toggleable>
             <p class="m-0 leading-normal">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
               consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
@@ -124,16 +124,15 @@
             </p>
           </Fieldset>
         </div>
-
         <Card>
           <template #title>
             <div class="mb-0 flex items-center justify-between">
               <div class="mb-4 text-xl font-semibold">Card</div>
-              <Button icon="pi pi-plus" class="p-button-text" @click="toggle" />
+              <Button class="p-button-text" icon="pi pi-plus" @click="toggle" />
             </div>
             <Menu
-              id="config_menu"
               ref="menuRef"
+              id="config_menu"
               :model="cardMenu"
               :popup="true"
             />
@@ -163,19 +162,19 @@
             <InputText id="password" type="password" />
           </div>
           <div class="flex">
-            <Button label="Login" icon="pi pi-user" class="mx-auto max-w-[17.35rem] w-full" />
+            <Button class="mx-auto max-w-[17.35rem] w-full" icon="pi pi-user" label="Login" />
           </div>
         </div>
         <div class="w-full md:w-2/12">
-          <Divider layout="vertical" class="!hidden md:!flex"><b>OR</b></Divider>
-          <Divider layout="horizontal" class="!flex md:!hidden" align="center"><b>OR</b></Divider>
+          <Divider class="!hidden md:!flex" layout="vertical"><b>OR</b></Divider>
+          <Divider class="!flex md:!hidden" align="center" layout="horizontal"><b>OR</b></Divider>
         </div>
         <div class="w-full flex items-center justify-center py-5 md:w-5/12">
           <Button
-            label="Sign Up"
+            class="mx-auto max-w-[17.35rem] w-full"
             icon="pi pi-user-plus"
             severity="success"
-            class="mx-auto max-w-[17.35rem] w-full"
+            label="Sign Up"
           />
         </div>
       </div>
@@ -183,8 +182,8 @@
 
     <div class="card">
       <div class="mb-4 text-xl font-semibold">Splitter</div>
-      <Splitter style="height: 300px;" class="mb-8">
-        <SplitterPanel :size="30" :min-size="10">
+      <Splitter class="mb-8" style="height: 300px;">
+        <SplitterPanel :min-size="10" :size="30">
           <div className="h-full flex items-center justify-center">Panel 1</div>
         </SplitterPanel>
         <SplitterPanel :size="70">

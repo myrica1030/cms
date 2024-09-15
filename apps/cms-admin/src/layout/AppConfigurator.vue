@@ -10,10 +10,10 @@
             v-for="primaryColor of primaryColors"
             :key="primaryColor.name"
             type="button"
-            :title="primaryColor.name"
             class="h-5 w-5 cursor-pointer rounded-full border-none p-0 outline-offset-1 outline-none"
             :class="[{ 'outline-primary': layoutConfig.primary === primaryColor.name }]"
             :style="{ backgroundColor: `${primaryColor.name === 'noir' ? 'var(--text-color)' : primaryColor.palette['500']}` }"
+            :title="primaryColor.name"
             @click="updateColors('primary', primaryColor)"
           />
         </div>
@@ -25,10 +25,10 @@
             v-for="surface of surfaces"
             :key="surface.name"
             type="button"
-            :title="surface.name"
             class="h-5 w-5 cursor-pointer rounded-full border-none p-0 outline-offset-1 outline-none"
             :class="{ 'outline-primary': layoutConfig.surface ? layoutConfig.surface === surface.name : isDarkTheme ? surface.name === 'zinc' : surface.name === 'slate' }"
             :style="{ backgroundColor: `${surface.palette['500']}` }"
+            :title="surface.name"
             @click="updateColors('surface', surface)"
           />
         </div>
@@ -37,8 +37,8 @@
         <span class="text-sm font-semibold text-muted-color">Presets</span>
         <SelectButton
           v-model="preset"
-          :options="presetOptions"
           :allow-empty="false"
+          :options="presetOptions"
           @change="onPresetChange"
         />
       </div>
@@ -46,8 +46,8 @@
         <span class="text-sm font-semibold text-muted-color">Menu Mode</span>
         <SelectButton
           v-model="menuMode"
-          :options="menuModeOptions"
           :allow-empty="false"
+          :options="menuModeOptions"
           option-label="label"
           option-value="value"
           @change="onMenuModeChange"

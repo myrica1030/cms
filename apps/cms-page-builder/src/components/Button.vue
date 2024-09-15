@@ -3,8 +3,8 @@
     v-if="link"
     class="button"
     :style="style"
-    :href="link"
     :tabindex="contenteditable ? -1 : 0"
+    :href="link"
     @click="e => contenteditable && e.preventDefault()"
   >
     <span :contenteditable="contenteditable">{{ text }}</span>

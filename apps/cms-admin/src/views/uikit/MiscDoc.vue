@@ -22,7 +22,6 @@
           <Badge :value="12" severity="Warn" />
           <Badge :value="3" severity="danger" />
         </div>
-
         <div class="my-4 font-semibold">Overlay</div>
         <div class="flex gap-6">
           <OverlayBadge value="2">
@@ -35,24 +34,22 @@
             <i class="pi pi-envelope" style="font-size: 2rem;" />
           </OverlayBadge>
         </div>
-
         <div class="my-4 font-semibold">Button</div>
         <div class="flex gap-2">
-          <Button label="Emails" badge="8" class="mr-2" />
+          <Button class="mr-2" badge="8" label="Emails" />
           <Button
-            label="Messages"
-            icon="pi pi-users"
-            severity="warn"
             badge="8"
             badge-class="p-badge-danger"
+            icon="pi pi-users"
+            severity="warn"
+            label="Messages"
           />
         </div>
-
         <div class="my-4 font-semibold">Sizes</div>
         <div class="flex items-start gap-2">
           <Badge :value="2" />
-          <Badge :value="4" size="large" severity="warn" />
-          <Badge :value="6" size="xlarge" severity="success" />
+          <Badge :value="4" severity="warn" size="large" />
+          <Badge :value="6" severity="success" size="xlarge" />
         </div>
       </div>
 
@@ -60,43 +57,41 @@
         <div class="mb-4 text-xl font-semibold">Avatar</div>
         <div class="mb-4 font-semibold">Group</div>
         <AvatarGroup>
-          <Avatar image="/demo/images/avatar/amyelsner.png" size="large" shape="circle" />
-          <Avatar image="/demo/images/avatar/asiyajavayant.png" size="large" shape="circle" />
-          <Avatar image="/demo/images/avatar/onyamalimba.png" size="large" shape="circle" />
-          <Avatar image="/demo/images/avatar/ionibowcher.png" size="large" shape="circle" />
-          <Avatar image="/demo/images/avatar/xuxuefeng.png" size="large" shape="circle" />
+          <Avatar image="/demo/images/avatar/amyelsner.png" shape="circle" size="large" />
+          <Avatar image="/demo/images/avatar/asiyajavayant.png" shape="circle" size="large" />
+          <Avatar image="/demo/images/avatar/onyamalimba.png" shape="circle" size="large" />
+          <Avatar image="/demo/images/avatar/ionibowcher.png" shape="circle" size="large" />
+          <Avatar image="/demo/images/avatar/xuxuefeng.png" shape="circle" size="large" />
           <Avatar
-            label="+2"
+            :style="{ 'background-color': '#9c27b0', 'color': '#ffffff' }"
             shape="circle"
             size="large"
-            :style="{ 'background-color': '#9c27b0', 'color': '#ffffff' }"
+            label="+2"
           />
         </AvatarGroup>
-
         <div class="my-4 font-semibold">Label - Circle</div>
         <Avatar
-          label="P"
           class="mr-2"
-          size="xlarge"
           shape="circle"
+          size="xlarge"
+          label="P"
         />
         <Avatar
-          label="V"
           class="mr-2"
-          size="large"
           :style="{ 'background-color': '#2196F3', 'color': '#ffffff' }"
           shape="circle"
+          size="large"
+          label="V"
         />
         <Avatar
-          label="U"
           class="mr-2"
           :style="{ 'background-color': '#9c27b0', 'color': '#ffffff' }"
           shape="circle"
+          label="U"
         />
-
         <div class="my-4 font-semibold">Icon - Badge</div>
-        <OverlayBadge value="4" severity="danger" class="inline-flex">
-          <Avatar label="U" size="xlarge" />
+        <OverlayBadge class="inline-flex" value="4" severity="danger">
+          <Avatar size="xlarge" label="U" />
         </OverlayBadge>
       </div>
 
@@ -110,7 +105,7 @@
             nisl purus. Cursus sit amet dictum sit amet. Tristique senectus et netus et malesuada fames ac turpis egestas. Et tortor consequat id porta nibh venenatis cras sed. Diam maecenas ultricies mi eget mauris. Eget egestas purus
             viverra accumsan in nisl nisi. Suscipit adipiscing bibendum est ultricies integer. Mattis aliquam faucibus purus in massa tempor nec.
           </p>
-          <ScrollTop target="parent" :threshold="100" icon="pi pi-arrow-up" />
+          <ScrollTop :threshold="100" icon="pi pi-arrow-up" target="parent" />
         </ScrollPanel>
       </div>
     </div>
@@ -120,28 +115,26 @@
         <div class="mb-4 font-semibold">Default</div>
         <div class="flex gap-2">
           <Tag value="Primary" />
-          <Tag severity="success" value="Success" />
-          <Tag severity="info" value="Info" />
-          <Tag severity="warn" value="Warn" />
-          <Tag severity="danger" value="Danger" />
+          <Tag value="Success" severity="success" />
+          <Tag value="Info" severity="info" />
+          <Tag value="Warn" severity="warn" />
+          <Tag value="Danger" severity="danger" />
         </div>
-
         <div class="my-4 font-semibold">Pills</div>
         <div class="flex gap-2">
           <Tag value="Primary" :rounded="true" />
-          <Tag severity="success" value="Success" :rounded="true" />
-          <Tag severity="info" value="Info" :rounded="true" />
-          <Tag severity="warn" value="Warn" :rounded="true" />
-          <Tag severity="danger" value="Danger" :rounded="true" />
+          <Tag value="Success" :rounded="true" severity="success" />
+          <Tag value="Info" :rounded="true" severity="info" />
+          <Tag value="Warn" :rounded="true" severity="warn" />
+          <Tag value="Danger" :rounded="true" severity="danger" />
         </div>
-
         <div class="my-4 font-semibold">Icons</div>
         <div class="flex gap-2">
-          <Tag icon="pi pi-user" value="Primary" />
-          <Tag icon="pi pi-check" severity="success" value="Success" />
-          <Tag icon="pi pi-info-circle" severity="info" value="Info" />
-          <Tag con="pi pi-exclamation-triangle" severity="warn" value="Warn" />
-          <Tag icon="pi pi-times" severity="danger" value="Danger" />
+          <Tag value="Primary" icon="pi pi-user" />
+          <Tag value="Success" icon="pi pi-check" severity="success" />
+          <Tag value="Info" icon="pi pi-info-circle" severity="info" />
+          <Tag value="Warn" con="pi pi-exclamation-triangle" severity="warn" />
+          <Tag value="Danger" icon="pi pi-times" severity="danger" />
         </div>
       </div>
 
@@ -149,30 +142,28 @@
         <div class="mb-4 text-xl font-semibold">Chip</div>
         <div class="mb-4 font-semibold">Basic</div>
         <div class="flex flex-col items-center sm:flex-row">
-          <Chip label="Action" class="mb-2 mr-2" />
-          <Chip label="Comedy" class="mb-2 mr-2" />
-          <Chip label="Mystery" class="mb-2 mr-2" />
-          <Chip label="Thriller" :removable="true" class="mb-2" />
+          <Chip class="mb-2 mr-2" label="Action" />
+          <Chip class="mb-2 mr-2" label="Comedy" />
+          <Chip class="mb-2 mr-2" label="Mystery" />
+          <Chip class="mb-2" :removable="true" label="Thriller" />
         </div>
-
         <div class="my-4 font-semibold">Icon</div>
         <div class="flex flex-col items-center sm:flex-row">
-          <Chip label="Apple" icon="pi pi-apple" class="mb-2 mr-2" />
-          <Chip label="Facebook" icon="pi pi-facebook" class="mb-2 mr-2" />
-          <Chip label="Google" icon="pi pi-google" class="mb-2 mr-2" />
+          <Chip class="mb-2 mr-2" icon="pi pi-apple" label="Apple" />
+          <Chip class="mb-2 mr-2" icon="pi pi-facebook" label="Facebook" />
+          <Chip class="mb-2 mr-2" icon="pi pi-google" label="Google" />
           <Chip
-            label="Microsoft"
-            icon="pi pi-microsoft"
-            :removable="true"
             class="mb-2"
+            :removable="true"
+            icon="pi pi-microsoft"
+            label="Microsoft"
           />
         </div>
-
         <div class="my-4 font-semibold">Image</div>
         <div class="flex flex-col items-center sm:flex-row">
-          <Chip label="Amy Elsner" image="/demo/images/avatar/amyelsner.png" class="mb-2 mr-2" />
-          <Chip label="Asiya Javayant" image="/demo/images/avatar/asiyajavayant.png" class="mb-2 mr-2" />
-          <Chip label="Onyama Limba" image="/demo/images/avatar/onyamalimba.png" class="mb-2 mr-2" />
+          <Chip class="mb-2 mr-2" image="/demo/images/avatar/amyelsner.png" label="Amy Elsner" />
+          <Chip class="mb-2 mr-2" image="/demo/images/avatar/asiyajavayant.png" label="Asiya Javayant" />
+          <Chip class="mb-2 mr-2" image="/demo/images/avatar/onyamalimba.png" label="Onyama Limba" />
         </div>
       </div>
 
@@ -180,17 +171,17 @@
         <div class="mb-4 text-xl font-semibold">Skeleton</div>
         <div class="border p-6 border-surface rounded-border">
           <div class="mb-4 flex">
-            <Skeleton shape="circle" size="4rem" class="mr-2" />
+            <Skeleton class="mr-2" shape="circle" size="4rem" />
             <div>
-              <Skeleton width="10rem" class="mb-2" />
-              <Skeleton width="5rem" class="mb-2" />
+              <Skeleton class="mb-2" width="10rem" />
+              <Skeleton class="mb-2" width="5rem" />
               <Skeleton height=".5rem" />
             </div>
           </div>
-          <Skeleton width="100%" height="150px" />
+          <Skeleton height="150px" width="100%" />
           <div class="mt-4 flex justify-between">
-            <Skeleton width="4rem" height="2rem" />
-            <Skeleton width="4rem" height="2rem" />
+            <Skeleton height="2rem" width="4rem" />
+            <Skeleton height="2rem" width="4rem" />
           </div>
         </div>
       </div>

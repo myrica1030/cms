@@ -4,10 +4,10 @@
       <button class="layout-menu-button layout-topbar-action" @click="onMenuToggle">
         <i class="pi pi-bars" />
       </button>
-      <router-link to="/" class="layout-topbar-logo">
+      <RouterLink class="layout-topbar-logo" to="/">
         <SvgLogo />
         <span>SAKAI</span>
-      </router-link>
+      </RouterLink>
     </div>
 
     <div class="layout-topbar-actions">
@@ -17,6 +17,8 @@
         </button>
         <div class="relative">
           <button
+            type="button"
+            class="layout-topbar-action layout-topbar-action-highlight"
             v-styleclass="{
               selector: '@next',
               enterFromClass: 'hidden',
@@ -25,8 +27,6 @@
               leaveActiveClass: 'animate-out fade-out',
               hideOnOutsideClick: true,
             }"
-            type="button"
-            class="layout-topbar-action layout-topbar-action-highlight"
           >
             <i class="pi pi-palette" />
           </button>
@@ -35,6 +35,7 @@
       </div>
 
       <button
+        class="layout-topbar-action layout-topbar-menu-button"
         v-styleclass="{
           selector: '@next',
           enterFromClass: 'hidden',
@@ -43,7 +44,6 @@
           leaveActiveClass: 'animate-out fade-out',
           hideOnOutsideClick: true,
         }"
-        class="layout-topbar-action layout-topbar-menu-button"
       >
         <i class="pi pi-ellipsis-v" />
       </button>

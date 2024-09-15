@@ -1,7 +1,7 @@
 <template>
   <ul class="layout-menu">
     <template v-for="(item, i) in model" :key="item">
-      <AppMenuItem v-if="!item.separator" :item="item" :index="i" />
+      <AppMenuItem v-if="!item.separator" :index="i" :item="item" />
       <li v-if="item.separator" class="menu-separator" />
     </template>
   </ul>

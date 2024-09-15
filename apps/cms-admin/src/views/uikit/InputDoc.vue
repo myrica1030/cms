@@ -5,10 +5,9 @@
         <div class="text-xl font-semibold">InputText</div>
         <div class="flex flex-col gap-4 md:flex-row">
           <InputText type="text" placeholder="Default" />
-          <InputText type="text" placeholder="Disabled" :disabled="true" />
-          <InputText type="text" placeholder="Invalid" invalid />
+          <InputText type="text" :disabled="true" placeholder="Disabled" />
+          <InputText type="text" invalid placeholder="Invalid" />
         </div>
-
         <div class="text-xl font-semibold">Icons</div>
         <IconField>
           <InputIcon class="pi pi-user" />
@@ -18,45 +17,39 @@
           <InputText type="text" placeholder="Search" />
           <InputIcon class="pi pi-search" />
         </IconField>
-
         <div class="text-xl font-semibold">Float Label</div>
         <FloatLabel>
-          <InputText id="username" v-model="floatValue" type="text" />
+          <InputText id="username" type="text" v-model="floatValue" />
           <label for="username">Username</label>
         </FloatLabel>
-
         <div class="text-xl font-semibold">Textarea</div>
         <Textarea
-          placeholder="Your Message"
           :auto-resize="true"
-          rows="3"
           cols="30"
+          placeholder="Your Message"
+          rows="3"
         />
-
         <div class="text-xl font-semibold">AutoComplete</div>
         <AutoComplete
           v-model="selectedAutoValue"
           :suggestions="autoFilteredValue"
-          option-label="name"
-          placeholder="Search"
+          display="chip"
           dropdown
           multiple
-          display="chip"
+          option-label="name"
+          placeholder="Search"
           @complete="searchCountry($event)"
         />
-
         <div class="text-xl font-semibold">DatePicker</div>
-        <DatePicker v-model="calendarValue" :show-icon="true" :show-button-bar="true" />
-
+        <DatePicker v-model="calendarValue" :show-button-bar="true" :show-icon="true" />
         <div class="text-xl font-semibold">InputNumber</div>
-        <InputNumber v-model="inputNumberValue" show-buttons mode="decimal" />
+        <InputNumber v-model="inputNumberValue" mode="decimal" show-buttons />
       </div>
 
       <div class="card flex flex-col gap-4">
         <div class="text-xl font-semibold">Slider</div>
         <InputText v-model.number="sliderValue" />
         <Slider v-model="sliderValue" />
-
         <div class="mt-6 flex flex-row">
           <div class="w-1/2 flex flex-col gap-4">
             <div class="text-xl font-semibold">Rating</div>
@@ -64,16 +57,15 @@
           </div>
           <div class="w-1/2 flex flex-col gap-4">
             <div class="text-xl font-semibold">ColorPicker</div>
-            <ColorPicker v-model="colorValue" style="width: 2rem;" />
+            <ColorPicker style="width: 2rem;" v-model="colorValue" />
           </div>
         </div>
-
         <div class="text-xl font-semibold">Knob</div>
         <Knob
           v-model="knobValue"
-          :step="10"
-          :min="-50"
           :max="50"
+          :min="-50"
+          :step="10"
           value-template="{value}%"
         />
       </div>
@@ -85,8 +77,8 @@
           <div class="flex items-center">
             <RadioButton
               id="option1"
-              v-model="radioValue"
               name="option"
+              v-model="radioValue"
               value="Chicago"
             />
             <label for="option1" class="ml-2 leading-none">Chicago</label>
@@ -94,8 +86,8 @@
           <div class="flex items-center">
             <RadioButton
               id="option2"
-              v-model="radioValue"
               name="option"
+              v-model="radioValue"
               value="Los Angeles"
             />
             <label for="option2" class="ml-2 leading-none">Los Angeles</label>
@@ -103,21 +95,20 @@
           <div class="flex items-center">
             <RadioButton
               id="option3"
-              v-model="radioValue"
               name="option"
+              v-model="radioValue"
               value="New York"
             />
             <label for="option3" class="ml-2 leading-none">New York</label>
           </div>
         </div>
-
         <div class="text-xl font-semibold">Checkbox</div>
         <div class="flex flex-col gap-4 md:flex-row">
           <div class="flex items-center">
             <Checkbox
               id="checkOption1"
-              v-model="checkboxValue"
               name="option"
+              v-model="checkboxValue"
               value="Chicago"
             />
             <label for="checkOption1" class="ml-2">Chicago</label>
@@ -125,8 +116,8 @@
           <div class="flex items-center">
             <Checkbox
               id="checkOption2"
-              v-model="checkboxValue"
               name="option"
+              v-model="checkboxValue"
               value="Los Angeles"
             />
             <label for="checkOption2" class="ml-2">Los Angeles</label>
@@ -134,14 +125,13 @@
           <div class="flex items-center">
             <Checkbox
               id="checkOption3"
-              v-model="checkboxValue"
               name="option"
+              v-model="checkboxValue"
               value="New York"
             />
             <label for="checkOption3" class="ml-2">New York</label>
           </div>
         </div>
-
         <div class="text-xl font-semibold">ToggleSwitch</div>
         <ToggleSwitch v-model="switchValue" />
       </div>
@@ -150,11 +140,10 @@
         <div class="text-xl font-semibold">Listbox</div>
         <Listbox
           v-model="listboxValue"
+          :filter="true"
           :options="listboxValues"
           option-label="name"
-          :filter="true"
         />
-
         <div class="text-xl font-semibold">Select</div>
         <Select
           v-model="dropdownValue"
@@ -162,14 +151,13 @@
           option-label="name"
           placeholder="Select"
         />
-
         <div class="text-xl font-semibold">MultiSelect</div>
         <MultiSelect
           v-model="multiselectValue"
+          :filter="true"
           :options="multiselectValues"
           option-label="name"
           placeholder="Select Countries"
-          :filter="true"
         >
           <template #value="slotProps">
             <div v-for="option of slotProps.value" :key="option.code" class="mr-2 inline-flex items-center bg-primary px-2 py-1 text-primary-contrast rounded-border">
@@ -187,7 +175,6 @@
             </div>
           </template>
         </MultiSelect>
-
         <div class="text-xl font-semibold">TreeSelect</div>
         <TreeSelect v-model="selectedNode" :options="treeSelectNodes" placeholder="Select Item" />
       </div>
@@ -195,12 +182,11 @@
       <div class="card flex flex-col gap-4">
         <div class="text-xl font-semibold">ToggleButton</div>
         <ToggleButton
-          v-model="toggleValue"
-          on-label="Yes"
-          off-label="No"
           :style="{ width: '10em' }"
+          v-model="toggleValue"
+          off-label="No"
+          on-label="Yes"
         />
-
         <div class="text-xl font-semibold">SelectButton</div>
         <SelectButton v-model="selectButtonValue" :options="selectButtonValues" option-label="name" />
       </div>

@@ -11,17 +11,17 @@
             <h1 class="mb-2 text-4xl text-surface-900 font-bold lg:text-5xl dark:text-surface-0">Access Denied</h1>
             <span class="mb-8 text-muted-color">You do not have the necessary permisions. Please contact admins.</span>
             <img
-              src="/demo/images/access/asset-access.svg"
-              alt="Access denied"
               class="mb-8"
+              alt="Access denied"
+              src="/demo/images/access/asset-access.svg"
               width="80%"
             >
             <div class="col-span-12 mt-8 text-center">
               <Button
                 as="router-link"
-                label="Go to Dashboard"
                 to="/"
                 severity="warn"
+                label="Go to Dashboard"
               />
             </div>
           </div>
